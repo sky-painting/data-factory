@@ -1,0 +1,35 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity " data_source_detail 数据源详情表" as data_source_detail {
+    id: 主键/bigint(20) unsigned
+    data_source_id: 所属数据源id/bigint(20)
+    data_content_json: 数据源内容/text
+}
+
+entity " data_source 数据源管理表" as data_source {
+    id: 主键/bigint(20) unsigned
+    source_name: 数据源名称/varchar(200)
+    source_code: 数据源code,唯一/varchar(200)
+    source_type: 数据源类型/(nacos,api,enum)/int(11)
+    provider_src: 数据源提供来源/varchar(200)
+    tokent: 访问token/varchar(400)
+    url: 数据源访问url/varchar(400)
+    status: 状态(0正常,1过期)/int(11)
+    visit_strategy: 访问策略（0动态获取/1本地缓存）/int(11)
+    create_time: 创建时间/timestamp
+    update_time: 修改时间/timestamp
+    create_user_id: 创建人id/bigint(20)
+    update_user_id: 修改人id/bigint(20)
+}
+
+
+
+data_source ||--o{ data_source_detail
+
+
+@enduml
