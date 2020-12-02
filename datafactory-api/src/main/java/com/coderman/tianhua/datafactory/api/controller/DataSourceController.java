@@ -29,7 +29,7 @@ public class DataSourceController extends BaseController{
      * @param dataSourceVo
      * @return ResultDto
      */
-    @RequestMapping(value = "/dataSource/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/data/source/regist",method = RequestMethod.POST)
     public ResultDto save(@RequestBody DataSourceVO dataSourceVo){
 		try {
 			return dataSourceService.save(dataSourceVo);
@@ -46,7 +46,7 @@ public class DataSourceController extends BaseController{
 	 * @param dataSourceVo
 	 * @return ResultDto
 	 */
-    @RequestMapping(value = "/dataSource/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/data/source/update",method = RequestMethod.POST)
     public ResultDto update(@RequestBody DataSourceVO dataSourceVo){
 		try {
 			return dataSourceService.update(dataSourceVo);
@@ -73,7 +73,7 @@ public class DataSourceController extends BaseController{
 	 * @param id
 	 * @return ResultDataDto
 	 */
-	@GetMapping("/dataSource/get")
+	@GetMapping("/data/source/get")
 	public ResultDataDto getById(@RequestParam(name = "id") Long id){
 		try {
 			return dataSourceService.getById(id);
@@ -101,7 +101,7 @@ public class DataSourceController extends BaseController{
      * @param status
 	 * @return ResultDataDto
 	 */
-	@PostMapping("/dataSource/changestatus")
+	@PostMapping("/data/source/changestatus")
 	public ResultDto changeStatus(@RequestParam(name = "id") Long id,@RequestParam(name = "status") int status){
 		//todo impl code
 		return new ResultDto();
