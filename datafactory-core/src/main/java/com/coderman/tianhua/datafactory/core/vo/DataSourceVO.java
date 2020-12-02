@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * @Description:数据源管理表VO类
@@ -54,6 +55,9 @@ public class DataSourceVO{
 
 	/** 修改人id **/
 	private Long updateUserId;
+
+
+	private List<DataSourceDetailVO> list;
 
 
 }
