@@ -1,4 +1,4 @@
-package com.lightsnail.tianhua.datafactory.core.entity;
+package com.coderman.tianhua.datafactory.core.entity;
 
 import java.util.Date;
 import java.math.BigDecimal;

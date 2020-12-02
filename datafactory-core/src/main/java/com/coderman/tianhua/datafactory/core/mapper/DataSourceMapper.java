@@ -1,7 +1,7 @@
-package com.lightsnail.tianhua.datafactory.core.mapper;
+package com.coderman.tianhua.datafactory.core.mapper;
 
 
-import com.lightsnail.tianhua.datafactory.core.entity.DataSourceEntity;
+import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
 
 import java.util.List;
 

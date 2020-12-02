@@ -1,12 +1,12 @@
-package com.lightsnail.tianhua.datafactory.core.service.impl;
+package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
-import com.lightsnail.tianhua.datafactory.core.entity.DataSourceEntity;
-import com.lightsnail.tianhua.datafactory.core.mapper.DataSourceMapper;
-import com.lightsnail.tianhua.datafactory.core.service.DataSourceService;
-import com.lightsnail.tianhua.datafactory.core.vo.DataSourceVO;
+import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
+import com.coderman.tianhua.datafactory.core.mapper.DataSourceMapper;
+import com.coderman.tianhua.datafactory.core.service.DataSourceService;
+import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

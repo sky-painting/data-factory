@@ -1,4 +1,4 @@
-package com.lightsnail.tianhua.datafactory.core.vo;
+package com.coderman.tianhua.datafactory.core.vo;
 
 import lombok.Data;
 import lombok.ToString;

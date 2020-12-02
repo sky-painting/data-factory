@@ -1,18 +1,18 @@
-package com.lightsnail.tianhua.datafactory.core.service;
+package com.coderman.tianhua.datafactory.core.service;
 
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
-import com.lightsnail.tianhua.datafactory.core.vo.DataSourceVO;
+import com.coderman.tianhua.datafactory.core.vo.DataSourceDetailVO;
 
 import java.util.List;
 
 /**
- * @Description:数据源管理表Service接口
+ * @Description:数据源详情表Service接口
  * @Author:fanchunshuai
  * @CreateTime:2020-12-02 23:07:13
  * @version v1.0
  */
-public interface DataSourceService{
+public interface DataSourceDetailService{
 
 	/**
 	 *
@@ -24,7 +24,7 @@ public interface DataSourceService{
 	 * @return ResultDto    返回类型
 	 * @throws
 	 */
-	public ResultDto save(DataSourceVO dataSourceVo) throws Exception;
+	public ResultDto save(DataSourceDetailVO dataSourceDetailVo) throws Exception;
 
 	/**
 	 * 
@@ -43,30 +43,30 @@ public interface DataSourceService{
 	 * @Description: 通过id查询
 	 * @author: 
 	 * @param @param id
-	 * @return ResultDataDto<DataSourceVO>
+	 * @return ResultDataDto<DataSourceDetailVO>
 	 * @throws
 	 */
-	public ResultDataDto<DataSourceVO> getById(Long id) throws Exception;
+	public ResultDataDto<DataSourceDetailVO> getById(Long id) throws Exception;
 
 	/**
 	 * 
 	 * @Title: getAll 
 	 * @Description:查询所有数据 
 	 * @author: 
-	 * @return ResultDataDto<List<DataSourceVO>>
+	 * @return ResultDataDto<List<DataSourceDetailVO>>
 	 * @throws
 	 */
-	public ResultDataDto<List<DataSourceVO>> getAll() throws Exception;
+	public ResultDataDto<List<DataSourceDetailVO>> getAll() throws Exception;
 
 	/**
 	*
 	* @Title: update
 	* @Description:修改
 	* @author:
-	* @param @param dataSourceEntity
+	* @param @param dataSourceDetailEntity
 	* @return int
 	* @throws
 	*/
-	public ResultDto update(DataSourceVO dataSourceVo) throws Exception;
+	public ResultDto update(DataSourceDetailVO dataSourceDetailVo) throws Exception;
 
 }
