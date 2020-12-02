@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
-@ComponentScan({"com.lightsnail.**","com.alibaba.nacos","com.coderman.**"})
+@ComponentScan({"com.coderman.**","com.alibaba.nacos","com.coderman.**"})
 public class Application {
 
     @Bean
