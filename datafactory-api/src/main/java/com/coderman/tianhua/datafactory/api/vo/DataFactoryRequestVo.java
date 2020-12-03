@@ -11,5 +11,5 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class DataFactoryVo {
+public class DataFactoryRequestVo {
 }
