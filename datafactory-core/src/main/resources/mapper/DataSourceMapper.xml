@@ -58,7 +58,7 @@
 
     <select id="getBySourceCode" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity"
             resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity" >
-        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode}
+        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode} and status = 0;
 
     </select>
 

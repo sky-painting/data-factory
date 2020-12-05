@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
+import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
 import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
@@ -79,7 +80,16 @@ public class DataSourceServiceImpl implements DataSourceService {
 	@Override
 	public ResultDataDto getDataSourceDetail(String dataSourceCode) throws Exception {
 		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
-		//dataSourceDetailMapper.getById();
+		if(dataSourceEntity == null){
+			return ResultDataDto.setErrorCodeMsg("查询数据为空!");
+		}
+
+		DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
+		if(dataSourceDetailEntity == null){
+			return ResultDataDto.setErrorCodeMsg("查询数据为空!");
+		}
+
+		//if(dataSourceDetailMapper)
 
 		return null;
 	}

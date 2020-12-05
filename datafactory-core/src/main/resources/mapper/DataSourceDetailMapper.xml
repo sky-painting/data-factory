@@ -46,4 +46,8 @@
         delete from data_source_detail where id = #{id}
     </delete>
 
+    <select id="getByDataSourceId" resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity" >
+        select <include refid="Base_Column_List" /> from data_source_detail  where data_source_id = #{dataSourceId}
+    </select>
+
 </mapper>
