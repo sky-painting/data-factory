@@ -69,4 +69,13 @@ public interface DataSourceService{
 	*/
 	public ResultDto update(DataSourceVO dataSourceVo) throws Exception;
 
+	/**
+	 * 根据数据源code获取数据源详情-包括数据源信息
+	 * @param dataSourceCode
+	 * @return
+	 * @throws Exception
+	 */
+	public ResultDataDto getDataSourceDetail(String dataSourceCode) throws Exception;
+
+
 }

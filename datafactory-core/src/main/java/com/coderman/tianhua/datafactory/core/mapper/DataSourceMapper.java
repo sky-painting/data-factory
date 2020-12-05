@@ -67,5 +67,17 @@ public interface DataSourceMapper{
 	* @throws
 	*/
 	public int update(DataSourceEntity dataSourceEntity);
+
+
+	/**
+	 *
+	 * @Title: getBysourceCode
+	 * @Description: 通过sourceCode查询
+	 * @author:
+	 * @param @param id
+	 * @return ResultDataDto<DataSourceEntity>    返回类型
+	 * @throws
+	 */
+	public DataSourceEntity getBySourceCode(String sourceCode);
 	
 }

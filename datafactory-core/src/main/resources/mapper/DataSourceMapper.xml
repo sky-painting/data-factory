@@ -56,4 +56,10 @@
         delete from data_source where id = #{id}
     </delete>
 
+    <select id="getBySourceCode" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity"
+            resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity" >
+        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode}
+
+    </select>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
+import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
@@ -31,6 +32,9 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Autowired
     private CglibConvertService cglibConvertService;
+
+    @Resource
+    private DataSourceDetailMapper dataSourceDetailMapper;
 
 	@Override
 	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
@@ -70,6 +74,14 @@ public class DataSourceServiceImpl implements DataSourceService {
 		DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
 		dataSourceMapper.update(dataSourceEntity);
 		return resultDto;
+	}
+
+	@Override
+	public ResultDataDto getDataSourceDetail(String dataSourceCode) throws Exception {
+		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
+		//dataSourceDetailMapper.getById();
+
+		return null;
 	}
 
 }
