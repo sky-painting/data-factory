@@ -46,7 +46,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @return
      * @throws Exception
      */
-    private Object getRandomValue(DataFactoryRequestFieldBean dataFactoryRequestFieldBean) throws Exception {
+    private Object getRandomValue(DataFactoryRequestFieldBean dataFactoryRequestFieldBean,Random random) throws Exception {
         //从默认值中获取数据
         if(StringUtils.isEmpty(dataFactoryRequestFieldBean.getDataSourceCode())){
             if(CollectionUtils.isEmpty(dataFactoryRequestFieldBean.getDefaultValueList())){
@@ -64,14 +64,43 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
         String jsonValue = resultDataDto.getData();
 
+        //通过json字段解析，这里提供的数据源必须是数组形式
         JSONArray jsonArray = JSONObject.parseArray(jsonValue);
 
-        String jsonPath = dataFactoryRequestFieldBean.getDataSourceJsonPath();
+        String dataSourceField = dataFactoryRequestFieldBean.getDataSourceField();
+        //数组循环解析
+        if(dataSourceField.contains("\\.")){
 
+        }else {
+            int index = random.nextInt(jsonArray.size());
+            JSONObject jsonObject = jsonArray.getJSONObject(index);
+            //
+            String fieldType = dataFactoryRequestFieldBean.getFieldTypeStr();
+            switch (fieldType){
+                case "short":
+                    return jsonObject.getShortValue(dataSourceField);
+                case "Short":
+                    return jsonObject.getShort(dataSourceField);
+                case "int":
+                    return jsonObject.getIntValue(dataSourceField);
+                case "Integer":
+                    return jsonObject.getInteger(dataSourceField);
+                case "long":
+                    return jsonObject.getLongValue(dataSourceField);
+                case "Long":
+                    return jsonObject.getLong(dataSourceField);
+                case "String":
+                    return jsonObject.getString(dataSourceField);
+                case "list":
+                    break;
+                case "set":
+                    break;
+                case "map":
+                    break;
+                default:
 
-
-
-
+            }
+        }
 
         return null;
     }

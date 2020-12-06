@@ -29,11 +29,11 @@ public class DataFactoryRequestFieldBean<T> {
     private String dataSourceCode;
 
     /**
-     * 数据值解析寻址json  path
+     * 字段数据源code.field
      * eg:data.id
      * data.list[0].id
      */
-    private String dataSourceJsonPath;
+    private String dataSourceField;
 
     /**
      * 字段默认值列表
