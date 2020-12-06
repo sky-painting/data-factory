@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.api;
 
 import com.coderman.utils.bean.CglibConvertService;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -17,9 +18,10 @@ import org.springframework.web.client.RestTemplate;
 * @CreateTime:2020-12-02 23:07:13
 * @version v1.0
 */
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan({"com.coderman.**","com.alibaba.nacos","com.coderman.**"})
+@ComponentScan({"com.coderman.**","com.alibaba.nacos"})
+@MapperScan(value = "com.coderman.tianhua.datafactory.core.mapper")
 public class Application {
 
     @Bean
