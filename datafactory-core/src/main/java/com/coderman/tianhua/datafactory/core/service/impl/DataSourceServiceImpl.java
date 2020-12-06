@@ -99,10 +99,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 
 		}
 
-
-
-
-		return null;
+		return ResultDataDto.setErrorCodeMsg("查询数据为空!");
 	}
 
 }
