@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
+import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
 import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
@@ -84,12 +85,22 @@ public class DataSourceServiceImpl implements DataSourceService {
 			return ResultDataDto.setErrorCodeMsg("查询数据为空!");
 		}
 
-		DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
-		if(dataSourceDetailEntity == null){
-			return ResultDataDto.setErrorCodeMsg("查询数据为空!");
+		//本地缓存
+		if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
+			DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
+			if(dataSourceDetailEntity == null){
+				return ResultDataDto.setErrorCodeMsg("查询数据为空!");
+			}
+			ResultDataDto resultDataDto = new ResultDataDto();
+			return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
+		}
+		//动态获取
+		else {
+
 		}
 
-		//if(dataSourceDetailMapper)
+
+
 
 		return null;
 	}
