@@ -1,6 +1,8 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
@@ -38,6 +40,12 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         return null;
     }
 
+    /**
+     * 获取数据字段值
+     * @param dataFactoryRequestFieldBean
+     * @return
+     * @throws Exception
+     */
     private Object getRandomValue(DataFactoryRequestFieldBean dataFactoryRequestFieldBean) throws Exception {
         //从默认值中获取数据
         if(StringUtils.isEmpty(dataFactoryRequestFieldBean.getDataSourceCode())){
@@ -48,11 +56,19 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             return dataFactoryRequestFieldBean.getDefaultValueList().get(randomThreadLocal.get().nextInt(size));
         }
         //从数据工厂-数据源获取数据
-        ResultDataDto resultDataDto = dataSourceService.getDataSourceDetail(dataFactoryRequestFieldBean.getDataSourceCode());
+        ResultDataDto<String> resultDataDto = dataSourceService.getDataSourceDetail(dataFactoryRequestFieldBean.getDataSourceCode());
         if(!resultDataDto.isSuccess()){
             log.error("从数据工厂-数据源获取数据 = {}", JSON.toJSONString(resultDataDto));
             return null;
         }
+
+        String jsonValue = resultDataDto.getData();
+
+        JSONArray jsonArray = JSONObject.parseArray(jsonValue);
+
+        String jsonPath = dataFactoryRequestFieldBean.getDataSourceJsonPath();
+
+
 
 
 

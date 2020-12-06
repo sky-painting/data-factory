@@ -75,7 +75,7 @@ public interface DataSourceService{
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultDataDto getDataSourceDetail(String dataSourceCode) throws Exception;
+	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception;
 
 
 }

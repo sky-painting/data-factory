@@ -11,6 +11,7 @@ import com.coderman.tianhua.datafactory.core.mapper.DataSourceMapper;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +80,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 	}
 
 	@Override
-	public ResultDataDto getDataSourceDetail(String dataSourceCode) throws Exception {
+	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
 		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
 		if(dataSourceEntity == null){
 			return ResultDataDto.setErrorCodeMsg("查询数据为空!");
@@ -88,7 +89,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 		//本地缓存
 		if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
 			DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
-			if(dataSourceDetailEntity == null){
+			if(dataSourceDetailEntity == null || StringUtils.isEmpty(dataSourceDetailEntity.getDataContentJson())){
 				return ResultDataDto.setErrorCodeMsg("查询数据为空!");
 			}
 			ResultDataDto resultDataDto = new ResultDataDto();

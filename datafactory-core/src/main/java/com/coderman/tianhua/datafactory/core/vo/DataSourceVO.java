@@ -57,7 +57,10 @@ public class DataSourceVO{
 	private Long updateUserId;
 
 
-	private List<DataSourceDetailVO> list;
+	/**
+	 * 数据源详情
+	 */
+	private DataSourceDetailVO dataSourceDetailVO;
 
 
 }
