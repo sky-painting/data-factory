@@ -17,5 +17,5 @@ public interface DataFactoryService {
      * @param dataFactoryRequestFieldBeanList
      * @return
      */
-    ResultDataDto generateSimple(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList);
+    ResultDataDto generateSimple(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList) throws Exception;
 }

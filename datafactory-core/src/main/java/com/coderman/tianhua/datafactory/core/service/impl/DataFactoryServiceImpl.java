@@ -13,7 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -32,12 +34,16 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     private DataSourceService dataSourceService;
 
     @Override
-    public ResultDataDto generateSimple(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList) {
+    public ResultDataDto generateSimple(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList) throws Exception {
         randomThreadLocal.set(new Random());
+        Map<String,Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
         for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList){
+            Object object = getRandomValue(dataFactoryRequestFieldBean,randomThreadLocal.get());
+            fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceField(),object);
         }
+        ResultDataDto resultDataDto = new ResultDataDto();
         randomThreadLocal.remove();
-        return null;
+        return resultDataDto.setData(fieldValueMap);
     }
 
     /**

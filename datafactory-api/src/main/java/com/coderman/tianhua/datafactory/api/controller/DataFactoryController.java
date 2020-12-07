@@ -1,10 +1,14 @@
 package com.coderman.tianhua.datafactory.api.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
+import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
-import com.coderman.utils.response.ResultDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +25,12 @@ import java.util.List;
 @RestController
 @Slf4j
 public class DataFactoryController extends BaseController {
+
+    @Autowired
+    private DataFactoryService dataFactoryService;
+
+    @Autowired
+    private CglibConvertService cglibConvertService;
 
     /**
      * @Description:根据数据源构建数据
@@ -42,7 +52,17 @@ public class DataFactoryController extends BaseController {
      */
     @RequestMapping(value = "/data/factory/generate/simple",method = RequestMethod.GET)
     public ResultDataDto generateSimple(@RequestBody List<DataFactoryRequestFieldVo> dataFactoryRequestFieldVoList){
+        logger.info("dataFactoryRequestFieldVoList = {}" , JSON.toJSONString(dataFactoryRequestFieldVoList));
         ResultDataDto resultDataDto = new ResultDataDto();
+        try {
+            List<DataFactoryRequestFieldBean> list = cglibConvertService.copyPropertities(DataFactoryRequestFieldBean.class,dataFactoryRequestFieldVoList);
+            dataFactoryService.generateSimple(list);
+        } catch (Exception e) {
+            logger.error("e ",e);
+        }
+
+
+
         return null;
     }
 
