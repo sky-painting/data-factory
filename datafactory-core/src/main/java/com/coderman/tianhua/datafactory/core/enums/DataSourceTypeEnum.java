@@ -10,6 +10,7 @@ public enum DataSourceTypeEnum {
     FROM_NACOS(0,"NACOS"),
     FROM_SERVICE_API(1,"API"),
     FROM_ENUM(2,"ENUM"),
+    FROM_CUSTOM(3,"自定义"),
     ;
     private int code;
     private String desc;

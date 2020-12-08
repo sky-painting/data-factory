@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
+import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
 import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
 import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
 import com.coderman.utils.bean.CglibConvertService;
@@ -43,6 +44,15 @@ public class DataSourceServiceImpl implements DataSourceService {
 	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
 		ResultDto resultDto = new ResultDto();
         DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
+        //本地缓存
+        if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
+
+		}
+
+        if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
+
+		}
+
         dataSourceMapper.insert(dataSourceEntity);
 		return resultDto;
 	}
