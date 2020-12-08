@@ -22,14 +22,14 @@
         data_source_data_content_json
         )
         values(
-        #{data_source_id},#{data_content_json}
+        #{dataSourceId},#{dataContentJson}
         )
     </insert>
 
     <update id="update" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
         update data_source_detail
         set
-        data_source_id=#{data_source_id},data_content_json=#{data_content_json}
+        data_source_id=#{dataSourceId},data_content_json=#{dataContentJson}
         where  id = #{id}
     </update>
 

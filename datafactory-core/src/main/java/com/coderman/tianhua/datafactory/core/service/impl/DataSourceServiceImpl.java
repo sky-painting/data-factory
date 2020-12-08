@@ -42,6 +42,14 @@ public class DataSourceServiceImpl implements DataSourceService {
 
 	@Override
 	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
+
+
+		//check
+		DataSourceEntity oldEntity = dataSourceMapper.getBySourceCode(dataSourceVo.getSourceCode());
+		if(oldEntity != null){
+			return ResultDto.setErrorCodeMsg("sourceCode重复!");
+		}
+
 		ResultDto resultDto = new ResultDto();
         DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
         //本地缓存

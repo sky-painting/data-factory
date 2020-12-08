@@ -32,14 +32,14 @@
         source_name,source_code,source_type,provider_src,tokent,url,status,visit_strategy,create_time,update_time,create_user_update_user_id
         )
         values(
-        #{source_name},#{source_code},#{source_type},#{provider_src},#{tokent},#{url},#{status},#{visit_strategy},#{create_time},#{update_time},#{create_user_id},#{update_user_id}
+        #{sourceName},#{sourceCode},#{sourceType},#{providerSrc},#{tokent},#{url},#{status},#{visitStrategy},#{createTime},#{updateTime},#{createUserId},#{updateUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity">
         update data_source
         set
-        source_name=#{source_name},source_code=#{source_code},source_type=#{source_type},provider_src=#{provider_src},tokent=#{tokent},url=#{url},status=#{status},visit_strategy=#{visit_strategy},create_time=#{create_time},update_time=#{update_time},create_user_id=#{create_user_id},update_user_id=#{update_user_id}
+        source_name=#{sourceName},source_code=#{sourceCode},source_type=#{sourceType},provider_src=#{providerSrc},tokent=#{tokent},url=#{url},status=#{status},visit_strategy=#{visitStrategy},create_time=#{createTime},update_time=#{updateTime},create_user_id=#{createUserId},update_user_id=#{updateUserId}
         where  id = #{id}
     </update>
 
