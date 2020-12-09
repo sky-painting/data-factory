@@ -11,7 +11,7 @@
         <result column="source_code" property="sourceCode" />
         <result column="source_type" property="sourceType" />
         <result column="provider_src" property="providerSrc" />
-        <result column="tokent" property="tokent" />
+        <result column="token" property="token" />
         <result column="url" property="url" />
         <result column="status" property="status" />
         <result column="visit_strategy" property="visitStrategy" />
@@ -24,22 +24,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,source_name,source_code,source_type,provider_src,tokent,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id
+        id,source_name,source_code,source_type,provider_src,token,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id
     </sql>
 
     <insert id="insert" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity">
         insert into data_source(
-        source_name,source_code,source_type,provider_src,tokent,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id
+        source_name,source_code,source_type,provider_src,token,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id
         )
         values(
-        #{sourceName},#{sourceCode},#{sourceType},#{providerSrc},#{tokent},#{url},#{status},#{visitStrategy},#{createTime},#{updateTime},#{createUserId},#{updateUserId}
+        #{sourceName},#{sourceCode},#{sourceType},#{providerSrc},#{token},#{url},#{status},#{visitStrategy},#{createTime},#{updateTime},#{createUserId},#{updateUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity">
         update data_source
         set
-        source_name=#{sourceName},source_code=#{sourceCode},source_type=#{sourceType},provider_src=#{providerSrc},tokent=#{tokent},url=#{url},status=#{status},visit_strategy=#{visitStrategy},create_time=#{createTime},update_time=#{updateTime},create_user_id=#{createUserId},update_user_id=#{updateUserId}
+        source_name=#{sourceName},source_code=#{sourceCode},source_type=#{sourceType},provider_src=#{providerSrc},token=#{token},url=#{url},status=#{status},visit_strategy=#{visitStrategy},create_time=#{createTime},update_time=#{updateTime},create_user_id=#{createUserId},update_user_id=#{updateUserId}
         where  id = #{id}
     </update>
 
@@ -47,9 +47,8 @@
         select <include refid="Base_Column_List" />  from data_source
     </select>
 
-    <select id="getById" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity"
-            resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity">
-        select <include refid="Base_Column_List" /> from data_source  where id = #{id}
+    <select id="getById"  resultMap="BaseResultMap">
+        select * from data_source  where id = #{id}
     </select>
 
     <delete id="deleteById" >

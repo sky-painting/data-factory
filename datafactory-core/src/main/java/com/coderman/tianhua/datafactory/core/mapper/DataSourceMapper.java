@@ -2,6 +2,7 @@ package com.coderman.tianhua.datafactory.core.mapper;
 
 
 import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public interface DataSourceMapper{
 	 * @return ResultDataDto<DataSourceEntity>    返回类型
 	 * @throws
 	 */
-	public DataSourceEntity getById(Long id);
+	public DataSourceEntity getById(@Param(value = "id") Long id);
 
 	/**
 	 * 

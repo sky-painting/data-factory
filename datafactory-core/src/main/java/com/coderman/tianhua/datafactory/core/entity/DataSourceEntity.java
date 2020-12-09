@@ -32,7 +32,7 @@ public class DataSourceEntity{
    private String providerSrc;
 
    /** 访问token **/
-   private String tokent;
+   private String token;
 
    /** 数据源访问url **/
    private String url;

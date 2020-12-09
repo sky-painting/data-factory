@@ -44,7 +44,7 @@ public class DataSourceControllerTest {
         dataSourceVO.setUpdateTime(new Date());
         dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_NACOS.getCode());
         dataSourceVO.setStatus(0);
-        dataSourceVO.setTokent("");
+        dataSourceVO.setToken("");
         dataSourceVO.setSourceName("数据源类型枚举");
         dataSourceVO.setUrl("");
         dataSourceVO.setVisitStrategy(VisitStrategyEnums.LOCAL_CACHE.getCode());
@@ -60,5 +60,12 @@ public class DataSourceControllerTest {
         dataSourceVO.setDataContentJson(JSON.toJSONString(kvPairList));
         ResultDto resultDto = restTemplate.postForEntity("/data/source/regist",dataSourceVO, ResultDto.class).getBody();
 
+    }
+
+
+    @Test
+    public void testGetById(){
+        ResultDataDto resultDto = restTemplate.getForEntity("/data/source/get?id=5", ResultDataDto.class).getBody();
+        System.out.println(JSON.toJSONString(resultDto));
     }
 }
