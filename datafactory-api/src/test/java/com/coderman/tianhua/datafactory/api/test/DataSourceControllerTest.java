@@ -1,9 +1,11 @@
 package com.coderman.tianhua.datafactory.api.test;
 
+import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.Application;
 import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
 import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
+import com.coderman.utils.kvpair.KVPair;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
 import org.junit.Test;
@@ -15,7 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * description: DataSourceControllerTest <br>
@@ -36,15 +40,24 @@ public class DataSourceControllerTest {
         DataSourceVO dataSourceVO = new DataSourceVO();
         dataSourceVO.setCreateTime(new Date());
         dataSourceVO.setCreateUserId(1L);
+        dataSourceVO.setUpdateUserId(1L);
         dataSourceVO.setUpdateTime(new Date());
-        dataSourceVO.setSourceCode("com.coderman.datafactory.demo.DataSourceTypeEnum");
-        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_ENUM.getCode());
+        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_NACOS.getCode());
         dataSourceVO.setStatus(0);
         dataSourceVO.setTokent("");
         dataSourceVO.setSourceName("数据源类型枚举");
         dataSourceVO.setUrl("");
         dataSourceVO.setVisitStrategy(VisitStrategyEnums.LOCAL_CACHE.getCode());
-        dataSourceVO.setProviderSrc("datafactory.DataSourceTypeEnum");
+        dataSourceVO.setProviderSrc("nacos");
+
+        dataSourceVO.setDataId("com.lightsnail.snail.room");
+        dataSourceVO.setGroupId("room_source_type");
+
+        List<KVPair<Integer,String>> kvPairList = new ArrayList<>();
+        for(DataSourceTypeEnum dataSourceTypeEnum : DataSourceTypeEnum.values()){
+            kvPairList.add(KVPair.build(dataSourceTypeEnum.getCode(),dataSourceTypeEnum.getDesc()));
+        }
+        dataSourceVO.setDataContentJson(JSON.toJSONString(kvPairList));
         ResultDto resultDto = restTemplate.postForEntity("/data/source/regist",dataSourceVO, ResultDto.class).getBody();
 
     }

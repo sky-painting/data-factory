@@ -19,7 +19,7 @@
 
     <insert id="insert" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
         insert into data_source_detail(
-        data_source_data_content_json
+        data_source_id,data_content_json
         )
         values(
         #{dataSourceId},#{dataContentJson}

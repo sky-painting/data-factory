@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,9 +42,12 @@ public class DataSourceServiceImpl implements DataSourceService {
     private DataSourceDetailMapper dataSourceDetailMapper;
 
 	@Override
+	@Transactional
 	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
 
-
+		if(dataSourceVo.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
+			dataSourceVo.setSourceCode(dataSourceVo.getDataId()+":"+dataSourceVo.getGroupId());
+		}
 		//check
 		DataSourceEntity oldEntity = dataSourceMapper.getBySourceCode(dataSourceVo.getSourceCode());
 		if(oldEntity != null){
@@ -54,14 +58,21 @@ public class DataSourceServiceImpl implements DataSourceService {
         DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
         //本地缓存
         if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
-
+        	//存储--枚举类型
+			if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
+					|| dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode() ){
+				int id = dataSourceMapper.insert(dataSourceEntity);
+				DataSourceDetailEntity dataSourceDetailEntity = new DataSourceDetailEntity();
+				dataSourceDetailEntity.setDataContentJson(dataSourceVo.getDataContentJson());
+				dataSourceDetailEntity.setDataSourceId((long)id);
+				dataSourceDetailMapper.insert(dataSourceDetailEntity);
+				return resultDto;
+			}
 		}
 
         if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
-
+			dataSourceMapper.insert(dataSourceEntity);
 		}
-
-        dataSourceMapper.insert(dataSourceEntity);
 		return resultDto;
 	}
 	

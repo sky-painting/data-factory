@@ -57,10 +57,15 @@ public class DataSourceVO{
 	private Long updateUserId;
 
 
+	/** 数据源内容 **/
+	private String dataContentJson;
+
+
 	/**
-	 * 数据源详情
+	 * nacos
 	 */
-	private DataSourceDetailVO dataSourceDetailVO;
+	private String groupId;
+	private String dataId;
 
 
 }
