@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.api.vo;
+package com.coderman.tianhua.datafactory.core.bean;
 
 import lombok.Data;
 import lombok.ToString;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class DataFactoryRequestVo {
+public class DataFactoryRequestBean {
     /**
      * 项目名称--中文
      */
@@ -42,7 +42,7 @@ public class DataFactoryRequestVo {
     /**
      * 模块变量
      */
-    private List<DataFactoryRequestFieldVo> dataFactoryRequestFieldVoList;
+    private List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList;
 
     /**
      * 是否持久化数据构建请求以复用

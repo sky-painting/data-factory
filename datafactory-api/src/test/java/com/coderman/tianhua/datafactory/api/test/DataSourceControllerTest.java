@@ -65,7 +65,7 @@ public class DataSourceControllerTest {
 
     @Test
     public void testGetById(){
-        ResultDataDto resultDto = restTemplate.getForEntity("/data/source/get?id=5", ResultDataDto.class).getBody();
+        ResultDataDto resultDto = restTemplate.getForEntity("/data/source/get?id=6", ResultDataDto.class).getBody();
         System.out.println(JSON.toJSONString(resultDto));
     }
 }

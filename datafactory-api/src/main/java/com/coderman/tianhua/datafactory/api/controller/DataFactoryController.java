@@ -2,6 +2,8 @@ package com.coderman.tianhua.datafactory.api.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
+import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
@@ -47,21 +49,24 @@ public class DataFactoryController extends BaseController {
      * @Description:根据数据源构建数据
      * 适用于单表，或者单模块构建
      * @version v1.0
-     * @param dataFactoryRequestFieldVoList
+     * @param dataFactoryRequestVo
      * @return ResultDataDto 构建结果
      */
     @RequestMapping(value = "/data/factory/generate/simple",method = RequestMethod.GET)
-    public ResultDataDto generateSimple(@RequestBody List<DataFactoryRequestFieldVo> dataFactoryRequestFieldVoList){
-        logger.info("dataFactoryRequestFieldVoList = {}" , JSON.toJSONString(dataFactoryRequestFieldVoList));
+    public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo){
+        logger.info("dataFactoryRequestFieldVoList = {}" , JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
         try {
-            List<DataFactoryRequestFieldBean> list = cglibConvertService.copyPropertities(DataFactoryRequestFieldBean.class,dataFactoryRequestFieldVoList);
-            dataFactoryService.generateSimple(list);
+            DataFactoryRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataFactoryRequestBean.class,dataFactoryRequestVo);
+            logger.info("dataFactoryRequestBean = {}" , JSON.toJSONString(dataFactoryRequestVo));
+
+            resultDataDto = dataFactoryService.generateSimple(dataFactoryRequestBean);
         } catch (Exception e) {
-            logger.error("e ",e);
+            resultDataDto.setInvokeErrorMsg("构建失败");
+            logger.error("构建失败 ",e);
         }
 
-        return null;
+        return resultDataDto;
     }
 
 

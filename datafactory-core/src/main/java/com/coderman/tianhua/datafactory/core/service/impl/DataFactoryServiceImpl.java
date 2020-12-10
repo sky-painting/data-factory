@@ -3,6 +3,7 @@ package com.coderman.tianhua.datafactory.core.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
@@ -13,10 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * description: DataFactoryServiceImpl <br>
@@ -32,19 +30,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Autowired
     private DataSourceService dataSourceService;
-
-    @Override
-    public ResultDataDto generateSimple(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList) throws Exception {
-        randomThreadLocal.set(new Random());
-        Map<String,Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
-        for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList){
-            Object object = getRandomValue(dataFactoryRequestFieldBean,randomThreadLocal.get());
-            fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceField(),object);
-        }
-        ResultDataDto resultDataDto = new ResultDataDto();
-        randomThreadLocal.remove();
-        return resultDataDto.setData(fieldValueMap);
-    }
 
     /**
      * 获取数据字段值
@@ -111,4 +96,22 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         return null;
     }
 
+    @Override
+    public ResultDataDto generateSimple(DataFactoryRequestBean dataFactoryRequestBean) throws Exception {
+        randomThreadLocal.set(new Random());
+        List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
+        List<Map<String,Object>> batchResultList = new ArrayList<>(dataFactoryRequestBean.getGenerateCount()*2);
+        ResultDataDto resultDataDto = new ResultDataDto();
+
+        for (int i = 0;i < dataFactoryRequestBean.getGenerateCount();i++){
+            Map<String,Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
+            for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList){
+                Object object = getRandomValue(dataFactoryRequestFieldBean,randomThreadLocal.get());
+                fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceField(),object);
+            }
+            batchResultList.add(fieldValueMap);
+        }
+        resultDataDto.setData(batchResultList);
+        return resultDataDto;
+    }
 }
