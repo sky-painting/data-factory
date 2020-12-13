@@ -28,17 +28,19 @@ public interface InnerDataSource {
     String CITY = "com.common.area.city";
 
     /**
-     * 民族
+     * 民族-code
      */
     String NATION = "com.common.user.nation";
 
     /**
      * 姓氏--自建实现
      */
-    String LAST_NAME = "com.common.user.lastname";
+    String LAST_NAME = "com.common.user.lastname.txt";
 
     /**
      * 名--自建实现
      */
     String FIRST_NAME = "com.common.user.firstname";
+
+
 }
