@@ -36,6 +36,7 @@ public class UserInfoFactoryImpl implements UserInfoFactory {
 
     @Override
     public List<String> getLandlineNumberList(int num) {
+
         return null;
     }
 
@@ -50,8 +51,15 @@ public class UserInfoFactoryImpl implements UserInfoFactory {
     }
 
     @Override
-    public List<Date> getDateList(int num, String format) {
-        return null;
+    public List<Date> getDateList(int num) {
+        if(!checkNumber(num)){
+            return null;
+        }
+        List<Date> list = new ArrayList<>(MAX_COUNT);
+        for (int i = 0;i < num;i++){
+            list.add(UserFunction.getOneDate());
+        }
+        return list;
     }
 
     /**

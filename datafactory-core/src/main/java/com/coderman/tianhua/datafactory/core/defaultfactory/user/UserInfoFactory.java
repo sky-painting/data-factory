@@ -45,5 +45,5 @@ public interface UserInfoFactory {
      * @param num
      * @return
      */
-    List<Date> getDateList(int num,String format);
+    List<Date> getDateList(int num);
 }
