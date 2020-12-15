@@ -42,7 +42,14 @@ public class UserInfoFactoryImpl implements UserInfoFactory {
 
     @Override
     public List<String> getEmailList(int num) {
-        return null;
+        if(!checkNumber(num)){
+            return null;
+        }
+        List<String> list = new ArrayList<>(MAX_COUNT);
+        for (int i = 0;i < num;i++){
+            list.add(UserFunction.getOneEmail(6,12));
+        }
+        return list;
     }
 
     @Override
