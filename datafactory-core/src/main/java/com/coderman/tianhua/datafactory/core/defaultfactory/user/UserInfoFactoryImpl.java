@@ -17,12 +17,21 @@ import java.util.List;
 @Service
 public class UserInfoFactoryImpl implements UserInfoFactory {
     //todo aop check
-
-
+    /**
+     * 默认最大
+     */
+    private static final int MAX_COUNT = 10000;
 
     @Override
     public List<String> getHandPhoneList(int num) {
-        return null;
+        if(!checkNumber(num)){
+            return null;
+        }
+        List<String> list = new ArrayList<>(MAX_COUNT);
+        for (int i = 0;i < num;i++){
+            list.add(UserFunction.getOneTel());
+        }
+        return list;
     }
 
     @Override
