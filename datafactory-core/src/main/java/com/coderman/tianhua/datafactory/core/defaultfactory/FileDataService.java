@@ -1,5 +1,7 @@
 package com.coderman.tianhua.datafactory.core.defaultfactory;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * description: FileDataService <br>
@@ -17,7 +20,11 @@ import java.io.IOException;
 @Service
 public class FileDataService {
     private static final String FACTORY_PATH = "defaultfactory";
-
+    // 初始化缓存
+    Cache<String, Object> manualCache = Caffeine.newBuilder()
+            .expireAfterWrite(10, TimeUnit.MINUTES)
+            .maximumSize(10_000)
+            .build();
     /**
      * 获取数据工厂文件内容
      * @param fileName
