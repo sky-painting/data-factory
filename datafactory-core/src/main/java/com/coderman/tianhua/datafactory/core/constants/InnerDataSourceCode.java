@@ -5,7 +5,7 @@ package com.coderman.tianhua.datafactory.core.constants;
  *
  * 数据字典
  */
-public interface InnerDataSource {
+public interface InnerDataSourceCode {
     /**
      * 身份证--
      * http://www.mamicode.com/info-detail-1832018.html
@@ -18,12 +18,12 @@ public interface InnerDataSource {
     String BIRTHDAY = "com.common.user.birthday";
 
     /**
-     * 省份名称-code
+     * 省份名称-code--->省市县数据源
      */
     String PROVINCE = "com.common.area.province";
 
     /**
-     * 城市名称-code
+     * 城市名称-code--->省市县数据源
      */
     String CITY = "com.common.area.city";
 

@@ -77,6 +77,15 @@ public class UserFunction {
         return sb.toString();
     }
 
+
+    /**
+     * 获取一个姓氏
+     * @return
+     */
+    public static String getOneFirstName(){
+        return null;
+    }
+
     /**
      * LocalDate转Date
      *
