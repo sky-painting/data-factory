@@ -28,7 +28,7 @@ public interface InnerDataSourceCode {
     String CITY = "com.common.area.city";
 
     /**
-     * 民族-code
+     * 民族-code-->nacos
      */
     String NATION = "com.common.user.nation";
 

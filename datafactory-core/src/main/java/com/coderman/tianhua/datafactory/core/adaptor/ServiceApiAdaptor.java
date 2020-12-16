@@ -7,4 +7,5 @@ package com.coderman.tianhua.datafactory.core.adaptor;
  * version: 1.0 <br>
  */
 public interface ServiceApiAdaptor {
+
 }
