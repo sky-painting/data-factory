@@ -35,7 +35,7 @@ public interface InnerDataSourceCode {
     /**
      * 姓氏--自建实现
      */
-    String LAST_NAME = "com.common.user.lastname.txt";
+    String LAST_NAME = "com.common.user.lastname";
 
     /**
      * 名--自建实现
