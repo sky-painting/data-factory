@@ -19,32 +19,5 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class FileDataService {
-    private static final String FACTORY_PATH = "defaultfactory";
-    // 初始化缓存
-    Cache<String, Object> manualCache = Caffeine.newBuilder()
-            .expireAfterWrite(10, TimeUnit.MINUTES)
-            .maximumSize(10_000)
-            .build();
-    /**
-     * 获取数据工厂文件内容
-     * @param fileName
-     * @return
-     * @throws IOException
-     */
-    public String getFileContent(String fileName) throws IOException {
-        // ClassPathResource类的构造方法接收路径名称，自动去classpath路径下找文件
-        String path = FACTORY_PATH+"/"+fileName+".txt";
-        ClassPathResource classPathResource = new ClassPathResource(path);
 
-        // 获得File对象，当然也可以获取输入流对象
-        File file = classPathResource.getFile();
-
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        StringBuilder content = new StringBuilder();
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) {
-            content.append(line);
-        }
-        return content.toString();
-    }
 }

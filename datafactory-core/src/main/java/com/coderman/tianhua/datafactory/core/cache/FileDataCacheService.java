@@ -1,5 +1,7 @@
 package com.coderman.tianhua.datafactory.core.cache;
 
+import java.io.IOException;
+
 /**
  * description: FileDataCacheService <br>
  * date: 2020/12/16 0:04 <br>
@@ -12,6 +14,6 @@ public interface FileDataCacheService {
      * @param fileName
      * @return
      */
-    String getCacheSource(String fileName);
+    String getCacheSource(String fileName) throws IOException;
 
 }
