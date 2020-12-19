@@ -1,8 +1,10 @@
 package com.coderman.tianhua.datafactory.core.adaptor;
 
+import com.coderman.tianhua.datafactory.core.bean.DataSourceBean;
 import com.coderman.utils.kvpair.KVPair;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * description: ServiceApiAdaptor <br>
@@ -12,14 +14,9 @@ import java.util.List;
  */
 public interface ServiceApiAdaptor {
     /**
-     * 获取城市数据
+     * 动态获取服务类--api数据
+     * @param dataSourceBean
      * @return
      */
-    List<KVPair<String,String>> getCityList();
-
-    /**
-     * 获取省份数据
-     * @return
-     */
-    List<KVPair<String,String>> getProinvceList();
+   List<Map<String,Object>> getServiceData(DataSourceBean dataSourceBean);
 }
