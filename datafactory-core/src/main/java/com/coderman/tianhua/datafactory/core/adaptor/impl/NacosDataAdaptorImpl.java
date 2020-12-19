@@ -17,12 +17,12 @@ import java.util.Map;
 public class NacosDataAdaptorImpl implements NacosDataAdaptor {
 
     @Override
-    public List<Map<String, String>> getNacosDataMap(String dataId, String groupId) {
+    public List<Map<String, String>> getNacosDataMap(String dataContent, String jsonTemplate) {
         return null;
     }
 
     @Override
-    public List<KVPair<String, String>> getNacosDataKV(String dataId, String groupId) {
+    public List<KVPair<String, String>> getNacosDataKV(String dataContent) {
         return null;
     }
 }

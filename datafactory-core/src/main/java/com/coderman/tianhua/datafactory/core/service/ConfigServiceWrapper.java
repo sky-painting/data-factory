@@ -37,6 +37,12 @@ public class ConfigServiceWrapper {
         return configService;
     }
 
+    /**
+     * 获取nacos配置
+     * @param dataId
+     * @param groupId
+     * @return
+     */
     public String getConfig(String dataId,String groupId){
         ConfigService configService = null;
         try {

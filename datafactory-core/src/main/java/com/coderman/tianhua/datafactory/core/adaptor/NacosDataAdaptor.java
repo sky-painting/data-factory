@@ -13,18 +13,17 @@ import java.util.Map;
  */
 public interface NacosDataAdaptor {
     /**
-     * 获取nacos数据
-     * @param dataId
-     * @param groupId
+     * 获取nacos数据--匹配jsonTemplate
+     * @param dataContent
+     * @param jsonTemplate
      * @return
      */
-    List<Map<String,String>> getNacosDataMap(String dataId, String groupId);
+    List<Map<String,String>> getNacosDataMap(String dataContent,String jsonTemplate);
     /**
      * 获取nacos数据
-     * @param dataId
-     * @param groupId
+     * @param dataContent
      * @return
      */
-    List<KVPair<String,String>> getNacosDataKV(String dataId, String groupId);
+    List<KVPair<String,String>> getNacosDataKV(String dataContent);
 
 }
