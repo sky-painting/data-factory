@@ -25,4 +25,5 @@ public class NacosDataAdaptorImpl implements NacosDataAdaptor {
     public List<KVPair<String, String>> getNacosDataKV(String dataContent) {
         return null;
     }
+
 }
