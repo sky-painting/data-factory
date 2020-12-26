@@ -6,6 +6,7 @@ import com.coderman.utils.kvpair.KVParentPair;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +27,14 @@ public class NacosDataAdaptorImpl implements NacosDataAdaptor {
         //默认去掉第一行数据
         for (int i = 1; i < array.length; i++) {
             String[] kvArr = array[i].replace(" ", "").replace("\r", "").split(",");
-            //kvPairList.add(KVPair.build(kvArr[1], kvArr[0]));
+            String[] jsonFieldArr = jsonTemplate.split(",");
+            Map<String, String> map = new HashMap<>();
+            for ( int j = 0;j < kvArr.length && j< jsonFieldArr.length;j++){
+                map.put(jsonFieldArr[j],kvArr[j]);
+            }
+            mapList.add(map);
         }
-        //return kvPairList;
-        return null;
+        return mapList;
     }
 
 
