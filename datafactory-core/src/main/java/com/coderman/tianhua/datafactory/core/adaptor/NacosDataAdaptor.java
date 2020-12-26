@@ -14,15 +14,17 @@ import java.util.Map;
 public interface NacosDataAdaptor {
     /**
      * 获取nacos数据--匹配jsonTemplate
+     *
      * @param dataContent
-     * @param jsonTemplate
+     * @param jsonTemplate 多个字符串对应关系,如dataContent是三元组k,v,p，则可以定义jsonTemplate key,value,parentKey
+     *                     如果dataContent是多个值组成，则可以定义jsonTemplate 类似a,b,c,d模式
      * @return
      */
     List<Map<String,String>> getNacosDataMap(String dataContent,String jsonTemplate);
     /**
      * 获取nacos数据
      * @param dataContent
-     * @return
+     * @return KVPair 形式
      */
     List<KVPair<String,String>> getNacosDataKV(String dataContent);
 
