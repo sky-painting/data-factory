@@ -16,7 +16,7 @@ public interface ServiceApiAdaptor {
     /**
      * 动态获取服务类--api数据
      * @param dataSourceBean
-     * @return
+     * @return list<jsonstr>
      */
-   List<Map<String,Object>> getServiceData(DataSourceBean dataSourceBean);
+   List<String> getServiceData(DataSourceBean dataSourceBean);
 }
