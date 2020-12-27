@@ -46,4 +46,7 @@ public interface UserInfoFactory {
      * @return
      */
     List<Date> getDateList(int num);
+
+
+
 }
