@@ -9,11 +9,6 @@ import java.io.IOException;
  * version: 1.0 <br>
  */
 public interface FileDataCacheService {
-    /**
-     * 获取缓存的文件内容数据
-     * @param fileName
-     * @return
-     */
-    String getCacheSource(String fileName) throws IOException;
+
 
 }
