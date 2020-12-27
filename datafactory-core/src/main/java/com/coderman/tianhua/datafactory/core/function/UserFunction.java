@@ -79,7 +79,7 @@ public class UserFunction {
 
 
     /**
-     * 获取一个姓氏
+     * 获取一个姓名
      * @return
      */
     public static String getOneFirstName(){
@@ -99,6 +99,10 @@ public class UserFunction {
         ZonedDateTime zonedDateTime = localDate.atStartOfDay(ZoneId.systemDefault());
         return Date.from(zonedDateTime.toInstant());
     }
+
+
+
+
 
     private static int getNum(int start, int end) {
         return (int) (Math.random() * (end - start + 1) + start);

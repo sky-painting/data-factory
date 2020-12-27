@@ -12,6 +12,15 @@ public class BankFunction {
     private static int i = 0;
 
     /**
+     * 获取一个银行卡号
+     *
+     * @return
+     */
+    public static String getOneBankNumber(){
+       return getBrankNumber("8");
+    }
+
+    /**
      * 需要传入一个前缀：6、8、9中的一个。
      * 其中：6：类型1，8：类型2，9：类型3 【根据自己的业务定义】
      * 其他则会返回异常
@@ -19,7 +28,8 @@ public class BankFunction {
      * @param prefix
      * @return
      */
-    public synchronized static String getBrankNumber(String prefix) {
+
+    private synchronized static String getBrankNumber(String prefix) {
         if (StringUtils.isNotBlank(prefix)) {
             if ("689".indexOf(prefix) >= 0 && prefix.length() == 1) {
                 String st = "666" + prefix + getUnixTime();
