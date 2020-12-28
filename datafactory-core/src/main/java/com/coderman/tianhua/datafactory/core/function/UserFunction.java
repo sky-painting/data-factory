@@ -80,11 +80,23 @@ public class UserFunction {
 
     /**
      * 获取一个姓名
+     *
      * @return
      */
-    public static String getOneFirstName(){
+    public static String getOneFirstName() {
         return null;
     }
+
+    /**
+     * 获取一个指定位数的随机数--可以当做密码，or验证码
+     * @param len
+     * @return
+     */
+    public static String getRandomNumber(int len) {
+        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
+        return String.valueOf(rs);
+    }
+
 
     /**
      * LocalDate转Date
@@ -99,9 +111,6 @@ public class UserFunction {
         ZonedDateTime zonedDateTime = localDate.atStartOfDay(ZoneId.systemDefault());
         return Date.from(zonedDateTime.toInstant());
     }
-
-
-
 
 
     private static int getNum(int start, int end) {
