@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.core.function;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * description: BankFunction <br>
@@ -8,7 +9,8 @@ import org.apache.commons.lang3.StringUtils;
  * author: coderman <br>
  * version: 1.0 <br>
  */
-public class BankFunction {
+@Service(value = "bankFunction")
+public class BankFunction implements Function<String>{
     private static int i = 0;
 
     /**
@@ -16,7 +18,7 @@ public class BankFunction {
      *
      * @return
      */
-    public static String getOneBankNumber(){
+    public  String getOneBankNumber(){
        return getBrankNumber("8");
     }
 
@@ -101,4 +103,8 @@ public class BankFunction {
         System.out.println(getBrankNumber("9"));
     }
 
+    @Override
+    public String createOneData() {
+        return getOneBankNumber();
+    }
 }

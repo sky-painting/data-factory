@@ -1,5 +1,7 @@
 package com.coderman.tianhua.datafactory.core.function;
 
+import org.springframework.stereotype.Service;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +12,8 @@ import java.util.Random;
  * @date 2020/12/22 8:55
  * 参考
  */
-public class CardNumberFunction {
+@Service
+public class CardNumberFunction implements Function<String>{
 
     // 18位身份证号码各位的含义:
     // 1-2位省、自治区、直辖市代码；
@@ -23,15 +26,15 @@ public class CardNumberFunction {
     // 计算的结果是0-10，如果某人的尾号是0－9，都不会出现X，但如果尾号是10，那么就得用X来代替，
     // 因为如果用10做尾号，那么此人的身份证就变成了19位。X是罗马数字的10，用X来代替10
     public static void main(String[] args) {
-        String randomID = CardNumberFunction.getRandomID();
-        System.out.println(randomID);
-        System.out.println(randomID.substring(16, 17));
+       // String randomID = CardNumberFunction.getRandomID();
+        //System.out.println(randomID);
+        //System.out.println(randomID.substring(16, 17));
     }
 
     /**
      * 获取一个随机生成的身份证号码
      */
-    public static String getRandomID() {
+    public  String getRandomID() {
         String id = "421022199703149999";
         // 随机生成省、自治区、直辖市代码 1-2
         String provinces[] = {"11", "12", "13", "14", "15", "21", "22", "23",
@@ -88,4 +91,8 @@ public class CardNumberFunction {
         return dft.format(date.getTime());
     }
 
+    @Override
+    public String createOneData() {
+        return getRandomID();
+    }
 }
