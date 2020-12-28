@@ -104,7 +104,7 @@ public class BankFunction implements Function<String>{
     }
 
     @Override
-    public String createOneData() {
+    public String createOneData(String methodName) {
         return getOneBankNumber();
     }
 }

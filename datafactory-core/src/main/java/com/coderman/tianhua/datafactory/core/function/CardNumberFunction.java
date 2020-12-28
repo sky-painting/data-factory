@@ -92,7 +92,7 @@ public class CardNumberFunction implements Function<String>{
     }
 
     @Override
-    public String createOneData() {
+    public String createOneData(String methodName) {
         return getRandomID();
     }
 }

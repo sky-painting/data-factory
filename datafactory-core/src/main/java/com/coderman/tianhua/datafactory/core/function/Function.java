@@ -9,7 +9,9 @@ package com.coderman.tianhua.datafactory.core.function;
 public interface Function<T> {
     /**
      * 创建一个数据
+     * @param methodName 方法名，一个function类中有多个method，如果没有的话默认传空
      * @return
      */
-    T createOneData();
+    T createOneData(String methodName);
+
 }
