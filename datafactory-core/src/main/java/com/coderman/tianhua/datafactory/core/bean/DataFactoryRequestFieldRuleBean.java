@@ -46,5 +46,4 @@ public class DataFactoryRequestFieldRuleBean {
     private String dependencyFieldName;
 
 
-
 }
