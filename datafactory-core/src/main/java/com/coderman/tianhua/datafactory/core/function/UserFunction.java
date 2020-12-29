@@ -41,7 +41,7 @@ public class UserFunction {
      *
      * @return
      */
-    public  String getOneTel() {
+    public  String tel() {
         int index = getNum(0, telFirst.length - 1);
         String first = telFirst[index];
         String second = String.valueOf(getNum(1, 888) + 10000).substring(1);
@@ -55,7 +55,7 @@ public class UserFunction {
      *
      * @return
      */
-    public  Date getOneDate() {
+    public  Date date() {
         int year = random.nextInt(MAX_YEAR) % (MAX_YEAR - MIN_YEAR + 1) + MIN_YEAR;
         int month = random.nextInt(MAX_MONTH) % (MAX_MONTH - MIN_MONTH + 1) + MIN_MONTH;
         int day = random.nextInt(MAX_DAY) % (MAX_DAY - MIN_DAY + 1) + MIN_DAY;
@@ -69,7 +69,7 @@ public class UserFunction {
      * @param lMax 最大长度
      * @return
      */
-    public  String getOneEmail(int lMin, int lMax) {
+    public  String email(int lMin, int lMax) {
         int length = getNum(lMin, lMax);
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {
@@ -85,7 +85,7 @@ public class UserFunction {
      * @param len
      * @return
      */
-    public  String getRandomNumber(int len) {
+    public  String random(int len) {
         int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
         return String.valueOf(rs);
     }

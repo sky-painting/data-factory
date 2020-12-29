@@ -18,7 +18,7 @@ public class BankFunction implements Function<String>{
      *
      * @return
      */
-    public  String getOneBankNumber(){
+    public  String bankNumber(){
        return getBrankNumber("8");
     }
 
@@ -105,6 +105,6 @@ public class BankFunction implements Function<String>{
 
     @Override
     public String createOneData(String methodName) {
-        return getOneBankNumber();
+        return bankNumber();
     }
 }

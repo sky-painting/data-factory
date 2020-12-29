@@ -25,7 +25,7 @@ public class PinYinFunction{
      * @param src
      * @return String
      */
-    public  String getPinYin(String src) {
+    public  String pinyin(String src) {
         char[] t1 = null;
         t1 = src.toCharArray();
         String[] t2 = new String[t1.length];
@@ -60,7 +60,7 @@ public class PinYinFunction{
      * @param str
      * @return String
      */
-    public  String getPinYinHeadChar(String str) {
+    public  String pinyinhead(String str) {
         String convert = "";
         for (int j = 0; j < str.length(); j++) {
             char word = str.charAt(j);
@@ -81,7 +81,7 @@ public class PinYinFunction{
      * @param cnStr
      * @return String
      */
-    public  String getCnASCII(String cnStr) {
+    public  String cnascii(String cnStr) {
         StringBuffer strBuf = new StringBuffer();
         // 将字符串转换成字节序列
         byte[] bGBK = cnStr.getBytes();

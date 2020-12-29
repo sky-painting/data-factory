@@ -12,9 +12,9 @@ import java.util.List;
 public interface FunctionFactory {
 
     /**
-     * 创建一个函数
+     * 创建一个函数 基于元数据文件
      * @param beanName
-     * @param dependencyFileDataList
+     * @param dependencyFileDataList 依赖的文件列表
      * @return
      */
     public Function createFunction(String beanName, List<String> dependencyFileDataList);

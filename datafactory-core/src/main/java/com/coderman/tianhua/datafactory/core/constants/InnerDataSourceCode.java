@@ -42,5 +42,15 @@ public interface InnerDataSourceCode {
      */
     String FIRST_NAME = "com.common.user.firstname";
 
+    /**
+     * 邮箱--自建实现
+     */
+    String EMAIL_NAME = "com.common.user.email";
+
+    /**
+     * 密码--自建实现
+     */
+    String PASS_WORD = "com.common.user.password";
+
 
 }
