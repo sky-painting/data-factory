@@ -12,7 +12,7 @@ import java.util.Random;
  * @date 2020/12/22 8:55
  * 参考
  */
-@Service
+@Service(value = "cardNumberFunction")
 public class CardNumberFunction implements Function<String>{
 
     // 18位身份证号码各位的含义:

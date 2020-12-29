@@ -6,7 +6,6 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,8 +16,9 @@ import org.springframework.stereotype.Service;
  *
  * 此处为拼音转换工具类
  */
+
 @Service
-public class PinYinFunction {
+public class PinYinFunction{
     /**
      * 将汉字转换为全拼
      *
