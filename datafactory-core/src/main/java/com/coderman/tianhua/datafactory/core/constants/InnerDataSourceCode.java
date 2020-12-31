@@ -52,5 +52,9 @@ public interface InnerDataSourceCode {
      */
     String PASS_WORD = "com.common.user.password";
 
+    /**
+     * 姓名--自建实现
+     */
+    String CHINESE_NAME = "com.common.user.chineseName";
 
 }

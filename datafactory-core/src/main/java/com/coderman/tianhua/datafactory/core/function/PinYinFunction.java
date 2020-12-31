@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class PinYinFunction{
+public class PinYinFunction implements Function<String>{
     /**
      * 将汉字转换为全拼
      *
@@ -92,4 +92,8 @@ public class PinYinFunction{
         return strBuf.toString();
     }
 
+    @Override
+    public String createOneData(String methodName, String... params) {
+        return null;
+    }
 }

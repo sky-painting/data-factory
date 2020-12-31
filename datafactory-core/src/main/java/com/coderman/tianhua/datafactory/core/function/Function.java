@@ -12,6 +12,6 @@ public interface Function<T> {
      * @param methodName 方法名，一个function类中有多个method，如果没有的话默认传空
      * @return
      */
-    T createOneData(String methodName);
+    T createOneData(String methodName,String ... params);
 
 }

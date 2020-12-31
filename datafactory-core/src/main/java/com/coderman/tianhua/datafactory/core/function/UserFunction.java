@@ -16,7 +16,7 @@ import java.util.Random;
  * 用户相关的数据工厂工具类生成
  */
 @Service
-public class UserFunction {
+public class UserFunction implements Function<String>{
     private static Random random = new Random();
 
     public static final String BASE_CHAR = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -108,5 +108,10 @@ public class UserFunction {
 
     private  int getNum(int start, int end) {
         return (int) (Math.random() * (end - start + 1) + start);
+    }
+
+    @Override
+    public String createOneData(String methodName, String... params) {
+        return null;
     }
 }
