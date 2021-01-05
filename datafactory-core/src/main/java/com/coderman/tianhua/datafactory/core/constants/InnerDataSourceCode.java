@@ -2,7 +2,7 @@ package com.coderman.tianhua.datafactory.core.constants;
 
 /**
  * 内建公共数据源-code
- *
+ * <p>
  * 数据字典--内置实现
  * com.datafactory开头
  */
@@ -11,10 +11,7 @@ public class InnerDataSourceCode {
     /**
      * 默认的内置前缀
      */
-   public static final String DEFAULT_PREFIX = "com.datafactory";
-
-
-
+    public static final String DEFAULT_PREFIX = "com.datafactory";
 
 
     /**
@@ -24,9 +21,9 @@ public class InnerDataSourceCode {
     public static final String CARD_NUMBER = "com.datafactory.user.cardnumber";
 
     /**
-     * 出生年月日--内置实现
+     * 日期--内置实现 yyyy-MM-dd
      */
-    public static final String BIRTHDAY = "com.datafactory.user.birthday";
+    public static final String DATE = "com.datafactory.user.date";
 
     /**
      * 姓氏--内置实现
@@ -36,7 +33,7 @@ public class InnerDataSourceCode {
     /**
      * 名--内置实现
      */
-    public static final  String FIRST_NAME = "com.datafactory.user.firstname";
+    public static final String FIRST_NAME = "com.datafactory.user.firstname";
 
     /**
      * 邮箱--内置实现
@@ -63,5 +60,14 @@ public class InnerDataSourceCode {
      */
     public static final String BANK_CARD = "com.datafactory.bank.cardNumber";
 
+    /**
+     * 汉字转拼音实现--内置实现
+     */
+    public static final String TO_PIN_YIN = "com.datafactory.user.toPinYin";
+
+    /**
+     * 汉字转拼音实现--内置实现
+     */
+    public static final String RANDOM = "com.datafactory.user.getRandom";
 
 }

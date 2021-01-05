@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.function;
 
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ public class UserFunction implements Function<String>{
      *
      * @return
      */
+    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.TEL_PHONE)
     public  String tel() {
         int index = getNum(0, telFirst.length - 1);
         String first = telFirst[index];
@@ -55,6 +57,7 @@ public class UserFunction implements Function<String>{
      *
      * @return
      */
+    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.DATE)
     public  Date date() {
         int year = random.nextInt(MAX_YEAR) % (MAX_YEAR - MIN_YEAR + 1) + MIN_YEAR;
         int month = random.nextInt(MAX_MONTH) % (MAX_MONTH - MIN_MONTH + 1) + MIN_MONTH;
@@ -69,6 +72,7 @@ public class UserFunction implements Function<String>{
      * @param lMax 最大长度
      * @return
      */
+    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.EMAIL_NAME)
     public  String email(int lMin, int lMax) {
         int length = getNum(lMin, lMax);
         StringBuffer sb = new StringBuffer();
@@ -85,6 +89,7 @@ public class UserFunction implements Function<String>{
      * @param len
      * @return
      */
+    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.RANDOM)
     public  String random(int len) {
         int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
         return String.valueOf(rs);

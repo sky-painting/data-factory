@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.function;
 
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.TO_PIN_YIN)
 public class PinYinFunction implements Function<String>{
     /**
      * 将汉字转换为全拼

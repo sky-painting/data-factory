@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  * version: 1.0 <br>
  */
 @Service(value = "bankFunction")
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.BANK_CARD)
 public class BankFunction implements Function<String>{
     private static int i = 0;
 
@@ -19,7 +20,6 @@ public class BankFunction implements Function<String>{
      *
      * @return
      */
-    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.BANK_CARD)
     public  String bankNumber(){
        return getBrankNumber("8");
     }

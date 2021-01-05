@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.function;
 
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Random;
  * 参考
  */
 @Service(value = "cardNumberFunction")
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.BANK_CARD)
 public class CardNumberFunction implements Function<String>{
 
     // 18位身份证号码各位的含义:

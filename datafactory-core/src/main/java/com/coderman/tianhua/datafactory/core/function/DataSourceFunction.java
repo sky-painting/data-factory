@@ -11,8 +11,8 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface DataSourceFunctionMethod {
+@Target(ElementType.TYPE)
+public @interface DataSourceFunction {
 
     /**
      * 内置的数据源code
