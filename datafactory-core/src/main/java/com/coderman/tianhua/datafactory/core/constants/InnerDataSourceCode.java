@@ -3,58 +3,65 @@ package com.coderman.tianhua.datafactory.core.constants;
 /**
  * 内建公共数据源-code
  *
- * 数据字典
+ * 数据字典--内置实现
+ * com.datafactory开头
  */
-public interface InnerDataSourceCode {
+public class InnerDataSourceCode {
+
     /**
-     * 身份证--
+     * 默认的内置前缀
+     */
+   public static final String DEFAULT_PREFIX = "com.datafactory";
+
+
+
+
+
+    /**
+     * 身份证--内置实现
      * http://www.mamicode.com/info-detail-1832018.html
      */
-    String CARD_NUMBER = "com.common.user.cardnumber";
+    public static final String CARD_NUMBER = "com.datafactory.user.cardnumber";
 
     /**
-     * 出生年月日--自建实现
+     * 出生年月日--内置实现
      */
-    String BIRTHDAY = "com.common.user.birthday";
+    public static final String BIRTHDAY = "com.datafactory.user.birthday";
 
     /**
-     * 省份名称-code--->省市县数据源
+     * 姓氏--内置实现
      */
-    String PROVINCE = "com.common.area.province";
+    public static final String LAST_NAME = "com.datafactory.user.lastname";
 
     /**
-     * 城市名称-code--->省市县数据源
+     * 名--内置实现
      */
-    String CITY = "com.common.area.city";
+    public static final  String FIRST_NAME = "com.datafactory.user.firstname";
 
     /**
-     * 民族-code-->nacos
+     * 邮箱--内置实现
      */
-    String NATION = "com.common.user.nation";
+    public static final String EMAIL_NAME = "com.datafactory.user.email";
 
     /**
-     * 姓氏--自建实现
+     * 密码--内置实现
      */
-    String LAST_NAME = "com.common.user.lastname";
+    public static final String PASS_WORD = "com.datafactory.user.password";
 
     /**
-     * 名--自建实现
+     * 姓名--内置实现
      */
-    String FIRST_NAME = "com.common.user.firstname";
+    public static final String CHINESE_NAME = "com.datafactory.user.chineseName";
 
     /**
-     * 邮箱--自建实现
+     * 电话号码--内置实现
      */
-    String EMAIL_NAME = "com.common.user.email";
+    public static final String TEL_PHONE = "com.datafactory.user.telphone";
 
     /**
-     * 密码--自建实现
+     * 银行卡号码--内置实现
      */
-    String PASS_WORD = "com.common.user.password";
+    public static final String BANK_CARD = "com.datafactory.bank.cardNumber";
 
-    /**
-     * 姓名--自建实现
-     */
-    String CHINESE_NAME = "com.common.user.chineseName";
 
 }

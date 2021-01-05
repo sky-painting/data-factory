@@ -13,17 +13,17 @@ public interface FunctionFactory {
 
     /**
      * 创建一个函数 基于元数据文件
-     * @param beanName
+     * @param dataSourceCode 内置字段数据源code
      * @param dependencyFileDataList 依赖的文件列表
      * @return
      */
-    public Function createFunction(String beanName, List<String> dependencyFileDataList);
+   // public Function createFunction(String dataSourceCode, List<String> dependencyFileDataList);
 
     /**
      * 创建一个函数
-     * @param beanName
+     * @param dataSourceCode 内置字段数据源code
      * @return
      */
-    public Function createFunction(String beanName);
+    public Function createFunction(String dataSourceCode);
 
 }

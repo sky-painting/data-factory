@@ -5,6 +5,7 @@ import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
 import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
 import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
@@ -141,6 +142,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 
 	@Override
 	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
+
 		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
 		if(dataSourceEntity == null){
 			return ResultDataDto.setErrorCodeMsg("查询数据为空!");

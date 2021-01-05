@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.function;
 
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class BankFunction implements Function<String>{
      *
      * @return
      */
+    @DataSourceFunctionMethod(dataSourceCode = InnerDataSourceCode.BANK_CARD)
     public  String bankNumber(){
        return getBrankNumber("8");
     }
@@ -30,7 +32,6 @@ public class BankFunction implements Function<String>{
      * @param prefix
      * @return
      */
-
     private synchronized static String getBrankNumber(String prefix) {
         if (StringUtils.isNotBlank(prefix)) {
             if ("689".indexOf(prefix) >= 0 && prefix.length() == 1) {
@@ -80,7 +81,7 @@ public class BankFunction implements Function<String>{
      * @param nonCheckCodeCardId
      * @return
      */
-    public static char getBankCardCheckCode(String nonCheckCodeCardId) {
+    private static char getBankCardCheckCode(String nonCheckCodeCardId) {
         if (nonCheckCodeCardId == null || nonCheckCodeCardId.trim().length() == 0
                 || !nonCheckCodeCardId.matches("\\d+")) {
             //如果传的不是数据返回N

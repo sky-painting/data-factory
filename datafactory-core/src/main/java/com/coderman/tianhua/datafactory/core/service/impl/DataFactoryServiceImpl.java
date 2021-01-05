@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.constants.InnerDataSourceCode;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.utils.response.ResultDataDto;
@@ -31,6 +32,8 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Autowired
     private DataSourceService dataSourceService;
 
+
+
     /**
      * 获取数据字段值
      * @param dataFactoryRequestFieldBean
@@ -46,6 +49,12 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             int size = dataFactoryRequestFieldBean.getDefaultValueList().size();
             return dataFactoryRequestFieldBean.getDefaultValueList().get(randomThreadLocal.get().nextInt(size));
         }
+        //如果是内置数据源则从内置数据源中的Function中构建随机数据
+        if(dataFactoryRequestFieldBean.getDataSourceCode().startsWith(InnerDataSourceCode.DEFAULT_PREFIX)){
+
+        }
+
+
         //从数据工厂-数据源获取数据
         ResultDataDto<String> resultDataDto = dataSourceService.getDataSourceDetail(dataFactoryRequestFieldBean.getDataSourceCode());
         if(!resultDataDto.isSuccess()){
