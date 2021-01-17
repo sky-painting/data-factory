@@ -13,7 +13,7 @@ public enum DataSourceTypeEnum {
     FROM_SERVICE_API(1,"API"),
     //枚举则保存在数据库中
     FROM_ENUM(2,"ENUM"),
-    //枚举则保存在数据库中
+    //自定义则保存在数据库中
     FROM_CUSTOM(3,"自定义"),
     ;
     private int code;

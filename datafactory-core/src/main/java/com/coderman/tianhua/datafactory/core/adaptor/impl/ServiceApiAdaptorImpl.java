@@ -24,25 +24,22 @@ public class ServiceApiAdaptorImpl implements ServiceApiAdaptor {
     @Autowired
     private RestTemplate restTemplate;
     @Override
-    public List<String> getServiceData(DataSourceBean dataSourceBean) {
+    public List<String> getServiceDataFromHttp(String url,Map<String, Object> params) {
         //
-        // post接口？dubbo接口？
+        // 默认get接口 post接口？dubbo接口？
 
         //返回是list处理
-        ResultDataDto<List> resultDataDto = restTemplate.getForObject(dataSourceBean.getUrl() , ResultDataDto.class);
-        if(!resultDataDto.isSuccess()){
-            return null;
+        ResultDataDto<List> resultDataDto = new ResultDataDto();
+        try {
+             resultDataDto = restTemplate.getForObject(url , ResultDataDto.class);
+        }catch (Exception e){
+            resultDataDto = restTemplate.postForObject(url,params , ResultDataDto.class);
         }
-
         //去除result包装
         List dataList = resultDataDto.getData();
         if(CollectionUtils.isEmpty(dataList)){
             return null;
         }
-        List<String> list = new ArrayList<>();
-        dataList.stream().forEach(data->{
-            list.add(JSON.toJSONString(data));
-        });
-        return list;
+        return dataList;
     }
 }

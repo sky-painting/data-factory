@@ -1,7 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service;
 
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.utils.response.ResultDataDto;
 
 import java.util.List;

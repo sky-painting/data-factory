@@ -41,6 +41,9 @@ public class DataFactoryRequestFieldBean<T> {
     private List<T> defaultValueList;
 
     /**
+     * 用于具有一对多的数据依赖关系场景，当存在这种情况时多方不必定义
+     * dataSourceCode,dataSourceField 多方取值根据一方的实际值进行路由，然后随机取一个值作为最终的值
+     *
      * 数据字段依赖规则
      * map.key = 字段被依赖方k-字段被依赖方value
      * map.value= 字段依赖方k-字段依赖方value（有多个字段kd依赖k的值）
@@ -55,5 +58,10 @@ public class DataFactoryRequestFieldBean<T> {
      * 这里依赖的是静态值
      */
     private Map<String,List<String>> varDependencyMap;
+
+    /**
+     * 字段值生成规则
+     */
+    private DataFactoryRequestFieldRuleBean2 dataFactoryRequestFieldRuleBean;
 
 }

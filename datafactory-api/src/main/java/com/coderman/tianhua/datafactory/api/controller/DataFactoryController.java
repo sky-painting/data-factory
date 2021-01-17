@@ -1,10 +1,8 @@
 package com.coderman.tianhua.datafactory.api.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.bean.CglibConvertService;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 /**
  * description: DataFactoryController <br>
@@ -59,7 +56,6 @@ public class DataFactoryController extends BaseController {
         try {
             DataFactoryRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataFactoryRequestBean.class,dataFactoryRequestVo);
             logger.info("dataFactoryRequestBean = {}" , JSON.toJSONString(dataFactoryRequestVo));
-
             resultDataDto = dataFactoryService.generateSimple(dataFactoryRequestBean);
         } catch (Exception e) {
             resultDataDto.setInvokeErrorMsg("构建失败");

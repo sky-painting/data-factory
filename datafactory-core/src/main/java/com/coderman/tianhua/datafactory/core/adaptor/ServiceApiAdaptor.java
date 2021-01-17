@@ -15,8 +15,9 @@ import java.util.Map;
 public interface ServiceApiAdaptor {
     /**
      * 动态获取服务类--api数据
-     * @param dataSourceBean
-     * @return list<jsonstr>
+     * @param url    url
+     * @param params 参数
+     * @return
      */
-   List<String> getServiceData(DataSourceBean dataSourceBean);
+    List<String> getServiceDataFromHttp(String url, Map<String, Object> params);
 }

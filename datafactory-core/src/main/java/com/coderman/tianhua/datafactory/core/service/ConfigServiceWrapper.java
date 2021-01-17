@@ -5,14 +5,19 @@ import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.coderman.tianhua.datafactory.core.adaptor.NacosDataAdaptor;
+import com.coderman.utils.kvpair.KVPair;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
- * description: ConfigServiceWrapper <br>
+ * description: ConfigServiceWrapper nacos 服务
  * date: 2020/12/10 23:15 <br>
  * author: coderman <br>
  * version: 1.0 <br>
@@ -23,6 +28,9 @@ public class ConfigServiceWrapper {
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
     private ConfigService configService;
+
+    @Autowired
+    private NacosDataAdaptor nacosDataAdaptor;
     /**
      * 通过原生Java方式获取ConfigService
      * @return
@@ -55,4 +63,38 @@ public class ConfigServiceWrapper {
         }
         return null;
     }
+
+    /**
+     * 对nacos content进行预处理
+     * @param dataId
+     * @param groupId
+     * @return
+     */
+    public List<KVPair<String,String>> getConfigList(String dataId,String groupId){
+        String content = getConfig(dataId, groupId);
+        if(StringUtils.isEmpty(content)){
+            //todo throw null exception
+            return  null;
+        }
+        return nacosDataAdaptor.getNacosDataKV(content);
+    }
+
+
+    /**
+     * 对nacos content进行预处理
+     * @param dataId
+     * @param groupId
+     * @return
+     */
+    public List<Map<String,String>> getConfigList(String dataId, String groupId, String jsonTemplate){
+        String content = getConfig(dataId, groupId);
+        if(StringUtils.isEmpty(content)){
+            //todo throw null exception
+            return  null;
+        }
+        return nacosDataAdaptor.getNacosDataMap(content,jsonTemplate);
+    }
+
+
+
 }

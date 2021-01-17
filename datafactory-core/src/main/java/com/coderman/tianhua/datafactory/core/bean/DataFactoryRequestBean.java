@@ -40,6 +40,11 @@ public class DataFactoryRequestBean {
     private int generateCount;
 
     /**
+     * 属性的解析顺序
+     */
+    private List<String> dataFactoryRequestFieldOrderList;
+
+    /**
      * 模块变量
      */
     private List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList;
