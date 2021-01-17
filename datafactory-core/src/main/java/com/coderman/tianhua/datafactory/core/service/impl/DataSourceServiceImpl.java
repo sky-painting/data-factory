@@ -146,15 +146,14 @@ public class DataSourceServiceImpl implements DataSourceService {
 
 		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
 		if(dataSourceEntity == null){
-			//todo coderUtils 1.0.3
-			return ResultDataDto.setParamErrorMsg("查询数据为空!");
+			return ResultDataDto.setNullErrorMsg("查询数据为空!");
 		}
 
 		//本地持久化
 		if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
 			DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
 			if(dataSourceDetailEntity == null || StringUtils.isEmpty(dataSourceDetailEntity.getDataContentJson())){
-				return ResultDataDto.setParamErrorMsg("查询数据为空!");
+				return ResultDataDto.setNullErrorMsg("查询数据为空!");
 			}
 			ResultDataDto resultDataDto = new ResultDataDto();
 			return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
@@ -177,7 +176,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 			}
 		}
 
-		return ResultDataDto.setParamErrorMsg("查询数据为空!");
+		return ResultDataDto.setNullErrorMsg("查询数据为空!");
 	}
 
 }
