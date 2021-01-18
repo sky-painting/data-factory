@@ -41,6 +41,10 @@ public class DataFactoryRequestBean {
 
     /**
      * 属性的解析顺序
+     * 元素值为字段数据源code，这么做的目的是降低程序对依赖数据的检索，
+     * 由用户控制相关字段的依赖顺序，且保证被依赖的数据源code在依赖方前面,否则无法正确处理
+     *
+     * 如果生成的数据字段中没有依赖关系则可为空
      */
     private List<String> dataFactoryRequestFieldOrderList;
 

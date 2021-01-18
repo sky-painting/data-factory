@@ -29,9 +29,11 @@ public class DataFactoryRequestFieldBean<T> {
     private String dataSourceCode;
 
     /**
-     * 字段数据源code.field
+     * 字段数据源code对应的值如果是JSON情况，则存在多重包装，因此需要取到对应的子JSON串的field
      * eg:data.id
      * data.list[0].id
+     *
+     * 当defaultValueList不为空时或者是依赖默认内置Function生成数据时可不传此值
      */
     private String dataSourceField;
 

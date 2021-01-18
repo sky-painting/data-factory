@@ -105,10 +105,11 @@ public class DataFactoryServiceImpl implements DataFactoryService {
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataFactoryRequestFieldBean(dataFactoryRequestFieldBean);
                 dataSourceFieldRequestBean.setRandom(randomThreadLocal.get());
+                dataSourceFieldRequestBean.setVarDependencyMap(dataFactoryRequestFieldBean.getVarDependencyMap());
                 //获取随机字段值
                 Object object = getRandomValue(dataSourceFieldRequestBean);
                 //todo 依赖数据支持
-                fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceField(), object);
+                fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceCode(), object);
             }
             batchResultList.add(fieldValueMap);
         }

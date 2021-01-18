@@ -7,6 +7,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.List;
+import java.util.Map;
 
 /**
  * description: DataGenerateDefaultServiceImpl <br>
@@ -20,11 +22,18 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
         DataFactoryRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+
         if (CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
             int size = dataFactoryRequestFieldBean.getDefaultValueList().size();
-            return dataFactoryRequestFieldBean.getDefaultValueList().get(secureRandom.nextInt(size));
-        } else {
+            Object value = dataFactoryRequestFieldBean.getDefaultValueList().get(secureRandom.nextInt(size));
             //todo 寻找依赖方  支持一对多数据字段存在依赖的情况下的数据生成
+            Map<String, List<String>> varDependencyMap = dataSourceFieldRequestBean.getVarDependencyMap();
+            String key = dataFactoryRequestFieldBean.getDataSourceCode()+"-"+value.toString();
+            List<String> dependencyList = varDependencyMap.get(key);
+            //todo 寻找依赖方  支持一对多数据字段存在依赖的情况下的数据生成
+
+
+            return value;
         }
         return null;
     }
