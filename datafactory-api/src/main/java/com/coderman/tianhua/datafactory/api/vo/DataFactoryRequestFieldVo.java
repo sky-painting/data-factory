@@ -34,7 +34,7 @@ public class DataFactoryRequestFieldVo<T> {
      * eg:data.id
      * data.list[0].id
      */
-    private String dataSourceJsonPath;
+    private String dataSourceField;
     /**
      * 字段默认值列表
      */

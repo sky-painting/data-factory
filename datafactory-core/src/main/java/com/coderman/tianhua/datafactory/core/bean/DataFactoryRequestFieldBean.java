@@ -62,6 +62,6 @@ public class DataFactoryRequestFieldBean<T> {
     /**
      * 字段值生成规则
      */
-    private DataFactoryRequestFieldRuleBean2 dataFactoryRequestFieldRuleBean;
+    private DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
 
 }

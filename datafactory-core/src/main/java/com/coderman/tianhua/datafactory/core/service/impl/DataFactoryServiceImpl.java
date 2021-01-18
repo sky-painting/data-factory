@@ -7,11 +7,12 @@ import com.coderman.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.coderman.tianhua.datafactory.client.function.Function;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean2;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
 
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.functionfactory.FunctionFactory;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
+import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.utils.response.ResultDataDto;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -41,6 +43,18 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Autowired
     private FunctionFactory functionFactory;
 
+
+    @Resource(name = "dataGenerateDefaultServiceImpl")
+    private DataGenerateService dataGenerateDefaultServiceImpl;
+
+
+    @Resource(name = "dataGenerateFunctionServiceImpl")
+    private DataGenerateService dataGenerateFunctionServiceImpl;
+
+
+    @Resource(name = "dataGenerateRemoteServiceImpl")
+    private DataGenerateService dataGenerateRemoteServiceImpl;
+
     /**
      * 根据请求的数据上下文生成随机的数据字段值
      * @param dataSourceFieldRequestBean
@@ -52,75 +66,17 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
         String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
         //从默认值中获取数据
-        if (StringUtils.isEmpty(dataSourceCode)) {
-            if (CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
-                int size = dataFactoryRequestFieldBean.getDefaultValueList().size();
-                return dataFactoryRequestFieldBean.getDefaultValueList().get(randomThreadLocal.get().nextInt(size));
-            } else {
-                //todo 寻找依赖方  支持一对多数据字段存在依赖的情况下的数据生成
-            }
+        if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
+            return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
         //如果是内置数据源则从内置数据源工厂中的Function中构建随机数据
         if (dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
-            Function function = dataSourceFieldRequestBean.getFunction();
-            DataFactoryRequestFieldRuleBean2 dataFactoryRequestFieldRuleBean =
-                    dataFactoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
-            if (dataFactoryRequestFieldRuleBean == null) {
-                return function.createOneData(null, null);
-            } else {
-                return function.createOneData(dataFactoryRequestFieldRuleBean.getDepencyFunctionMethod(), dataFactoryRequestFieldRuleBean.getDepencyFunctionMethodParam());
-            }
+            return dataGenerateFunctionServiceImpl.getRandomData(dataSourceFieldRequestBean);
+        }else {
+            //从远程数据源获取随机数据
+            return dataGenerateRemoteServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
 
-        //从远程数据工厂-数据源获取数据
-        ResultDataDto<String> resultDataDto = dataSourceService.getDataSourceDetail(dataFactoryRequestFieldBean.getDataSourceCode());
-        if (!resultDataDto.isSuccess()) {
-            log.error("从数据工厂-数据源获取数据 = {}", JSON.toJSONString(resultDataDto));
-            return null;
-        }
-
-        String jsonValue = resultDataDto.getData();
-
-        //通过json字段解析，这里提供的数据源必须是数组形式
-        JSONArray jsonArray = JSONObject.parseArray(jsonValue);
-
-        String dataSourceField = dataFactoryRequestFieldBean.getDataSourceField();
-        //数组循环解析
-        if (dataSourceField.contains("\\.")) {
-
-        } else {
-            SecureRandom secureRandom = dataSourceFieldRequestBean.getRandom();
-            int index = secureRandom.nextInt(jsonArray.size());
-            JSONObject jsonObject = jsonArray.getJSONObject(index);
-            //
-            String fieldType = dataFactoryRequestFieldBean.getFieldTypeStr();
-            switch (fieldType) {
-                case "short":
-                    return jsonObject.getShortValue(dataSourceField);
-                case "Short":
-                    return jsonObject.getShort(dataSourceField);
-                case "int":
-                    return jsonObject.getIntValue(dataSourceField);
-                case "Integer":
-                    return jsonObject.getInteger(dataSourceField);
-                case "long":
-                    return jsonObject.getLongValue(dataSourceField);
-                case "Long":
-                    return jsonObject.getLong(dataSourceField);
-                case "String":
-                    return jsonObject.getString(dataSourceField);
-                case "list":
-                    break;
-                case "set":
-                    break;
-                case "map":
-                    break;
-                default:
-
-            }
-        }
-
-        return null;
     }
 
     @Override
@@ -168,7 +124,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @return
      */
     private String getPostValueString(DataFactoryRequestFieldBean factoryRequestFieldBean, Object randomValue) {
-        DataFactoryRequestFieldRuleBean2 dataFactoryRequestFieldRuleBean2 = factoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
+        DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean2 = factoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
         String value = randomValue.toString();
         //字符串型随机数据的后置处理
         if (factoryRequestFieldBean.getFieldTypeStr().equals("String")) {
