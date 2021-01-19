@@ -120,6 +120,9 @@ public class UserFunction implements Function<String> {
 
     @Override
     public String createOneData(String methodName, String... params) {
+        if(methodName.equals("tel")){
+            return tel();
+        }
         return null;
     }
 }

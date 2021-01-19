@@ -3,6 +3,8 @@ package com.coderman.tianhua.datafactory.api.controller;
 import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.bean.CglibConvertService;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -37,7 +42,7 @@ public class DataFactoryController extends BaseController {
      * @Description:根据数据源构建数据
      * @version v1.0
      */
-    @RequestMapping(value = "/data/factory/generate", method = RequestMethod.GET)
+    @RequestMapping(value = "/datafactory/generate", method = RequestMethod.GET)
     public ResultDataDto generate(@RequestBody DataSourceVO dataSourceVo) {
         return null;
     }
@@ -48,12 +53,32 @@ public class DataFactoryController extends BaseController {
      * @Description:根据数据源构建数据 适用于单表，或者单模块构建
      * @version v1.0
      */
-    @RequestMapping(value = "/data/factory/generate/simple", method = RequestMethod.GET)
+    @RequestMapping(value = "/datafactory/generate/simple", method = RequestMethod.POST)
     public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo) {
-        logger.info("dataFactoryRequestFieldVoList = {}", JSON.toJSONString(dataFactoryRequestVo));
+        logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
         try {
             DataFactoryRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataFactoryRequestBean.class, dataFactoryRequestVo);
+
+            List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList = new ArrayList<>();
+
+            dataFactoryRequestVo.getDataFactoryRequestFieldVoList().stream().forEach(dataFactoryRequestFieldVo -> {
+                try {
+                    DataFactoryRequestFieldBean dataFactoryRequestFieldBean = cglibConvertService.copyPropertity(DataFactoryRequestFieldBean.class, dataFactoryRequestFieldVo);
+                    if(dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo() != null){
+                        DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean = cglibConvertService.copyPropertity(DataFactoryRequestFieldRuleBean.class, dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo());
+                        dataFactoryRequestFieldBean.setDataFactoryRequestFieldRuleBean(dataFactoryRequestFieldRuleBean);
+                    }
+                    dataFactoryRequestFieldBeanList.add(dataFactoryRequestFieldBean);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+            dataFactoryRequestBean.setDataFactoryRequestFieldBeanList(dataFactoryRequestFieldBeanList);
+
             logger.info("dataFactoryRequestBean = {}", JSON.toJSONString(dataFactoryRequestVo));
             resultDataDto = dataFactoryService.generateSimple(dataFactoryRequestBean);
         } catch (Exception e) {

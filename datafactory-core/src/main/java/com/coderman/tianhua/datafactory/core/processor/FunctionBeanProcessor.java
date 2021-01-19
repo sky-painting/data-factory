@@ -45,7 +45,9 @@ public class FunctionBeanProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Method[] methods = null;
         DataSourceFunction annotation = bean.getClass().getAnnotation(DataSourceFunction.class);
-        dataSourceFunctionContext.putFunctionBean(annotation.dataSourceCode(), beanName);
+        if(annotation != null){
+            dataSourceFunctionContext.putFunctionBean(annotation.dataSourceCode(), beanName);
+        }
         try {
             //可能需要优化
             String classPath = map.get(beanName);

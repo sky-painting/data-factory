@@ -46,4 +46,9 @@ public class DataFactoryRequestFieldVo<T> {
      * map.value= 字段依赖方k-字段依赖方value（有多个字段kd依赖k的值）
      */
     private Map<String,List<String>> varDependencyMap;
+
+    /**
+     * 字段值生成规则
+     */
+    private DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo;
 }

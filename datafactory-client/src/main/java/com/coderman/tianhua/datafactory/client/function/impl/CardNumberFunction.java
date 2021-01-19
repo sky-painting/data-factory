@@ -16,7 +16,7 @@ import java.util.Random;
  * 参考
  */
 @Service(value = "cardNumberFunction")
-@DataSourceFunction(dataSourceCode = InnerDataSourceCode.BANK_CARD)
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.CARD_NUMBER)
 public class CardNumberFunction implements Function<String> {
 
     // 18位身份证号码各位的含义:
