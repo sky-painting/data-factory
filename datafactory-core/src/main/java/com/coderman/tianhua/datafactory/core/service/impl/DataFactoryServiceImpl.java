@@ -101,6 +101,10 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
 
             for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+                Object fieldValue = fieldValueMap.get(dataFactoryRequestFieldBean.getDataSourceCode());
+                if(fieldValue != null){
+                    continue;
+                }
                 dataSourceFieldRequestBean.setFunction(functionMap.get(dataFactoryRequestFieldBean.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataFactoryRequestFieldBean(dataFactoryRequestFieldBean);
@@ -108,7 +112,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
                 dataSourceFieldRequestBean.setVarDependencyMap(dataFactoryRequestFieldBean.getVarDependencyMap());
                 //获取随机字段值
                 Object object = getRandomValue(dataSourceFieldRequestBean);
-                //todo 依赖数据支持
                 fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceCode(), object);
             }
             batchResultList.add(fieldValueMap);
