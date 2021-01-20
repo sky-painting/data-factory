@@ -68,6 +68,17 @@ public class DataFactoryControllerTest {
 
         requestFieldVoList.add(dataFactoryRequestFieldVo3);
 
+
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo4 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo4.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo4.setFieldName("chineseName");
+        dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
+        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataFactoryRequestFieldRuleVo();
+        dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
+        dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo4);
+
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
 
         ResultDataDto resultDto = restTemplate.postForEntity("/datafactory/generate/simple",dataFactoryRequestVo, ResultDataDto.class).getBody();

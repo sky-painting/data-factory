@@ -3,7 +3,10 @@ package com.coderman.tianhua.datafactory.client.function.impl;
 
 import com.coderman.tianhua.datafactory.client.annotations.DataSourceFunction;
 import com.coderman.tianhua.datafactory.client.constants.InnerDataSourceCode;
+import com.coderman.tianhua.datafactory.client.enums.FileDataEnums;
 import com.coderman.tianhua.datafactory.client.function.Function;
+import com.coderman.tianhua.datafactory.client.service.FileDataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -11,6 +14,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -22,6 +26,9 @@ import java.util.Random;
  */
 @Service
 public class UserFunction implements Function<String> {
+
+    @Autowired
+    private FileDataService fileDataService;
     private static SecureRandom random = new SecureRandom();
 
     public static final String BASE_CHAR = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -113,6 +120,13 @@ public class UserFunction implements Function<String> {
         return Date.from(zonedDateTime.toInstant());
     }
 
+    @DataSourceFunction(dataSourceCode = InnerDataSourceCode.CHINESE_NAME)
+    private String chineseName(){
+        List<String> firstNameList = fileDataService.getFileDataList(FileDataEnums.FIRST_NAME.getFileName());
+        List<String> lastNameList = fileDataService.getFileDataList(FileDataEnums.LAST_NAME.getFileName());
+        return firstNameList.get(random.nextInt(firstNameList.size())) + lastNameList.get(random.nextInt(lastNameList.size()));
+    }
+
 
     private  int getNum(int start, int end) {
         return (int) (Math.random() * (end - start + 1) + start);
@@ -122,6 +136,8 @@ public class UserFunction implements Function<String> {
     public String createOneData(String methodName, String... params) {
         if(methodName.equals("tel")){
             return tel();
+        }else if(methodName.equals("chineseName")){
+            return chineseName();
         }
         return null;
     }

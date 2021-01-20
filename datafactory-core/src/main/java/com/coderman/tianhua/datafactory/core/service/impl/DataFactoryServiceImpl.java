@@ -101,7 +101,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
 
             for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
-                Object fieldValue = fieldValueMap.get(dataFactoryRequestFieldBean.getDataSourceCode());
+                Object fieldValue = fieldValueMap.get(dataFactoryRequestFieldBean.getFieldName());
                 if(fieldValue != null){
                     continue;
                 }
@@ -112,7 +112,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
                 dataSourceFieldRequestBean.setVarDependencyMap(dataFactoryRequestFieldBean.getVarDependencyMap());
                 //获取随机字段值
                 Object object = getRandomValue(dataSourceFieldRequestBean);
-                fieldValueMap.put(dataFactoryRequestFieldBean.getDataSourceCode(), object);
+                fieldValueMap.put(dataFactoryRequestFieldBean.getFieldName(), object);
             }
             batchResultList.add(fieldValueMap);
         }

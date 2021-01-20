@@ -32,7 +32,7 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
             int size = dataFactoryRequestFieldBean.getDefaultValueList().size();
             Object value = dataFactoryRequestFieldBean.getDefaultValueList().get(secureRandom.nextInt(size));
             Map<String, List<String>> varDependencyMap = dataSourceFieldRequestBean.getVarDependencyMap();
-            String key = dataFactoryRequestFieldBean.getDataSourceCode()+"-"+value.toString();
+            String key = dataFactoryRequestFieldBean.getFieldName()+"-"+value.toString();
             List<String> dependencyList = varDependencyMap.get(key);
             if(CollectionUtils.isNotEmpty(dependencyList)){
                 Map<String,List<String>>  kvDependencyMap = new HashMap<>();

@@ -47,10 +47,7 @@ public class ParseLastNameServiceImpl implements ParseService {
             for (String value : array){
                 String [] group = value.split(",");
                 for (String gStr : group){
-                    char [] c =  gStr.toCharArray();
-                    for (char cx : c){
-                        list.add(cx+"");
-                    }
+                    list.add(gStr);
                 }
             }
             cacheService.putCache(fileName,list);
