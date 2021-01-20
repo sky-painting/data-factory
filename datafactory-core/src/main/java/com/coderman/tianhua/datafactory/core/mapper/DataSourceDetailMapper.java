@@ -72,13 +72,12 @@ public interface DataSourceDetailMapper{
 	/**
 	 *
 	 * @Title: getBydataSourceId
-	 * @Description: 通过id查询
+	 * @Description: 通过dataSourceId查询
 	 * @author:
 	 * @param @param dataSourceId
 	 * @return ResultDataDto<DataSourceDetailEntity>    返回类型
 	 * @throws
 	 */
 	public DataSourceDetailEntity getByDataSourceId(Long dataSourceId);
-
 
 }

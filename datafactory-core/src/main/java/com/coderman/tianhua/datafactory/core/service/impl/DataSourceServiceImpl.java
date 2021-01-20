@@ -54,7 +54,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
 
 		if(dataSourceVo.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
