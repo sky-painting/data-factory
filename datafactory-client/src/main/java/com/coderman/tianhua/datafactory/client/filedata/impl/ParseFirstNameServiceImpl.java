@@ -6,6 +6,7 @@ import com.coderman.tianhua.datafactory.client.filedata.FileReadService;
 import com.coderman.tianhua.datafactory.client.filedata.ParseService;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -41,20 +42,24 @@ public class ParseFirstNameServiceImpl implements ParseService {
     public List<String> parseFileData() {
         String fileName = FileDataEnums.FIRST_NAME.getFileName();
         List<String> list = cacheService.getCache(fileName);
-        if(CollectionUtils.isEmpty(list)){
+        if (CollectionUtils.isEmpty(list)) {
             list = new ArrayList<>();
-            String content = fileReadService.getFileContent(fileName);
-            String [] array = content.split("\n");
-            for (String value : array){
-                String [] group = value.split(",");
-                for (String gStr : group){
-                    char [] c =  gStr.toCharArray();
-                    for (char cx : c){
-                        list.add(cx+"");
+            File dataFile = fileReadService.getDataFile(fileName);
+            if (dataFile == null) {
+                return null;
+            }
+            try {
+                List<String> fileDataList = FileUtils.readLines(dataFile, "UTF-8");
+                for (String str : fileDataList){
+                    String[] group = str.split(",");
+                    for (String gStr : group) {
+                        list.add(gStr);
                     }
                 }
+                cacheService.putCache(fileName, list);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            cacheService.putCache(fileName,list);
         }
         return list;
     }
