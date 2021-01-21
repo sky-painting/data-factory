@@ -140,8 +140,16 @@ public class DataFactoryControllerTest {
         dataFactoryRequestFieldVo5.setFieldTypeStr("Long");
         dataFactoryRequestFieldVo5.setFieldName("departmentId");
         dataFactoryRequestFieldVo5.setDataSourceCode("com.lightsnail.infosys.department");
-        dataFactoryRequestFieldVo5.setFieldName("id");
+        dataFactoryRequestFieldVo5.setDataSourceField("id");
         requestFieldVoList.add(dataFactoryRequestFieldVo5);
+
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo6 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo6.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo6.setFieldName("departmentName");
+        dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.department");
+        dataFactoryRequestFieldVo6.setDataSourceField("departName");
+        requestFieldVoList.add(dataFactoryRequestFieldVo6);
+
 
 
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
