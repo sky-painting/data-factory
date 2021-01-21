@@ -138,6 +138,9 @@ public class UserFunction implements Function<String> {
             return tel();
         }else if(methodName.equals("chineseName")){
             return chineseName();
+        }else if(methodName.equals("random")){
+            int length = Integer.parseInt(params[0]);
+            return random(length);
         }
         return null;
     }

@@ -90,7 +90,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
         for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
             String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
-            if (dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
+            if (StringUtils.isNotBlank(dataSourceCode) && dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
                 Function function = functionFactory.createFunction(dataSourceCode);
                 functionMap.put(dataSourceCode,function);
             }

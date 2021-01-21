@@ -21,6 +21,7 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
         if (dataFactoryRequestFieldRuleBean == null) {
             return function.createOneData(null, null);
         } else {
+            //todo 前缀值，后缀值处理
             return function.createOneData(dataFactoryRequestFieldRuleBean.getDepencyFunctionMethod(), dataFactoryRequestFieldRuleBean.getDepencyFunctionMethodParam());
         }
     }

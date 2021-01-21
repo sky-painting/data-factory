@@ -144,13 +144,44 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo5);
 
         DataFactoryRequestFieldVo dataFactoryRequestFieldVo6 = new DataFactoryRequestFieldVo();
-        dataFactoryRequestFieldVo6.setFieldTypeStr("String");
-        dataFactoryRequestFieldVo6.setFieldName("departmentName");
-        dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.department");
-        dataFactoryRequestFieldVo6.setDataSourceField("departName");
+        dataFactoryRequestFieldVo6.setFieldTypeStr("int");
+        dataFactoryRequestFieldVo6.setFieldName("staffType");
+        dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.staffType");
+        dataFactoryRequestFieldVo6.setDataSourceField("code");
         requestFieldVoList.add(dataFactoryRequestFieldVo6);
 
 
+        //自定义默认值列表
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo7 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo7.setFieldTypeStr("int");
+        dataFactoryRequestFieldVo7.setFieldName("age");
+        //dataFactoryRequestFieldVo7.setDataSourceCode("com.lightsnail.infosys.staffType");
+        List<Integer> list = new ArrayList<>();
+        list.add(20);
+        list.add(22);
+        list.add(26);
+        list.add(20);
+        list.add(29);
+        list.add(33);
+        list.add(25);
+
+
+        //随机数模拟薪资
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo8 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo8.setFieldTypeStr("Integer");
+        dataFactoryRequestFieldVo8.setFieldName("sellary");
+        dataFactoryRequestFieldVo8.setDataSourceCode("com.datafactory.user.getRandom");
+        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataFactoryRequestFieldRuleVo();
+        //设置请求函数
+        dataFactoryRequestFieldRuleVo3.setDepencyFunctionMethod("random");
+        String [] paramArr = new String[1];
+        paramArr[0] = "3";
+        dataFactoryRequestFieldRuleVo3.setDepencyFunctionMethodParam(paramArr);
+        //值带默认后缀
+        dataFactoryRequestFieldRuleVo3.setSubfixStr("00");
+        dataFactoryRequestFieldVo8.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo3);
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo8);
 
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
 
