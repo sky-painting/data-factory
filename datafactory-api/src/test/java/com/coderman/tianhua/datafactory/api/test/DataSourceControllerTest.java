@@ -3,6 +3,7 @@ package com.coderman.tianhua.datafactory.api.test;
 import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.Application;
 import com.coderman.tianhua.datafactory.api.test.dto.DepartmentDTO;
+import com.coderman.tianhua.datafactory.api.test.dto.StaffType;
 import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
 import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
@@ -93,6 +94,31 @@ public class DataSourceControllerTest {
         logger.info("resultDto = "+JSON.toJSONString(resultDto));
     }
 
+
+    @Test
+    public void testRegistStaffType(){
+        DataSourceVO dataSourceVO = new DataSourceVO();
+        dataSourceVO.setCreateTime(new Date());
+        dataSourceVO.setCreateUserId(1L);
+        dataSourceVO.setUpdateUserId(1L);
+        dataSourceVO.setUpdateTime(new Date());
+        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_CUSTOM.getCode());
+        dataSourceVO.setStatus(0);
+        dataSourceVO.setToken("");
+        dataSourceVO.setSourceName("虚拟员工类型枚举数据");
+        dataSourceVO.setUrl("");
+        dataSourceVO.setVisitStrategy(VisitStrategyEnums.LOCAL_CACHE.getCode());
+        dataSourceVO.setProviderSrc("自定义注册");
+        dataSourceVO.setSourceCode("com.lightsnail.infosys.staffType");
+        dataSourceVO.setDataContentJson(JSON.toJSONString(getStaffTypeList()));
+        ResultDto resultDto = restTemplate.postForEntity("/data/source/regist",dataSourceVO, ResultDto.class).getBody();
+        logger.info("resultDto = "+JSON.toJSONString(resultDto));
+    }
+
+    /**
+     * 构建部门数据
+     * @return
+     */
     public List<DepartmentDTO> getDepartmentDTO(){
         List<DepartmentDTO> departmentDTOList = new ArrayList<>();
         DepartmentDTO departmentDTO = new DepartmentDTO();
@@ -140,6 +166,34 @@ public class DataSourceControllerTest {
         return departmentDTOList;
     }
 
+    /**
+     * 构建员工类型数据
+     * @return
+     */
+    public List<StaffType> getStaffTypeList(){
+        List<StaffType> staffTypeList = new ArrayList<>();
+        StaffType staffType = new StaffType();
+        staffType.setCode(1);
+        staffType.setName("正式员工");
+        staffTypeList.add(staffType);
+
+        StaffType staffType2 = new StaffType();
+        staffType2.setCode(2);
+        staffType2.setName("非正式员工-实习生");
+        staffTypeList.add(staffType2);
+
+        StaffType staffType3 = new StaffType();
+        staffType3.setCode(3);
+        staffType3.setName("非正式员工-外包");
+        staffTypeList.add(staffType3);
+
+        StaffType staffType4 = new StaffType();
+        staffType4.setCode(4);
+        staffType4.setName("非正式员工-顾问");
+        staffTypeList.add(staffType4);
+        return staffTypeList;
+
+    }
 
 
 

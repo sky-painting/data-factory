@@ -73,10 +73,10 @@ public class DataSourceServiceImpl implements DataSourceService {
         	//存储--枚举类型
 			if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
 					|| dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode() ){
-				int id = dataSourceMapper.insert(dataSourceEntity);
+				dataSourceMapper.insert(dataSourceEntity);
 				DataSourceDetailEntity dataSourceDetailEntity = new DataSourceDetailEntity();
 				dataSourceDetailEntity.setDataContentJson(dataSourceVo.getDataContentJson());
-				dataSourceDetailEntity.setDataSourceId((long)id);
+				dataSourceDetailEntity.setDataSourceId(dataSourceEntity.getId());
 				dataSourceDetailMapper.insert(dataSourceDetailEntity);
 				return resultDto;
 			}

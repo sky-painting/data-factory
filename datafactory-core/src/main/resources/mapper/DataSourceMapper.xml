@@ -27,7 +27,7 @@
         id,source_name,source_code,source_type,provider_src,token,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id
     </sql>
 
-    <insert   id="insert"    parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity"  keyColumn="id" useGeneratedKeys="true">
+    <insert   id="insert" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceEntity"  keyColumn="id" useGeneratedKeys="true" keyProperty="id">
         insert into data_source(
         source_name , source_code, source_type,provider_src,token,url,status,visit_strategy,create_time,update_time,create_user_id,update_user_id)
         values (#{sourceName},#{sourceCode},#{sourceType},#{providerSrc},#{token},#{url},#{status},#{visitStrategy},#{createTime},#{updateTime},#{createUserId},#{updateUserId})

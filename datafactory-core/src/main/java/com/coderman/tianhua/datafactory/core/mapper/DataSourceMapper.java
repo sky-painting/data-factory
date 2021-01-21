@@ -24,7 +24,7 @@ public interface DataSourceMapper{
 	 * @return int
 	 * @throws
 	 */
-	public int insert(DataSourceEntity dataSourceEntity);
+	public long insert(DataSourceEntity dataSourceEntity);
 
 	/**
 	 * 
