@@ -180,8 +180,24 @@ public class DataFactoryControllerTest {
         //值带默认后缀
         dataFactoryRequestFieldRuleVo3.setSubfixStr("00");
         dataFactoryRequestFieldVo8.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo3);
-
         requestFieldVoList.add(dataFactoryRequestFieldVo8);
+
+
+        //随机数模拟工号
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo9 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo9.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo9.setFieldName("staffCode");
+        dataFactoryRequestFieldVo9.setDataSourceCode("com.datafactory.user.getRandom");
+        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataFactoryRequestFieldRuleVo();
+        //设置请求函数
+        dataFactoryRequestFieldRuleVo4.setDepencyFunctionMethod("random");
+        paramArr[0] = "4";
+        dataFactoryRequestFieldRuleVo4.setDepencyFunctionMethodParam(paramArr);
+        //值带默认后缀
+        dataFactoryRequestFieldRuleVo4.setPrefixStr("TX");
+        dataFactoryRequestFieldVo9.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo4);
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo9);
 
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
 

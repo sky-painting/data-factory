@@ -4,6 +4,8 @@ import com.coderman.tianhua.datafactory.client.function.Function;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
+import com.coderman.tianhua.datafactory.core.service.DataValueHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service(value = "dataGenerateFunctionServiceImpl")
 public class DataGenerateFunctionServiceImpl implements DataGenerateService {
+
+    @Autowired
+    private DataValueHandler dataValueHandler;
+
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
         Function function = dataSourceFieldRequestBean.getFunction();
@@ -21,8 +27,8 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
         if (dataFactoryRequestFieldRuleBean == null) {
             return function.createOneData(null, null);
         } else {
-            //todo 前缀值，后缀值处理
-            return function.createOneData(dataFactoryRequestFieldRuleBean.getDepencyFunctionMethod(), dataFactoryRequestFieldRuleBean.getDepencyFunctionMethodParam());
+            Object value = function.createOneData(dataFactoryRequestFieldRuleBean.getDepencyFunctionMethod(), dataFactoryRequestFieldRuleBean.getDepencyFunctionMethodParam());
+            return dataValueHandler.handleValue(value,dataFactoryRequestFieldRuleBean);
         }
     }
 }

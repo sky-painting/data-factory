@@ -3,9 +3,11 @@ package com.coderman.tianhua.datafactory.core.service.impl;
 import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
+import com.coderman.tianhua.datafactory.core.service.DataValueHandler;
 import com.coderman.utils.kvpair.KVPair;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 @Service(value = "dataGenerateDefaultServiceImpl")
 public class DataGenerateDefaultServiceImpl implements DataGenerateService {
     private static SecureRandom secureRandom = new SecureRandom();
+    @Autowired
+    private DataValueHandler dataValueHandler;
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
         DataFactoryRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
@@ -33,7 +37,7 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
             Object value = dataFactoryRequestFieldBean.getDefaultValueList().get(secureRandom.nextInt(size));
             Map<String, List<String>> varDependencyMap = dataSourceFieldRequestBean.getVarDependencyMap();
             if(varDependencyMap == null || varDependencyMap.isEmpty()){
-                return value;
+                return dataValueHandler.handleValue(value,dataFactoryRequestFieldBean.getDataFactoryRequestFieldRuleBean());
             }
             String key = dataFactoryRequestFieldBean.getFieldName()+"-"+value.toString();
             List<String> dependencyList = varDependencyMap.get(key);
