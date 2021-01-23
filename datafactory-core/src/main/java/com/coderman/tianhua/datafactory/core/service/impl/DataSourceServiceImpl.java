@@ -30,18 +30,18 @@ import java.util.List;
 
 
 /**
+ * @version v1.0
  * @Description:数据源管理表Service接口实现类
  * @Author：fanchunshuai
  * @CreateTime：2020-12-02 23:07:13
- * @version v1.0
  */
 @Service
 @Slf4j
 public class DataSourceServiceImpl implements DataSourceService {
 
 
-	@Resource
-	private DataSourceMapper dataSourceMapper;
+    @Resource
+    private DataSourceMapper dataSourceMapper;
 
     @Autowired
     private CglibConvertService cglibConvertService;
@@ -50,133 +50,133 @@ public class DataSourceServiceImpl implements DataSourceService {
     private DataSourceDetailMapper dataSourceDetailMapper;
 
     @Autowired
-	private ConfigServiceWrapper configServiceWrapper;
+    private ConfigServiceWrapper configServiceWrapper;
 
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public ResultDto save(DataSourceVO dataSourceVo)  throws Exception{
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultDto save(DataSourceVO dataSourceVo) throws Exception {
 
-		if(dataSourceVo.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
-			dataSourceVo.setSourceCode(dataSourceVo.getDataId()+"."+dataSourceVo.getGroupId());
-		}
-		//check
-		DataSourceEntity oldEntity = dataSourceMapper.getBySourceCode(dataSourceVo.getSourceCode());
-		if(oldEntity != null){
-			return ResultDto.setParamErrorMsg("sourceCode重复!");
-		}
+        if (dataSourceVo.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
+            dataSourceVo.setSourceCode(dataSourceVo.getDataId() + "." + dataSourceVo.getGroupId());
+        }
+        //check
+        DataSourceEntity oldEntity = dataSourceMapper.getBySourceCode(dataSourceVo.getSourceCode());
+        if (oldEntity != null) {
+            return ResultDto.setParamErrorMsg("sourceCode重复!");
+        }
 
-		ResultDto resultDto = new ResultDto();
-        DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
+        ResultDto resultDto = new ResultDto();
+        DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class, dataSourceVo);
         //本地缓存
-        if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
-        	//存储--枚举类型
-			if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
-					|| dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode() ){
-				dataSourceMapper.insert(dataSourceEntity);
-				DataSourceDetailEntity dataSourceDetailEntity = new DataSourceDetailEntity();
-				dataSourceDetailEntity.setDataContentJson(dataSourceVo.getDataContentJson());
-				dataSourceDetailEntity.setDataSourceId(dataSourceEntity.getId());
-				dataSourceDetailMapper.insert(dataSourceDetailEntity);
-				return resultDto;
-			}
-		}
+        if (dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()) {
+            //存储--枚举类型
+            if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
+                    || dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode()) {
+                dataSourceMapper.insert(dataSourceEntity);
+                DataSourceDetailEntity dataSourceDetailEntity = new DataSourceDetailEntity();
+                dataSourceDetailEntity.setDataContentJson(dataSourceVo.getDataContentJson());
+                dataSourceDetailEntity.setDataSourceId(dataSourceEntity.getId());
+                dataSourceDetailMapper.insert(dataSourceDetailEntity);
+                return resultDto;
+            }
+        }
 
-        if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
-			dataSourceMapper.insert(dataSourceEntity);
-		}
-		return resultDto;
-	}
-	
-	@Override
-	public ResultDto delete(Long id) {
-		ResultDto resultDto = new ResultDto();
-		log.info("dataSourceService.delete,id="+id);
-       dataSourceMapper.deleteById(id);
-		return resultDto;
-	}
-	
-	@Override
-	public ResultDataDto<DataSourceVO> getById(Long id)  throws Exception {
-		ResultDataDto<DataSourceVO> resultDataDto = new ResultDataDto<DataSourceVO>();
-		DataSourceEntity dataSourceEntity = dataSourceMapper.getById(id);
-		if(dataSourceEntity == null){
-			return resultDataDto.setInvokeErrorMsg("查询数据为空！");
-		}
-		DataSourceVO dataSourceVo = cglibConvertService.copyPropertity(DataSourceVO.class,dataSourceEntity);
-		if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
-			//存储--枚举类型
-			if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
-					|| dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode() ) {
-				DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
-				dataSourceVo.setDataContentJson(dataSourceDetailEntity.getDataContentJson());
-			}
-		}
+        if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
+            dataSourceMapper.insert(dataSourceEntity);
+        }
+        return resultDto;
+    }
 
-		if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
-			String sourceCode = dataSourceEntity.getSourceCode();
-			String groupId = sourceCode.substring(sourceCode.lastIndexOf(".")+1);
-			String dataId = sourceCode.substring(0,sourceCode.lastIndexOf("."));
-			//todo 自动适配解析k,v
-			String content = configServiceWrapper.getConfig(dataId,groupId);
-			dataSourceVo.setDataContentJson(content);
-		}
+    @Override
+    public ResultDto delete(Long id) {
+        ResultDto resultDto = new ResultDto();
+        log.info("dataSourceService.delete,id=" + id);
+        dataSourceMapper.deleteById(id);
+        return resultDto;
+    }
 
-		resultDataDto.setData(dataSourceVo);
-		return resultDataDto;
-	}
-	
-	@Override
-	public ResultDataDto<List<DataSourceVO>> getAll()  throws Exception {
-		ResultDataDto<List<DataSourceVO>> resultDataDto = new ResultDataDto<List<DataSourceVO>>();
-		//todo impl code
-		return	resultDataDto;
-	}
+    @Override
+    public ResultDataDto<DataSourceVO> getById(Long id) throws Exception {
+        ResultDataDto<DataSourceVO> resultDataDto = new ResultDataDto<DataSourceVO>();
+        DataSourceEntity dataSourceEntity = dataSourceMapper.getById(id);
+        if (dataSourceEntity == null) {
+            return resultDataDto.setInvokeErrorMsg("查询数据为空！");
+        }
+        DataSourceVO dataSourceVo = cglibConvertService.copyPropertity(DataSourceVO.class, dataSourceEntity);
+        if (dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()) {
+            //存储--枚举类型
+            if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_ENUM.getCode()
+                    || dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_CUSTOM.getCode()) {
+                DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
+                dataSourceVo.setDataContentJson(dataSourceDetailEntity.getDataContentJson());
+            }
+        }
 
-	@Override
-	public ResultDto update(DataSourceVO dataSourceVo)  throws Exception {
-		ResultDto resultDto = new ResultDto();
-		DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class,dataSourceVo);
-		dataSourceMapper.update(dataSourceEntity);
-		return resultDto;
-	}
+        if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
+            String sourceCode = dataSourceEntity.getSourceCode();
+            String groupId = sourceCode.substring(sourceCode.lastIndexOf(".") + 1);
+            String dataId = sourceCode.substring(0, sourceCode.lastIndexOf("."));
+            //todo 自动适配解析k,v
+            String content = configServiceWrapper.getConfig(dataId, groupId);
+            dataSourceVo.setDataContentJson(content);
+        }
 
-	@Override
-	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
+        resultDataDto.setData(dataSourceVo);
+        return resultDataDto;
+    }
 
-		DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
-		if(dataSourceEntity == null){
-			return ResultDataDto.setNullErrorMsg("查询数据为空!");
-		}
+    @Override
+    public ResultDataDto<List<DataSourceVO>> getAll() throws Exception {
+        ResultDataDto<List<DataSourceVO>> resultDataDto = new ResultDataDto<List<DataSourceVO>>();
+        //todo impl code
+        return resultDataDto;
+    }
 
-		//本地持久化
-		if(dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()){
-			DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
-			if(dataSourceDetailEntity == null || StringUtils.isEmpty(dataSourceDetailEntity.getDataContentJson())){
-				return ResultDataDto.setNullErrorMsg("查询数据为空!");
-			}
-			ResultDataDto resultDataDto = new ResultDataDto();
-			return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
-		}
-		//todo 远程动态获取---springboot http协议优先支持 dubbo泛化调用支持tcp协议
-		//这里配置的数据源默认时全量，如果需要参数则需要DataFactoryRequestFieldRuleBean2定义远程访问接口的参数和value进行动态获取，暂时先不支持
-		//这里先支持全量数据的动态获取，默认进行缓存
+    @Override
+    public ResultDto update(DataSourceVO dataSourceVo) throws Exception {
+        ResultDto resultDto = new ResultDto();
+        DataSourceEntity dataSourceEntity = cglibConvertService.copyPropertity(DataSourceEntity.class, dataSourceVo);
+        dataSourceMapper.update(dataSourceEntity);
+        return resultDto;
+    }
 
-		//todo 2.service api对接
-		else {
-			//nacos数据源
-			if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()){
-				String groupId = dataSourceCode.substring(dataSourceCode.lastIndexOf(".")+1);
-				String dataId = dataSourceCode.substring(0,dataSourceCode.lastIndexOf("."));
-				List<KVPair<String,String>> list = configServiceWrapper.getConfigList(groupId,dataId);
-				ResultDataDto resultDataDto = new ResultDataDto();
-				return resultDataDto.setData(JSON.toJSONString(list));
-			}else  if(dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()){
+    @Override
+    public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
 
-			}
-		}
+        DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
+        if (dataSourceEntity == null) {
+            return ResultDataDto.setNullErrorMsg("查询数据为空!");
+        }
 
-		return ResultDataDto.setNullErrorMsg("查询数据为空!");
-	}
+        //本地持久化
+        if (dataSourceEntity.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()) {
+            DataSourceDetailEntity dataSourceDetailEntity = dataSourceDetailMapper.getByDataSourceId(dataSourceEntity.getId());
+            if (dataSourceDetailEntity == null || StringUtils.isEmpty(dataSourceDetailEntity.getDataContentJson())) {
+                return ResultDataDto.setNullErrorMsg("查询数据为空!");
+            }
+            ResultDataDto resultDataDto = new ResultDataDto();
+            return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
+        }
+        //todo 远程动态获取---springboot http协议优先支持 dubbo泛化调用支持tcp协议
+        //这里配置的数据源默认时全量，如果需要参数则需要DataFactoryRequestFieldRuleBean2定义远程访问接口的参数和value进行动态获取，暂时先不支持
+        //这里先支持全量数据的动态获取，默认进行缓存
+
+        //todo 2.service api对接
+        else {
+            //nacos数据源
+            if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
+                String groupId = dataSourceCode.substring(dataSourceCode.lastIndexOf(".") + 1);
+                String dataId = dataSourceCode.substring(0, dataSourceCode.lastIndexOf("."));
+                List<KVPair<String, String>> list = configServiceWrapper.getConfigList(dataId, groupId);
+                ResultDataDto resultDataDto = new ResultDataDto();
+                return resultDataDto.setData(JSON.toJSONString(list));
+            } else if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()) {
+
+            }
+        }
+
+        return ResultDataDto.setNullErrorMsg("查询数据为空!");
+    }
 
 }

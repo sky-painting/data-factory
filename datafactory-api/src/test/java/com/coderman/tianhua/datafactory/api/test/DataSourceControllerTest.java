@@ -102,14 +102,17 @@ public class DataSourceControllerTest {
         dataSourceVO.setCreateUserId(1L);
         dataSourceVO.setUpdateUserId(1L);
         dataSourceVO.setUpdateTime(new Date());
-        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_CUSTOM.getCode());
+        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_NACOS.getCode());
         dataSourceVO.setStatus(0);
         dataSourceVO.setToken("");
-        dataSourceVO.setSourceName("虚拟员工类型枚举数据");
+        dataSourceVO.setSourceName("省份数据");
         dataSourceVO.setUrl("");
-        dataSourceVO.setVisitStrategy(VisitStrategyEnums.LOCAL_CACHE.getCode());
+        dataSourceVO.setVisitStrategy(VisitStrategyEnums.DYNAMIC_ACCESS.getCode());
         dataSourceVO.setProviderSrc("自定义注册");
-        dataSourceVO.setSourceCode("com.lightsnail.infosys.staffType");
+        dataSourceVO.setSourceCode("com.lightsnail.app.dict.common.province_group");
+        dataSourceVO.setDataId("com.lightsnail.app.dict.common");
+        dataSourceVO.setGroupId("province_group");
+
         dataSourceVO.setDataContentJson(JSON.toJSONString(getStaffTypeList()));
         ResultDto resultDto = restTemplate.postForEntity("/data/source/regist",dataSourceVO, ResultDto.class).getBody();
         logger.info("resultDto = "+JSON.toJSONString(resultDto));

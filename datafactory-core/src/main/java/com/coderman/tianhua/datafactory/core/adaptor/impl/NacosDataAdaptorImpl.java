@@ -46,7 +46,7 @@ public class NacosDataAdaptorImpl implements NacosDataAdaptor {
         //默认去掉第一行数据
         for (int i = 1; i < array.length; i++) {
             String[] kvArr = array[i].replace(" ", "").replace("\r", "").split(",");
-            kvPairList.add(KVPair.build(kvArr[1], kvArr[0]));
+            kvPairList.add(KVPair.build(kvArr[0], kvArr[1]));
         }
         return kvPairList;
     }
