@@ -117,7 +117,6 @@ public class DataSourceServiceImpl implements DataSourceService {
             String sourceCode = dataSourceEntity.getSourceCode();
             String groupId = sourceCode.substring(sourceCode.lastIndexOf(".") + 1);
             String dataId = sourceCode.substring(0, sourceCode.lastIndexOf("."));
-            //todo 自动适配解析k,v
             String content = configServiceWrapper.getConfig(dataId, groupId);
             dataSourceVo.setDataContentJson(content);
         }
@@ -144,6 +143,7 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Override
     public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
 
+        //todo 全局加缓存
         DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
         if (dataSourceEntity == null) {
             return ResultDataDto.setNullErrorMsg("查询数据为空!");
@@ -159,7 +159,8 @@ public class DataSourceServiceImpl implements DataSourceService {
             return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
         }
         //todo 远程动态获取---springboot http协议优先支持 dubbo泛化调用支持tcp协议
-        //这里配置的数据源默认时全量，如果需要参数则需要DataFactoryRequestFieldRuleBean2定义远程访问接口的参数和value进行动态获取，暂时先不支持
+        //这里配置的数据源默认时全量，如果需要参数则需要DataFactoryRequestFieldRuleBean2定义远程访问接口的参数和value进行动态获取，
+        // 暂时先不支持
         //这里先支持全量数据的动态获取，默认进行缓存
 
         //todo 2.service api对接

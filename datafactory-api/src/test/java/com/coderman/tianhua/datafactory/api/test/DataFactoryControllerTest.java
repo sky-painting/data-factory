@@ -328,8 +328,13 @@ public class DataFactoryControllerTest {
 
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
 
+        long startTime = System.currentTimeMillis();
+
         ResultDataDto resultDto = restTemplate.postForEntity("/datafactory/generate/simple",dataFactoryRequestVo, ResultDataDto.class).getBody();
+        long endTime = System.currentTimeMillis();
+        System.out.println("useTime = "+(endTime - startTime)+"ms");
         System.out.println(JSON.toJSONString(resultDto));
+
     }
 
 
