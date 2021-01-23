@@ -227,6 +227,7 @@ public class DataFactoryControllerTest {
         dataFactoryRequestFieldVo.setFieldTypeStr("String");
         requestFieldVoList.add(dataFactoryRequestFieldVo);
 
+
         DataFactoryRequestFieldVo dataFactoryRequestFieldVo2 = new DataFactoryRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
         dataFactoryRequestFieldVo2.setFieldName("telphone");
