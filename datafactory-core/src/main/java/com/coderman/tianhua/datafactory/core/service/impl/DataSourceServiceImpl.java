@@ -19,6 +19,8 @@ import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
 import com.coderman.tianhua.datafactory.core.mapper.DataSourceMapper;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -52,6 +55,14 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Autowired
     private ConfigServiceWrapper configServiceWrapper;
 
+    /**
+     * 初始化缓存，key:datasource
+     * value:对应的数据内容，json字符串
+     */
+    private static final Cache<String, String> dataSourceCache = Caffeine.newBuilder()
+            .expireAfterWrite(15, TimeUnit.SECONDS)
+            .maximumSize(10_000)
+            .build();
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -142,8 +153,13 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
+        ResultDataDto resultDataDto = new ResultDataDto();
 
-        //todo 全局加缓存
+        String dataContent = dataSourceCache.getIfPresent(dataSourceCode);
+        if(StringUtils.isNotBlank(dataContent)){
+            resultDataDto.setData(dataContent);
+            return resultDataDto;
+        }
         DataSourceEntity dataSourceEntity = dataSourceMapper.getBySourceCode(dataSourceCode);
         if (dataSourceEntity == null) {
             return ResultDataDto.setNullErrorMsg("查询数据为空!");
@@ -155,7 +171,7 @@ public class DataSourceServiceImpl implements DataSourceService {
             if (dataSourceDetailEntity == null || StringUtils.isEmpty(dataSourceDetailEntity.getDataContentJson())) {
                 return ResultDataDto.setNullErrorMsg("查询数据为空!");
             }
-            ResultDataDto resultDataDto = new ResultDataDto();
+            dataSourceCache.put(dataSourceCode,dataSourceDetailEntity.getDataContentJson());
             return resultDataDto.setData(dataSourceDetailEntity.getDataContentJson());
         }
         //todo 远程动态获取---springboot http协议优先支持 dubbo泛化调用支持tcp协议
@@ -170,7 +186,7 @@ public class DataSourceServiceImpl implements DataSourceService {
                 String groupId = dataSourceCode.substring(dataSourceCode.lastIndexOf(".") + 1);
                 String dataId = dataSourceCode.substring(0, dataSourceCode.lastIndexOf("."));
                 List<KVPair<String, String>> list = configServiceWrapper.getConfigList(dataId, groupId);
-                ResultDataDto resultDataDto = new ResultDataDto();
+                dataSourceCache.put(dataSourceCode,JSON.toJSONString(list));
                 return resultDataDto.setData(JSON.toJSONString(list));
             } else if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()) {
 
