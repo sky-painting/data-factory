@@ -2,9 +2,9 @@ package com.coderman.tianhua.datafactory.api.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.bean.CglibConvertService;
@@ -58,15 +58,15 @@ public class DataFactoryController extends BaseController {
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
         try {
-            DataFactoryRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataFactoryRequestBean.class, dataFactoryRequestVo);
+            DataBuildRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataBuildRequestBean.class, dataFactoryRequestVo);
 
-            List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList = new ArrayList<>();
+            List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = new ArrayList<>();
 
             dataFactoryRequestVo.getDataFactoryRequestFieldVoList().stream().forEach(dataFactoryRequestFieldVo -> {
                 try {
-                    DataFactoryRequestFieldBean dataFactoryRequestFieldBean = cglibConvertService.copyPropertity(DataFactoryRequestFieldBean.class, dataFactoryRequestFieldVo);
+                    DataBuildRequestFieldBean dataFactoryRequestFieldBean = cglibConvertService.copyPropertity(DataBuildRequestFieldBean.class, dataFactoryRequestFieldVo);
                     if(dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo() != null){
-                        DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean = cglibConvertService.copyPropertity(DataFactoryRequestFieldRuleBean.class, dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo());
+                        DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean = cglibConvertService.copyPropertity(DataBuildRequestFieldRuleBean.class, dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo());
                         dataFactoryRequestFieldBean.setDataFactoryRequestFieldRuleBean(dataFactoryRequestFieldRuleBean);
                     }
                     dataFactoryRequestFieldBeanList.add(dataFactoryRequestFieldBean);

@@ -1,6 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service;
 
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class DataValueHandler {
      * @param dataFactoryRequestFieldRuleBean
      * @return
      */
-    public Object handleValue(Object o, DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean){
+    public Object handleValue(Object o, DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean){
         String value = o.toString();
         if(dataFactoryRequestFieldRuleBean == null){
             return value;

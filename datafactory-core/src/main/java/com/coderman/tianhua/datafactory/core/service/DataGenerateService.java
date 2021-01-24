@@ -1,6 +1,5 @@
 package com.coderman.tianhua.datafactory.core.service;
 
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 
 /**

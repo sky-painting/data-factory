@@ -1,13 +1,10 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.coderman.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.coderman.tianhua.datafactory.client.function.Function;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
 
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.functionfactory.FunctionFactory;
@@ -62,7 +59,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @throws Exception
      */
     private Object getRandomValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
-        DataFactoryRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
 
         String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
         //从默认值中获取数据
@@ -80,15 +77,15 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     }
 
     @Override
-    public ResultDataDto generateSimple(DataFactoryRequestBean dataFactoryRequestBean) throws Exception {
+    public ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
         randomThreadLocal.set(new SecureRandom());
-        List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
+        List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
         List<Map<String, Object>> batchResultList = new ArrayList<>(dataFactoryRequestBean.getGenerateCount() * 2);
         ResultDataDto resultDataDto = new ResultDataDto();
 
         Map<String, Function> functionMap = new HashMap<>();
 
-        for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+        for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
             String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
             if (StringUtils.isNotBlank(dataSourceCode) && dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
                 Function function = functionFactory.createFunction(dataSourceCode);
@@ -100,7 +97,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
 
-            for (DataFactoryRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+            for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
                 Object fieldValue = fieldValueMap.get(dataFactoryRequestFieldBean.getFieldName());
                 if(fieldValue != null){
                     continue;
@@ -127,8 +124,8 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @param randomValue
      * @return
      */
-    private String getPostValueString(DataFactoryRequestFieldBean factoryRequestFieldBean, Object randomValue) {
-        DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean2 = factoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
+    private String getPostValueString(DataBuildRequestFieldBean factoryRequestFieldBean, Object randomValue) {
+        DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean2 = factoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
         String value = randomValue.toString();
         //字符串型随机数据的后置处理
         if (factoryRequestFieldBean.getFieldTypeStr().equals("String")) {

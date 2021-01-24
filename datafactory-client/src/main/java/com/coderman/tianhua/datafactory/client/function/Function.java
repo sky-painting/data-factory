@@ -1,7 +1,7 @@
 package com.coderman.tianhua.datafactory.client.function;
 
 /**
- * description: Function <br>
+ * description: Function 生成随机数据的函数接口
  * date: 2020/12/28 23:38 <br>
  * author: coderman <br>
  * version: 1.0 <br>

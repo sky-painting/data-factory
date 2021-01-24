@@ -21,7 +21,7 @@ public class DataSourceFieldRequestBean {
     /**
      * 当前请求的字段
      */
-    private DataFactoryRequestFieldBean dataFactoryRequestFieldBean;
+    private DataBuildRequestFieldBean dataFactoryRequestFieldBean;
     /**
      * 随机数对象
      */

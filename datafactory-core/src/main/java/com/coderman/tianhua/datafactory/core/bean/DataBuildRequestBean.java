@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class DataFactoryRequestBean {
+public class DataBuildRequestBean {
     /**
      * 项目名称--中文
      */
@@ -51,7 +51,7 @@ public class DataFactoryRequestBean {
     /**
      * 模块变量
      */
-    private List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList;
+    private List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList;
 
     /**
      * 是否持久化数据构建请求以复用

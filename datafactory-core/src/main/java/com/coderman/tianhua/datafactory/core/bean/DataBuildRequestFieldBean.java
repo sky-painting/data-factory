@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class DataFactoryRequestFieldBean<T> {
+public class DataBuildRequestFieldBean<T> {
     /**
      * 字段名
      */
@@ -64,6 +64,6 @@ public class DataFactoryRequestFieldBean<T> {
     /**
      * 字段值生成规则
      */
-    private DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
+    private DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
 
 }

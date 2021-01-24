@@ -3,7 +3,7 @@ package com.coderman.tianhua.datafactory.core.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
@@ -46,7 +46,7 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 
         //通过json字段解析，这里提供的数据源必须是数组形式
         JSONArray jsonArray = JSONObject.parseArray(jsonValue);
-        DataFactoryRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
         String dataSourceField = dataFactoryRequestFieldBean.getDataSourceField();
         //数组循环解析
         if (dataSourceField.contains("\\.")) {

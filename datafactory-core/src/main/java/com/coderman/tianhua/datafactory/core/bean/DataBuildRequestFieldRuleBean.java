@@ -13,7 +13,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class DataFactoryRequestFieldRuleBean {
+public class DataBuildRequestFieldRuleBean {
     /**
      * 值前缀--适用于str类型
      */

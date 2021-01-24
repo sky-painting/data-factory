@@ -1,7 +1,7 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.coderman.tianhua.datafactory.client.function.Function;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataValueHandler;
@@ -23,7 +23,7 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
         Function function = dataSourceFieldRequestBean.getFunction();
-        DataFactoryRequestFieldRuleBean dataFactoryRequestFieldRuleBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataFactoryRequestFieldRuleBean();
+        DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataFactoryRequestFieldRuleBean();
         if (dataFactoryRequestFieldRuleBean == null) {
             return function.createOneData(null, null);
         } else {

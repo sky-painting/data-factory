@@ -1,12 +1,10 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataValueHandler;
-import com.coderman.utils.kvpair.KVPair;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * description: DataGenerateDefaultServiceImpl <br>
@@ -30,7 +27,7 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
     private DataValueHandler dataValueHandler;
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
-        DataFactoryRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
 
         if (CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
             int size = dataFactoryRequestFieldBean.getDefaultValueList().size();

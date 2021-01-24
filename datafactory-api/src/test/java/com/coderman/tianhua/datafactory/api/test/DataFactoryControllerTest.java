@@ -5,13 +5,7 @@ import com.coderman.tianhua.datafactory.api.Application;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldRuleVo;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
 import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestFieldRuleBean;
-import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
-import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
-import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
-import com.coderman.utils.kvpair.KVPair;
 import com.coderman.utils.response.ResultDataDto;
-import com.coderman.utils.response.ResultDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +14,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -1,9 +1,7 @@
 package com.coderman.tianhua.datafactory.core.service;
 
-import com.coderman.tianhua.datafactory.core.bean.DataFactoryRequestBean;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
 import com.coderman.utils.response.ResultDataDto;
-
-import java.util.List;
 
 /**
  * description: DataFactoryservice <br>
@@ -21,7 +19,7 @@ public interface DataFactoryService {
      * @param dataFactoryRequestBean
      * @return
      */
-    ResultDataDto generateSimple(DataFactoryRequestBean dataFactoryRequestBean) throws Exception;
+    ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception;
 
 
 }
