@@ -47,11 +47,18 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 
 
 
-#### 函数式二次开发
+#### 函数式客户端开发架构
+##### 架构说明
+##### 二次开发步骤
+1.  在datafactory-client工程中的InnerDataSourceCode定义
+唯一的内置数据源dataSourceCode.
+2.  在FileDataEnums增加文件名，描述枚举
+3.  在resources/defaultfactory中增加内置数据源文件.txt
+4.  实现com.coderman.tianhua.datafactory.client.function.Function接口,这里可以单独做单元测试
+5.  在接口实现类的随机数据方法上增加DataSourceFunction注解，标注对应的新增的内置数据源
+6.  启动nacos服务，并在datafactory-api中编写单元测试，引入该新增的内置数据源
+7.  测试新增的内置数据源函数是否正常在整个数据构建中生效
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 
 
 
