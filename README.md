@@ -24,11 +24,34 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 2.  xxxx
 3.  xxxx
 
-#### 使用说明
+#### 使用api
 
 1.  xxxx
 2.  xxxx
 3.  xxxx
+
+
+#### 使用场景
+
+1.  xxxx
+2.  xxxx
+3.  xxxx
+
+#### 内置数据源列表
+
+1.  BankFunction
+2.  CardNumberFunction
+3.  PinYinFunction
+4.  UserFunction
+
+
+#### 函数式二次开发
+
+1.  xxxx
+2.  xxxx
+3.  xxxx
+
+
 
 #### 参与贡献
 
