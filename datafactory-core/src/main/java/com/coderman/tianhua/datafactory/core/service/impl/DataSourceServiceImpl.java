@@ -93,9 +93,7 @@ public class DataSourceServiceImpl implements DataSourceService {
             }
         }
 
-        if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
-            dataSourceMapper.insert(dataSourceEntity);
-        }
+        dataSourceMapper.insert(dataSourceEntity);
         return resultDto;
     }
 
