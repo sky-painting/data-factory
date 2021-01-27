@@ -78,4 +78,11 @@ public interface DataSourceService{
 	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception;
 
 
+	/**
+	 * 修改数据源状态
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public ResultDto updateStatus(Long id,Integer status);
 }

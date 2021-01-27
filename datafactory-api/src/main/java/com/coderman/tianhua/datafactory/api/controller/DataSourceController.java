@@ -103,8 +103,7 @@ public class DataSourceController extends BaseController{
 	 */
 	@PostMapping("/data/source/changestatus")
 	public ResultDto changeStatus(@RequestParam(name = "id") Long id,@RequestParam(name = "status") int status){
-
-		return new ResultDto();
+		return dataSourceService.updateStatus(id,status);
 	}
 
 }

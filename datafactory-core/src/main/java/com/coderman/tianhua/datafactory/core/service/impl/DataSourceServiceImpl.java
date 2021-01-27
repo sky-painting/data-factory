@@ -196,4 +196,14 @@ public class DataSourceServiceImpl implements DataSourceService {
         return ResultDataDto.setNullErrorMsg("查询数据为空!");
     }
 
+    @Override
+    public ResultDto updateStatus(Long id, Integer status) {
+        int rows = dataSourceMapper.updateStatus(id, status);
+        if(rows == 1){
+            return new ResultDto();
+        }else {
+            return ResultDto.setErrorCodeMsg("更新失败");
+        }
+    }
+
 }
