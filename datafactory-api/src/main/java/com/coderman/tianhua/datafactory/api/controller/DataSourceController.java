@@ -95,6 +95,22 @@ public class DataSourceController extends BaseController{
 		return new ResultDataDto();
 	}
 
+
+	/**
+	 * @Description:分页获取数据源管理表记录
+	 * @version v1.0
+	 * @return ResultDataDto
+	 */
+	@GetMapping("/dataSource/getall")
+	public ResultDataDto getAll(){
+		try {
+			return dataSourceService.getAll();
+		} catch (Exception e) {
+			logger.error("查询失败",e);
+		}
+		return ResultDataDto.setErrorCodeMsg("查询失败");
+	}
+
 	/**
 	 * @Description:修改数据源管理表状态
 	 * @version v1.0
