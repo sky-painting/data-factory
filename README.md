@@ -20,14 +20,15 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 
 #### 安装教程 
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  通过sql文件中的sql脚本初始化
+2.  克隆本项目，并搭建本地nacos集群,进行服务注册调试
+3.  克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils
+4.  运行api工程中的DataSourceControllerTest,DataFactoryControllerTest 测试服务即可看到随机数据
 
 #### 使用api
 
-1.  xxxx
-2.  xxxx
+1.  /data/source/regist  注册数据源
+2.  /datafactory/generate/simple  构建简单数据源
 3.  xxxx
 
 
