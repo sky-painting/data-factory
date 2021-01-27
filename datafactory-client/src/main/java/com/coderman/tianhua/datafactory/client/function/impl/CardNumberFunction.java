@@ -38,7 +38,7 @@ public class CardNumberFunction implements Function<String> {
     /**
      * 获取一个随机生成的身份证号码
      */
-    public  String getRandomID() {
+    public  String cardNumber() {
         String id = "421022199703149999";
         // 随机生成省、自治区、直辖市代码 1-2
         String provinces[] = {"11", "12", "13", "14", "15", "21", "22", "23",
@@ -97,6 +97,6 @@ public class CardNumberFunction implements Function<String> {
 
     @Override
     public String createOneData(String methodName,String ... params) {
-        return getRandomID();
+        return cardNumber();
     }
 }

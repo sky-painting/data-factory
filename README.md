@@ -10,13 +10,12 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 1.  功能架构图
 ![image](doc/img/天画-数据工厂平台.png) 
 2.  数据模型图
+![image](doc/img/天画-数据工厂模型图.png) 
 3.  应用流程图
 ![image](doc/img/天画-数据工厂流程图.png) 
 4.  部署架构图
 5.  应用架构图
 ![image](doc/img/天画-数据工厂项目功能架构图.png) 
-6.  模块依赖图
-
 
 
 #### 安装教程 
@@ -41,9 +40,13 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 #### 内置数据源列表
 
 #####  BankFunction
+银行卡号生成
 #####  CardNumberFunction
+身份证号生成
 #####  PinYinFunction
+汉字转拼音,提取首字母
 #####  UserFunction
+电话,随机数,日期,姓名
 
 
 
