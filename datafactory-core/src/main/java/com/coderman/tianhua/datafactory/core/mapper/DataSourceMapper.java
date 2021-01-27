@@ -80,5 +80,7 @@ public interface DataSourceMapper{
 	 * @throws
 	 */
 	public DataSourceEntity getBySourceCode(String sourceCode);
+
+	public int updateStatus(@Param(value = "id") Long id,@Param(value = "status") Integer status);
 	
 }
