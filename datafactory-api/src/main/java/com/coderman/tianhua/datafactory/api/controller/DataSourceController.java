@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.api.controller;
 
+import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.response.ResultDataDto;
@@ -89,7 +90,7 @@ public class DataSourceController extends BaseController{
 	 * @return ResultDataDto
 	 */
 	@GetMapping("/dataSource/getpage")
-	public ResultDataDto getPage(){
+	public ResultDataDto getPage(DataSourceQueryDTO dataSourceQueryDTO){
 		//todo impl code
 		return new ResultDataDto();
 	}
