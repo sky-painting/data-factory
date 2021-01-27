@@ -137,7 +137,9 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Override
     public ResultDataDto<List<DataSourceVO>> getAll() throws Exception {
         ResultDataDto<List<DataSourceVO>> resultDataDto = new ResultDataDto<List<DataSourceVO>>();
-        //todo impl code
+        List<DataSourceEntity> dataSourceEntityList = dataSourceMapper.getAll();
+        List<DataSourceVO> dataSourceVOList = cglibConvertService.copyPropertities(DataSourceVO.class, dataSourceEntityList);
+        resultDataDto.setData(dataSourceVOList);
         return resultDataDto;
     }
 
