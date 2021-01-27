@@ -1,24 +1,19 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.nacos.api.NacosFactory;
-import com.alibaba.nacos.api.PropertyKeyConst;
-import com.alibaba.nacos.api.config.ConfigService;
-import com.alibaba.nacos.api.exception.NacosException;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
+import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
 import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
 import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
 import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
+import com.coderman.tianhua.datafactory.core.mapper.DataSourceMapper;
 import com.coderman.tianhua.datafactory.core.service.ConfigServiceWrapper;
+import com.coderman.tianhua.datafactory.core.service.DataSourceService;
+import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.kvpair.KVPair;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
-import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
-import com.coderman.tianhua.datafactory.core.mapper.DataSourceMapper;
-import com.coderman.tianhua.datafactory.core.service.DataSourceService;
-import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,6 +50,10 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Autowired
     private ConfigServiceWrapper configServiceWrapper;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     /**
      * 初始化缓存，key:datasource
@@ -187,7 +187,9 @@ public class DataSourceServiceImpl implements DataSourceService {
                 dataSourceCache.put(dataSourceCode,JSON.toJSONString(list));
                 return resultDataDto.setData(JSON.toJSONString(list));
             } else if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()) {
-
+                ResultDataDto remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class);
+                dataSourceCache.put(dataSourceCode,JSON.toJSONString(remoteResultDataDto.getData()));
+                return resultDataDto.setData(JSON.toJSONString(remoteResultDataDto.getData()));
             }
         }
 
