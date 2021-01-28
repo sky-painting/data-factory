@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
 import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
@@ -206,6 +207,19 @@ public class DataSourceServiceImpl implements DataSourceService {
         }else {
             return ResultDto.setErrorCodeMsg("更新失败");
         }
+    }
+
+    @Override
+    public ResultDataDto<List<DataSourceVO>> getPage(DataSourceQueryDTO dataSourceQueryDTO) {
+        List<DataSourceEntity> dataSourceEntityList = dataSourceMapper.getPage(dataSourceQueryDTO);
+        ResultDataDto<List<DataSourceVO>> resultDataDto = new ResultDataDto();
+        try {
+            List<DataSourceVO> dataSourceVOList = cglibConvertService.copyPropertities(DataSourceVO.class,dataSourceEntityList);
+            return resultDataDto.setData(dataSourceVOList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultDataDto.setInvokeErrorMsg("查询失败");
     }
 
 }

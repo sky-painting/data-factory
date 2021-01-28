@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service;
 
+import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
 import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
@@ -85,4 +86,12 @@ public interface DataSourceService{
 	 * @return
 	 */
 	public ResultDto updateStatus(Long id,Integer status);
+
+	/**
+	 * 分页查询
+	 * @param dataSourceQueryDTO
+	 * @return
+	 */
+	public ResultDataDto<List<DataSourceVO>> getPage(DataSourceQueryDTO dataSourceQueryDTO);
+
 }

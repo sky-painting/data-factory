@@ -63,4 +63,27 @@
         status=#{status} where  id = #{id}
     </update>
 
+    <select id="getPage" parameterType="com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO"
+            resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from data_source
+        where status = 0
+        <if test="dataSourceCode != null">
+             and  source_code like  concat('%',#{dataSourceCode},'%')
+        </if>
+
+        <if test="dataSourceName != null">
+            and  source_name like concat('%',#{dataSourceName},'%')
+        </if>
+
+        <if test="sourceType != null">
+            and  source_type =  #{sourceType}
+        </if>
+
+        <if test="status != null">
+            and  status =  #{status}
+        </if>
+
+    </select>
+
+
 </mapper>

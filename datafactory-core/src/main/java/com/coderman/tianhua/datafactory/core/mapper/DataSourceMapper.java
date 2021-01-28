@@ -1,6 +1,7 @@
 package com.coderman.tianhua.datafactory.core.mapper;
 
 
+import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
 import org.apache.ibatis.annotations.Param;
 
@@ -81,6 +82,19 @@ public interface DataSourceMapper{
 	 */
 	public DataSourceEntity getBySourceCode(String sourceCode);
 
+	/**
+	 * 修改状态
+	 * @param id
+	 * @param status
+	 * @return
+	 */
 	public int updateStatus(@Param(value = "id") Long id,@Param(value = "status") Integer status);
+
+	/**
+	 * 分页查询
+	 * @param dataSourceQueryDTO
+	 * @return
+	 */
+	public List<DataSourceEntity> getPage(DataSourceQueryDTO dataSourceQueryDTO);
 	
 }

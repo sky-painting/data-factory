@@ -91,8 +91,7 @@ public class DataSourceController extends BaseController{
 	 */
 	@GetMapping("/dataSource/getpage")
 	public ResultDataDto getPage(DataSourceQueryDTO dataSourceQueryDTO){
-		//todo impl code
-		return new ResultDataDto();
+		return dataSourceService.getPage(dataSourceQueryDTO);
 	}
 
 
