@@ -78,4 +78,5 @@ public class InnerDataSourceCode {
      */
     public static final String RANDOM = "com.datafactory.user.getRandom";
 
+
 }
