@@ -33,7 +33,7 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 //从远程数据工厂-数据源获取数据
         ResultDataDto<String> resultDataDto = null;
         try {
-            resultDataDto = dataSourceService.getDataSourceDetail(dataSourceCode);
+            resultDataDto = dataSourceService.getDataSourceDetail(dataSourceFieldRequestBean);
         } catch (Exception e) {
             e.printStackTrace();
         }

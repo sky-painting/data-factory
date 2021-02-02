@@ -1,5 +1,6 @@
 package com.coderman.tianhua.datafactory.core.service;
 
+import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
@@ -73,11 +74,11 @@ public interface DataSourceService {
 
 	/**
 	 * 根据数据源code获取数据源详情-包括数据源信息
-	 * @param dataSourceCode
+	 * @param dataSourceFieldRequestBean
 	 * @return
 	 * @throws Exception
 	 */
-	public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception;
+	public ResultDataDto<String> getDataSourceDetail(DataSourceFieldRequestBean dataSourceFieldRequestBean ) throws Exception;
 
 
 	/**

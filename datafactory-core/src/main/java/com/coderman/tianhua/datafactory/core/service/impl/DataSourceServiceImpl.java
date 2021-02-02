@@ -1,6 +1,8 @@
 package com.coderman.tianhua.datafactory.core.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
+import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataSourceQueryDTO;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
 import com.coderman.tianhua.datafactory.core.entity.DataSourceEntity;
@@ -153,9 +155,9 @@ public class DataSourceServiceImpl implements DataSourceService {
     }
 
     @Override
-    public ResultDataDto<String> getDataSourceDetail(String dataSourceCode) throws Exception {
+    public ResultDataDto<String> getDataSourceDetail(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
         ResultDataDto resultDataDto = new ResultDataDto();
-
+        String dataSourceCode = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataSourceCode();
         String dataContent = dataSourceCache.getIfPresent(dataSourceCode);
         if(StringUtils.isNotBlank(dataContent)){
             resultDataDto.setData(dataContent);
@@ -190,7 +192,14 @@ public class DataSourceServiceImpl implements DataSourceService {
                 dataSourceCache.put(dataSourceCode,JSON.toJSONString(list));
                 return resultDataDto.setData(JSON.toJSONString(list));
             } else if (dataSourceEntity.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()) {
-                ResultDataDto remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class);
+
+                DataBuildRequestFieldRuleBean dataBuildRequestFieldRuleBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataFactoryRequestFieldRuleBean();
+                ResultDataDto remoteResultDataDto;
+                if(dataBuildRequestFieldRuleBean != null && dataBuildRequestFieldRuleBean.getParameterMap() != null && !dataBuildRequestFieldRuleBean.getParameterMap().isEmpty()){
+                    remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class,dataBuildRequestFieldRuleBean.getParameterMap());
+                }else {
+                    remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class);
+                }
                 dataSourceCache.put(dataSourceCode,JSON.toJSONString(remoteResultDataDto.getData()));
                 return resultDataDto.setData(JSON.toJSONString(remoteResultDataDto.getData()));
             }
