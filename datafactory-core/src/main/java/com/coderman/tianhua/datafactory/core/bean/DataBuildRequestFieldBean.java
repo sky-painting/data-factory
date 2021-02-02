@@ -63,6 +63,7 @@ public class DataBuildRequestFieldBean<T> {
 
     /**
      * 字段值生成规则
+     * 字段值数据源获取参数
      */
     private DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
 

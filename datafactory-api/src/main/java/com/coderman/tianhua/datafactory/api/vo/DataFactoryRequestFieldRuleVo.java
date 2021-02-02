@@ -3,6 +3,8 @@ package com.coderman.tianhua.datafactory.api.vo;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Map;
+
 
 /**
  * description: DataFactoryRequestFieldRuleBean <br>
@@ -43,4 +45,8 @@ public class DataFactoryRequestFieldRuleVo {
     private String [] depencyFunctionMethodParam;
 
 
+    /**
+     * 远程数据源接口访问参数
+     */
+    private Map<String,Object> parameterMap;
 }

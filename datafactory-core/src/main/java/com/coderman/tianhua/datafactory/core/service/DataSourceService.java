@@ -13,7 +13,8 @@ import java.util.List;
  * @CreateTime:2020-12-02 23:07:13
  * @version v1.0
  */
-public interface DataSourceService{
+
+public interface DataSourceService {
 
 	/**
 	 *

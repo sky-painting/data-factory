@@ -31,9 +31,9 @@ public class ServiceApiAdaptorImpl implements ServiceApiAdaptor {
         //返回是list处理
         ResultDataDto<List> resultDataDto = new ResultDataDto();
         try {
-             resultDataDto = restTemplate.getForObject(url , ResultDataDto.class);
+             resultDataDto = restTemplate.getForObject(url , ResultDataDto.class,params);
         }catch (Exception e){
-            resultDataDto = restTemplate.postForObject(url,params , ResultDataDto.class);
+            resultDataDto = restTemplate.postForObject(url, params , ResultDataDto.class);
         }
         //去除result包装
         List dataList = resultDataDto.getData();
