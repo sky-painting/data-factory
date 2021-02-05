@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class DataFactoryRequestFieldVo<T> {
+public class DataBuildRequestFieldVo<T> {
     /**
      * 字段名
      */
@@ -50,7 +50,7 @@ public class DataFactoryRequestFieldVo<T> {
     /**
      * 字段值生成规则
      */
-    private DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo;
+    private DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo;
 
 
     /**

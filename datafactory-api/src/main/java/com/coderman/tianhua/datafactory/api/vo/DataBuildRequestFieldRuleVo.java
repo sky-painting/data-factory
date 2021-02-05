@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class DataFactoryRequestFieldRuleVo {
+public class DataBuildRequestFieldRuleVo {
     /**
      * 值前缀--适用于str类型
      */

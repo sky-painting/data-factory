@@ -1,7 +1,7 @@
 package com.coderman.tianhua.datafactory.api.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
+import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestVo;
 import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
 import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
 import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-public class DataFactoryController extends BaseController {
+public class DataBuildController extends BaseController {
 
     @Autowired
     private DataFactoryService dataFactoryService;
@@ -54,7 +54,7 @@ public class DataFactoryController extends BaseController {
      * @version v1.0
      */
     @RequestMapping(value = "/datafactory/generate/simple", method = RequestMethod.POST)
-    public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo) {
+    public ResultDataDto generateSimple(@RequestBody DataBuildRequestVo dataFactoryRequestVo) {
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
         try {

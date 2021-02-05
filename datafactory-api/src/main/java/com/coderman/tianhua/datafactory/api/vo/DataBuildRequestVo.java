@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class DataFactoryRequestVo {
+public class DataBuildRequestVo {
     /**
      * 项目名称--中文
      */
@@ -42,7 +42,7 @@ public class DataFactoryRequestVo {
     /**
      * 模块变量
      */
-    private List<DataFactoryRequestFieldVo> dataFactoryRequestFieldVoList;
+    private List<DataBuildRequestFieldVo> dataFactoryRequestFieldVoList;
 
     /**
      * 是否持久化数据构建请求以复用

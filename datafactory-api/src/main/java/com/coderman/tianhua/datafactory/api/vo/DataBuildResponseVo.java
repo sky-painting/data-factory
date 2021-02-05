@@ -11,6 +11,6 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class DataFactoryResponseVo {
+public class DataBuildResponseVo {
 
 }

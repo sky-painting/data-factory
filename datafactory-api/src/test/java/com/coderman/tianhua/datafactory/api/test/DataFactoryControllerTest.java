@@ -2,9 +2,9 @@ package com.coderman.tianhua.datafactory.api.test;
 
 import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.Application;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldRuleVo;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
+import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestFieldRuleVo;
+import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestFieldVo;
+import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestVo;
 import com.coderman.utils.response.ResultDataDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class DataFactoryControllerTest {
      */
     @Test
     public void testGenerateFromFunction(){
-        DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
+        DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
         dataFactoryRequestVo.setGenerateCount(100);
         dataFactoryRequestVo.setModuleDesc("学生表");
         dataFactoryRequestVo.setPersistRequest(0);
@@ -43,23 +43,23 @@ public class DataFactoryControllerTest {
         dataFactoryRequestVo.setModuleName("学生基本信息模块");
         dataFactoryRequestVo.setServiceName("StudentService");
 
-        List<DataFactoryRequestFieldVo> requestFieldVoList = new ArrayList<>();
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo = new DataFactoryRequestFieldVo();
+        List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo.setDataSourceCode("com.datafactory.user.cardnumber");
         dataFactoryRequestFieldVo.setFieldName("cardnumber");
         dataFactoryRequestFieldVo.setFieldTypeStr("String");
         requestFieldVoList.add(dataFactoryRequestFieldVo);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo2 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
         dataFactoryRequestFieldVo2.setFieldName("telphone");
         dataFactoryRequestFieldVo2.setFieldTypeStr("String");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo.setDepencyFunctionMethod("tel");
         dataFactoryRequestFieldVo2.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo);
         requestFieldVoList.add(dataFactoryRequestFieldVo2);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo3 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo3 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo3.setFieldTypeStr("String");
         dataFactoryRequestFieldVo3.setFieldName("bankCardNumber");
         dataFactoryRequestFieldVo3.setDataSourceCode("com.datafactory.bank.cardNumber");
@@ -67,11 +67,11 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo3);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo4 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo4 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo4.setFieldTypeStr("String");
         dataFactoryRequestFieldVo4.setFieldName("chineseName");
         dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
         dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
 
@@ -89,7 +89,7 @@ public class DataFactoryControllerTest {
      */
     @Test
     public void testGenerateFromCustomAndFunction(){
-        DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
+        DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
         dataFactoryRequestVo.setGenerateCount(100);
         dataFactoryRequestVo.setModuleDesc("员工表");
         dataFactoryRequestVo.setPersistRequest(0);
@@ -97,23 +97,23 @@ public class DataFactoryControllerTest {
         dataFactoryRequestVo.setModuleName("员工信息模块");
         dataFactoryRequestVo.setServiceName("StaffService");
 
-        List<DataFactoryRequestFieldVo> requestFieldVoList = new ArrayList<>();
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo = new DataFactoryRequestFieldVo();
+        List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo.setDataSourceCode("com.datafactory.user.cardnumber");
         dataFactoryRequestFieldVo.setFieldName("cardnumber");
         dataFactoryRequestFieldVo.setFieldTypeStr("String");
         requestFieldVoList.add(dataFactoryRequestFieldVo);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo2 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
         dataFactoryRequestFieldVo2.setFieldName("telphone");
         dataFactoryRequestFieldVo2.setFieldTypeStr("String");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo.setDepencyFunctionMethod("tel");
         dataFactoryRequestFieldVo2.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo);
         requestFieldVoList.add(dataFactoryRequestFieldVo2);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo3 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo3 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo3.setFieldTypeStr("String");
         dataFactoryRequestFieldVo3.setFieldName("bankCardNumber");
         dataFactoryRequestFieldVo3.setDataSourceCode("com.datafactory.bank.cardNumber");
@@ -121,24 +121,24 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo3);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo4 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo4 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo4.setFieldTypeStr("String");
         dataFactoryRequestFieldVo4.setFieldName("chineseName");
         dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
         dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
 
         requestFieldVoList.add(dataFactoryRequestFieldVo4);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo5 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo5 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo5.setFieldTypeStr("Long");
         dataFactoryRequestFieldVo5.setFieldName("departmentId");
         dataFactoryRequestFieldVo5.setDataSourceCode("com.lightsnail.infosys.department");
         dataFactoryRequestFieldVo5.setDataSourceField("id");
         requestFieldVoList.add(dataFactoryRequestFieldVo5);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo6 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo6 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo6.setFieldTypeStr("int");
         dataFactoryRequestFieldVo6.setFieldName("staffType");
         dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -147,7 +147,7 @@ public class DataFactoryControllerTest {
 
 
         //自定义默认值列表
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo7 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo7 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo7.setFieldTypeStr("int");
         dataFactoryRequestFieldVo7.setFieldName("age");
         //dataFactoryRequestFieldVo7.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -162,11 +162,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟薪资
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo8 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo8 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo8.setFieldTypeStr("Integer");
         dataFactoryRequestFieldVo8.setFieldName("sellary");
         dataFactoryRequestFieldVo8.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo3.setDepencyFunctionMethod("random");
         String [] paramArr = new String[1];
@@ -179,11 +179,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟工号
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo9 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo9 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo9.setFieldTypeStr("String");
         dataFactoryRequestFieldVo9.setFieldName("staffCode");
         dataFactoryRequestFieldVo9.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo4.setDepencyFunctionMethod("random");
         paramArr[0] = "4";
@@ -207,7 +207,7 @@ public class DataFactoryControllerTest {
      */
     @Test
     public void testGenerateFromCustomAndFunctionAndNacos(){
-        DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
+        DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
         dataFactoryRequestVo.setGenerateCount(100);
         dataFactoryRequestVo.setModuleDesc("员工表");
         dataFactoryRequestVo.setPersistRequest(0);
@@ -215,23 +215,23 @@ public class DataFactoryControllerTest {
         dataFactoryRequestVo.setModuleName("员工信息模块");
         dataFactoryRequestVo.setServiceName("StaffService");
 
-        List<DataFactoryRequestFieldVo> requestFieldVoList = new ArrayList<>();
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo = new DataFactoryRequestFieldVo();
+        List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo.setDataSourceCode("com.datafactory.user.cardnumber");
         dataFactoryRequestFieldVo.setFieldName("cardnumber");
         dataFactoryRequestFieldVo.setFieldTypeStr("String");
         requestFieldVoList.add(dataFactoryRequestFieldVo);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo2 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
         dataFactoryRequestFieldVo2.setFieldName("telphone");
         dataFactoryRequestFieldVo2.setFieldTypeStr("String");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo.setDepencyFunctionMethod("tel");
         dataFactoryRequestFieldVo2.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo);
         requestFieldVoList.add(dataFactoryRequestFieldVo2);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo3 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo3 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo3.setFieldTypeStr("String");
         dataFactoryRequestFieldVo3.setFieldName("bankCardNumber");
         dataFactoryRequestFieldVo3.setDataSourceCode("com.datafactory.bank.cardNumber");
@@ -239,24 +239,24 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo3);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo4 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo4 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo4.setFieldTypeStr("String");
         dataFactoryRequestFieldVo4.setFieldName("chineseName");
         dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
         dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
 
         requestFieldVoList.add(dataFactoryRequestFieldVo4);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo5 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo5 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo5.setFieldTypeStr("Long");
         dataFactoryRequestFieldVo5.setFieldName("departmentId");
         dataFactoryRequestFieldVo5.setDataSourceCode("com.lightsnail.infosys.department");
         dataFactoryRequestFieldVo5.setDataSourceField("id");
         requestFieldVoList.add(dataFactoryRequestFieldVo5);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo6 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo6 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo6.setFieldTypeStr("int");
         dataFactoryRequestFieldVo6.setFieldName("staffType");
         dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -265,7 +265,7 @@ public class DataFactoryControllerTest {
 
 
         //自定义默认值列表
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo7 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo7 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo7.setFieldTypeStr("int");
         dataFactoryRequestFieldVo7.setFieldName("age");
         //dataFactoryRequestFieldVo7.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -280,11 +280,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟薪资
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo8 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo8 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo8.setFieldTypeStr("Integer");
         dataFactoryRequestFieldVo8.setFieldName("sellary");
         dataFactoryRequestFieldVo8.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo3.setDepencyFunctionMethod("random");
         String [] paramArr = new String[1];
@@ -297,11 +297,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟工号
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo9 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo9 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo9.setFieldTypeStr("String");
         dataFactoryRequestFieldVo9.setFieldName("staffCode");
         dataFactoryRequestFieldVo9.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo4.setDepencyFunctionMethod("random");
         paramArr[0] = "4";
@@ -313,7 +313,7 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo9);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo10 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo10 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo10.setFieldTypeStr("int");
         dataFactoryRequestFieldVo10.setFieldName("provinceID");
         dataFactoryRequestFieldVo10.setDataSourceCode("com.lightsnail.app.dict.common.province_group");
@@ -339,7 +339,7 @@ public class DataFactoryControllerTest {
      */
     @Test
     public void testGenerateFromALL(){
-        DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
+        DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
         dataFactoryRequestVo.setGenerateCount(100);
         dataFactoryRequestVo.setModuleDesc("员工表");
         dataFactoryRequestVo.setPersistRequest(0);
@@ -347,23 +347,23 @@ public class DataFactoryControllerTest {
         dataFactoryRequestVo.setModuleName("员工信息模块");
         dataFactoryRequestVo.setServiceName("StaffService");
 
-        List<DataFactoryRequestFieldVo> requestFieldVoList = new ArrayList<>();
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo = new DataFactoryRequestFieldVo();
+        List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo.setDataSourceCode("com.datafactory.user.cardnumber");
         dataFactoryRequestFieldVo.setFieldName("cardnumber");
         dataFactoryRequestFieldVo.setFieldTypeStr("String");
         requestFieldVoList.add(dataFactoryRequestFieldVo);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo2 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
         dataFactoryRequestFieldVo2.setFieldName("telphone");
         dataFactoryRequestFieldVo2.setFieldTypeStr("String");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo.setDepencyFunctionMethod("tel");
         dataFactoryRequestFieldVo2.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo);
         requestFieldVoList.add(dataFactoryRequestFieldVo2);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo3 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo3 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo3.setFieldTypeStr("String");
         dataFactoryRequestFieldVo3.setFieldName("bankCardNumber");
         dataFactoryRequestFieldVo3.setDataSourceCode("com.datafactory.bank.cardNumber");
@@ -371,24 +371,24 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo3);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo4 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo4 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo4.setFieldTypeStr("String");
         dataFactoryRequestFieldVo4.setFieldName("chineseName");
         dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataBuildRequestFieldRuleVo();
         dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
         dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
 
         requestFieldVoList.add(dataFactoryRequestFieldVo4);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo5 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo5 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo5.setFieldTypeStr("Long");
         dataFactoryRequestFieldVo5.setFieldName("departmentId");
         dataFactoryRequestFieldVo5.setDataSourceCode("com.lightsnail.infosys.department");
         dataFactoryRequestFieldVo5.setDataSourceField("id");
         requestFieldVoList.add(dataFactoryRequestFieldVo5);
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo6 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo6 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo6.setFieldTypeStr("int");
         dataFactoryRequestFieldVo6.setFieldName("staffType");
         dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -397,7 +397,7 @@ public class DataFactoryControllerTest {
 
 
         //自定义默认值列表
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo7 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo7 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo7.setFieldTypeStr("int");
         dataFactoryRequestFieldVo7.setFieldName("age");
         //dataFactoryRequestFieldVo7.setDataSourceCode("com.lightsnail.infosys.staffType");
@@ -412,11 +412,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟薪资
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo8 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo8 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo8.setFieldTypeStr("Integer");
         dataFactoryRequestFieldVo8.setFieldName("sellary");
         dataFactoryRequestFieldVo8.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo3 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo3.setDepencyFunctionMethod("random");
         String [] paramArr = new String[1];
@@ -429,11 +429,11 @@ public class DataFactoryControllerTest {
 
 
         //随机数模拟工号
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo9 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo9 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo9.setFieldTypeStr("String");
         dataFactoryRequestFieldVo9.setFieldName("staffCode");
         dataFactoryRequestFieldVo9.setDataSourceCode("com.datafactory.user.getRandom");
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo4 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
         dataFactoryRequestFieldRuleVo4.setDepencyFunctionMethod("random");
         paramArr[0] = "4";
@@ -445,7 +445,7 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo9);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo10 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo10 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo10.setFieldTypeStr("int");
         dataFactoryRequestFieldVo10.setFieldName("provinceID");
         dataFactoryRequestFieldVo10.setDataSourceCode("com.lightsnail.app.dict.common.province_group");
@@ -453,7 +453,7 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo10);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo11 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo11 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo11.setFieldTypeStr("int");
         dataFactoryRequestFieldVo11.setFieldName("cardProvinceID");
         dataFactoryRequestFieldVo11.setDataSourceCode("lightsnail-meta-area-core.province");
@@ -461,13 +461,13 @@ public class DataFactoryControllerTest {
         requestFieldVoList.add(dataFactoryRequestFieldVo11);
 
 
-        DataFactoryRequestFieldVo dataFactoryRequestFieldVo12 = new DataFactoryRequestFieldVo();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo12 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo12.setFieldTypeStr("String");
         dataFactoryRequestFieldVo12.setFieldName("cityID");
         dataFactoryRequestFieldVo12.setDataSourceCode("lightsnail-meta-area-core.citybyprovinceId");
         dataFactoryRequestFieldVo12.setDataSourceField("areaId");
 
-        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo5 = new DataFactoryRequestFieldRuleVo();
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo5 = new DataBuildRequestFieldRuleVo();
         //设置请求函数
 
         Map<String,Object> paramMap = new HashMap<>();
