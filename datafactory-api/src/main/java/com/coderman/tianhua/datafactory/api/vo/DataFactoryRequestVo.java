@@ -49,4 +49,9 @@ public class DataFactoryRequestVo {
      */
     private int persistRequest;
 
+
+    /**
+     * 增加远程动态插入接口参数
+     */
+    private String remoteServiceURL;
 }
