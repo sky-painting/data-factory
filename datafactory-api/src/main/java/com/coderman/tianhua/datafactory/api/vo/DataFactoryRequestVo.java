@@ -60,4 +60,14 @@ public class DataFactoryRequestVo {
      * 增加表名
      */
     private String tableName;
+
+
+    /**
+     * 导出方式
+     * 0:默认json返回 list模型
+     * 1:转换为insert sql的形式
+     * 2:转换为excel的形式写文件
+     * 3:根据远程服务接口动态插入
+     */
+    private Integer exportType;
 }
