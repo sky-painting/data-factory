@@ -51,4 +51,12 @@ public class DataFactoryRequestFieldVo<T> {
      * 字段值生成规则
      */
     private DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo;
+
+
+    /**
+     * 增加字段名
+     */
+    private String columnName;
+
+
 }

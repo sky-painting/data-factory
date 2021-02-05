@@ -49,4 +49,7 @@ public class DataFactoryRequestFieldRuleVo {
      * 远程数据源接口访问参数
      */
     private Map<String,Object> parameterMap;
+
+
+
 }

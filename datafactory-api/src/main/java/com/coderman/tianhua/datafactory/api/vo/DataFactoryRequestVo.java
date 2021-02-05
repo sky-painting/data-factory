@@ -54,4 +54,10 @@ public class DataFactoryRequestVo {
      * 增加远程动态插入接口参数
      */
     private String remoteServiceURL;
+
+
+    /**
+     * 增加表名
+     */
+    private String tableName;
 }
