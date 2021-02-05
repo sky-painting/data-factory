@@ -9,6 +9,7 @@ import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
 import com.coderman.utils.response.ResultDataDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,9 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
         }
 
         String jsonValue = resultDataDto.getData();
+        if(StringUtils.isEmpty(jsonValue)){
+            return null;
+        }
 
         //通过json字段解析，这里提供的数据源必须是数组形式
         JSONArray jsonArray = JSONObject.parseArray(jsonValue);

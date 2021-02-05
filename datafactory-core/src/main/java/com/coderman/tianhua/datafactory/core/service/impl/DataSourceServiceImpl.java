@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -196,7 +197,16 @@ public class DataSourceServiceImpl implements DataSourceService {
                 DataBuildRequestFieldRuleBean dataBuildRequestFieldRuleBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataFactoryRequestFieldRuleBean();
                 ResultDataDto remoteResultDataDto;
                 if(dataBuildRequestFieldRuleBean != null && dataBuildRequestFieldRuleBean.getParameterMap() != null && !dataBuildRequestFieldRuleBean.getParameterMap().isEmpty()){
-                    remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class,dataBuildRequestFieldRuleBean.getParameterMap());
+                   log.info("url = "+dataSourceEntity.getUrl()+",pam = "+JSON.toJSONString(dataBuildRequestFieldRuleBean.getParameterMap()));
+
+                    Map<String,Object> param = dataBuildRequestFieldRuleBean.getParameterMap();
+                    StringBuilder builder = new StringBuilder("?");
+                    param.forEach((k,v)->{
+                        builder.append(k+"="+v.toString()+"&");
+                    });
+                    String paramStr = builder.toString().substring(0,builder.length() - 1);
+                    log.info("paramStr = "+paramStr+",dataSourceEntity.getUrl()+paramStr= "+dataSourceEntity.getUrl()+paramStr);
+                    remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl()+paramStr, ResultDataDto.class);
                 }else {
                     remoteResultDataDto = restTemplate.getForObject(dataSourceEntity.getUrl(), ResultDataDto.class);
                 }

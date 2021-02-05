@@ -142,6 +142,28 @@ public class DataSourceControllerTest {
         logger.info("resultDto = "+JSON.toJSONString(resultDto));
     }
 
+    @Test
+    public void testRegistMetaCityService(){
+        DataSourceVO dataSourceVO = new DataSourceVO();
+        dataSourceVO.setCreateTime(new Date());
+        dataSourceVO.setCreateUserId(1L);
+        dataSourceVO.setUpdateUserId(1L);
+        dataSourceVO.setUpdateTime(new Date());
+        dataSourceVO.setSourceType(DataSourceTypeEnum.FROM_SERVICE_API.getCode());
+        dataSourceVO.setStatus(0);
+        dataSourceVO.setToken("");
+        dataSourceVO.setSourceName("城市服务数据");
+        dataSourceVO.setUrl("http://lightsnail-meta-area-core/city/list");
+        dataSourceVO.setVisitStrategy(VisitStrategyEnums.DYNAMIC_ACCESS.getCode());
+        dataSourceVO.setProviderSrc("自定义注册");
+        //服务名+数据名标示唯一性
+        dataSourceVO.setSourceCode("lightsnail-meta-area-core.citybyprovinceId");
+
+
+        dataSourceVO.setDataContentJson(JSON.toJSONString(getStaffTypeList()));
+        ResultDto resultDto = restTemplate.postForEntity("/data/source/regist",dataSourceVO, ResultDto.class).getBody();
+        logger.info("resultDto = "+JSON.toJSONString(resultDto));
+    }
 
 
 

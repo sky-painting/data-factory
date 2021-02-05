@@ -14,7 +14,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * description: DataFactoryControllerTest <br>
@@ -458,6 +460,23 @@ public class DataFactoryControllerTest {
         dataFactoryRequestFieldVo11.setDataSourceField("provinceId");
         requestFieldVoList.add(dataFactoryRequestFieldVo11);
 
+
+        DataFactoryRequestFieldVo dataFactoryRequestFieldVo12 = new DataFactoryRequestFieldVo();
+        dataFactoryRequestFieldVo12.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo12.setFieldName("cityID");
+        dataFactoryRequestFieldVo12.setDataSourceCode("lightsnail-meta-area-core.citybyprovinceId");
+        dataFactoryRequestFieldVo12.setDataSourceField("areaId");
+
+        DataFactoryRequestFieldRuleVo dataFactoryRequestFieldRuleVo5 = new DataFactoryRequestFieldRuleVo();
+        //设置请求函数
+
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("provinceId","340000000000");
+        dataFactoryRequestFieldRuleVo5.setParameterMap(paramMap);
+        dataFactoryRequestFieldVo12.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo5);
+
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo12);
 
 
         dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
