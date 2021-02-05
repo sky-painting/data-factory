@@ -64,10 +64,10 @@ public class DataFactoryRequestVo {
 
     /**
      * 导出方式
-     * 0:默认json返回 list模型
-     * 1:转换为insert sql的形式
+     * 0:默认json返回 list模型 默认同步
+     * 1:转换为insert sql的形式 同步
      * 2:转换为excel的形式写文件
-     * 3:根据远程服务接口动态插入
+     * 3:根据远程服务接口动态插入(异步)
      */
     private Integer exportType;
 }
