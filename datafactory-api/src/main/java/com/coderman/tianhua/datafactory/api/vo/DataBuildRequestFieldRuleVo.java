@@ -50,6 +50,17 @@ public class DataBuildRequestFieldRuleVo {
      */
     private Map<String,Object> parameterMap;
 
+    /**
+     * 对于该属性对应的值生成数量，默认多个按逗号隔开
+     * 如果不设置值或者小于0则默认只生成一个
+     */
+    private int valueCount;
+
+    /**
+     * 值存在多个的情况下的分割符，默认逗号分割
+     */
+    private String splitTag;
+
 
 
 }
