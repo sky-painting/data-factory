@@ -58,4 +58,9 @@ public class DataBuildRequestBean {
      */
     private int persistRequest;
 
+
+    /**
+     * 数据库表名
+     */
+    private String tableName;
 }

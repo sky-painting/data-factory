@@ -54,7 +54,7 @@ public class DataBuildRequestFieldVo<T> {
 
 
     /**
-     * 增加字段名
+     * 数据库字段名
      */
     private String columnName;
 

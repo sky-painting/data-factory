@@ -334,7 +334,7 @@ public class DataFactoryControllerTest {
 
 
 
-    /**
+       /**
      * 测试基于远程服务的数据生成
      */
     @Test
@@ -484,6 +484,87 @@ public class DataFactoryControllerTest {
         long startTime = System.currentTimeMillis();
 
         ResultDataDto resultDto = restTemplate.postForEntity("/datafactory/generate/simple",dataFactoryRequestVo, ResultDataDto.class).getBody();
+        long endTime = System.currentTimeMillis();
+        System.out.println("useTime = "+(endTime - startTime)+"ms");
+        System.out.println(JSON.toJSONString(resultDto));
+
+    }
+
+
+    /**
+     * 测试生成数据库sql
+     */
+    @Test
+    public void testGenerateToSql(){
+        DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
+        dataFactoryRequestVo.setGenerateCount(100);
+        dataFactoryRequestVo.setModuleDesc("员工表");
+        dataFactoryRequestVo.setPersistRequest(0);
+        dataFactoryRequestVo.setProjectName("HR系统");
+        dataFactoryRequestVo.setModuleName("员工信息模块");
+        dataFactoryRequestVo.setServiceName("StaffService");
+        dataFactoryRequestVo.setTableName("t_staff");
+
+        List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo.setDataSourceCode("com.datafactory.user.cardnumber");
+        dataFactoryRequestFieldVo.setFieldName("cardnumber");
+        dataFactoryRequestFieldVo.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo.setColumnName("card_number");
+        requestFieldVoList.add(dataFactoryRequestFieldVo);
+
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
+        dataFactoryRequestFieldVo2.setFieldName("telphone");
+        dataFactoryRequestFieldVo2.setColumnName("telphone");
+        dataFactoryRequestFieldVo2.setFieldTypeStr("String");
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo = new DataBuildRequestFieldRuleVo();
+        dataFactoryRequestFieldRuleVo.setDepencyFunctionMethod("tel");
+        dataFactoryRequestFieldVo2.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo);
+        requestFieldVoList.add(dataFactoryRequestFieldVo2);
+
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo3 = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo3.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo3.setColumnName("bank_card_number");
+        dataFactoryRequestFieldVo3.setFieldName("bankCardNumber");
+        dataFactoryRequestFieldVo3.setDataSourceCode("com.datafactory.bank.cardNumber");
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo3);
+
+
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo4 = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo4.setFieldTypeStr("String");
+        dataFactoryRequestFieldVo4.setFieldName("chineseName");
+        dataFactoryRequestFieldVo4.setColumnName("chinese_name");
+        dataFactoryRequestFieldVo4.setDataSourceCode("com.datafactory.user.chineseName");
+        DataBuildRequestFieldRuleVo dataFactoryRequestFieldRuleVo2 = new DataBuildRequestFieldRuleVo();
+        dataFactoryRequestFieldRuleVo2.setDepencyFunctionMethod("chineseName");
+        dataFactoryRequestFieldVo4.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo2);
+
+        requestFieldVoList.add(dataFactoryRequestFieldVo4);
+
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo5 = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo5.setFieldTypeStr("Long");
+        dataFactoryRequestFieldVo5.setFieldName("departmentId");
+        dataFactoryRequestFieldVo5.setColumnName("department_id");
+        dataFactoryRequestFieldVo5.setDataSourceCode("com.lightsnail.infosys.department");
+        dataFactoryRequestFieldVo5.setDataSourceField("id");
+        requestFieldVoList.add(dataFactoryRequestFieldVo5);
+
+        DataBuildRequestFieldVo dataFactoryRequestFieldVo6 = new DataBuildRequestFieldVo();
+        dataFactoryRequestFieldVo6.setFieldTypeStr("int");
+        dataFactoryRequestFieldVo6.setFieldName("staffType");
+        dataFactoryRequestFieldVo6.setColumnName("staff_type");
+        dataFactoryRequestFieldVo6.setDataSourceCode("com.lightsnail.infosys.staffType");
+        dataFactoryRequestFieldVo6.setDataSourceField("code");
+        requestFieldVoList.add(dataFactoryRequestFieldVo6);
+
+
+        dataFactoryRequestVo.setDataFactoryRequestFieldVoList(requestFieldVoList);
+
+        long startTime = System.currentTimeMillis();
+
+        ResultDataDto resultDto = restTemplate.postForEntity("/datafactory/generate/sql",dataFactoryRequestVo, ResultDataDto.class).getBody();
         long endTime = System.currentTimeMillis();
         System.out.println("useTime = "+(endTime - startTime)+"ms");
         System.out.println(JSON.toJSONString(resultDto));

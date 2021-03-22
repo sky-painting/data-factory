@@ -11,6 +11,7 @@ import com.coderman.tianhua.datafactory.core.functionfactory.FunctionFactory;
 import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.tianhua.datafactory.core.service.DataSourceService;
+import com.coderman.utils.date.DateUtils;
 import com.coderman.utils.response.ResultDataDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -105,9 +106,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     }
 
-
-
-
     @Override
     public ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
         randomThreadLocal.set(new SecureRandom());
@@ -147,6 +145,80 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         }
         resultDataDto.setData(batchResultList);
         return resultDataDto;
+    }
+
+    @Override
+    public ResultDataDto generateSimpleSql(DataBuildRequestBean dataBuildRequestBean) throws Exception {
+        randomThreadLocal.set(new SecureRandom());
+        List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = dataBuildRequestBean.getDataFactoryRequestFieldBeanList();
+        List<String> batchResultList = new ArrayList<>(dataBuildRequestBean.getGenerateCount() * 2);
+        ResultDataDto resultDataDto = new ResultDataDto();
+
+        Map<String, Function> functionMap = new HashMap<>();
+
+        for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+            String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
+            if (StringUtils.isNotBlank(dataSourceCode) && dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
+                Function function = functionFactory.createFunction(dataSourceCode);
+                functionMap.put(dataSourceCode,function);
+            }
+        }
+
+        for (int i = 0; i < dataBuildRequestBean.getGenerateCount(); i++) {
+            Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
+            DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
+
+            for (DataBuildRequestFieldBean dataBuildRequestFieldBean : dataFactoryRequestFieldBeanList) {
+                Object fieldValue = fieldValueMap.get(dataBuildRequestFieldBean.getFieldName());
+                if(fieldValue != null){
+                    continue;
+                }
+                dataSourceFieldRequestBean.setFunction(functionMap.get(dataBuildRequestFieldBean.getDataSourceCode()));
+                dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
+                dataSourceFieldRequestBean.setDataFactoryRequestFieldBean(dataBuildRequestFieldBean);
+                dataSourceFieldRequestBean.setRandom(randomThreadLocal.get());
+                dataSourceFieldRequestBean.setVarDependencyMap(dataBuildRequestFieldBean.getVarDependencyMap());
+                //获取随机字段值
+                Object object = getRandomValue(dataSourceFieldRequestBean);
+                String key = dataBuildRequestFieldBean.getColumnName()+":"+dataBuildRequestFieldBean.getFieldTypeStr();
+                fieldValueMap.put(key, object);
+            }
+
+            String createSql = getSql(dataBuildRequestBean.getTableName(),fieldValueMap);
+
+            batchResultList.add(createSql);
+        }
+        resultDataDto.setData(batchResultList);
+        return resultDataDto;
+    }
+
+
+    /**
+     * 构建create sql
+     * @param tableName
+     * @param fieldValueMap
+     * @return
+     */
+    private String getSql(String tableName, Map<String, Object> fieldValueMap){
+        StringBuilder sqlBuilder = new StringBuilder("insert into "+tableName+"(");
+        List<String> columnNames = new ArrayList<>();
+        StringBuilder valueBuilder = new StringBuilder();
+        fieldValueMap.forEach((k,v)->{
+            String [] columnArr = k.split(":");
+            //日期也当string处理
+            if("string".equals(columnArr[1].toLowerCase()) || "date".equals(columnArr[1].toLowerCase())){
+                valueBuilder.append("'"+v.toString()+"',");
+            }
+            else{
+                valueBuilder.append(v.toString()+",");
+            }
+            columnNames.add("'"+columnArr[0]+"'");
+        });
+        String columns = StringUtils.join(columnNames,",");
+        sqlBuilder.append(columns+") values (");
+        sqlBuilder.append(valueBuilder.subSequence(0,valueBuilder.length() - 1).toString());
+        sqlBuilder.append(");");
+        return sqlBuilder.toString();
     }
 
     /**

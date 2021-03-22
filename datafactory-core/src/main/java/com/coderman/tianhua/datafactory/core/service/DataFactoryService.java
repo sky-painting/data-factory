@@ -21,5 +21,12 @@ public interface DataFactoryService {
      */
     ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception;
 
+    /**
+     * 生成Sql数据
+     * @param dataBuildRequestBean
+     * @return
+     */
+    ResultDataDto generateSimpleSql(DataBuildRequestBean dataBuildRequestBean) throws Exception;
+
 
 }

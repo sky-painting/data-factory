@@ -57,7 +57,7 @@ public class DataBuildRequestVo {
 
 
     /**
-     * 增加表名
+     * 数据库表名
      */
     private String tableName;
 

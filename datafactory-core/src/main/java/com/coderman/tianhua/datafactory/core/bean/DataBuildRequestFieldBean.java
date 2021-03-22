@@ -67,4 +67,8 @@ public class DataBuildRequestFieldBean<T> {
      */
     private DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
 
+    /**
+     * 数据库字段名
+     */
+    private String columnName;
 }
