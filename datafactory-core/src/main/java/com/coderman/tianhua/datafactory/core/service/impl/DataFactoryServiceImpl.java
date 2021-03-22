@@ -15,6 +15,7 @@ import com.coderman.utils.response.ResultDataDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,34 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     private Object getRandomValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
         DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
 
+
+        DataBuildRequestFieldRuleBean  dataBuildRequestFieldRuleBean = dataFactoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
+        dataFactoryRequestFieldBean.getFieldTypeStr();
+        //支持一个字段生成多个值，多个分割符拼接
+        if(dataBuildRequestFieldRuleBean != null && dataBuildRequestFieldRuleBean.getValueCount() > 1 && "string".equals(dataFactoryRequestFieldBean.getFieldTypeStr().toLowerCase())){
+            List<String>  valueList = new ArrayList<>(dataBuildRequestFieldRuleBean.getValueCount());
+            for (int i = 0;i < dataBuildRequestFieldRuleBean.getValueCount();i++) {
+                Object value = getValue(dataSourceFieldRequestBean);
+                valueList.add(value.toString());
+            }
+            String splitTag = StringUtils.isEmpty(dataBuildRequestFieldRuleBean.getSplitTag()) ? "," : dataBuildRequestFieldRuleBean.getSplitTag() ;
+            return StringUtils.join(valueList,splitTag);
+        }
+        //其他场景
+        return getValue(dataSourceFieldRequestBean);
+    }
+
+
+
+    /**
+     * 根据请求的数据上下文生成随机的数据字段值
+     * @param dataSourceFieldRequestBean
+     * @return
+     * @throws Exception
+     */
+    private Object getValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
+        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+
         String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
         //从默认值中获取数据
         if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
@@ -75,6 +104,9 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         }
 
     }
+
+
+
 
     @Override
     public ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
