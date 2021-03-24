@@ -212,7 +212,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             else{
                 valueBuilder.append(v.toString()+",");
             }
-            columnNames.add("'"+columnArr[0]+"'");
+            columnNames.add(""+columnArr[0]+"");
         });
         String columns = StringUtils.join(columnNames,",");
         sqlBuilder.append(columns+") values (");
