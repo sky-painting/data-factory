@@ -1,12 +1,10 @@
 package com.lightsnail.user.crm.core.datafactory.api.test;
 
-import com.alibaba.fastjson.JSON;
 import com.coderman.tianhua.datafactory.api.Application;
 import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestFieldRuleVo;
 import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestFieldVo;
 import com.coderman.tianhua.datafactory.api.vo.DataBuildRequestVo;
 import com.coderman.utils.response.ResultDataDto;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +18,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * description: DataFactoryControllerTest <br>
- * date: 2020/12/7 23:42 <br>
+ * description: RoomLandLoadTest <br>
+ * date: 2021/3/28 23:52 <br>
  * author: coderman <br>
  * version: 1.0 <br>
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {Application.class})
-public class RoomAgentTest {
+public class RoomLandLoadTest {
     @Autowired
     private TestRestTemplate restTemplate;
-
-
 
 
     /**
@@ -41,12 +37,12 @@ public class RoomAgentTest {
     public void testGenerateFromALL(){
         DataBuildRequestVo dataFactoryRequestVo = new DataBuildRequestVo();
         dataFactoryRequestVo.setGenerateCount(100);
-        dataFactoryRequestVo.setModuleDesc("代理人表");
+        dataFactoryRequestVo.setModuleDesc("房东信息表");
         dataFactoryRequestVo.setPersistRequest(0);
         dataFactoryRequestVo.setProjectName("轻蜗牛租房项目");
-        dataFactoryRequestVo.setModuleName("crm-代理人信息管理模块");
-        dataFactoryRequestVo.setServiceName("RoomAgentService");
-        dataFactoryRequestVo.setTableName("room_agent");
+        dataFactoryRequestVo.setModuleName("crm-房东信息管理模块");
+        dataFactoryRequestVo.setServiceName("RoomLandLordService");
+        dataFactoryRequestVo.setTableName("room_landlord");
         List<DataBuildRequestFieldVo> requestFieldVoList = new ArrayList<>();
 
 
@@ -87,7 +83,7 @@ public class RoomAgentTest {
         dataFactoryRequestFieldVo12.setDataFactoryRequestFieldRuleVo(dataFactoryRequestFieldRuleVo5);
 
 
-        requestFieldVoList.add(dataFactoryRequestFieldVo12);
+        //requestFieldVoList.add(dataFactoryRequestFieldVo12);
 
         DataBuildRequestFieldVo dataFactoryRequestFieldVo2 = new DataBuildRequestFieldVo();
         dataFactoryRequestFieldVo2.setDataSourceCode("com.datafactory.user.telphone");
@@ -115,3 +111,4 @@ public class RoomAgentTest {
     }
 
 }
+

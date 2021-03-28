@@ -569,6 +569,10 @@ public class DataFactoryControllerTest {
         System.out.println("useTime = "+(endTime - startTime)+"ms");
         System.out.println(JSON.toJSONString(resultDto));
 
+        List<String> list = ( List<String>)resultDto.getData();
+        for (String str : list){
+            System.out.println(str);
+        }
     }
 
 }
