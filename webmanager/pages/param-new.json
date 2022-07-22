@@ -1,0 +1,144 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/param/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "api": "http://127.0.0.1:8090/parammodel/add",
+      "redirect": "/param/list",
+
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "",
+      "body": [
+        {
+          "type": "input-text",
+          "name": "paramClassName",
+          "label": "模型类名称",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "paramClassDesc",
+          "label": "参数类描述",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "moduleCode",
+          "label": "所属上下文",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "modelSuffix",
+          "label": "模型后缀",
+          "required": true,
+          "source": "http://127.0.0.1:8090/modelsuffix/listoption"
+
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "属性列表",
+          "type": "input-table",
+          "name": "fieldBeanList",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "columns": [
+            {
+              "name": "fieldName",
+              "type": "input-text",
+              "label": "属性名称"
+            },
+            {
+              "name": "fieldDesc",
+              "type": "input-text",
+              "label": "属性描述"
+            },
+            {
+              "name": "fieldType",
+              "type": "input-text",
+              "label": "属性类型"
+            },
+            {
+              "name": "dataSourceCode",
+              "type": "input-text",
+              "label": "数据源编码",
+              "source": "http://127.0.0.1:8090/datasource/search?content=${dataSourceCode}"
+            },
+            {
+              "name": "bizUnique",
+              "type": "switch",
+              "label": "是否代表业务唯一性"
+            },
+            {
+              "name": "bizIdentifier",
+              "type": "switch",
+              "label": "是否作为领域实体标示"
+            },
+            {
+              "name": "complexStruct",
+              "type": "switch",
+              "label": "是否是复杂数据类型"
+            },
+            {
+              "name": "checkRule",
+              "type": "switch",
+              "label": "否存在特定规则校验"
+            },
+            {
+              "name": "mappingDBColumn",
+              "type": "switch",
+              "label": "是否对应数据库字段"
+            },
+            {
+              "name": "defaultValueList",
+              "type": "textarea",
+              "label": "默认值列表"
+            }
+
+          ]
+        }
+      ]
+    }
+  ]
+}

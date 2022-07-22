@@ -1,0 +1,119 @@
+{
+  "type": "page",
+  "title": "查看参数模型详情",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/param/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "page",
+      "initApi": "http://127.0.0.1:8090/parammodel/getById/${params.id}",
+      "controls": [
+        {
+          "type": "static",
+          "name": "paramClassName",
+          "label": "模型类名称"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "paramClassDesc",
+          "label": "参数类描述"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "所属项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "moduleCode",
+          "label": "所属上下文"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "modelSuffix",
+          "label": "模型后缀"
+        },{
+          "type": "divider"
+        },
+        {
+          "label": "属性列表",
+          "type": "input-table",
+          "name": "fieldBeanList",
+          "multiple": false,
+          "addable": false,
+          "editable": false,
+          "columns": [
+            {
+              "name": "fieldName",
+              "type": "static",
+              "label": "属性名称"
+            },
+            {
+              "name": "fieldDesc",
+              "type": "static",
+              "label": "属性描述"
+            },
+            {
+              "name": "fieldType",
+              "type": "static",
+              "label": "属性类型"
+            },
+            {
+              "name": "dataSourceCode",
+              "type": "static",
+              "label": "数据源编码"
+            },{
+              "name": "bizUnique",
+              "type": "static",
+              "label": "是否代表业务唯一性"
+            },
+            {
+              "name": "bizIdentifier",
+              "type": "static",
+              "label": "是否作为领域实体标示"
+            },
+            {
+              "name": "complexStruct",
+              "type": "static",
+              "label": "是否是复杂数据类型"
+            },
+            {
+              "name": "checkRule",
+              "type": "static",
+              "label": "否存在特定规则校验"
+            },
+            {
+              "name": "mappingDBColumn",
+              "type": "static",
+              "label": "是否对应数据库字段"
+            },
+            {
+              "name": "defaultValueList",
+              "type": "static",
+              "label": "默认值列表"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
