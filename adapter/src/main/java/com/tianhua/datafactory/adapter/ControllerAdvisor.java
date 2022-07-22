@@ -1,0 +1,44 @@
+package com.tianhua.datafactory.adapter;
+
+
+import com.alibaba.fastjson.JSON;
+import com.coderman.utils.error.CommonErrorEnum;
+import com.coderman.utils.response.ResultDataDto;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.reflection.ExceptionUtil;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+
+
+@Component
+@Aspect
+@Slf4j
+public class ControllerAdvisor {
+    @Around(value = "execution( public * com.tianhua.datafactory.controller.admin..*(..))")
+    public Object transferException(ProceedingJoinPoint joinPoint) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        try {
+            log.info("{}.{} param:{}", method.getDeclaringClass().getName(), method.getName(), JSON.toJSONString(joinPoint.getArgs()));
+            Object result = joinPoint.proceed();
+            log.info("{}.{} result:{}", method.getDeclaringClass().getName(), method.getName(), JSON.toJSONString(result));
+            return result;
+        } catch (Throwable exception) {
+            if (!method.getReturnType().getName().equals(ResultDataDto.class.getName())) {
+                log.error("sdfadsfadsfasdfxxx.........");
+            }
+            log.warn("{}.{} throw exception:{}", method.getDeclaringClass().getName(), method.getName(), exception);
+            String msg = "未知错误";
+            if (StringUtils.isNotBlank(exception.getMessage())) {
+                msg = exception.getMessage();
+            }
+            return ResultDataDto.fail("500",msg);
+        }
+    }
+}

@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.core.bean;
+package com.tianhua.datafactory.domain.bo;
 
 import lombok.Data;
 import lombok.ToString;
