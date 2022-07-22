@@ -1,24 +1,18 @@
-package com.coderman.tianhua.datafactory.client.filedata.impl;
+package com.tianhua.datafactory.client.filedata.impl;
 
-import com.coderman.tianhua.datafactory.client.cache.CacheService;
-import com.coderman.tianhua.datafactory.client.enums.FileDataEnums;
-import com.coderman.tianhua.datafactory.client.filedata.FileReadService;
-import com.coderman.tianhua.datafactory.client.filedata.ParseService;
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import com.tianhua.datafactory.client.cache.CacheService;
+import com.tianhua.datafactory.client.enums.FileDataEnums;
+import com.tianhua.datafactory.client.filedata.FileReadService;
+import com.tianhua.datafactory.client.filedata.ParseService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Description:

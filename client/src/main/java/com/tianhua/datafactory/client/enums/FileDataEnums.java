@@ -1,6 +1,4 @@
-package com.coderman.tianhua.datafactory.client.enums;
-
-import java.io.File;
+package com.tianhua.datafactory.client.enums;
 
 /**
  * Description:

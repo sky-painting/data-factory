@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.client.constants;
+package com.tianhua.datafactory.client.constants;
 
 /**
  * 内建公共数据源-code
@@ -23,7 +23,18 @@ public class InnerDataSourceCode {
     /**
      * 日期--内置实现 yyyy-MM-dd
      */
-    public static final String DATE = "com.datafactory.user.date";
+    public static final String DATE = "com.datafactory.date.date";
+
+
+    /**
+     *  时间--内置实现 yyyy-MM-dd HH:mm:SS
+     */
+    public static final String DATA_TIME = "com.datafactory.date.datetime";
+
+    /**
+     * 时间戳 当前时间戳
+     */
+    public static final String TIME_STAMP = "com.datafactory.date.datetimestamp";
 
     /**
      * 姓氏--内置实现
@@ -77,6 +88,18 @@ public class InnerDataSourceCode {
      * 获取一个随机数---内置实现
      */
     public static final String RANDOM = "com.datafactory.user.getRandom";
+
+
+    /**
+     * 获取一个业务编码名称
+      */
+    public static final String BIZ_CODE = "com.datafactory.code.getBizCodeName";
+
+    /**
+     * 获取一个单号
+     */
+    public static final String ORDER_CODE = "com.datafactory.code.getOrderCodeNumber";
+
 
 
 }

@@ -1,12 +1,9 @@
-package com.coderman.tianhua.datafactory.client.utils;
+package com.tianhua.datafactory.client.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-
-import java.sql.Connection;
-import java.util.List;
 
 /**
  * @Author fanchunshuai

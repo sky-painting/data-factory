@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.client.function;
+package com.tianhua.datafactory.client.function;
 
 /**
  * description: Function 生成随机数据的函数接口

@@ -1,8 +1,8 @@
-package com.coderman.tianhua.datafactory.client.service;
+package com.tianhua.datafactory.client.service;
 
-import com.coderman.tianhua.datafactory.client.enums.FileDataEnums;
-import com.coderman.tianhua.datafactory.client.filedata.ParseService;
-import com.coderman.tianhua.datafactory.client.utils.SpringUtil;
+import com.tianhua.datafactory.client.enums.FileDataEnums;
+import com.tianhua.datafactory.client.filedata.ParseService;
+import com.tianhua.datafactory.client.utils.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
