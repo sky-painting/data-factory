@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.DataSourceResConfigMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceRespConfigDO">
+        <result column="id" property="id" />
+        <result column="field_key" property="fieldKey" />
+        <result column="refer_path" property="referPath" />
+        <result column="field_desc" property="fieldDesc" />
+        <result column="field_type" property="fieldType" />
+        <result column="data_source_id" property="dataSourceId" />
+
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,data_source_id,field_key,refer_path,field_desc,field_type
+    </sql>
+
+    <insert id="insert" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceRespConfigDO">
+        insert into data_source_resp_config(
+            data_source_id,field_key,refer_path,field_desc,field_type
+        )
+        values(
+        #{dataSourceId},#{fieldKey},#{referPath},#{fieldDesc},#{fieldType}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceRespConfigDO">
+        update data_source_resp_config
+        set
+        data_source_id=#{dataSourceId},field_key=#{fieldKey},refer_path=#{referPath},field_desc=#{fieldDesc},field_type=#{fieldType}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from data_source_resp_config
+    </select>
+
+    <select id="getById"  resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from data_source_resp_config  where id = #{id}
+    </select>
+
+    <delete id="deleteByDataSourceId" >
+        delete from data_source_resp_config where data_source_id = #{dataSourceId}
+    </delete>
+
+    <select id="getByDataSourceId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from data_source_resp_config  where data_source_id = #{dataSourceId}
+    </select>
+
+</mapper>
