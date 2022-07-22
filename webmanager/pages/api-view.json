@@ -1,0 +1,92 @@
+{
+  "type": "page",
+  "title": "查看api详情${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/api/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "page",
+      "initApi": "http://127.0.0.1:8090/api/getById/${params.id}",
+      "controls": [
+        {
+          "type": "static",
+          "name": "apiUrl",
+          "label": "api请求路径(方法签名)"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "apiType",
+          "label": "api类型"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "returnType",
+          "label": "api返回类型"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "methodType",
+          "label": "api请求方式"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "api所属项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "apiDoc",
+          "label": "api文档"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "returnValue",
+          "label": "返回值列表(多个逗号分割)"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "请求参数列表",
+          "type": "input-table",
+          "name": "apiList",
+          "multiple": false,
+          "addable": false,
+          "editable": false,
+          "columns": [
+            {
+              "name": "paramClassName",
+              "type": "text",
+              "label": "参数类名"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

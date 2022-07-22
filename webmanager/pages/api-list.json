@@ -1,0 +1,199 @@
+{
+  "type": "page",
+  "title": "api管理",
+  "remark": null,
+  "name": "api",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/api/new",
+      "label": "新增",
+      "primary": true
+    },
+    {
+      "type": "button",
+      "label": "上传plantUML-API模型文档",
+      "primary": true,
+      "actionType": "dialog",
+      "dialog": {
+        "title": "构建领域模型",
+        "body": {
+          "type": "form",
+          "api": "http://127.0.0.1:8090/api/batchBuild",
+          "body": [
+            {
+              "type": "select",
+              "name": "projectCode",
+              "required": true,
+              "placeholder": "请选择项目",
+              "label": "项目编码",
+              "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+            },
+            {
+              "type": "input-file",
+              "name": "file",
+              "label": "plantUML-领域模型文档",
+              "accept": ".puml",
+              "receiver": "http://127.0.0.1:8090/apidoc/upload"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://127.0.0.1:8090/api/pagelist",
+      "perPage": 5,
+      "keepItemSelectionOnPageChange": true,
+      "maxKeepItemSelectionLength": 11,
+      "labelTpl": "${id} ${engine}",
+      "orderBy": "id",
+      "orderDir": "asc",
+      "autoGenerateFilter": true,
+      "filterTogglable": false,
+      "headerToolbar": [
+        "filter-toggler",
+        "bulkActions",
+        {
+          "type": "tpl",
+          "tpl": "定制内容示例：当前有 ${count} 条数据。",
+          "className": "v-middle"
+        },
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "right"
+        },
+        {
+          "type": "pagination",
+          "align": "right"
+        }
+      ],
+      "footerToolbar": [
+        "statistics",
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "name": "apiType",
+          "label": "api类型",
+          "searchable": {
+            "type": "select",
+            "name": "apiType",
+            "placeholder": "选择api类型",
+            "source": "http://127.0.0.1:8090/dataEnum/apiType"
+
+          }
+        },
+        {
+          "type": "text",
+          "name": "projectCode",
+          "label": "api所属项目编码",
+          "searchable": {
+            "type": "input-text",
+            "name": "projectCode",
+            "placeholder": "输入项目编码",
+            "searchable": true,
+            "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+          }
+        },
+        {
+          "type": "text",
+          "name": "apiSign",
+          "label": "api签名",
+          "searchable": {
+            "type": "input-text",
+            "name": "apiSign",
+            "placeholder": "输入api签名"
+          }
+        },
+        {
+          "type": "text",
+          "name": "apiDoc",
+          "label": "api描述"
+        },
+        {
+          "type": "text",
+          "name": "requestParamClasses",
+          "label": "请求参数列表"
+        },
+        {
+          "type": "text",
+          "name": "returnParamClass",
+          "label": "返回参数类型"
+        },
+        {
+          "type": "text",
+          "name": "methodType",
+          "label": "api请求方式",
+          "searchable": {
+            "type": "select",
+            "name": "methodType",
+            "placeholder": "选择请求方式",
+            "source": "http://127.0.0.1:8090/dataEnum/methodType"
+          }
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/api/${id}"
+                },
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/api/${id}/edit"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "delete:/api/delete/$id"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

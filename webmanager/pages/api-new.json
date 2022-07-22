@@ -1,0 +1,153 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/api/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "api": "http://127.0.0.1:8090/api/add",
+      "redirect": "/api/list",
+
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "",
+      "body": [
+        {
+          "type": "input-text",
+          "name": "apiUrl",
+          "label": "api请求路径(方法签名)",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "apiType",
+          "label": "api类型",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiType"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "returnType",
+          "label": "api返回类型",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "methodType",
+          "label": "api请求方式",
+          "required": true,
+          "options": [
+            {
+              "label": "post",
+              "value": "post"
+            },
+            {
+              "label": "get",
+              "value": "get"
+            },
+            {
+              "label": "put",
+              "value": "put"
+            },
+            {
+              "label": "delete",
+              "value": "delete"
+            },
+            {
+              "label": "rpc-dubbo",
+              "value": "rpc-dubbo"
+            },
+            {
+              "label": "rpc-grpc",
+              "value": "rpc-grpc"
+            },
+            {
+              "label": "serviceInvoke",
+              "value": "serviceInvoke"
+            }
+          ]
+
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "api所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "textarea",
+          "name": "apiDoc",
+          "label": "api文档",
+          "required": true,
+          "maxRows": 500,
+          "showCounter": true,
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "textarea",
+          "name": "returnValue",
+          "label": "返回值列表(多个逗号分割)",
+          "required": true,
+          "maxRows": 500,
+          "showCounter": true,
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "请求参数列表",
+          "type": "input-table",
+          "name": "apiList",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "columns": [
+            {
+              "name": "paramClassName",
+              "type": "text",
+              "label": "参数类名"
+            }
+          ]
+        }
+
+      ]
+    }
+  ]
+}
