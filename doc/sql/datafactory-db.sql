@@ -94,18 +94,20 @@ CREATE TABLE `model_suffix_config`(
     ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '后缀配置表';
 
 
-CREATE TABLE `model_mapping_config`(
-          `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
-          `api_param_field` varchar(100) NOT NULL DEFAULT  '' COMMENT '对外api参数属性',
-          `service_param_field` varchar(100) NOT NULL DEFAULT  '' COMMENT '服务参数属性',
-          `entity_param_field` varchar(100) NOT NULL DEFAULT  '' COMMENT '数据库实体属性',
-          `column_field` varchar(100) NOT NULL DEFAULT  '' COMMENT '数据库表字段',
-          `mapping_type` varchar(50) NOT NULL DEFAULT  '' COMMENT '映射类型',
-          `project_code` varchar(50) NOT NULL DEFAULT  '' COMMENT '项目编码',
-          PRIMARY KEY (`id`),
-          UNIQUE KEY `uniq_a_s_e_c` (`api_param_field`,`service_param_field`,`entity_param_field`,`column_field`) COMMENT '联合唯一索引')
-    ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '模型映射表';
-
+CREATE TABLE `model_mapping_config` (
+	`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+	`mapping_class_first` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '对外api参数属性' COLLATE 'utf8mb4_general_ci',
+	`mapping_field_first` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '服务参数属性' COLLATE 'utf8mb4_general_ci',
+	`mapping_class_second` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '数据库实体属性' COLLATE 'utf8mb4_general_ci',
+	`mapping_field_second` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '数据库表字段' COLLATE 'utf8mb4_general_ci',
+	`mapping_type` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '映射类型' COLLATE 'utf8mb4_general_ci',
+	`project_code` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '项目编码' COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `uniq_a_s_e_c` (`mapping_class_first`, `mapping_field_first`, `mapping_class_second`, `mapping_field_second`) USING BTREE
+)
+COMMENT='模型映射表'
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
 
 CREATE TABLE `field_model`(
  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
