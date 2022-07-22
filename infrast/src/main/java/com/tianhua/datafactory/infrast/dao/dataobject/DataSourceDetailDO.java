@@ -1,19 +1,17 @@
-package com.coderman.tianhua.datafactory.core.entity;
+package com.tianhua.datafactory.infrast.dao.dataobject;
 
-import java.util.Date;
-import java.math.BigDecimal;
 import lombok.Data;
 import lombok.ToString;
 
 /**
-* @Description:数据源详情表Entity类
-* @Author:fanchunshuai
-* @CreateTime:2020-12-02 23:07:13
+* @Description:数据源详情表DO类
+* @Author:shenshuai
+* @CreateTime:2022-05-27 16:05:26
 * @version v1.0
 */
 @Data
 @ToString
-public class DataSourceDetailEntity{
+public class DataSourceDetailDO{
 
 
    /** 主键 **/

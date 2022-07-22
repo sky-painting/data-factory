@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.core.vo;
+package com.tianhua.datafactory.domain.bo.datasource;
 
 import lombok.Data;
 import lombok.ToString;
@@ -11,7 +11,7 @@ import lombok.ToString;
 */
 @Data
 @ToString
-public class DataSourceDetailVO{
+public class DataSourceDetailBO {
 
 
 	/** 主键 **/

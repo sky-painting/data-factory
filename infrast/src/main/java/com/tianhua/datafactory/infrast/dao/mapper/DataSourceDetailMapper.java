@@ -1,7 +1,8 @@
-package com.coderman.tianhua.datafactory.core.mapper;
+package com.tianhua.datafactory.infrast.dao.mapper;
 
 
-import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
+
+import com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ public interface DataSourceDetailMapper{
 	 * @Title: save 
 	 * @Description:新增或修改 
 	 * @author: 
-	 * @param @param dataSourceDetailEntity
+	 * @param @param dataSourceDetailDO
 	 * @return int
 	 * @throws
 	 */
-	public int insert(DataSourceDetailEntity dataSourceDetailEntity);
+	public int insert(DataSourceDetailDO dataSourceDetailDO);
 
 	/**
 	 * 
@@ -42,31 +43,31 @@ public interface DataSourceDetailMapper{
 	 * @Description: 通过id查询
 	 * @author: 
 	 * @param @param id
-	 * @return ResultDataDto<DataSourceDetailEntity>    返回类型
+	 * @return ResultDataDto<DataSourceDetailDO>    返回类型
 	 * @throws
 	 */
-	public DataSourceDetailEntity getById(Long id);
+	public DataSourceDetailDO getById(Long id);
 
 	/**
 	 * 
 	 * @Title: getAll 
 	 * @Description:查询所有数据 
 	 * @author: 
-	 * @return List<DataSourceDetailEntity    返回类型
+	 * @return List<DataSourceDetailDO    返回类型
 	 * @throws
 	 */
-	public List<DataSourceDetailEntity>  getAll();
+	public List<DataSourceDetailDO>  getAll();
 
 	/**
 	*
 	* @Title: update
 	* @Description:新增或修改
 	* @author:
-	* @param @param dataSourceDetailEntity
+	* @param @param DataSourceDetailDO
 	* @return int
 	* @throws
 	*/
-	public int update(DataSourceDetailEntity dataSourceDetailEntity);
+	public int update(DataSourceDetailDO dataSourceDetailDO);
 
 
 	/**
@@ -75,9 +76,9 @@ public interface DataSourceDetailMapper{
 	 * @Description: 通过dataSourceId查询
 	 * @author:
 	 * @param @param dataSourceId
-	 * @return ResultDataDto<DataSourceDetailEntity>    返回类型
+	 * @return ResultDataDto<DataSourceDetailDO>    返回类型
 	 * @throws
 	 */
-	public DataSourceDetailEntity getByDataSourceId(Long dataSourceId);
+	public DataSourceDetailDO getByDataSourceId(Long dataSourceId);
 
 }

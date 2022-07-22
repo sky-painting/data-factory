@@ -1,6 +1,6 @@
-package com.coderman.tianhua.datafactory.core.bean;
+package com.tianhua.datafactory.domain.bo;
 
-import com.coderman.tianhua.datafactory.client.function.Function;
+import com.tianhua.datafactory.client.function.Function;
 import lombok.Data;
 
 import java.security.SecureRandom;

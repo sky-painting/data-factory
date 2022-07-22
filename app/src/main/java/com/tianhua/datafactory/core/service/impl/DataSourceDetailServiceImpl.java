@@ -1,12 +1,13 @@
-package com.coderman.tianhua.datafactory.core.service.impl;
+/*
+package com.tianhua.datafactory.core.service.impl;
 
 import com.coderman.utils.bean.CglibConvertService;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
-import com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity;
-import com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
-import com.coderman.tianhua.datafactory.core.service.DataSourceDetailService;
-import com.coderman.tianhua.datafactory.core.vo.DataSourceDetailVO;
+import com.tianhua.datafactory.core.entity.DataSourceDetailEntity;
+import com.tianhua.datafactory.core.mapper.DataSourceDetailMapper;
+import com.tianhua.datafactory.core.service.DataSourceDetailService;
+import com.tianhua.datafactory.core.vo.DataSourceDetailVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,14 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
+*/
 /**
  * @Description:数据源详情表Service接口实现类
  * @Author：fanchunshuai
  * @CreateTime：2020-12-02 23:07:13
  * @version v1.0
- */
+ *//*
+
 @Service
 @Slf4j
 public class DataSourceDetailServiceImpl implements DataSourceDetailService {
@@ -72,4 +75,4 @@ public class DataSourceDetailServiceImpl implements DataSourceDetailService {
 		return resultDto;
 	}
 
-}
+}*/

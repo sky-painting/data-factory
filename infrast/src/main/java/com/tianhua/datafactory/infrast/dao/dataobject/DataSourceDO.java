@@ -1,9 +1,9 @@
-package com.coderman.tianhua.datafactory.core.entity;
+package com.tianhua.datafactory.infrast.dao.dataobject;
 
-import java.util.Date;
-import java.math.BigDecimal;
 import lombok.Data;
 import lombok.ToString;
+
+import java.util.Date;
 
 /**
 * @Description:数据源管理表Entity类
@@ -13,7 +13,7 @@ import lombok.ToString;
 */
 @Data
 @ToString
-public class DataSourceEntity{
+public class DataSourceDO {
 
 
    /** 主键 **/
@@ -28,11 +28,20 @@ public class DataSourceEntity{
    /** 数据源类型/(nacos,api,enum) **/
    private Integer sourceType;
 
-   /** 数据源提供来源 **/
-   private String providerSrc;
+   /** 数据源提供来源服务名 **/
+   private String providerService;
 
-   /** 访问token **/
-   private String token;
+   /**
+    * 服务提供者域名
+    */
+   private String providerDomainUrl;
+
+   /**
+    * 注册中心类型
+    */
+   private Integer registServer;
+
+
 
    /** 数据源访问url **/
    private String url;
@@ -40,8 +49,22 @@ public class DataSourceEntity{
    /** 状态(0正常,1过期) **/
    private Integer status;
 
-   /** 访问策略（0动态获取/1本地缓存） **/
+   /** 访问策略 **/
    private Integer visitStrategy;
+
+
+   /**
+    * 数据源格式
+    */
+   private String structType;
+
+
+
+
+
+
+
+
 
    /** 创建时间 **/
    private Date createTime;

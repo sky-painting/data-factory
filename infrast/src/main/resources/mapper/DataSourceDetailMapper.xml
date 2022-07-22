@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.coderman.tianhua.datafactory.core.mapper.DataSourceDetailMapper">
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.DataSourceDetailMapper">
 
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO">
         <result column="id" property="id" />
         <result column="data_source_id" property="dataSourceId" />
         <result column="data_content_json" property="dataContentJson" />
@@ -17,7 +17,7 @@
         id,data_source_id,data_content_json
     </sql>
 
-    <insert id="insert" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
+    <insert id="insert" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO">
         insert into data_source_detail(
         data_source_id,data_content_json
         )
@@ -26,19 +26,19 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO">
         update data_source_detail
         set
         data_source_id=#{dataSourceId},data_content_json=#{dataContentJson}
         where  id = #{id}
     </update>
 
-    <select id="getAll" resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
+    <select id="getAll" resultType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO">
         select <include refid="Base_Column_List" />  from data_source_detail
     </select>
 
-    <select id="getById" parameterType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity"
-            resultType="com.coderman.tianhua.datafactory.core.entity.DataSourceDetailEntity">
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO"
+            resultType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDetailDO">
         select <include refid="Base_Column_List" /> from data_source_detail  where id = #{id}
     </select>
 
