@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ModelMappingConfigMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ModelMappingConfigDO">
+        <result column="id" property="id" />
+        <result column="mapping_class_first" property="mappingClassFirst" />
+        <result column="mapping_field_first" property="mappingFieldFirst" />
+        <result column="mapping_class_second" property="mappingClassSecond" />
+        <result column="mapping_field_second" property="mappingFieldSecond" />
+        <result column="mapping_type" property="mappingType" />
+        <result column="project_code" property="projectCode" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,mapping_class_first,mapping_field_first,mapping_class_second,mapping_field_second,mapping_type,project_code
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelMappingConfigDO" useGeneratedKeys="true">
+        insert into model_mapping_config(
+            mapping_class_first,mapping_field_first,mapping_class_second,mapping_field_second,mapping_type,project_code
+        )
+        values(
+        #{mappingClassFirst},#{mappingFieldFirst},#{mappingClassSecond},#{mappingFieldSecond},#{mappingType},#{projectCode}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelMappingConfigDO">
+        update model_mapping_config
+        set
+            mapping_class_first=#{mappingClassFirst},mapping_field_first=#{mappingFieldFirst},mapping_class_second=#{mappingClassSecond},mapping_field_second=#{mappingFieldSecond},mapping_type=#{mappingType},project_code=#{projectCode}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from model_mapping_config
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelMappingConfigDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from model_mapping_config  where id = #{id}
+    </select>
+
+    <select id="getListByProjectCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from model_mapping_config  where project_code = #{projectCode}
+
+    </select>
+
+    <delete id="deleteById" >
+        delete from model_mapping_config where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from model_mapping_config
+
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.mappingType != null">
+                    and mapping_type=#{page.query.mappingType}
+                </if>
+                <if test="page.query.mappingClassFirst != null">
+                    and mapping_class_first = #{page.query.mappingClassFirst}
+                </if>
+                <if test="page.query.mappingClassSecond != null">
+                    and mapping_class_second = #{page.query.mappingClassSecond}
+                </if>
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+    </select>
+
+    <select id="getPageCount" resultMap="count">
+        select count(1)  as total from model_mapping_config
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.mappingType != null">
+                    and mapping_type=#{page.query.mappingType}
+                </if>
+                <if test="page.query.mappingClass != null">
+                    and mapping_class_first like concat('%',#{page.query.mappingClass},'%')
+                </if>
+                <if test="page.query.mappingClass != null">
+                    and mapping_class_second like concat('%',#{page.query.mappingClass},'%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+</mapper>
