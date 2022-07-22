@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.TableModelMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO">
+        <result column="id" property="id" />
+        <result column="table_name" property="tableName" />
+        <result column="table_comment" property="tableComment" />
+        <result column="db_name" property="dbName" />
+        <result column="project_code" property="projectCode" />
+        <result column="date_create" property="dateCreate" />
+        <result column="date_update" property="dateUpdate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,table_name,table_comment,db_name,project_code,date_create,date_update,update_user_id,create_user_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO" useGeneratedKeys="true">
+        insert into table_model(
+        table_name,table_comment,db_name,project_code,date_create,date_update,update_user_id,create_user_id
+        )
+        values(
+        #{tableName},#{tableComment},#{dbName},#{projectCode},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO">
+        update table_model
+        set
+        table_name=#{tableName},table_comment=#{tableComment},db_name=#{dbName},project_code=#{projectCode},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from table_model
+    </select>
+
+    <select id="getByProjectCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from table_model where project_code = #{projectCode}
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from table_model  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from table_model where id = #{id}
+    </delete>
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from table_model
+        <where>
+            <if test="content != null">
+                and (project_code  like concat('%',#{content},'%') or table_comment  like concat('%',#{content},'%') or table_name  like concat('%',#{content},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from table_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.tableName != null">
+                    and table_name like concat('%',#{page.query.tableName},'%')
+                </if>
+                <if test="page.query.tableComment != null">
+                    and table_comment like concat('%',#{page.query.tableComment},'%')
+                </if>
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+    </select>
+
+    <select id="getPageCount" resultMap="count">
+        select count(1) as total from table_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.tableName != null">
+                    and table_name like concat('%',#{page.query.tableName},'%')
+                </if>
+                <if test="page.query.tableComment != null">
+                    and table_comment like concat('%',#{page.query.tableComment},'%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+</mapper>

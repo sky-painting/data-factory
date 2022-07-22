@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ProjectConfigMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO">
+        <result column="id" property="id" />
+        <result column="project_code" property="projectCode" />
+        <result column="project_desc" property="projectDesc" />
+        <result column="domain_code" property="domainCode" />
+        <result column="domain_desc" property="domainDesc" />
+        <result column="bus_line" property="busLine" />
+        <result column="dept_name" property="deptName" />
+        <result column="date_create" property="dateCreate" />
+        <result column="date_update" property="dateUpdate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,project_code,project_desc,domain_code,domain_desc,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO" useGeneratedKeys="true">
+        insert into project_config(
+        project_code,project_desc,domain_code,domain_desc,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
+        )
+        values(
+        #{projectCode},#{projectDesc},#{domainCode},#{domainDesc},#{busLine},#{deptName},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO">
+        update project_config
+        set
+        project_desc=#{projectDesc},domain_code=#{domainCode},domain_desc=#{domainDesc},bus_line=#{busLine},dept_name=#{deptName},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        where  project_code = #{projectCode}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from project_config
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from project_config  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from project_config where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from project_config
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.projectDesc != null">
+                    and project_desc like concat('%',#{page.query.projectDesc},'%')
+                </if>
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+    </select>
+
+    <select id="getPageCount" resultMap="count">
+        select count(1) as total from project_config
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.projectDesc != null">
+                    and project_desc like concat('%',#{page.query.projectDesc},'%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="getByCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from project_config where project_code = #{projectCode}
+
+    </select>
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from project_config
+        <where>
+            <if test="content != null">
+                and (project_code  like concat('%',#{content},'%') or project_desc  like concat('%',#{content},'%'))
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
