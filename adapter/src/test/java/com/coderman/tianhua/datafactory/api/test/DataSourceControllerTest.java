@@ -1,12 +1,13 @@
+/*
 package com.coderman.tianhua.datafactory.api.test;
 
 import com.alibaba.fastjson.JSON;
-import com.coderman.tianhua.datafactory.api.Application;
+import com.tianhua.datafactory.Application;
 import com.coderman.tianhua.datafactory.api.test.dto.DepartmentDTO;
 import com.coderman.tianhua.datafactory.api.test.dto.StaffType;
-import com.coderman.tianhua.datafactory.core.enums.DataSourceTypeEnum;
-import com.coderman.tianhua.datafactory.core.enums.VisitStrategyEnums;
-import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
+import com.tianhua.datafactory.core.enums.DataSourceTypeEnum;
+import com.tianhua.datafactory.core.enums.VisitStrategyEnums;
+import com.tianhua.datafactory.core.vo.DataSourceVO;
 import com.coderman.utils.kvpair.KVPair;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
@@ -23,12 +24,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+*/
 /**
  * description: DataSourceControllerTest <br>
  * date: 2020/12/8 23:10 <br>
  * author: coderman <br>
  * version: 1.0 <br>
- */
+ *//*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {Application.class})
 public class DataSourceControllerTest {
@@ -148,10 +151,12 @@ public class DataSourceControllerTest {
 
 
 
-    /**
+    */
+/**
      * 构建部门数据
      * @return
-     */
+     *//*
+
     public List<DepartmentDTO> getDepartmentDTO(){
         List<DepartmentDTO> departmentDTOList = new ArrayList<>();
         DepartmentDTO departmentDTO = new DepartmentDTO();
@@ -199,10 +204,12 @@ public class DataSourceControllerTest {
         return departmentDTOList;
     }
 
-    /**
+    */
+/**
      * 构建员工类型数据
      * @return
-     */
+     *//*
+
     public List<StaffType> getStaffTypeList(){
         List<StaffType> staffTypeList = new ArrayList<>();
         StaffType staffType = new StaffType();
@@ -231,3 +238,4 @@ public class DataSourceControllerTest {
 
 
 }
+*/

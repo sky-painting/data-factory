@@ -1,10 +1,10 @@
+/*
 package com.coderman.tianhua.datafactory.api.test;
 
 import com.alibaba.fastjson.JSON;
-import com.coderman.tianhua.datafactory.api.Application;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldRuleVo;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestFieldVo;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
+import com.tianhua.datafactory.vo.datafactory.DataFactoryRequestFieldRuleVo;
+import com.tianhua.datafactory.vo.datafactory.DataFactoryRequestFieldVo;
+import com.tianhua.datafactory.vo.datafactory.DataFactoryRequestVo;
 import com.coderman.utils.response.ResultDataDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,21 +16,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * description: DataFactoryControllerTest <br>
  * date: 2020/12/7 23:42 <br>
  * author: coderman <br>
  * version: 1.0 <br>
- */
+ *//*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {Application.class})
 public class DataFactoryControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    /**
+    */
+/**
      * 测试基于内置函数的随机数据生成
-     */
+     *//*
+
     @Test
     public void testGenerateFromFunction(){
         DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
@@ -82,9 +86,11 @@ public class DataFactoryControllerTest {
     }
 
 
-    /**
+    */
+/**
      * 测试基于自定义的随机数据生成
-     */
+     *//*
+
     @Test
     public void testGenerateFromCustomAndFunction(){
         DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
@@ -200,9 +206,11 @@ public class DataFactoryControllerTest {
 
 
 
-    /**
+    */
+/**
      * 测试基于nacos数据源的数据生成
-     */
+     *//*
+
     @Test
     public void testGenerateFromCustomAndFunctionAndNacos(){
         DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
@@ -332,9 +340,11 @@ public class DataFactoryControllerTest {
 
 
 
-    /**
+    */
+/**
      * 测试基于远程服务的数据生成
-     */
+     *//*
+
     @Test
     public void testGenerateFromALL(){
         DataFactoryRequestVo dataFactoryRequestVo = new DataFactoryRequestVo();
@@ -472,3 +482,4 @@ public class DataFactoryControllerTest {
     }
 
 }
+*/

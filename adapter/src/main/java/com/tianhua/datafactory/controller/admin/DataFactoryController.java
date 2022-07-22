@@ -1,23 +1,16 @@
-package com.coderman.tianhua.datafactory.api.controller;
+package com.tianhua.datafactory.controller.admin;
 
 import com.alibaba.fastjson.JSON;
-import com.coderman.tianhua.datafactory.api.vo.DataFactoryRequestVo;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
-import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
-import com.coderman.tianhua.datafactory.core.vo.DataSourceVO;
-import com.coderman.utils.bean.CglibConvertService;
+import com.tianhua.datafactory.controller.BaseController;
+import com.tianhua.datafactory.vo.datafactory.DataFactoryRequestVo;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.vo.datasource.DataSourceVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -30,11 +23,6 @@ import java.util.List;
 @Slf4j
 public class DataFactoryController extends BaseController {
 
-    @Autowired
-    private DataFactoryService dataFactoryService;
-
-    @Autowired
-    private CglibConvertService cglibConvertService;
 
     /**
      * @param dataSourceVo
@@ -57,7 +45,8 @@ public class DataFactoryController extends BaseController {
     public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo) {
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
-        try {
+
+       /* try {
             DataBuildRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataBuildRequestBean.class, dataFactoryRequestVo);
 
             List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = new ArrayList<>();
@@ -82,9 +71,9 @@ public class DataFactoryController extends BaseController {
             logger.info("dataFactoryRequestBean = {}", JSON.toJSONString(dataFactoryRequestVo));
             resultDataDto = dataFactoryService.generateSimple(dataFactoryRequestBean);
         } catch (Exception e) {
-            resultDataDto.setInvokeErrorMsg("构建失败");
+            resultDataDto.setErrorCodeMsg("构建失败");
             logger.error("构建失败 ", e);
-        }
+        }*/
 
         return resultDataDto;
     }

@@ -1,13 +1,12 @@
-package com.coderman.tianhua.datafactory.core.service.impl;
+package com.tianhua.datafactory.core.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
-import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
-import com.coderman.tianhua.datafactory.core.service.DataSourceService;
+import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
+import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,8 @@ import java.security.SecureRandom;
 @Slf4j
 public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 
-    @Autowired
-    private DataSourceService dataSourceService;
+    //@Autowired
+    //private DataSourceService dataSourceService;
 
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean ) {
@@ -33,7 +32,7 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 //从远程数据工厂-数据源获取数据
         ResultDataDto<String> resultDataDto = null;
         try {
-            resultDataDto = dataSourceService.getDataSourceDetail(dataSourceCode);
+            //resultDataDto = dataSourceService.getDataSourceDetail(dataSourceCode);
         } catch (Exception e) {
             e.printStackTrace();
         }

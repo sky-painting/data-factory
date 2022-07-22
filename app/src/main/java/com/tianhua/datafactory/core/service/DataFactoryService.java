@@ -1,7 +1,7 @@
-package com.coderman.tianhua.datafactory.core.service;
+package com.tianhua.datafactory.core.service;
 
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
 
 /**
  * description: DataFactoryservice <br>

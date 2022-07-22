@@ -1,17 +1,16 @@
-package com.coderman.tianhua.datafactory.core.service.impl;
+package com.tianhua.datafactory.core.service.impl;
 
-import com.coderman.tianhua.datafactory.client.constants.InnerDataSourceCode;
-import com.coderman.tianhua.datafactory.client.function.Function;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestBean;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldRuleBean;
+import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
+import com.tianhua.datafactory.client.function.Function;
 
-import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
-import com.coderman.tianhua.datafactory.core.functionfactory.FunctionFactory;
-import com.coderman.tianhua.datafactory.core.service.DataFactoryService;
-import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
-import com.coderman.tianhua.datafactory.core.service.DataSourceService;
+import com.tianhua.datafactory.core.functionfactory.FunctionFactory;
+import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldRuleBean;
+import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,8 +33,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     private ThreadLocal<SecureRandom> randomThreadLocal = new ThreadLocal<>();
 
-    @Autowired
-    private DataSourceService dataSourceService;
 
     @Autowired
     private FunctionFactory functionFactory;

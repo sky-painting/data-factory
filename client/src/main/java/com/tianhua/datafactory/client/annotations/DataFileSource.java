@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.client.annotations;
+package com.tianhua.datafactory.client.annotations;
 
 /**
  * Description:

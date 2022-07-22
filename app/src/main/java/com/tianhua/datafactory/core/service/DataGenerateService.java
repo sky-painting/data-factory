@@ -1,6 +1,7 @@
-package com.coderman.tianhua.datafactory.core.service;
+package com.tianhua.datafactory.core.service;
 
-import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
+
+import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
 
 /**
  * description: DataRandomAccessService 随机数据访问服务

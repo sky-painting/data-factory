@@ -1,0 +1,102 @@
+package com.tianhua.datafactory.domain.bo.datasource;
+
+import com.tianhua.datafactory.domain.bo.BaseBO;
+import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
+import com.tianhua.datafactory.domain.support.kvpair.KVPairBO;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+* @Description:数据源管理表VO类
+* @Author:fanchunshuai
+* @CreateTime:2020-12-02 23:07:13
+* @version v1.0
+*/
+@Data
+@ToString
+public class DataSourceBO extends BaseBO {
+
+
+	/** 主键 **/
+	private Long id;
+
+	/** 数据源名称 **/
+	private String sourceName;
+
+	/** 数据源code,唯一 **/
+	/**
+	 * 格式如下:
+	 * 服务名:com.xxx.xxx.服务名.模块名.模型名
+	 */
+	private String sourceCode;
+
+	/** 数据源类型/(regist,api,enum,constant) **/
+	private Integer sourceType;
+
+	/**
+	 * 服务提供者域名
+	 */
+	private String providerDomainUrl;
+
+	/**
+	 * 注册中心类型
+	 */
+	private Integer registServer;
+
+
+	/**
+	 * 数据提供来源服务
+	 */
+	private String providerService;
+
+	/** 数据源访问url **/
+	private String url;
+
+	/** 状态(0正常,1过期) **/
+	private Integer status;
+
+	/** 访问策略 **/
+	private Integer visitStrategy;
+
+	/**
+	 * 数据源格式
+	 */
+	private String structType;
+
+	/**
+	 * 数据源请求配置参数
+	 */
+	private List<DataSourceReqConfigBO> dataSourceReqConfigList;
+
+	/**
+	 * 数据源响应配置参数
+	 */
+	private List<DataSourceRespConfigBO> dataSourceRespConfigList;
+
+
+	private List<KVPairBO> kvPairList;
+
+
+
+	public void disable(){
+		this.setStatus(0);
+	}
+
+	public void enable(){
+		this.setStatus(1);
+	}
+
+	/**
+	 * 是自定义数据源还是本地枚举
+	 * @return
+	 */
+	public boolean isCustomOrLocalEnum(){
+		boolean local = DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == this.sourceType ||
+				DataSourceTypeEnum.FROM_CUSTOM.getCode() == this.sourceType;
+		return local;
+	}
+
+}

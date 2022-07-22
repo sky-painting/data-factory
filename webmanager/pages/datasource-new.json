@@ -1,0 +1,242 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/datasource/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [{
+    "type": "form",
+    "mode": "horizontal",
+    "redirect": "/datasource/list",
+    "api": "http://127.0.0.1:8090/datasource/regist",
+    "actions": [{
+      "type": "submit",
+      "label": "提交",
+      "primary": true
+    }],
+    "collapsable": true,
+    "title":  "",
+    "body": [
+      {
+        "type": "input-text",
+        "name": "sourceName",
+        "label": "数据源名称",
+        "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "sourceCode",
+        "label": "数据源编码",
+        "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "visitStrategy",
+        "label": "数据源访问策略",
+        "required": true,
+        "source": "http://127.0.0.1:8090/dataEnum/visiteStrategy"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "providerService",
+        "label": "数据源所属服务",
+        "required": true
+      },
+      {
+        "type": "input-text",
+        "name": "providerDomainUrl",
+        "label": "服务提供者域名"
+      },
+      {
+        "type": "select",
+        "name": "registServer",
+        "label": "服务注册中心类型",
+        "source": "http://127.0.0.1:8090/dataEnum/registServer"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "url",
+        "label": "数据源访问URL"
+      ,"required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "sourceType",
+        "label": "数据源类型",
+        "required": true,
+        "source": "http://127.0.0.1:8090/dataEnum/dataSourceType"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据源请求参数配置",
+        "type": "input-table",
+        "name": "dataSourceReqConfigList",
+        "multiple": true,
+        "addable": true,
+        "editable": true,
+        "removable": true,
+        "columns": [
+          {
+            "name": "paramKey",
+            "type": "input-text",
+            "label": "参数属性key"
+          },
+          {
+            "name": "paramValue",
+            "type": "input-text",
+            "label": "参数值"
+          },
+          {
+            "name": "paramDesc",
+            "type": "input-text",
+            "label": "参数描述"
+          },
+          {
+            "name": "required",
+            "type": "select",
+            "label": "是否必填",
+            "options": [
+              {
+                "label": "true",
+                "value": "true"
+              },
+              {
+                "label": "false",
+                "value": "false"
+              }
+            ]
+          }
+        ,
+          {
+            "name": "interfaceParam",
+            "type": "select",
+            "label": "是否是请求接口参数",
+            "options": [
+              {
+                "label": "true",
+                "value": "true"
+              },
+              {
+                "label": "false",
+                "value": "false"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据源响应参数配置",
+        "type": "input-table",
+        "name": "dataSourceRespConfigList",
+        "multiple": true,
+        "addable": true,
+        "editable": true,
+        "columns": [
+          {
+            "name": "fieldKey",
+            "type": "input-text",
+            "label": "参数属性key"
+          },
+          {
+            "name": "referPath",
+            "type": "input-text",
+            "label": "引用路径"
+          },
+          {
+            "name": "fieldDesc",
+            "type": "input-text",
+            "label": "数据描述描述"
+          },
+          {
+            "name": "fieldType",
+            "type": "select",
+            "label": "数据类型",
+            "options": [
+              {
+                "label": "String",
+                "value": "String"
+              },
+              {
+                "label": "Integer",
+                "value": "Integer"
+              },
+              {
+                "label": "Integer",
+                "value": "Integer"
+              },
+              {
+                "label": "Boolean",
+                "value": "Boolean"
+              },
+              {
+                "label": "Long",
+                "value": "Long"
+              }
+            ]
+
+          }
+        ]
+      },
+
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据kv列表",
+        "type": "input-table",
+        "name": "kvPairList",
+        "multiple": true,
+        "addable": true,
+        "editable": true,
+        "columns": [
+          {
+            "name": "key",
+            "type": "input-text",
+            "label": "数据key"
+          },
+          {
+            "name": "value",
+            "type": "input-text",
+            "label": "数据value"
+          },
+          {
+            "name": "groupKey",
+            "type": "input-text",
+            "label": "数据所属分组"
+          },
+          {
+            "name": "parentKey",
+            "type": "input-text",
+            "label": "数据父类key"
+          }
+        ]
+      }
+    ]
+  }]
+}

@@ -1,9 +1,9 @@
-package com.coderman.tianhua.datafactory.core.service.impl;
+package com.tianhua.datafactory.core.service.impl;
 
-import com.coderman.tianhua.datafactory.core.bean.DataBuildRequestFieldBean;
-import com.coderman.tianhua.datafactory.core.bean.DataSourceFieldRequestBean;
-import com.coderman.tianhua.datafactory.core.service.DataGenerateService;
-import com.coderman.tianhua.datafactory.core.service.DataValueHandler;
+import com.tianhua.datafactory.core.service.DataGenerateService;
+import com.tianhua.datafactory.core.service.DataValueHandler;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
+import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

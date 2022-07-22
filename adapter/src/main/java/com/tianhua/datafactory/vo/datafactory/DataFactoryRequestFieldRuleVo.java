@@ -1,4 +1,4 @@
-package com.coderman.tianhua.datafactory.api.vo;
+package com.tianhua.datafactory.vo.datafactory;
 
 import lombok.Data;
 import lombok.ToString;
