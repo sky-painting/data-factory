@@ -1,11 +1,12 @@
-package com.coderman.tianhua.datafactory.core.service;
+/*
+package com.tianhua.datafactory.core.service;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
-import com.coderman.tianhua.datafactory.core.adaptor.NacosDataAdaptor;
+import com.tianhua.datafactory.core.adaptor.NacosDataAdaptor;
 import com.coderman.utils.kvpair.KVPair;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,12 +17,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+*/
 /**
  * description: ConfigServiceWrapper nacos 服务
  * date: 2020/12/10 23:15 <br>
  * author: coderman <br>
  * version: 1.0 <br>
- */
+ *//*
+
 @Service
 @Slf4j
 public class ConfigServiceWrapper {
@@ -31,11 +34,13 @@ public class ConfigServiceWrapper {
 
     @Autowired
     private NacosDataAdaptor nacosDataAdaptor;
-    /**
+    */
+/**
      * 通过原生Java方式获取ConfigService
      * @return
      * @throws NacosException
-     */
+     *//*
+
     public synchronized ConfigService getConfigService() throws NacosException {
         if(configService == null){
             Properties properties = new Properties();
@@ -45,12 +50,14 @@ public class ConfigServiceWrapper {
         return configService;
     }
 
-    /**
+    */
+/**
      * 获取nacos配置
      * @param dataId
      * @param groupId
      * @return
-     */
+     *//*
+
     public String getConfig(String dataId,String groupId){
         ConfigService configService = null;
         try {
@@ -64,12 +71,14 @@ public class ConfigServiceWrapper {
         return null;
     }
 
-    /**
+    */
+/**
      * 对nacos content进行预处理
      * @param dataId
      * @param groupId
      * @return
-     */
+     *//*
+
     public List<KVPair<String,String>> getConfigList(String dataId,String groupId){
         String content = getConfig(dataId, groupId);
         if(StringUtils.isEmpty(content)){
@@ -80,12 +89,14 @@ public class ConfigServiceWrapper {
     }
 
 
-    /**
+    */
+/**
      * 对nacos content进行预处理
      * @param dataId
      * @param groupId
      * @return
-     */
+     *//*
+
     public List<Map<String,String>> getConfigList(String dataId, String groupId, String jsonTemplate){
         String content = getConfig(dataId, groupId);
         if(StringUtils.isEmpty(content)){
@@ -98,3 +109,4 @@ public class ConfigServiceWrapper {
 
 
 }
+*/

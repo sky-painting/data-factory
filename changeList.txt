@@ -8,4 +8,71 @@
 5.  生成随机数据的核心功能完成
 6.  生成数据的依赖数据源全面打通(自定义数据源,NACOS,内置数据源,spring boot api)
 
+datasource:
+
+支持常量配置
+支持枚举配置
+支持导入json
+支持excel导入
+本地缓存
+
+
+DataSourceBO
+sourceName:数据源名称
+sourceCode:数据源编码
+providerSerivce:数据源提供服务者
+visitStrategy:数据源访问策略
+url:数据源访问接口(http,rpc)
+sourceType:数据源类型
+status:数据源状态
+structType:数据格式(kv,json)
+
+
+DataSourceReqConfigBO:数据源访问配置参数(api,nacos,dubbo,apollo)
+ paramKey:参数key
+ paramValue:参数值
+ paramDesc:参数描述
+ paramGroup:参数分组(子数据源，扩展)
+
+---不建议嵌套数据源
+
+DataSourceRespConfigBO:数据源响应配置参数
+  fieldKey:数据属性key
+  referPath:数据访问路径(可选)
+  fieldDesc:数据描述
+  fieldType:数据类型(boolean,string,int,long,object)
+
+DataSourceKVBO:数据数据配置---componentKV组件
+  fieldKey:数据属性key
+  fieldValue:数据属性value---varchar
+  fieldgroup:数据属性组(枚举)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

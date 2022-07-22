@@ -1,9 +1,8 @@
-package com.coderman.tianhua.datafactory.client.cache;
+package com.tianhua.datafactory.client.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
