@@ -23,7 +23,6 @@ public interface FieldModelMapper{
 	 */
 	public long insert(FieldModelDO fieldModelDO);
 
-
 	/**
 	 * @Description: 通过id删除数据
 	 * @param id
