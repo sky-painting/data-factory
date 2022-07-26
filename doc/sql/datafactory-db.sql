@@ -25,6 +25,7 @@ CREATE TABLE `api_model`(
                             `api_doc` varchar(500) NOT NULL DEFAULT  '' COMMENT 'api描述',
                             `method_type` varchar(500) NOT NULL DEFAULT  '' COMMENT '请求方式',
                             `request_param` json  COMMENT '请求参数元信息',
+                            `return_param` json  COMMENT '响应参数元信息',
                             `status` int(11) NOT NULL DEFAULT  0 COMMENT 'api状态',
                             `date_create` timestamp NOT NULL DEFAULT  '2000-01-01 00:00:00' COMMENT '创建时间',
                             `date_update` timestamp NOT NULL DEFAULT  '2000-01-01 00:00:00' COMMENT '修改时间',
@@ -112,6 +113,7 @@ ENGINE=InnoDB
 CREATE TABLE `field_model`(
  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
  `field_name` varchar(50) NOT NULL DEFAULT  '' COMMENT '属性名称',
+ `field_type` varchar(50) NOT NULL DEFAULT  '' COMMENT '属性类型',
  `field_desc` varchar(500) NOT NULL DEFAULT  '' COMMENT '属性描述',
  `field_doc` varchar(500) NOT NULL DEFAULT  '' COMMENT '属性中文注释',
  `data_source_code` varchar(100) NOT NULL DEFAULT  '' COMMENT '关联数据源编码',

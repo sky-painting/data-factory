@@ -32,7 +32,8 @@ public class FileUploadController {
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
         // 2. 自定义上传路径
-        String path = "/Users/dasouche/scworkspace/myspace/amis4j/doc";
+        //todo config
+        String path = "E:\\myspace2\\myspace\\data-factory\\doc";
         // 3. 判断路径是否存在，不存在则新建
         File apiDocFile = new File(path);
         if (!apiDocFile.exists()){
