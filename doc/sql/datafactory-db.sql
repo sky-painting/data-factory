@@ -88,7 +88,7 @@ CREATE TABLE `column_model`(
 CREATE TABLE `model_suffix_config`(
          `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
          `suffix` varchar(50) NOT NULL DEFAULT  '' COMMENT '模型后缀',
-         `desc` varchar(500) NOT NULL DEFAULT  '' COMMENT '模型后缀描述',
+         `suffix_desc` varchar(500) NOT NULL DEFAULT  '' COMMENT '模型后缀描述',
          `model_type` varchar(50) NOT NULL DEFAULT  '' COMMENT '模型类型',
          PRIMARY KEY (`id`),
          UNIQUE KEY `uniq_s` (`suffix`) COMMENT '联合唯一索引')
