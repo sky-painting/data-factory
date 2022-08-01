@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.core.adaptor;
+package com.tianhua.datafactory.core.adapter;
 
 import com.coderman.utils.kvpair.KVPair;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  * author: coderman <br>
  * version: 1.0 <br>
  */
-public interface NacosDataAdaptor {
+public interface NacosDataAdapter {
     /**
      * 获取nacos数据--匹配jsonTemplate
      *

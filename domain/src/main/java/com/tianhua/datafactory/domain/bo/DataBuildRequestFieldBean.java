@@ -29,6 +29,11 @@ public class DataBuildRequestFieldBean<T> {
     private String dataSourceCode;
 
     /**
+     * 字段数据源类型
+     */
+    private Integer dataSourceType;
+
+    /**
      * 字段数据源code对应的值如果是JSON情况，则存在多重包装，因此需要取到对应的子JSON串的field
      * eg:data.id
      * data.list[0].id

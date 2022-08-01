@@ -1,20 +1,16 @@
-package com.tianhua.datafactory.vo.datafactory;
+package com.tianhua.datafactory.domain.bo.datafactory;
 
-import com.tianhua.datafactory.vo.model.FieldVO;
+import com.tianhua.datafactory.domain.bo.BaseBO;
+import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import lombok.Data;
 import lombok.ToString;
 
 import java.util.List;
 
-/**
- * description: DataFactoryVo <br>
- * date: 2020/12/2 23:48 <br>
- * author: coderman <br>
- * version: 1.0 <br>
- */
 @Data
 @ToString
-public class DataFactoryRequestVo {
+public class DataFactoryBuildBO extends BaseBO {
+
     /**
      * 项目编码
      */
@@ -26,9 +22,9 @@ public class DataFactoryRequestVo {
     private String paramModelCode;
 
     /**
-     * 数据规则
+     * 数据构建规则
      */
-    private List<FieldVO> fieldVOList;
+    private List<FieldBO> fieldBOList;
 
     /**
      * 生成条数

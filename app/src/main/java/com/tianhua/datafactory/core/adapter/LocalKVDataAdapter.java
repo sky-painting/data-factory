@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.core.adaptor;
+package com.tianhua.datafactory.core.adapter;
 
 /**
  * description: EnumDataAdaptor <br>
@@ -6,7 +6,7 @@ package com.tianhua.datafactory.core.adaptor;
  * author: coderman <br>
  * version: 1.0 <br>
  */
-public interface EnumDataAdaptor {
+public interface LocalKVDataAdapter {
 
     void transform2KV();
 }

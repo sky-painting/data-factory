@@ -17,8 +17,9 @@ public enum DataSourceTypeEnum {
     FROM_SERVICE_API_RPC(2,"API_RPC"),
 
 
-    //服务本身自带枚举
+    //服务本身自带枚举-->plantUMl解析到KV表中
     FROM_SERVICE_ENUM(3,"ENUM"),
+
     //apollo配置服务
     FROM_APOLLO(4,"APOLLO"),
 
@@ -26,7 +27,11 @@ public enum DataSourceTypeEnum {
     FUNCTION_DATASOURCE(5,"INNER_FUNCTION"),
 
     //自定义 ---json文件，excel
-    FROM_CUSTOM(6,"自定义数据源"),
+    FROM_CUSTOM(6,"CUSTOM"),
+    /**
+     * 属性默认值
+     */
+    FIELD_DEFAULT(7,"DEFAULT"),
     ;
     private int code;
     private String desc;

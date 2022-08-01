@@ -15,24 +15,10 @@ import java.util.List;
 @ToString
 public class DataBuildRequestBean {
     /**
-     * 项目名称--中文
+     * 项目编码
      */
-    private String projectName;
+    private String projectCode;
 
-    /**
-     * 服务名称--英文
-     */
-    private String serviceName;
-
-    /**
-     * 模块名称--英文
-     */
-    private String moduleName;
-
-    /**
-     *  模块名称--中文
-     */
-    private String moduleDesc;
 
     /**
      * 创建多少条数据 max 100w

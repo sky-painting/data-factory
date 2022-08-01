@@ -1,6 +1,6 @@
-package com.tianhua.datafactory.core.adaptor.impl;
+package com.tianhua.datafactory.core.adapter.impl;
 
-import com.tianhua.datafactory.core.adaptor.NacosDataAdaptor;
+import com.tianhua.datafactory.core.adapter.NacosDataAdapter;
 import com.coderman.utils.kvpair.KVPair;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +16,14 @@ import java.util.Map;
  * version: 1.0 <br>
  */
 @Service
-public class NacosDataAdaptorImpl implements NacosDataAdaptor {
+public class NacosDataAdapterImpl implements NacosDataAdapter {
 
     @Override
     public List<Map<String, String>> getNacosDataMap(String dataContent, String jsonTemplate) {
         List<Map<String, String>> mapList = new ArrayList<>();
         String[] array = dataContent.split("\n");
 
-        //默认去掉第一行数据
-        for (int i = 1; i < array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             String[] kvArr = array[i].replace(" ", "").replace("\r", "").split(",");
             String[] jsonFieldArr = jsonTemplate.split(",");
             Map<String, String> map = new HashMap<>();
@@ -41,9 +40,7 @@ public class NacosDataAdaptorImpl implements NacosDataAdaptor {
     public List<KVPair<String, String>> getNacosDataKV(String dataContent) {
         String[] array = dataContent.split("\n");
         List<KVPair<String, String>> kvPairList = new ArrayList<>();
-
-        //默认去掉第一行数据
-        for (int i = 1; i < array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             String[] kvArr = array[i].replace(" ", "").replace("\r", "").split(",");
             kvPairList.add(KVPair.build(kvArr[0], kvArr[1]));
         }

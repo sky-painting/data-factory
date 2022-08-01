@@ -1,0 +1,133 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/param/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "api": "http://127.0.0.1:8090/parammodel/add",
+      "redirect": "/param/list",
+
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "",
+      "body": [
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "paramModelClassName",
+          "label": "模型名称",
+          "required": true,
+          "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "属性列表",
+          "type": "input-table",
+          "name": "fieldBeanList",
+          "multiple": true,
+          "addable": false,
+          "editable": true,
+          "columns": [
+            {
+              "name": "fieldName",
+              "type": "static",
+              "label": "属性名称"
+            },
+            {
+              "name": "fieldDesc",
+              "type": "static",
+              "label": "属性描述"
+            },
+            {
+              "name": "fieldType",
+              "type": "static",
+              "label": "属性类型"
+            },
+            {
+              "name": "dataSourceCode",
+              "type": "static",
+              "label": "数据源编码"
+            },
+            {
+              "name": "bizUnique",
+              "type": "static",
+              "label": "是否代表业务唯一性"
+            },
+            {
+              "name": "bizIdentifier",
+              "type": "static",
+              "label": "是否作为领域实体标示"
+            },
+            {
+              "name": "complexStruct",
+              "type": "static",
+              "label": "是否是复杂数据类型"
+            },
+            {
+              "name": "checkRule",
+              "type": "static",
+              "label": "否存在特定规则校验"
+            },
+            {
+              "name": "mappingDBColumn",
+              "type": "static",
+              "label": "是否对应数据库字段"
+            },
+            {
+              "name": "defaultValueList",
+              "type": "static",
+              "label": "默认值列表"
+            }
+          ]
+        }
+        ,
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "count",
+          "label": "生成条数",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "count",
+          "label": "导出方式(接口,sql,json,excel)",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

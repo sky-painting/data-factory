@@ -19,6 +19,8 @@ import java.util.Map;
  * date: 2021/1/17 20:24 <br>
  * author: coderman <br>
  * version: 1.0 <br>
+ * 处理属性自带的默认值
+ * 包括属性依赖关系默认值处理
  */
 @Service(value = "dataGenerateDefaultServiceImpl")
 public class DataGenerateDefaultServiceImpl implements DataGenerateService {
@@ -57,7 +59,6 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
                     dataSourceFieldRequestBean.getFieldValueMap().put(key, vList.get(secureRandom.nextInt(vList.size())));
                 });
             }
-
 
             return value;
         }

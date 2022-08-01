@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.core.adaptor;
+package com.tianhua.datafactory.core.adapter;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
  * author: coderman <br>
  * version: 1.0 <br>
  */
-public interface ServiceApiAdaptor {
+public interface HttpApiAdapter {
     /**
      * 动态获取服务类--api数据
      * @param url    url

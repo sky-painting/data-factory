@@ -4,7 +4,7 @@ package com.tianhua.datafactory.core.service;
 import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
 
 /**
- * description: DataRandomAccessService 随机数据访问服务
+ * description: DataGenerateService 随机数据访问服务
  * date: 2021/1/17 20:20 <br>
  * author: coderman <br>
  * version: 1.0 <br>

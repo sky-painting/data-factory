@@ -89,14 +89,5 @@ public class DataSourceBO extends BaseBO {
 		this.setStatus(1);
 	}
 
-	/**
-	 * 是自定义数据源还是本地枚举
-	 * @return
-	 */
-	public boolean isCustomOrLocalEnum(){
-		boolean local = DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == this.sourceType ||
-				DataSourceTypeEnum.FROM_CUSTOM.getCode() == this.sourceType;
-		return local;
-	}
 
 }

@@ -1,3 +1,12 @@
+数据源=服务名:数据资源定位符
+
+1.datafactory内置下:
+服务名=datafactory
+2.数据源来源于nacos则是：
+dataId:group
+
+
+
 身份证号=datafactory:com.datafactory.user.cardnumber
 日期(yyyy-mm-dd)=datafactory:com.datafactory.user.date
 姓名=datafactory:com.datafactory.user.chineseName
@@ -16,6 +25,10 @@
 商品名称=
 业务线=
 验证码(数字+字母)=
+
+
+
+
 
 
 

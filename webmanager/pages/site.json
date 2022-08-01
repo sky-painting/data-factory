@@ -217,15 +217,15 @@
           },
           {
             "label": "数据工作台",
-            "url": "/templatevar",
-            "rewrite": "/templatevar/list",
+            "url": "/workspace",
+            "rewrite": "/workspace/new",
             "icon": "fa fa-cube",
             "children": [
               {
-                "label": "列表",
-                "url": "/templatevar/list",
+                "label": "数据构建",
+                "url": "/workspace/new",
                 "icon": "fa fa-list",
-                "schemaApi": "get:/pages/templatevar-list.json"
+                "schemaApi": "get:/pages/workspace-new.json"
               }
             ]
           }

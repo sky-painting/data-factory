@@ -115,7 +115,7 @@ CREATE TABLE `field_model`(
  `field_name` varchar(50) NOT NULL DEFAULT  '' COMMENT '属性名称',
  `field_type` varchar(50) NOT NULL DEFAULT  '' COMMENT '属性类型',
  `field_desc` varchar(500) NOT NULL DEFAULT  '' COMMENT '属性描述',
- `field_doc` varchar(500) NOT NULL DEFAULT  '' COMMENT '属性中文注释',
+ `field_doc` varchar(500)  DEFAULT  '' COMMENT '属性中文注释',
  `data_source_code` varchar(100) NOT NULL DEFAULT  '' COMMENT '关联数据源编码',
  `param_class_name` varchar(100) NOT NULL DEFAULT  '' COMMENT '参数类名称',
  `project_code` varchar(50) NOT NULL DEFAULT  '' COMMENT '项目编码',
@@ -132,16 +132,31 @@ CREATE TABLE `data_source_detail`(
     ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '数据源详情表';
 
 
+CREATE TABLE `data_source_resp_config`(
+                                     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
+                                     `data_source_id` bigint(20) NOT NULL DEFAULT  0 COMMENT '所属数据源id',
+                                     `field_key`  varchar(50)  COMMENT '响应id',
+                                     `refer_path`  varchar(100)  COMMENT '请求路径如a.b.c',
+                                     `field_desc`  varchar(50)  COMMENT '数据类型',
+                                     `field_type`  varchar(50)  COMMENT '数据描述',
+
+                                     PRIMARY KEY (`id`))
+    ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '数据源响应参数配置';
+
+
 CREATE TABLE `data_source`(
  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
  `source_name` varchar(200) NOT NULL DEFAULT  '' COMMENT '数据源名称',
  `source_code` varchar(200) NOT NULL DEFAULT  '' COMMENT '数据源code,唯一',
  `source_type` int(11) NOT NULL DEFAULT 0 COMMENT '数据源类型(nacos,api,enum) ',
- `provider_src` varchar(200) NOT NULL DEFAULT  '' COMMENT '数据源提供来源',
- `tokent` varchar(400) NOT NULL DEFAULT  '' COMMENT '访问token',
+ `provider_service` varchar(200) NOT NULL DEFAULT  '' COMMENT '数据源提供来源',
+ `struct_type` varchar(400) DEFAULT  '' COMMENT '数据源格式',
  `url` varchar(400) NOT NULL DEFAULT  '' COMMENT '数据源访问url',
  `status` int(11) NOT NULL DEFAULT  0 COMMENT '状态(0正常,1过期)',
  `visit_strategy` int(11) NOT NULL DEFAULT  0 COMMENT '访问策略（0动态获取,1本地缓存)',
+ `regist_server` varchar(400) NOT NULL DEFAULT  '' COMMENT '注册中心类型',
+ `provider_domain_url` varchar(400) NOT NULL DEFAULT  '' COMMENT '服务提供者域名',
+
  `create_time` timestamp NOT NULL DEFAULT  '2000-01-01 00:00:00' COMMENT '创建时间',
  `update_time` timestamp NOT NULL DEFAULT  '2000-01-01 00:00:00' COMMENT '修改时间',
  `create_user_id` bigint(20) NOT NULL DEFAULT  0 COMMENT '创建人id',
@@ -150,4 +165,20 @@ CREATE TABLE `data_source`(
  UNIQUE KEY `uniq_s` (`source_code`) COMMENT '联合唯一索引')
     ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '数据源管理表';
 
-
+CREATE TABLE `kv_instance` (
+                               `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `k` varchar(64) NOT NULL DEFAULT '' COMMENT 'key',
+                               `v` tinytext NOT NULL COMMENT 'value值',
+                               `value_json` json DEFAULT NULL,
+                               `group_key` varchar(64) DEFAULT '' COMMENT '分组key',
+                               `parent_key` varchar(64) DEFAULT '' COMMENT '父级key',
+                               `refer_key` varchar(64) DEFAULT '' COMMENT '引用对象key',
+                               `refer_id` varchar(64) DEFAULT '' COMMENT '引用对象实例ID',
+                               `value_type` int(11) DEFAULT '0' COMMENT 'value的Java数据类型',
+                               `key_type` int(11) DEFAULT '0' COMMENT 'key的Java数据类型',
+                               `status` int(11) DEFAULT NULL COMMENT '状态,跟着主对象走',
+                               PRIMARY KEY (`id`),
+                               KEY `idx_key` (`k`),
+                               KEY `idx_group_key` (`group_key`),
+                               KEY `idx_refer_id` (`refer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

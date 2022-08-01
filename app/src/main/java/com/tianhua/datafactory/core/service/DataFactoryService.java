@@ -19,7 +19,13 @@ public interface DataFactoryService {
      * @param dataFactoryRequestBean
      * @return
      */
-    ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception;
+    ResultDataDto generateData(DataBuildRequestBean dataFactoryRequestBean) throws Exception;
 
+    /**
+     * 通过数据源编码构建数据源
+     * @param dataSourceCode
+     * @return
+     */
+    String buildData(String dataSourceCode) ;
 
 }

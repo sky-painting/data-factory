@@ -11,6 +11,8 @@ import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
 import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
 import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldRuleBean;
 import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
+import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -49,13 +51,18 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Resource(name = "dataGenerateRemoteServiceImpl")
     private DataGenerateService dataGenerateRemoteServiceImpl;
 
+
+    @Autowired
+    private DataSourceQueryRepository dataSourceQueryRepository;
+
+
     /**
      * 根据请求的数据上下文生成随机的数据字段值
      * @param dataSourceFieldRequestBean
      * @return
      * @throws Exception
      */
-    private Object getRandomValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
+    private Object getFieldValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
         DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
 
         String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
@@ -74,9 +81,13 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     }
 
     @Override
-    public ResultDataDto generateSimple(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
+    public ResultDataDto generateData(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
         randomThreadLocal.set(new SecureRandom());
+        buildType(dataFactoryRequestBean);
+
         List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
+
+
         List<Map<String, Object>> batchResultList = new ArrayList<>(dataFactoryRequestBean.getGenerateCount() * 2);
         ResultDataDto resultDataDto = new ResultDataDto();
 
@@ -93,25 +104,29 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         for (int i = 0; i < dataFactoryRequestBean.getGenerateCount(); i++) {
             Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
-
+            //如果有字段依赖可以进行排序
             for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
-                Object fieldValue = fieldValueMap.get(dataFactoryRequestFieldBean.getFieldName());
-                if(fieldValue != null){
-                    continue;
-                }
+
                 dataSourceFieldRequestBean.setFunction(functionMap.get(dataFactoryRequestFieldBean.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataFactoryRequestFieldBean(dataFactoryRequestFieldBean);
                 dataSourceFieldRequestBean.setRandom(randomThreadLocal.get());
                 dataSourceFieldRequestBean.setVarDependencyMap(dataFactoryRequestFieldBean.getVarDependencyMap());
                 //获取随机字段值
-                Object object = getRandomValue(dataSourceFieldRequestBean);
-                fieldValueMap.put(dataFactoryRequestFieldBean.getFieldName(), object);
+                Object fieldValue = getFieldValue(dataSourceFieldRequestBean);
+                fieldValueMap.put(dataFactoryRequestFieldBean.getFieldName(), fieldValue);
             }
+
             batchResultList.add(fieldValueMap);
         }
         resultDataDto.setData(batchResultList);
         return resultDataDto;
+    }
+
+    @Override
+    public String buildData(String dataSourceCode) {
+
+        return null;
     }
 
     /**
@@ -136,5 +151,14 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         return value;
     }
 
+
+
+    private void buildType(DataBuildRequestBean dataFactoryRequestBean){
+        List<DataBuildRequestFieldBean> dataBuildRequestFieldBeans = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
+        for (DataBuildRequestFieldBean dataBuildRequestFieldBean  : dataBuildRequestFieldBeans){
+            DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataBuildRequestFieldBean.getDataSourceCode());
+            dataBuildRequestFieldBean.setDataSourceType(dataSourceBO.getSourceType());
+        }
+    }
 
 }
