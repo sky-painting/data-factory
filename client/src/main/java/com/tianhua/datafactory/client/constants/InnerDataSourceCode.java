@@ -30,12 +30,6 @@ public class InnerDataSourceCode {
      *  时间--内置实现 yyyy-MM-dd HH:mm:SS
      */
     public static final String DATA_TIME = "com.datafactory.date.datetime";
-
-    /**
-     * 时间戳 当前时间戳
-     */
-    public static final String TIME_STAMP = "com.datafactory.date.datetimestamp";
-
     /**
      * 姓氏--内置实现
      */
@@ -90,15 +84,11 @@ public class InnerDataSourceCode {
     public static final String RANDOM = "com.datafactory.user.getRandom";
 
 
-    /**
-     * 获取一个业务编码名称
-      */
-    public static final String BIZ_CODE = "com.datafactory.code.getBizCodeName";
 
     /**
-     * 获取一个单号
+     * 时间戳 当前时间戳
      */
-    public static final String ORDER_CODE = "com.datafactory.code.getOrderCodeNumber";
+    public static final String CURRENT_TIME = "com.datafactory.currenttime";
 
 
 

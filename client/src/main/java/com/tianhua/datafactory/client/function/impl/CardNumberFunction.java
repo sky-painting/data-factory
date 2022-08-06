@@ -104,7 +104,7 @@ public class CardNumberFunction implements Function<String> {
     }
 
     @Override
-    public String createOneData(String methodName,String ... params) {
+    public String createOneData(String ... params) {
         return cardNumber();
     }
 }

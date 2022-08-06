@@ -83,7 +83,6 @@ public class PinYinFunction implements Function<String> {
     *//**
      * 将字符串转换成ASCII码
      *
-     * @param cnStr
      * @return String
      *//*
     public  String cnascii(String cnStr) {
@@ -98,7 +97,7 @@ public class PinYinFunction implements Function<String> {
     }*/
 
     @Override
-    public String createOneData(String methodName, String... params) {
+    public String createOneData(String... params) {
         return null;
     }
 }

@@ -10,9 +10,11 @@ import lombok.ToString;
  * author: coderman <br>
  * version: 1.0 <br>
  * 字段生成的特殊规则
+ * 暂时先不支持
  */
 @Data
 @ToString
+@Deprecated
 public class DataBuildRequestFieldRuleBean {
     /**
      * 值前缀--适用于str类型

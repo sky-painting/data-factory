@@ -31,12 +31,12 @@ public class DataSourceReqConfigDO {
     private String paramDesc;
 
     /**
-     * 是否是可选参数
+     * 是否是可选参数??
      */
     private boolean required;
 
     /**
-     * 是否是请求接口参数
+     * 是否是请求接口参数??
      */
     private boolean interfaceParam;
 

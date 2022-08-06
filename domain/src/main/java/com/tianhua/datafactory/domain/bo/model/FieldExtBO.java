@@ -53,4 +53,15 @@ public class FieldExtBO {
      */
     private List<String> defaultValueList;
 
+
+    /**
+     * 值前缀--适用于str类型
+     */
+    private String prefixStr;
+
+    /**
+     * 值后缀--适用于str类型
+     */
+    private String subfixStr;
+
 }

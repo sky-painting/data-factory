@@ -156,7 +156,7 @@ public class PlantUMLDomainModelBuilderService {
         for (Map.Entry<String, EnumBean> enumBeanEntry : enumBeanMap.entrySet()) {
             EnumBean enumBean = enumBeanEntry.getValue();
             DataSourceBO dataSourceBO = new DataSourceBO();
-            String sourceCode = projectCode+":"+"com." + projectCode + ".enum." + enumBean.getClassName();
+            String sourceCode = projectCode+":"+ enumBean.getClassName();
             dataSourceBO.setSourceCode(sourceCode);
             dataSourceBO.setSourceName(enumBean.getClassDesc());
             dataSourceBO.setSourceType(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode());
@@ -170,7 +170,12 @@ public class PlantUMLDomainModelBuilderService {
             List<KVPairBO> kvPairBOList = new ArrayList<>();
             for (Map<String, String> valueMap : valueList) {
                 valueMap.forEach((k, v) -> {
-                    KVPairBO kvPairBO = KVPairBO.instance(k, v);
+                    KVPairBO kvPairBO;
+                    if(!k.contains(" ")){
+                        kvPairBO = KVPairBO.instance(k, v);
+                    }else {
+                        kvPairBO = KVPairBO.instance(k.split(" ")[1], v);
+                    }
                     kvPairBO.setGroupKey(sourceCode);
                     kvPairBO.setParentKey(projectCode);
                     kvPairBOList.add(kvPairBO);

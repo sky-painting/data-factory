@@ -1,5 +1,8 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.datafactory;
 
+import com.tianhua.datafactory.client.function.Function;
+import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldRuleBean;
+import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,15 +17,18 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class DataBuildRequestFieldBean<T> {
+public class DataBuildRequestFieldBO {
     /**
      * 字段名
      */
     private String fieldName;
+
     /**
      * 字段类型
      */
+
     private String fieldTypeStr;
+
     /**
      * 字段数据源code
      */
@@ -33,19 +39,12 @@ public class DataBuildRequestFieldBean<T> {
      */
     private Integer dataSourceType;
 
-    /**
-     * 字段数据源code对应的值如果是JSON情况，则存在多重包装，因此需要取到对应的子JSON串的field
-     * eg:data.id
-     * data.list[0].id
-     *
-     * 当defaultValueList不为空时或者是依赖默认内置Function生成数据时可不传此值
-     */
-    private String dataSourceField;
 
     /**
      * 字段默认值列表
      */
-    private List<T> defaultValueList;
+    private List<String> defaultValueList;
+
 
     /**
      * 用于具有一对多的数据依赖关系场景，当存在这种情况时多方不必定义
@@ -67,8 +66,13 @@ public class DataBuildRequestFieldBean<T> {
     private Map<String,List<String>> varDependencyMap;
 
     /**
-     * 字段值生成规则
+     * 内置的生成数据的随机函数
      */
-    private DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean;
+    private Function function;
+
+    /**
+     * 数据源
+     */
+    private DataSourceBO dataSourceBO;
 
 }

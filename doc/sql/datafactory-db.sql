@@ -137,11 +137,23 @@ CREATE TABLE `data_source_resp_config`(
                                      `data_source_id` bigint(20) NOT NULL DEFAULT  0 COMMENT '所属数据源id',
                                      `field_key`  varchar(50)  COMMENT '响应id',
                                      `refer_path`  varchar(100)  COMMENT '请求路径如a.b.c',
-                                     `field_desc`  varchar(50)  COMMENT '数据类型',
-                                     `field_type`  varchar(50)  COMMENT '数据描述',
+                                     `field_desc`  varchar(50)  COMMENT '数据描述',
+                                     `field_type`  varchar(50)  COMMENT '数据类型',
 
                                      PRIMARY KEY (`id`))
     ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '数据源响应参数配置';
+
+
+CREATE TABLE `data_source_req_config`(
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
+    `data_source_id` bigint(20) NOT NULL DEFAULT  0 COMMENT '所属数据源id',
+    `param_key`  varchar(100)  COMMENT '参数key',
+    `param_value`  varchar(500)  COMMENT '参数值',
+    `param_desc`  varchar(500)  COMMENT '参数描述',
+    `required`  int(11)  COMMENT '是否是可选参数',
+    `interface_param` int(11)  COMMENT '是否是接口参数',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT = '数据源请求参数配置';
 
 
 CREATE TABLE `data_source`(

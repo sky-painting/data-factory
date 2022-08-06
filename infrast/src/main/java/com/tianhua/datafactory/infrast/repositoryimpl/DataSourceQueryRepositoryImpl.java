@@ -73,11 +73,7 @@ public class DataSourceQueryRepositoryImpl  implements DataSourceQueryRepository
         Set<String> dataSourceCodeSet = new HashSet<>();
         for (DataSourceBO dataSourceBO : dataSourceBOList) {
             List<DataSourceRespConfigBO> dataSourceRespConfigBOList = DataSourceRespConvert.INSTANCE.doList2boList(dataSourceResConfigMapper.getByDataSourceId(dataSourceBO.getId()));
-            if (CollectionUtils.isEmpty(dataSourceRespConfigBOList)) {
-                if(!dataSourceBO.isCustomOrLocalEnum()){
-                    resultList.add(dataSourceBO);
-                }
-            }else {
+            if (CollectionUtils.isNotEmpty(dataSourceRespConfigBOList)) {
                 //构建子数据源编码，辅助数据定位
                 for (DataSourceRespConfigBO dataSourceRespConfigBO : dataSourceRespConfigBOList) {
                     DataSourceBO dataSubSourceBO = new DataSourceBO();
@@ -85,24 +81,26 @@ public class DataSourceQueryRepositoryImpl  implements DataSourceQueryRepository
                     dataSubSourceBO.setSourceCode(dataSourceBO.getSourceCode()+"#"+dataSourceRespConfigBO.getFieldKey());
                     resultList.add(dataSubSourceBO);
                 }
-            }
-
-            if(dataSourceBO.isCustomOrLocalEnum()){
-                KVPairBO kvPairBO = KVPairBO.instance();
-                kvPairBO.setParentKey(dataSourceBO.getProviderService());
-                List<KVPairBO> kvPairBOList = kvPairService.getList(kvPairBO);
-                if(CollectionUtils.isNotEmpty(kvPairBOList)){
-                    for (KVPairBO kvPairBO1 : kvPairBOList){
-                        DataSourceBO dataSubSourceBO = new DataSourceBO();
-                        String dataSourceCode = kvPairBO1.getGroupKey()+"#"+kvPairBO1.getKey();
-                        if(dataSourceCodeSet.contains(dataSourceCode)){
-                            continue;
+            }else {
+                if(dataSourceBO.isLocalEnum()){
+                    KVPairBO kvPairBO = KVPairBO.instance();
+                    kvPairBO.setParentKey(dataSourceBO.getProviderService());
+                    List<KVPairBO> kvPairBOList = kvPairService.getList(kvPairBO);
+                    if(CollectionUtils.isNotEmpty(kvPairBOList)){
+                        for (KVPairBO kvPairBO1 : kvPairBOList){
+                            DataSourceBO dataSubSourceBO = new DataSourceBO();
+                            String dataSourceCode = kvPairBO1.getGroupKey()+"#"+kvPairBO1.getKey();
+                            if(dataSourceCodeSet.contains(dataSourceCode)){
+                                continue;
+                            }
+                            dataSourceCodeSet.add(dataSourceCode);
+                            dataSubSourceBO.setSourceName(dataSourceCode);
+                            dataSubSourceBO.setSourceCode(dataSourceCode);
+                            resultList.add(dataSubSourceBO);
                         }
-                        dataSourceCodeSet.add(dataSourceCode);
-                        dataSubSourceBO.setSourceName(dataSourceCode);
-                        dataSubSourceBO.setSourceCode(dataSourceCode);
-                        resultList.add(dataSubSourceBO);
                     }
+                }else {
+                    resultList.add(dataSourceBO);
                 }
             }
         }

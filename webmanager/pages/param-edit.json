@@ -108,33 +108,13 @@
               "name": "dataSourceCode",
               "type": "select",
               "label": "数据源编码",
-              "searchable": true,
-              "source": "http://127.0.0.1:8090/datasource/search?content=${dataSourceCode}"
+              "autoComplete": "http://127.0.0.1:8090/datasource/search",
+              "width": 240
             },
             {
               "name": "bizUnique",
               "type": "switch",
               "label": "是否代表业务唯一性"
-            },
-            {
-              "name": "bizIdentifier",
-              "type": "switch",
-              "label": "是否作为领域实体标示"
-            },
-            {
-              "name": "complexStruct",
-              "type": "switch",
-              "label": "是否是复杂数据类型"
-            },
-            {
-              "name": "checkRule",
-              "type": "switch",
-              "label": "否存在特定规则校验"
-            },
-            {
-              "name": "mappingDBColumn",
-              "type": "switch",
-              "label": "是否对应数据库字段"
             },
             {
               "name": "defaultValueList",

@@ -89,5 +89,9 @@ public class DataSourceBO extends BaseBO {
 		this.setStatus(1);
 	}
 
+	public boolean isLocalEnum(){
+		return sourceType == DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode();
+
+	}
 
 }

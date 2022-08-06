@@ -8,30 +8,27 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum DataSourceTypeEnum {
-    //nacos配置服务
-    FROM_NACOS(0,"NACOS"),
+
     //服务获取
     FROM_SERVICE_API_HTTP(1,"API_HTTP"),
 
     //服务获取
-    FROM_SERVICE_API_RPC(2,"API_RPC"),
-
+    FROM_DUBBO(2,"DUBBO_RPC"),
 
     //服务本身自带枚举-->plantUMl解析到KV表中
     FROM_SERVICE_ENUM(3,"ENUM"),
 
-    //apollo配置服务
-    FROM_APOLLO(4,"APOLLO"),
-
     //函数式数据源，datafactory内置提供
-    FUNCTION_DATASOURCE(5,"INNER_FUNCTION"),
+    FUNCTION_DATASOURCE(4,"CUSTOM"),
 
-    //自定义 ---json文件，excel
-    FROM_CUSTOM(6,"CUSTOM"),
+    //自定义 ---json文件，excel-->业务方上传的大批量随机数据
+
+    FROM_CUSTOM(5,"INNER_FUNCTION"),
+
     /**
      * 属性默认值
      */
-    FIELD_DEFAULT(7,"DEFAULT"),
+    FIELD_DEFAULT(6,"DEFAULT"),
     ;
     private int code;
     private String desc;

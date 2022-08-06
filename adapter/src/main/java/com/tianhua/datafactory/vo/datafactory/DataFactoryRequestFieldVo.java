@@ -23,6 +23,7 @@ public class DataFactoryRequestFieldVo<T> {
      * 字段类型
      */
     private String fieldTypeStr;
+
     /**
      * 字段值数据源code
      */

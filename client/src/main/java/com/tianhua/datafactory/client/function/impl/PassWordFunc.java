@@ -15,7 +15,7 @@ import java.util.Random;
  * version: 1.0 <br>
  */
 @Service(value = "passWordFunction")
-public class PassWordFunction implements Function<String> {
+public class PassWordFunc implements Function<String> {
 
     private static String reference = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^.,-&*(~)";
     private static Random random = new SecureRandom();
@@ -35,7 +35,7 @@ public class PassWordFunction implements Function<String> {
     }
 
     @Override
-    public String createOneData(String methodName, String... params) {
+    public String createOneData(String... params) {
         int length = Integer.parseInt(params[0]);
         return passWord(length);
     }

@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.domain.bo;
 
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Data
 @ToString
+@Deprecated
 public class DataBuildRequestBean {
     /**
      * 项目编码
@@ -25,19 +27,12 @@ public class DataBuildRequestBean {
      */
     private int generateCount;
 
-    /**
-     * 属性的解析顺序
-     * 元素值为字段数据源code，这么做的目的是降低程序对依赖数据的检索，
-     * 由用户控制相关字段的依赖顺序，且保证被依赖的数据源code在依赖方前面,否则无法正确处理
-     *
-     * 如果生成的数据字段中没有依赖关系则可为空
-     */
-    private List<String> dataFactoryRequestFieldOrderList;
+
 
     /**
      * 模块变量
      */
-    private List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList;
+    private List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList;
 
     /**
      * 是否持久化数据构建请求以复用

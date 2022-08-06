@@ -4,67 +4,29 @@ package domain.bo{
 
     class "项目基本信息-ProjectBO" as ProjectBO{
         项目应用名: String projectCode
-
         应用描述: String projectDesc
-
         业务领域编码: String domainCode
-
         业务领域描述: String domainDesc
-
         app描述: String appDesc
         所属业务线: String busLine
         所属部门: String deptName
         项目api列表: List<ApiBO> apiList
-        .. extend info ..
-        contextKey:String project
-
-        voKeyList:String ProjectVO
-        queryVoKey:ProjectQueryVO  String projectCode,String domainCode,String busLine
-
-        新建项目/project/add: Boolean add(ProjectVO projectVO)
-        根据code获取项目详情/project/getByCode/{projectCode}: Boolean getByCode(String projectCode)
-        分页获取项目信息/project/pagelist: PageVO<ProjectVO> getPageList(PageVO pageVO)
-        修改项目信息/project/update/{id}: Boolean update(Long id, ProjectConfigVO projectConfigVO)
-        搜索项目信息/project/search: List<ProjectVO> select(String content)
-
     }
 
     class "参数模型信息-ParamModelBO" as ParamModelBO{
-
         模型类名称: String paramClassName
-
         参数类描述: String classDesc
-
         所属项目名称: String projectCode
-
         属性列表: List<FieldBO> fieldBeanList
-
         主键: Long id
-
         所属上下文或模块编码: String moduleCode
-
         参数类描述: String paramClassDesc
-
         参数属性集合json: String paramFieldJson
-
         模型基本信息: ModelSuffixConfigBO modelSuffixConfigBO
-
-        + 是否是模型参数:boolean isModelType()
-
+        是否是模型参数:boolean isModelType()
         是否是泛型参数:boolean isGeneralType
         参数映射模型: List<ModelMappingBO> modelMappingBOList
-        .. extend info ..
-        contextKey:String model
 
-        voKeyList:String ParamModelVO
-        queryVoKey:ParamModelQueryVO  String projectCode,String paramClassName,String modelType
-
-        新建参数模型/parammodel/add: Boolean add(ParamModelVO paramModelVO)
-        根据code获取参数模型/parammodel/getByCode/{paramClassName}: Boolean getByClassName(String paramClassName)
-        分页获取参数模型/parammodel/pagelist: PageVO<ParamModelVO> getPageList(PageVO pageVO)
-        修改参数模型/parammodel/update/{id}: Boolean update(Long id, ParamModelVO paramModelVO)
-        搜索参数模型/parammodel/search: List<ParamModelVO> select(String content)
-        搜索参数模型/parammodel/refreshdoc: List<ParamModelVO> select(String content)
 
     }
 
@@ -75,19 +37,6 @@ package domain.bo{
         数据库名称: String dbName
         项目编码: String projectCode
         数据库字段列表: List<ColumnBO> columnList
-        .. extend info ..
-        contextKey:String model
-
-        voKeyList:String TableVO
-        queryVoKey:TableQueryVO  String projectCode,String tableName
-
-
-        新建表结构模型/table/add: Boolean add(TableVO tableVO)
-        根据code获取表结构模型/table/getByCode/{tableName}: Boolean getByTableName(String tableName)
-        分页获取表结构模型/table/pagelist: PageVO<TableVO> getPageList(PageVO pageVO)
-        修改表结构模型/table/update/{id}: Boolean update(Long id, TableVO tableVO)
-        搜索表结构模型/table/search: List<TableVO> select(String content)
-
     }
 
     class "数据库column模型信息-ColumnBO" as  ColumnBO{
@@ -99,9 +48,6 @@ package domain.bo{
         字段默认值: String defaultValue
         数据库编码: String tableName
         是否唯一键:boolean uniqColumn
-        .. extend info ..
-        contextKey:String model
-        voKeyList:String ColumnVO
     }
 
     class  "api模型信息-ApiBO" as  ApiBO{
@@ -114,17 +60,6 @@ package domain.bo{
         api参数可选值列表:Map<Integer,List<Object>> paramDefaultValueList
         api状态:Integer status
         api所属项目编码:String projectCode
-        .. extend info ..
-        contextKey:String project
-
-        voKeyList:String ApiVO
-        queryVoKey:ApiQueryVO  String apiType,String apiSign,String methodType,String projectCode
-
-        新建api信息/api/add: Boolean add(ApiVO tableVO)
-        根据code获取api信息/api/getByApiSign/{apiSign}: Boolean getByApiSign(String apiSign)
-        分页获取api信息/api/pagelist: PageVO<ApiVO> getPageList(PageVO pageVO)
-        修改api信息/api/update/{id}: Boolean update(Long id, ApiVO apiVO)
-        搜索api信息/api/search: List<ApiVO> select(String content)
 
     }
 
@@ -132,15 +67,6 @@ package domain.bo{
         模型后缀: String suffix
         模型后缀描述: String desc
         模型类型: String modelType
-        构造方法:ModelSuffixConfigBO(String suffix,String desc)
-        .. extend info ..
-        contextKey:String model
-
-        voKeyList:String ModelSuffixConfigVO
-
-        新建模型后缀/modelsuffix/add: Boolean add(ApiVO tableVO)
-        修改模型后缀/modelsuffix/{id}: Boolean update(Long id, ModelSuffixConfigVO modelSuffixConfigVO)
-        获取模型后缀列表/modelsuffix/list: List<modelSuffixConfigVO> getList()
     }
 
     class "模型映射信息-ModelMappingBO" as    ModelMappingBO{
@@ -150,32 +76,27 @@ package domain.bo{
         数据库表字段: String columnField
         映射类型: String mappingType
         项目编码: String projectCode
-        .. extend info ..
-        contextKey:String model
     }
 
-    class FieldBO{
+    class  "属性基本信息-FieldBO" as    FieldBO {
         属性名称:  String fieldName
         属性描述: String fieldDesc
         属性中文注释: String fieldDoc
         关联数据源编码:String dataSourceCode
         参数类名称: String paramClassName
-        默认值列表: List<String> defaultValueList;
+        默认值列表: List<String> defaultValueList
 
     }
 }
 
 package domain.enums{
     enum  "api类型-ApiTypeEnum"  as  ApiTypeEnum{
-    enum ApiTypeEnum{
-        HTTP_API("httpApi","对外开放的http协议接口"),
-        RPC_API("rpcApi","对外开放的rpc协议的接口"),
-        SERVICE_API("serviceApi","服务内部的Service接口,包括所有方法");
-
+        HTTP_API("httpApi","对外开放的http协议接口")
+        RPC_API("rpcApi","对外开放的rpc协议的接口")
+        SERVICE_API("serviceApi","服务内部的Service接口,包括所有方法")
         api类型code:String type
         api类型描述:String desc
-        .. extend info ..
-        toRpcClient:String yes
+
     }
 
     enum "模型类型-ModelTypeEnum" as ModelTypeEnum{
@@ -185,8 +106,7 @@ package domain.enums{
          DB_MODEL("dbModel","数据库er模型");
          模型类型code:String type
          模型类型描述:String desc
-         .. extend info ..
-         toRpcClient:String yes
+
     }
 
     enum "模型映射类型-ModelValueMappingType" as ModelValueMappingType{
@@ -198,8 +118,7 @@ package domain.enums{
 
          模型类型code:String type
          模型类型描述:String desc
-         .. extend info ..
-         toRpcClient:String yes
+
     }
 }
 

@@ -8,10 +8,11 @@ import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
-import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
-import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldRuleBean;
-import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -44,12 +45,18 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     private DataGenerateService dataGenerateDefaultServiceImpl;
 
 
+    @Resource(name = "dataGenerateDubboImpl")
+    private DataGenerateService dataGenerateDubboImpl;
+
     @Resource(name = "dataGenerateFunctionServiceImpl")
     private DataGenerateService dataGenerateFunctionServiceImpl;
 
 
     @Resource(name = "dataGenerateRemoteServiceImpl")
     private DataGenerateService dataGenerateRemoteServiceImpl;
+
+    @Resource(name = "dataGenerateLocalKVImpl")
+    private DataGenerateService dataGenerateLocalKVImpl;
 
 
     @Autowired
@@ -63,37 +70,63 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @throws Exception
      */
     private Object getFieldValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
-        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
+        DataBuildRequestFieldBO dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
 
         String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
         //从默认值中获取数据
         if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
             return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
-        //如果是内置数据源则从内置数据源工厂中的Function中构建随机数据
+        int dataSourceType = dataFactoryRequestFieldBean.getDataSourceType();
+
+        //来自服务模型枚举
+        if(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == dataSourceType){
+            return dataGenerateLocalKVImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+        //属性上直接设置的默认值列表
+        if(DataSourceTypeEnum.FIELD_DEFAULT.getCode() == dataSourceType){
+            return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+        //datafactory内置提供的函数式随机值生成服务
+        if(DataSourceTypeEnum.FUNCTION_DATASOURCE.getCode() == dataSourceType){
+            return dataGenerateFunctionServiceImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+        //从dubbo远程接口中获取随机数据
+        if(DataSourceTypeEnum.FROM_DUBBO.getCode() == dataSourceType){
+            return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+        return null;
+
+    /*    //如果是内置数据源则从内置数据源工厂中的Function中构建随机数据
         if (dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
             return dataGenerateFunctionServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }else {
             //从远程数据源获取随机数据
             return dataGenerateRemoteServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }
+        }*/
+
+
 
     }
 
     @Override
-    public ResultDataDto generateData(DataBuildRequestBean dataFactoryRequestBean) throws Exception {
+    public ResultDataDto generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         randomThreadLocal.set(new SecureRandom());
-        buildType(dataFactoryRequestBean);
+        bindDataSource(dataBuildRequestBO);
 
-        List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
+        List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList = dataBuildRequestBO.getFieldBOList();
 
 
-        List<Map<String, Object>> batchResultList = new ArrayList<>(dataFactoryRequestBean.getGenerateCount() * 2);
+        List<Map<String, Object>> batchResultList = new ArrayList<>(dataBuildRequestBO.getBuildCount() * 2);
         ResultDataDto resultDataDto = new ResultDataDto();
 
         Map<String, Function> functionMap = new HashMap<>();
 
-        for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+        for (DataBuildRequestFieldBO dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
             String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
             if (StringUtils.isNotBlank(dataSourceCode) && dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
                 Function function = functionFactory.createFunction(dataSourceCode);
@@ -101,22 +134,21 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             }
         }
 
-        for (int i = 0; i < dataFactoryRequestBean.getGenerateCount(); i++) {
+        for (int i = 0; i < dataBuildRequestBO.getBuildCount(); i++) {
             Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             //如果有字段依赖可以进行排序
-            for (DataBuildRequestFieldBean dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
+            for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
 
-                dataSourceFieldRequestBean.setFunction(functionMap.get(dataFactoryRequestFieldBean.getDataSourceCode()));
+                dataSourceFieldRequestBean.setFunction(functionMap.get(dataBuildRequestFieldBO.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
-                dataSourceFieldRequestBean.setDataFactoryRequestFieldBean(dataFactoryRequestFieldBean);
+                dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
                 dataSourceFieldRequestBean.setRandom(randomThreadLocal.get());
-                dataSourceFieldRequestBean.setVarDependencyMap(dataFactoryRequestFieldBean.getVarDependencyMap());
+                dataSourceFieldRequestBean.setVarDependencyMap(dataBuildRequestFieldBO.getVarDependencyMap());
                 //获取随机字段值
                 Object fieldValue = getFieldValue(dataSourceFieldRequestBean);
-                fieldValueMap.put(dataFactoryRequestFieldBean.getFieldName(), fieldValue);
+                fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), fieldValue);
             }
-
             batchResultList.add(fieldValueMap);
         }
         resultDataDto.setData(batchResultList);
@@ -124,40 +156,34 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     }
 
     @Override
-    public String buildData(String dataSourceCode) {
+    public String buildData(DataBuildRequestFieldBO dataBuildRequestFieldBO) {
+        DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
+        dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
+        dataSourceFieldRequestBean.setFunction(dataBuildRequestFieldBO.getFunction());
+        Object object = null;
+        try {
+            object = getFieldValue(dataSourceFieldRequestBean);
+            if(object == null){
+                return "";
+            }
+            return object.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-        return null;
     }
+
 
     /**
-     * 对随机数进行后置处理
-     *
-     * @param factoryRequestFieldBean
-     * @param randomValue
-     * @return
+     * 获取数据源详情
+     * @param dataBuildRequestBO
      */
-    private String getPostValueString(DataBuildRequestFieldBean factoryRequestFieldBean, Object randomValue) {
-        DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean2 = factoryRequestFieldBean.getDataFactoryRequestFieldRuleBean();
-        String value = randomValue.toString();
-        //字符串型随机数据的后置处理
-        if (factoryRequestFieldBean.getFieldTypeStr().equals("String")) {
-            if (StringUtils.isNotEmpty(dataFactoryRequestFieldRuleBean2.getPrefixStr())) {
-                value = dataFactoryRequestFieldRuleBean2.getPrefixStr() + value;
-            }
-            if (StringUtils.isNotEmpty(dataFactoryRequestFieldRuleBean2.getSubfixStr())) {
-                value = value + dataFactoryRequestFieldRuleBean2.getSubfixStr();
-            }
-        }
-        return value;
-    }
-
-
-
-    private void buildType(DataBuildRequestBean dataFactoryRequestBean){
-        List<DataBuildRequestFieldBean> dataBuildRequestFieldBeans = dataFactoryRequestBean.getDataFactoryRequestFieldBeanList();
-        for (DataBuildRequestFieldBean dataBuildRequestFieldBean  : dataBuildRequestFieldBeans){
+    private void bindDataSource(DataBuildRequestBO dataBuildRequestBO){
+        List<DataBuildRequestFieldBO> dataBuildRequestFieldBeans = dataBuildRequestBO.getFieldBOList();
+        for (DataBuildRequestFieldBO dataBuildRequestFieldBean  : dataBuildRequestFieldBeans){
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataBuildRequestFieldBean.getDataSourceCode());
             dataBuildRequestFieldBean.setDataSourceType(dataSourceBO.getSourceType());
+            dataBuildRequestFieldBean.setDataSourceBO(dataSourceBO);
         }
     }
 

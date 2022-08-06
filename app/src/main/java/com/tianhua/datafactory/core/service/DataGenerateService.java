@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.core.service;
 
 
-import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
+import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 
 /**
  * description: DataGenerateService 随机数据访问服务

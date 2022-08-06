@@ -5,10 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
-import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldBean;
-import com.tianhua.datafactory.domain.bo.DataSourceFieldRequestBean;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -28,7 +27,7 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean ) {
-        String dataSourceCode = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean().getDataSourceCode();
+        String dataSourceCode = dataSourceFieldRequestBean.getDataBuildRequestFieldBO().getDataSourceCode();
 //从远程数据工厂-数据源获取数据
         ResultDataDto<String> resultDataDto = null;
         try {
@@ -45,8 +44,8 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
 
         //通过json字段解析，这里提供的数据源必须是数组形式
         JSONArray jsonArray = JSONObject.parseArray(jsonValue);
-        DataBuildRequestFieldBean dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataFactoryRequestFieldBean();
-        String dataSourceField = dataFactoryRequestFieldBean.getDataSourceField();
+        DataBuildRequestFieldBO dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
+        String dataSourceField = null;
         //数组循环解析
         if (dataSourceField.contains("\\.")) {
 

@@ -45,36 +45,6 @@ public class DataFactoryController extends BaseController {
     public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo) {
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
         ResultDataDto resultDataDto = new ResultDataDto();
-
-       /* try {
-            DataBuildRequestBean dataFactoryRequestBean = cglibConvertService.copyPropertity(DataBuildRequestBean.class, dataFactoryRequestVo);
-
-            List<DataBuildRequestFieldBean> dataFactoryRequestFieldBeanList = new ArrayList<>();
-
-            dataFactoryRequestVo.getDataFactoryRequestFieldVoList().stream().forEach(dataFactoryRequestFieldVo -> {
-                try {
-                    DataBuildRequestFieldBean dataFactoryRequestFieldBean = cglibConvertService.copyPropertity(DataBuildRequestFieldBean.class, dataFactoryRequestFieldVo);
-                    if(dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo() != null){
-                        DataBuildRequestFieldRuleBean dataFactoryRequestFieldRuleBean = cglibConvertService.copyPropertity(DataBuildRequestFieldRuleBean.class, dataFactoryRequestFieldVo.getDataFactoryRequestFieldRuleVo());
-                        dataFactoryRequestFieldBean.setDataFactoryRequestFieldRuleBean(dataFactoryRequestFieldRuleBean);
-                    }
-                    dataFactoryRequestFieldBeanList.add(dataFactoryRequestFieldBean);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            });
-
-            dataFactoryRequestBean.setDataFactoryRequestFieldBeanList(dataFactoryRequestFieldBeanList);
-
-            logger.info("dataFactoryRequestBean = {}", JSON.toJSONString(dataFactoryRequestVo));
-            resultDataDto = dataFactoryService.generateSimple(dataFactoryRequestBean);
-        } catch (Exception e) {
-            resultDataDto.setErrorCodeMsg("构建失败");
-            logger.error("构建失败 ", e);
-        }*/
-
         return resultDataDto;
     }
 

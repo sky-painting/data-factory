@@ -9,9 +9,9 @@ package com.tianhua.datafactory.client.function;
 public interface Function<T> {
     /**
      * 创建一个数据
-     * @param methodName 方法名，一个function类中有多个method，如果没有的话默认传空
+     * @param params 参数列表,控制随机函数可以依赖的参数
      * @return
      */
-    T createOneData(String methodName, String... params);
+    T createOneData(String... params);
 
 }

@@ -111,7 +111,7 @@ public class PlantUMLApiModelBuilderService {
         for (Map.Entry<String, EnumBean> enumBeanEntry : enumBeanMap.entrySet()) {
             EnumBean enumBean = enumBeanEntry.getValue();
             DataSourceBO dataSourceBO = new DataSourceBO();
-            String sourceCode = projectCode+":"+"com." + projectCode + ".enum." + enumBean.getClassName();
+            String sourceCode = projectCode+":" + enumBean.getClassName();
             dataSourceBO.setSourceCode(sourceCode);
             dataSourceBO.setSourceName(enumBean.getClassDesc());
             dataSourceBO.setSourceType(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode());

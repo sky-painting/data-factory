@@ -1,6 +1,7 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.datafactory;
 
 import com.tianhua.datafactory.client.function.Function;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import lombok.Data;
 
 import java.security.SecureRandom;
@@ -21,7 +22,7 @@ public class DataSourceFieldRequestBean {
     /**
      * 当前请求的字段
      */
-    private DataBuildRequestFieldBean dataFactoryRequestFieldBean;
+    private DataBuildRequestFieldBO dataBuildRequestFieldBO;
     /**
      * 随机数对象
      */

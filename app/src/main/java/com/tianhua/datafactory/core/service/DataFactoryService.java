@@ -2,6 +2,8 @@ package com.tianhua.datafactory.core.service;
 
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 
 /**
  * description: DataFactoryservice <br>
@@ -16,16 +18,17 @@ public interface DataFactoryService {
 
     /**
      * 生成简单数据列表
-     * @param dataFactoryRequestBean
+     * @param dataBuildRequestBO
      * @return
      */
-    ResultDataDto generateData(DataBuildRequestBean dataFactoryRequestBean) throws Exception;
+    ResultDataDto generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception;
 
     /**
-     * 通过数据源编码构建数据源
-     * @param dataSourceCode
+     * 通过数据源编码获取单个数据源对应的随机数
+     * 主要用于测试
+     * @param dataBuildRequestFieldBO
      * @return
      */
-    String buildData(String dataSourceCode) ;
+    String buildData(DataBuildRequestFieldBO dataBuildRequestFieldBO) ;
 
 }

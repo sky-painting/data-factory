@@ -290,9 +290,8 @@ public class ReadDomainPlantUMLDocService {
             String[] fieldArr = fieldStr.trim().split(":");
             FieldBO fieldBean = new FieldBO();
             fieldBean.buildDesc(fieldArr[0]);
-            //fieldBean.setVisibility(VisibilityEnum.getVisibilityStr(fieldArr[0]));
             fieldBean.setFieldName(fieldArr[1]);
-            //fieldBean.setOriginFieldStr(fieldStr);
+
             fieldBeanList.add(fieldBean);
         }
         return fieldBeanList;
