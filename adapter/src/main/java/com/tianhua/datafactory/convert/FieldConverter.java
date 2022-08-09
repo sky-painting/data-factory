@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,7 +97,12 @@ public interface FieldConverter {
 			return Lists.newArrayList();
 		}
 		if(str.contains(",")){
-			return Lists.newArrayList(StringUtils.split(",",str));
+			String [] arr = StringUtils.split(str,",");
+			List<String> list = new ArrayList<>();
+			for (String ele : arr){
+				list.add(ele);
+			}
+			return list;
 		}
 		return Lists.newArrayList(str);
 	}

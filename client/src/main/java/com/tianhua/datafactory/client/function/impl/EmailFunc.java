@@ -1,6 +1,8 @@
 package com.tianhua.datafactory.client.function.impl;
 
 
+import com.tianhua.datafactory.client.annotations.DataSourceFunction;
+import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,8 @@ import java.security.SecureRandom;
  * version: 1.0 <br>
  * 用户相关的数据工厂工具类生成
  */
-@Service
+@Service(value = "emailFunc")
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.EMAIL_NAME)
 public class EmailFunc implements Function<String> {
 
     private static SecureRandom random = new SecureRandom();

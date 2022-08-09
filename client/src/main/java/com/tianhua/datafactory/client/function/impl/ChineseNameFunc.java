@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@Service
+@Service(value = "chineseNameFunc")
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.CHINESE_NAME)
 public class ChineseNameFunc  implements Function<String> {
     @Autowired

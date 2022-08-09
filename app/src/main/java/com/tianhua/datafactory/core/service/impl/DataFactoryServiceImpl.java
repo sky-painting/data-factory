@@ -70,14 +70,14 @@ public class DataFactoryServiceImpl implements DataFactoryService {
      * @throws Exception
      */
     private Object getFieldValue(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
-        DataBuildRequestFieldBO dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
+        DataBuildRequestFieldBO dataBuildRequestFieldBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
 
-        String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
+        String dataSourceCode = dataBuildRequestFieldBO.getDataSourceCode();
         //从默认值中获取数据
-        if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
+        if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getDefaultValueList())) {
             return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
-        int dataSourceType = dataFactoryRequestFieldBean.getDataSourceType();
+        int dataSourceType = dataBuildRequestFieldBO.getDataSourceType();
 
         //来自服务模型枚举
         if(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == dataSourceType){
@@ -101,20 +101,10 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
         return null;
 
-    /*    //如果是内置数据源则从内置数据源工厂中的Function中构建随机数据
-        if (dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
-            return dataGenerateFunctionServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }else {
-            //从远程数据源获取随机数据
-            return dataGenerateRemoteServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }*/
-
-
-
     }
 
     @Override
-    public ResultDataDto generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
+    public ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         randomThreadLocal.set(new SecureRandom());
         bindDataSource(dataBuildRequestBO);
 
@@ -137,6 +127,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         for (int i = 0; i < dataBuildRequestBO.getBuildCount(); i++) {
             Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
+            dataSourceFieldRequestBean.setCurrentIndex(i);
             //如果有字段依赖可以进行排序
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
 
@@ -151,6 +142,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
             }
             batchResultList.add(fieldValueMap);
         }
+        randomThreadLocal.remove();
         resultDataDto.setData(batchResultList);
         return resultDataDto;
     }
@@ -158,8 +150,16 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Override
     public String buildData(DataBuildRequestFieldBO dataBuildRequestFieldBO) {
         DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
-        dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
         dataSourceFieldRequestBean.setFunction(dataBuildRequestFieldBO.getFunction());
+
+        String dataSourceCode = dataBuildRequestFieldBO.getDataSourceCode();
+        if(dataSourceCode.contains("#")){
+            dataSourceCode = dataSourceCode.split("#")[0];
+        }
+        DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataSourceCode);
+        dataBuildRequestFieldBO.setDataSourceType(dataSourceBO.getSourceType());
+        dataBuildRequestFieldBO.setDataSourceBO(dataSourceBO);
+        dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
         Object object = null;
         try {
             object = getFieldValue(dataSourceFieldRequestBean);
@@ -181,6 +181,9 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     private void bindDataSource(DataBuildRequestBO dataBuildRequestBO){
         List<DataBuildRequestFieldBO> dataBuildRequestFieldBeans = dataBuildRequestBO.getFieldBOList();
         for (DataBuildRequestFieldBO dataBuildRequestFieldBean  : dataBuildRequestFieldBeans){
+            if(StringUtils.isEmpty(dataBuildRequestFieldBean.getDataSourceCode())){
+                continue;
+            }
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataBuildRequestFieldBean.getDataSourceCode());
             dataBuildRequestFieldBean.setDataSourceType(dataSourceBO.getSourceType());
             dataBuildRequestFieldBean.setDataSourceBO(dataSourceBO);

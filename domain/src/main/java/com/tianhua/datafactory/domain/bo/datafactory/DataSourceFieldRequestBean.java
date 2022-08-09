@@ -53,4 +53,10 @@ public class DataSourceFieldRequestBean {
      * 这里依赖的是静态值
      */
     private Map<String, List<String>> varDependencyMap;
+
+
+    /**
+     * 当前生成记录的索引
+     */
+    private Integer currentIndex;
 }

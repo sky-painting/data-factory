@@ -30,7 +30,7 @@ public class DubboServiceFactory {
     private RegistryConfig registry;
     @Value("${dubbox.registry.address}")
     private String address;
-    @Value("${dubbo.application.name}")
+    @Value("${spring.application.name}")
     private String name;
 
     private static class SingletonHolder {
@@ -40,7 +40,7 @@ public class DubboServiceFactory {
     private DubboServiceFactory() {
         try {
             ApplicationConfig applicationConfig = new ApplicationConfig();
-            name="dubbo-provider2";
+            name = "datafactory";
             applicationConfig.setName(name);
             RegistryConfig registryConfig = new RegistryConfig();
             address= "zookeeper://127.0.0.1:2181";
@@ -59,11 +59,11 @@ public class DubboServiceFactory {
         return SingletonHolder.INSTANCE;
     }
 
-    public Object genericInvoke(String interfaceClass, String methodName, List<Map<String, Object>> parameters) {
+    public Object genericInvoke(String serviceName, String interfaceClass, String methodName, List<Map<String, Object>> parameters) {
         try {
 
             ReferenceConfig<GenericService> reference = new ReferenceConfig<>();
-            reference.setServices("dubbo-provider");
+            reference.setServices(serviceName);
             reference.setApplication(application);
             reference.setRegistry(registry);
             reference.setInterface(interfaceClass); // 接口名
@@ -77,6 +77,9 @@ public class DubboServiceFactory {
             ReferenceConfigCache cache = ReferenceConfigCache.getCache();
             GenericService genericService = cache.get(reference);
 
+            if(parameters == null){
+                return genericService.$invoke(methodName, new String[]{}, new Object[]{});
+            }
             int len = parameters.size();
             String[] invokeParamTyeps = new String[len];
             Object[] invokeParams = new Object[len];
@@ -102,7 +105,7 @@ public class DubboServiceFactory {
         map.put("ParamType","java.lang.String");
         map.put("Object","shenshuai");
         parameters.add(map);
-        Object result =  dubbo.genericInvoke(interfaceName, methodName, parameters);
+        Object result =  dubbo.genericInvoke("datafactory",interfaceName, methodName, parameters);
 
     }
 

@@ -4,6 +4,7 @@ import com.tianhua.datafactory.client.annotations.DataSourceFunction;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * Description
@@ -14,15 +15,16 @@ import org.apache.commons.lang3.StringUtils;
  * @version 1.0.0
  * @since JDK 1.8
  */
+@Service(value = "randomNumFunc")
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.RANDOM)
 public class RandomNumFunc  implements Function<Integer> {
 
     @Override
     public Integer createOneData(String... params) {
-        int len = 0;
+        int len = 6;
 
-        if(params == null || StringUtils.isEmpty(params[0])){
-            len = 6;
+        if(params != null && StringUtils.isNotEmpty(params[0])){
+            len = Integer.parseInt(params[0]);
         }
         int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
         return rs;

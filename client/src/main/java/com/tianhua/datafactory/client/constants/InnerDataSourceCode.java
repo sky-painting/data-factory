@@ -90,6 +90,10 @@ public class InnerDataSourceCode {
      */
     public static final String CURRENT_TIME = "com.datafactory.currenttime";
 
+    /**
+     * 获取一个随机数---内置实现
+     */
+    public static final String SNOWFLAKE_ID = "com.datafactory.user.snowflakeid";
 
 
 }

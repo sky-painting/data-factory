@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Data
 @ToString
-public class DataBuildRequestFieldBO {
+public class DataBuildRequestFieldBO<T> {
     /**
      * 字段名
      */
@@ -43,7 +43,7 @@ public class DataBuildRequestFieldBO {
     /**
      * 字段默认值列表
      */
-    private List<String> defaultValueList;
+    private List<T> defaultValueList;
 
 
     /**

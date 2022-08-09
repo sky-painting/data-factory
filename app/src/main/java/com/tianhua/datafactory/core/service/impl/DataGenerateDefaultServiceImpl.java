@@ -20,14 +20,13 @@ import java.security.SecureRandom;
  */
 @Service(value = "dataGenerateDefaultServiceImpl")
 public class DataGenerateDefaultServiceImpl implements DataGenerateService {
-    private static SecureRandom secureRandom = new SecureRandom();
 
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
         DataBuildRequestFieldBO dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
         if (CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
-            int size = dataFactoryRequestFieldBean.getDefaultValueList().size();
-            return dataFactoryRequestFieldBean.getDefaultValueList().get(secureRandom.nextInt(size));
+            int index = dataFactoryRequestFieldBean.getDefaultValueList().size();
+            return dataFactoryRequestFieldBean.getDefaultValueList().get(dataSourceFieldRequestBean.getCurrentIndex() % index);
         }
         return null;
     }

@@ -5,6 +5,9 @@ import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * description: DataFactoryservice <br>
  * date: 2020/12/5 23:39 <br>
@@ -21,7 +24,7 @@ public interface DataFactoryService {
      * @param dataBuildRequestBO
      * @return
      */
-    ResultDataDto generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception;
+    ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception;
 
     /**
      * 通过数据源编码获取单个数据源对应的随机数
