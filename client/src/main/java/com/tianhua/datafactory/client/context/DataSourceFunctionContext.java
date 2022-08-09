@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.core.context;
+package com.tianhua.datafactory.client.context;
 
 import org.springframework.stereotype.Component;
 

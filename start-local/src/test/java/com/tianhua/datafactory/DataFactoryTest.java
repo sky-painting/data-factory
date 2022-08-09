@@ -93,7 +93,7 @@ public class DataFactoryTest {
     @Test
     public void testDataFactoryx(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(100);
+        dataBuildRequestBO.setBuildCount(10000);
         dataBuildRequestBO.setProjectCode("xxxx");
         dataBuildRequestBO.setParamModelCode("XxxModel");
 
@@ -140,11 +140,12 @@ public class DataFactoryTest {
 
         ResultDataDto<List<Map<String, Object>>> result = null;
         try {
-            long startTime = System.currentTimeMillis();
-            result = dataFactoryService.generateData(dataBuildRequestBO);
-            long endTime = System.currentTimeMillis();
-            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
-            result.getData().stream().forEach(map-> System.out.println(JSON.toJSONString(map)));
+            for (int i =0;i< 100;i++){
+                long startTime = System.currentTimeMillis();
+                result = dataFactoryService.generateData(dataBuildRequestBO);
+                long endTime = System.currentTimeMillis();
+                log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -15,6 +15,7 @@ import java.util.Random;
  * version: 1.0 <br>
  */
 @Service(value = "passWordFunction")
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.PASS_WORD)
 public class PassWordFunc implements Function<String> {
 
     private static String reference = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^.,-&*(~)";
@@ -24,7 +25,6 @@ public class PassWordFunc implements Function<String> {
      *
      * @param length
      */
-    @DataSourceFunction(dataSourceCode = InnerDataSourceCode.PASS_WORD)
     private static String passWord(int length) {
         StringBuffer buffer = new StringBuffer();
         char [] arr = reference.toCharArray();

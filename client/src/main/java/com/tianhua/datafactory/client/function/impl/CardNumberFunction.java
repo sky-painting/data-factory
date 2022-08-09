@@ -2,14 +2,13 @@ package com.tianhua.datafactory.client.function.impl;
 
 import com.tianhua.datafactory.client.annotations.DataSourceFunction;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
+import com.tianhua.datafactory.client.function.CacheFunction;
 import com.tianhua.datafactory.client.function.Function;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author 陈小哥cw
@@ -18,7 +17,11 @@ import java.util.Random;
  */
 @Service(value = "cardNumberFunction")
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.CARD_NUMBER)
-public class CardNumberFunction implements Function<String> {
+public class CardNumberFunction implements CacheFunction {
+    private static SecureRandom random = new SecureRandom();
+
+    private static List list = new ArrayList<>();
+    private static Integer count = 100000;
 
     // 18位身份证号码各位的含义:
     // 1-2位省、自治区、直辖市代码；
@@ -71,7 +74,6 @@ public class CardNumberFunction implements Function<String> {
      */
     private static String randomOne(String s[]) {
         Random random = new SecureRandom();
-
         return s[random.nextInt(s.length - 1)];
     }
 
@@ -105,6 +107,29 @@ public class CardNumberFunction implements Function<String> {
 
     @Override
     public String createOneData(String ... params) {
-        return cardNumber();
+        if(list.isEmpty()){
+            buildCache(count);
+        }
+        return list.get(random.nextInt(list.size())).toString();
+    }
+
+
+    @Override
+    public synchronized void buildCache(Integer count) {
+        this.count = count;
+        list = initCache(count);
+    }
+
+    @Override
+    public synchronized void clearCache() {
+        list.clear();
+    }
+
+    private List  initCache(Integer count){
+        List<String> list = new ArrayList<>(count);
+        for (int i =0;i < count;i++){
+            list.add(cardNumber());
+        }
+        return list;
     }
 }

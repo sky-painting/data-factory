@@ -16,13 +16,12 @@ import java.util.concurrent.TimeUnit;
  * @since JDK 1.8
  */
 @Service
-public class CacheService {
+public class KVCacheService {
     /**
      * 初始化缓存，key:对应的配置文件名
      * value:对应的配置内容列表
      */
     private static final Cache<String, List<String>> manualCache = Caffeine.newBuilder()
-            .expireAfterWrite(10, TimeUnit.MINUTES)
             .maximumSize(10_000)
             .build();
 

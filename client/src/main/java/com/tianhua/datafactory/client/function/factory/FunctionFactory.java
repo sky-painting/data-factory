@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.core.functionfactory;
+package com.tianhua.datafactory.client.function.factory;
 
 import com.tianhua.datafactory.client.function.Function;
 

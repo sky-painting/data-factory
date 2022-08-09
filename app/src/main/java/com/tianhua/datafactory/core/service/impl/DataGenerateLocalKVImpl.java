@@ -35,7 +35,7 @@ public class DataGenerateLocalKVImpl implements DataGenerateService {
     public Random random = new SecureRandom();
 
     private Cache<String,List> cache = Caffeine.newBuilder()
-            .expireAfterWrite(60, TimeUnit.SECONDS)
+            .expireAfterWrite(5, TimeUnit.SECONDS)
             .maximumSize(5000)
             .build();
 

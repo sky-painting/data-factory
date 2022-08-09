@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.core.processor;
 
 import com.tianhua.datafactory.client.annotations.DataSourceFunction;
-import com.tianhua.datafactory.core.context.DataSourceFunctionContext;
+import com.tianhua.datafactory.client.context.DataSourceFunctionContext;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

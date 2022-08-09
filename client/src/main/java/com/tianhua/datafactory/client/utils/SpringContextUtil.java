@@ -1,8 +1,5 @@
-package com.tianhua.datafactory.core.utils;
+package com.tianhua.datafactory.client.utils;
 
-import org.apache.ibatis.session.ExecutorType;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -48,29 +45,4 @@ public class SpringContextUtil implements ApplicationContextAware {
     }
 
 
-
-
-
-    public int updateBatch(List<Object> list){
-        if(list ==null || list.size() <= 0){
-            return -1;
-        }
-        SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) SpringContextUtil.getBean("sqlSessionFactory");
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = sqlSessionFactory.openSession(ExecutorType.SIMPLE);
-            Connection connection =  sqlSession.getConnection();
-          //  connection.prepareStatement("sql").;
-
-            return 0;
-        }catch (Exception e){
-            sqlSession.rollback();
-            return -2;
-        }finally {
-            if(sqlSession != null){
-                sqlSession.close();
-            }
-        }
-
-    }
 }

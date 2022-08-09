@@ -3,11 +3,10 @@ package com.tianhua.datafactory.core.service.impl;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 
-import com.tianhua.datafactory.core.functionfactory.FunctionFactory;
+import com.tianhua.datafactory.client.function.factory.FunctionFactory;
 import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
-import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
@@ -50,10 +49,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Resource(name = "dataGenerateFunctionServiceImpl")
     private DataGenerateService dataGenerateFunctionServiceImpl;
-
-
-    @Resource(name = "dataGenerateRemoteServiceImpl")
-    private DataGenerateService dataGenerateRemoteServiceImpl;
 
     @Resource(name = "dataGenerateLocalKVImpl")
     private DataGenerateService dataGenerateLocalKVImpl;

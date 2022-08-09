@@ -1,6 +1,6 @@
 package com.tianhua.datafactory.client.filedata.impl;
 
-import com.tianhua.datafactory.client.cache.CacheService;
+import com.tianhua.datafactory.client.cache.KVCacheService;
 import com.tianhua.datafactory.client.enums.FileDataEnums;
 import com.tianhua.datafactory.client.filedata.FileReadService;
 import com.tianhua.datafactory.client.filedata.ParseService;
@@ -26,7 +26,7 @@ import java.util.List;
 public class ParseFirstNameServiceImpl implements ParseService {
 
     @Autowired
-    private CacheService cacheService;
+    private KVCacheService cacheService;
 
     @Autowired
     private FileReadService fileReadService;
