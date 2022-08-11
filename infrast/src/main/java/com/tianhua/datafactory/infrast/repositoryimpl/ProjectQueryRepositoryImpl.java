@@ -40,8 +40,13 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
 
     @Override
 	public List<ApiBO> getApiListByCode(String projectCode){
-
-        return null;
+        List<ApiModelDO> apiModelDOList = apiModelMapper.getByProjectCode(projectCode);
+        List<ApiBO> apiBOList = ApiConvert.INSTANCE.doList2boList(apiModelDOList);
+        apiBOList.stream().forEach(apiBO -> {
+            apiBO.buildReturnParamModel();
+            apiBO.buildRequestParam();
+        });
+        return apiBOList;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.tianhua.datafactory.vo.datasource.DataSourceVO;
 import com.tianhua.datafactory.vo.model.FieldVO;
 import com.tianhua.datafactory.vo.model.ModelSuffixConfigVO;
 import com.tianhua.datafactory.vo.model.ParamModelVO;
+import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.project.ProjectVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -107,6 +108,23 @@ public class BaseController{
 		}
 		fieldVOList.stream().forEach(fieldVO -> {
 			optionsVO.addOptionItem(fieldVO.getFieldName(), fieldVO.getFieldDesc());
+		});
+		return optionsVO;
+	}
+
+
+	/**
+	 * 包装option适配amis框架
+	 * @param apiVOList
+	 * @return
+	 */
+	public OptionsVO wrapperApiModel(List<ApiVO> apiVOList){
+		OptionsVO optionsVO = new OptionsVO();
+		if(CollectionUtils.isEmpty(apiVOList)){
+			return optionsVO;
+		}
+		apiVOList.stream().forEach(apiVO -> {
+			optionsVO.addOptionItem(apiVO.getApiSign(), apiVO.getApiSign());
 		});
 		return optionsVO;
 	}

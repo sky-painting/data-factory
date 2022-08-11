@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.controller.admin;
 
+import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.PageBean;
@@ -10,6 +11,7 @@ import com.tianhua.datafactory.domain.repository.ProjectRepository;
 import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.query.ApiQueryVO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,7 @@ import com.coderman.utils.response.ResultDataDto;
 * @version v1.0
 */
 @RestController
-public class ApiController {
+public class ApiController extends BaseController {
 	
 	protected Logger logger = LoggerFactory.getLogger(ApiController.class);
 
@@ -148,10 +150,17 @@ public class ApiController {
 
 	@PostMapping("/api/batchBuild")
 	public ResultDataDto<Boolean> batchBuild(@RequestBody ApiVO apiVO){
-
 		plantUMLApiModelBuilderService.initPlantUMlModel(apiVO.getProjectCode(), apiVO.getFile());
-
 		return ResultDataDto.success();
+	}
+
+	@GetMapping("/api/searchApiSign")
+	public ResultDataDto batchBuild(@RequestParam(value = "projectCode", required = false) String projectCode){
+		if(StringUtils.isEmpty(projectCode)){
+			return ResultDataDto.success();
+		}
+		List<ApiBO> list = projectQueryRepository.getApiListByCode(projectCode);
+		return ResultDataDto.success(wrapperApiModel(ApiConverter.INSTANCE.BOs2VOs(list)));
 	}
 
 

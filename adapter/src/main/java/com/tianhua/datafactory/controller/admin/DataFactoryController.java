@@ -2,15 +2,13 @@ package com.tianhua.datafactory.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.controller.BaseController;
-import com.tianhua.datafactory.vo.datafactory.DataFactoryRequestVo;
+import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.vo.datafactory.DataBuildRequestVo;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.vo.datasource.DataSourceVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -24,15 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class DataFactoryController extends BaseController {
 
 
+    @Autowired
+    private DataFactoryService dataFactoryService;
+
     /**
-     * @param dataSourceVo
+     * @param dataFactoryRequestVo
      * @return ResultDataDto 构建结果
      * @Description:根据数据源构建数据
      * @version v1.0
      */
-    @RequestMapping(value = "/datafactory/generate", method = RequestMethod.GET)
-    public ResultDataDto generate(@RequestBody DataSourceVO dataSourceVo) {
-        return null;
+    @PostMapping(value = "/datafactory/generate")
+    public ResultDataDto generate(@RequestBody DataBuildRequestVo dataFactoryRequestVo) {
+        logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
+
+        return ResultDataDto.success();
     }
 
     /**
@@ -42,8 +45,11 @@ public class DataFactoryController extends BaseController {
      * @version v1.0
      */
     @RequestMapping(value = "/datafactory/generate/simple", method = RequestMethod.POST)
-    public ResultDataDto generateSimple(@RequestBody DataFactoryRequestVo dataFactoryRequestVo) {
+    public ResultDataDto generateSimple(@RequestBody DataBuildRequestVo dataFactoryRequestVo) {
+
+
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
+
         ResultDataDto resultDataDto = new ResultDataDto();
         return resultDataDto;
     }

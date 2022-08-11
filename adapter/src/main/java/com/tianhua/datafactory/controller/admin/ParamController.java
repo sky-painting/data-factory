@@ -13,6 +13,7 @@ import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.model.FieldVO;
 import com.tianhua.datafactory.vo.model.ParamModelVO;
 import com.tianhua.datafactory.vo.query.ParamModelQueryVO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,4 +152,24 @@ public class ParamController extends BaseController {
 		return ResultDataDto.success();
 	}
 
+	/**
+	 *
+	 * @Description 搜索参数模型
+	 * @param projectCode
+	 * @return List<ParamModelVO>
+	 */
+	@RequestMapping(value = "/parammodel/getByProjectCodeV2")
+	public ResultDataDto getByProjectCodeV2(@RequestParam(value = "projectCode", required = false) String projectCode){
+		if(StringUtils.isEmpty(projectCode)){
+			return ResultDataDto.success();
+		}
+		List<ParamModelVO> paramModelVOS = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelByProjectCode(projectCode));
+		return ResultDataDto.success(wrapperParamModel(paramModelVOS));
+	}
+
+	@RequestMapping(value = "/parammodel/getFieldListV2")
+	public ResultDataDto getFieldListV2(@RequestParam(value = "projectCode", required = false) String projectCode,@RequestParam(value = "paramClassName", required = false) String paramClassName){
+		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode,paramClassName));
+		return ResultDataDto.success(fieldVOList);
+	}
 }

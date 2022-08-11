@@ -53,7 +53,7 @@ public class DataGenerateRemoteServiceImpl implements DataGenerateService {
             SecureRandom secureRandom = dataSourceFieldRequestBean.getRandom();
             int index = secureRandom.nextInt(jsonArray.size());
             JSONObject jsonObject = jsonArray.getJSONObject(index);
-            String fieldType = dataFactoryRequestFieldBean.getFieldTypeStr();
+            String fieldType = dataFactoryRequestFieldBean.getFieldType();
             switch (fieldType) {
                 case "short":
                     return jsonObject.getShortValue(dataSourceField);

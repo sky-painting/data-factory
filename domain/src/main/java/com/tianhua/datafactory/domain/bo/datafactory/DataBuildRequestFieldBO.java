@@ -27,7 +27,7 @@ public class DataBuildRequestFieldBO<T> {
      * 字段类型
      */
 
-    private String fieldTypeStr;
+    private String fieldType;
 
     /**
      * 字段数据源code
@@ -44,6 +44,17 @@ public class DataBuildRequestFieldBO<T> {
      * 字段默认值列表
      */
     private List<T> defaultValueList;
+
+
+    /**
+     * 是否可以代表业务唯一性
+     */
+    private Boolean bizUnique;
+
+    /**
+     * 是否可以作为领域实体标示
+     */
+    private Boolean bizIdentifier;
 
 
     /**

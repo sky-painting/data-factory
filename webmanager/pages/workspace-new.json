@@ -6,7 +6,7 @@
     {
       "type": "button",
       "actionType": "link",
-      "link": "/param/list",
+      "link": "/index/1",
       "label": "返回列表"
     }
   ],
@@ -43,18 +43,19 @@
           "name": "paramModelClassName",
           "label": "模型名称",
           "required": true,
-          "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+          "source": "http://127.0.0.1:8090/parammodel/getByProjectCodeV2?projectCode=${projectCode}"
         },
         {
           "type": "divider"
         },
         {
           "label": "属性列表",
-          "type": "input-table",
+          "type": "crud",
           "name": "fieldBeanList",
           "multiple": true,
-          "addable": false,
+          "addable": true,
           "editable": true,
+          "api": "http://127.0.0.1:8090/parammodel/getFieldListV2?projectCode=${projectCode}&paramClassName=${paramModelClassName}",
           "columns": [
             {
               "name": "fieldName",
@@ -73,38 +74,24 @@
             },
             {
               "name": "dataSourceCode",
-              "type": "static",
-              "label": "数据源编码"
+              "type": "select",
+              "label": "数据源编码",
+              "autoComplete": "http://127.0.0.1:8090/datasource/search"
             },
             {
               "name": "bizUnique",
-              "type": "static",
+              "type": "switch",
               "label": "是否代表业务唯一性"
             },
             {
-              "name": "bizIdentifier",
-              "type": "static",
-              "label": "是否作为领域实体标示"
-            },
-            {
-              "name": "complexStruct",
-              "type": "static",
-              "label": "是否是复杂数据类型"
-            },
-            {
-              "name": "checkRule",
-              "type": "static",
-              "label": "否存在特定规则校验"
-            },
-            {
-              "name": "mappingDBColumn",
-              "type": "static",
-              "label": "是否对应数据库字段"
-            },
-            {
               "name": "defaultValueList",
-              "type": "static",
+              "type": "textarea",
               "label": "默认值列表"
+            },
+            {
+              "name": "buildRuleDSL",
+              "type": "textarea",
+              "label": "规则DSL"
             }
           ]
         }
@@ -122,9 +109,19 @@
           "type": "divider"
         },
         {
+          "type": "select",
+          "name": "apiSign",
+          "label": "Api签名",
+          "source": "http://127.0.0.1:8090/api/searchApiSign?projectCode=${projectCode}",
+          "required": false
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "input-text",
-          "name": "count",
-          "label": "导出方式(接口,sql,json,excel)",
+          "name": "dataUseType",
+          "label": "数据使用方式(在线接口导入,导出insert.sql,导出json,导出excel)",
           "required": false
         }
       ]

@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class DataFactoryRequestVo {
+public class DataBuildRequestVo {
     /**
      * 项目编码
      */
@@ -26,7 +26,7 @@ public class DataFactoryRequestVo {
     private String paramModelCode;
 
     /**
-     * 数据规则
+     * 模型属性名称
      */
     private List<FieldVO> fieldVOList;
 
@@ -34,5 +34,20 @@ public class DataFactoryRequestVo {
      * 生成条数
      */
     private Integer buildCount;
+
+    /**
+     * insert.sql
+     * json.json(default)
+     * excel.xlsx
+     *
+     */
+    private String outType;
+
+    /**
+     * 模型对应的api签名
+     */
+    private String apiSign;
+
+
 
 }

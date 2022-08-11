@@ -31,7 +31,7 @@ public class DataBuildRequestBO extends BaseBO {
     private Integer buildCount;
 
     /**
-     * sql.sql
+     * insert.sql
      * json.json(default)
      * excel.xlsx
      *
@@ -40,7 +40,8 @@ public class DataBuildRequestBO extends BaseBO {
 
 
     /**
-     * 是否持久化数据构建请求以复用
+     * 模型对应的api签名
      */
-    private int persistRequest;
+    private String apiSign;
+
 }
