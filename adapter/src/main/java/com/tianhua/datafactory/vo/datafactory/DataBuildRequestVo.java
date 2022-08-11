@@ -41,7 +41,7 @@ public class DataBuildRequestVo {
      * excel.xlsx
      *
      */
-    private String outType;
+    private String dataUseType;
 
     /**
      * 模型对应的api签名

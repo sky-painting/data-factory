@@ -17,7 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -170,6 +172,11 @@ public class ParamController extends BaseController {
 	@RequestMapping(value = "/parammodel/getFieldListV2")
 	public ResultDataDto getFieldListV2(@RequestParam(value = "projectCode", required = false) String projectCode,@RequestParam(value = "paramClassName", required = false) String paramClassName){
 		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode,paramClassName));
-		return ResultDataDto.success(fieldVOList);
+		//适配amis service组件 使用map封装一层
+		Map<String,Object> mapResult = new HashMap<>();
+		mapResult.put("rows",fieldVOList);
+		mapResult.put("count",fieldVOList.size());
+
+		return ResultDataDto.success(mapResult);
 	}
 }

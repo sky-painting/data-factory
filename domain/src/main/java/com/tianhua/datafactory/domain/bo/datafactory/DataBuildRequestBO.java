@@ -36,12 +36,18 @@ public class DataBuildRequestBO extends BaseBO {
      * excel.xlsx
      *
      */
-    private String outType;
+    private String dataUseType;
 
 
     /**
      * 模型对应的api签名
      */
     private String apiSign;
+
+
+    /**
+     * 构建的属性模型DSL描述
+     */
+    private String buildRuleDSL;
 
 }

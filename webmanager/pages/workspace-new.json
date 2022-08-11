@@ -14,8 +14,8 @@
     {
       "type": "form",
       "mode": "horizontal",
-      "api": "http://127.0.0.1:8090/parammodel/add",
-      "redirect": "/param/list",
+      "api": "http://127.0.0.1:8090/datafactory/generate",
+      "redirect": "/index/1",
 
       "actions": [
         {
@@ -40,7 +40,7 @@
         },
         {
           "type": "input-text",
-          "name": "paramModelClassName",
+          "name": "paramModelCode",
           "label": "模型名称",
           "required": true,
           "source": "http://127.0.0.1:8090/parammodel/getByProjectCodeV2?projectCode=${projectCode}"
@@ -49,51 +49,55 @@
           "type": "divider"
         },
         {
-          "label": "属性列表",
-          "type": "crud",
-          "name": "fieldBeanList",
-          "multiple": true,
-          "addable": true,
-          "editable": true,
-          "api": "http://127.0.0.1:8090/parammodel/getFieldListV2?projectCode=${projectCode}&paramClassName=${paramModelClassName}",
-          "columns": [
-            {
-              "name": "fieldName",
-              "type": "static",
-              "label": "属性名称"
-            },
-            {
-              "name": "fieldDesc",
-              "type": "static",
-              "label": "属性描述"
-            },
-            {
-              "name": "fieldType",
-              "type": "static",
-              "label": "属性类型"
-            },
-            {
-              "name": "dataSourceCode",
-              "type": "select",
-              "label": "数据源编码",
-              "autoComplete": "http://127.0.0.1:8090/datasource/search"
-            },
-            {
-              "name": "bizUnique",
-              "type": "switch",
-              "label": "是否代表业务唯一性"
-            },
-            {
-              "name": "defaultValueList",
-              "type": "textarea",
-              "label": "默认值列表"
-            },
-            {
-              "name": "buildRuleDSL",
-              "type": "textarea",
-              "label": "规则DSL"
-            }
-          ]
+          "type": "service",
+          "api": "http://127.0.0.1:8090/parammodel/getFieldListV2?projectCode=${projectCode}&paramClassName=${paramModelCode}",
+          "body": {
+            "label": "属性列表",
+            "type": "input-table",
+            "name": "fieldVOList",
+            "source": "${rows}",
+            "multiple": true,
+            "addable": true,
+            "editable": true,
+            "columns": [
+              {
+                "name": "fieldName",
+                "type": "static",
+                "label": "属性名称"
+              },
+              {
+                "name": "fieldDesc",
+                "type": "static",
+                "label": "属性描述"
+              },
+              {
+                "name": "fieldType",
+                "type": "static",
+                "label": "属性类型"
+              },
+              {
+                "name": "dataSourceCode",
+                "type": "select",
+                "label": "数据源编码",
+                "autoComplete": "http://127.0.0.1:8090/datasource/search"
+              },
+              {
+                "name": "bizUnique",
+                "type": "switch",
+                "label": "是否代表业务唯一性"
+              },
+              {
+                "name": "defaultValueList",
+                "type": "textarea",
+                "label": "默认值列表"
+              },
+              {
+                "name": "buildRuleDSL",
+                "type": "textarea",
+                "label": "规则DSL"
+              }
+            ]
+          }
         }
         ,
         {
@@ -101,7 +105,7 @@
         },
         {
           "type": "input-text",
-          "name": "count",
+          "name": "buildCount",
           "label": "生成条数",
           "required": true
         },
