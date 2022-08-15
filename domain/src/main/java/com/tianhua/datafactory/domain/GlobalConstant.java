@@ -45,5 +45,10 @@ public class GlobalConstant {
      */
     public static final String KEY = "key";
 
+    /**
+     * liteflow 构建的chain
+     */
+    public static final String CHAIN_FLOW = "dataProcessingFlowChain";
+
 }
 

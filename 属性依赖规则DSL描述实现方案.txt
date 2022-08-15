@@ -5,22 +5,26 @@
 属性.子属性.relyField:标示列表属性如List<UserBO> userList, userList.staffId=staffId
 属性.子属性.relySourceCode:标示如列表属性中的UserBO的某个属性依赖的数据源编码
 
-属性.mapKey.relyField:标示map属性如Map<Key,Value> KVMap的key值是父类属性的某个属性值
-属性.mapValue.relyField:标示map属性如Map<Key,Value> KVMap的value值是父类属性的某个属性值/或者某些属性
+属性.mapKey.relyMapKeyField:标示map属性如Map<Key,Value> KVMap的key值是父类属性的某个属性值
+属性.mapValue.relyMapValueField:标示map属性如Map<Key,Value> KVMap的value值是父类属性的某个属性值/或者某些属性
 属性.funcVar:当前属性的随机数函数需要另外一个属性的值作为参数传入
 属性.listDefault:属性作为列表类属性的默认值,json化
 属性.setDefault:属性作为集合类的属性的默认值集合,json化
 属性.arrDefault:属性作为数组类的属性的默认值集合,json化
 属性.relyCount:列表类属性如List<UserBO> userList,需要生成多少UserBO对象可以随机组成随机大小的userList
+或者 set,array大小
 
 属性.prefix=xxx
 属性.subfix=xxx
 属性.子属性.relySourceCode
 属性.子属性.relyField=属性
-属性.mapKey.relyField=属性
-属性.mapValue.relyField=属性
+属性.relyMapKeyField=$属性 or valueList{}
+属性.relyMapValueField=属性 or valueList{}
+属性.relySetField=$属性 or valueList{}
+属性.relyListField=$属性 or valueList{}
+属性.relyArrayField=$属性 or valueList{}
 
-属性.funcVar=属性,10
+属性.funcVar=$属性 or 10(如果使用随机函数需要传入的参数,或者依赖其他属性的值)
 属性.listDefault={json}
 属性.arrDefault={json}
 属性.setDefault={json}
@@ -35,10 +39,19 @@ OrderBO
   List<OrderDetailBO> orderDetailBOList; //订单详情
   Long orderPayCount; //订单总金额
 
-orderCode.prefix=BRAND_;
-orderCode.subfix=000x;
-orderDetailBOList.orderCode.relyField=orderCode
-orderDetailBOList.itemId.relySourceCode=com.item.skuFacade#skuid(依赖商品服务的skuid)
-orderDetailBOList.count.relySourceCode=com.datafactory.random#10(随机数函数,10以内)
-orderDetailBOList.price.relySourceCode=com.datafactory.random#1000(随机数函数,1000以内)
+
+比如orderCode的dsl内容描述:
+prefix=BRAND_XXX_;
+subfix=000x;
+
+
+比如orderDetailBOList的dsl内容描述:
+orderCode.relyField=orderCode
+itemId.relySourceCode=com.item.skuFacade#skuid (依赖商品服务的skuid)
+count.relySourceCode=com.datafactory.random(10) (随机数函数,10以内)
+price.relySourceCode=com.datafactory.random(1000) (随机数函数,1000以内)
+
+
+
+
 orderCode.relyField=sum(orderDetailBOList.)--->数学计算,脚本表达式?

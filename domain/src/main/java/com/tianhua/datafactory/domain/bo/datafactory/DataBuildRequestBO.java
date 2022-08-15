@@ -1,10 +1,12 @@
 package com.tianhua.datafactory.domain.bo.datafactory;
 
+import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.domain.bo.BaseBO;
 import lombok.Data;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @ToString
@@ -44,10 +46,12 @@ public class DataBuildRequestBO extends BaseBO {
      */
     private String apiSign;
 
-
     /**
-     * 构建的属性模型DSL描述
+     * 需要用到的function
      */
-    private String buildRuleDSL;
+    private Map<String, Function> functionMap;
+
+
+
 
 }

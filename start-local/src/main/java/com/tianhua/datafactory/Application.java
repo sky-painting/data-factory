@@ -19,6 +19,7 @@ import javax.servlet.MultipartConfigElement;
  */
 @SpringBootApplication(scanBasePackages = {"com.tianhua.datafactory"})
 @MapperScan(value = "com.tianhua.datafactory.infrast.dao.mapper")
+
 public class Application {
     // 文件上传配置类
     @Bean

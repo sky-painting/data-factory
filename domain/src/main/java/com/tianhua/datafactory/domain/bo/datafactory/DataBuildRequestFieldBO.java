@@ -86,4 +86,38 @@ public class DataBuildRequestFieldBO<T> {
      */
     private DataSourceBO dataSourceBO;
 
+    /**
+     * 构建的属性模型DSL描述
+     */
+    private String buildRuleDSL;
+
+
+    private DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO;
+
+
+    /**
+     * 获取属性的泛型类型
+     * @return
+     */
+    public String getGenerics(){
+        if(fieldType.contains("List<")){
+            String genericType = fieldType.replaceFirst("List<","");
+            if(genericType.contains(">>")){
+                return genericType.replace(">>",">");
+            }
+            return genericType.replace(">",">");
+        }
+
+        if(fieldType.contains("Set<")){
+            String genericType = fieldType.replaceFirst("Set<","");
+            if(genericType.contains(">>")){
+                return genericType.replace(">>",">");
+            }
+            return genericType.replace(">",">");
+        }
+        return null;
+
+    }
+
+
 }

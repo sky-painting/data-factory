@@ -93,7 +93,7 @@ public class DataFactoryTest {
     @Test
     public void testDataFactoryx(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(10000);
+        dataBuildRequestBO.setBuildCount(100000);
         dataBuildRequestBO.setProjectCode("xxxx");
         dataBuildRequestBO.setParamModelCode("XxxModel");
 
@@ -102,7 +102,7 @@ public class DataFactoryTest {
         dataBuildRequestFieldBO.setDataSourceCode("com.datafactory.user.chineseName");
         dataBuildRequestFieldBO.setFieldName("chinseName");
         dataBuildRequestFieldBO.setFunction(chineseNameFunc);
-        dataBuildRequestFieldBO.setFieldTypeStr("String");
+        dataBuildRequestFieldBO.setFieldType("String");
         fieldBOList.add(dataBuildRequestFieldBO);
 
 
@@ -110,7 +110,7 @@ public class DataFactoryTest {
         dataBuildRequestFieldBO2.setDataSourceCode("com.datafactory.user.telphone");
         dataBuildRequestFieldBO2.setFieldName("handPhone");
         dataBuildRequestFieldBO2.setFunction(telPhoneFunc);
-        dataBuildRequestFieldBO2.setFieldTypeStr("String");
+        dataBuildRequestFieldBO2.setFieldType("String");
         fieldBOList.add(dataBuildRequestFieldBO2);
 
 
@@ -118,19 +118,19 @@ public class DataFactoryTest {
         dataBuildRequestFieldBO3.setDataSourceCode("com.datafactory.user.cardnumber");
         dataBuildRequestFieldBO3.setFieldName("cardNumber");
         dataBuildRequestFieldBO3.setFunction(cardNumberFunction);
-        dataBuildRequestFieldBO3.setFieldTypeStr("String");
+        dataBuildRequestFieldBO3.setFieldType("String");
         fieldBOList.add(dataBuildRequestFieldBO3);
 
 
         DataBuildRequestFieldBO dataBuildRequestFieldBO4 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO4.setFieldName("userType");
-        dataBuildRequestFieldBO4.setFieldTypeStr("Integer");
+        dataBuildRequestFieldBO4.setFieldType("Integer");
         dataBuildRequestFieldBO4.setDefaultValueList(Lists.newArrayList(1,2,3,4,5));
         fieldBOList.add(dataBuildRequestFieldBO4);
 
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("userId");
-        dataBuildRequestFieldBO5.setFieldTypeStr("Long");
+        dataBuildRequestFieldBO5.setFieldType("Long");
         dataBuildRequestFieldBO5.setDataSourceCode("com.datafactory.user.getRandom");
         dataBuildRequestFieldBO5.setFunction(randomNumFunc);
         fieldBOList.add(dataBuildRequestFieldBO5);
@@ -140,7 +140,7 @@ public class DataFactoryTest {
 
         ResultDataDto<List<Map<String, Object>>> result = null;
         try {
-            for (int i =0;i< 100;i++){
+            for (int i =0;i< 10;i++){
                 long startTime = System.currentTimeMillis();
                 result = dataFactoryService.generateData(dataBuildRequestBO);
                 long endTime = System.currentTimeMillis();
@@ -150,7 +150,44 @@ public class DataFactoryTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
+
+
+    @Test
+    public void testDataFactory5(){
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setBuildCount(100000);
+        dataBuildRequestBO.setProjectCode("xxxx");
+        dataBuildRequestBO.setParamModelCode("XxxModel");
+
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+        DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO.setDataSourceCode("com.datafactory.user.chineseName");
+        dataBuildRequestFieldBO.setFieldName("chinseName");
+        dataBuildRequestFieldBO.setFunction(chineseNameFunc);
+        dataBuildRequestFieldBO.setFieldType("String");
+        String ruleDsl = "prefix=abc;subfix=bdff;";
+        dataBuildRequestFieldBO.setBuildRuleDSL(ruleDsl);
+        fieldBOList.add(dataBuildRequestFieldBO);
+
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
+
+        ResultDataDto<List<Map<String, Object>>> result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = dataFactoryService.generateData(dataBuildRequestBO);
+            long endTime = System.currentTimeMillis();
+            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
 
 }
