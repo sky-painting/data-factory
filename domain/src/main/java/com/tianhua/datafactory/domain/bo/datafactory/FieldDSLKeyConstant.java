@@ -11,6 +11,7 @@ package com.tianhua.datafactory.domain.bo.datafactory;
 public class FieldDSLKeyConstant {
     public static final String  PREFIX = "prefix";
 
+    public static final String  SUBFIX = "subfix";
     public static final String  RELY_FIELD = "relyField";
 
     public static final String  RELY_SOURCE_CODE = "relySourceCode";
@@ -18,5 +19,8 @@ public class FieldDSLKeyConstant {
     public static final String  RELY_COUNT = "relyCount";
 
     public static final String  FUNC_VAR = "funcVar";
+
+
+    public static final String  RELY_LIST_FIELD = "relyListField";
 
 }

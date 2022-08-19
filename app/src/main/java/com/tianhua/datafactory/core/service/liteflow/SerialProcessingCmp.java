@@ -1,10 +1,9 @@
 package com.tianhua.datafactory.core.service.liteflow;
 
+import com.tianhua.datafactory.client.utils.SpringContextUtil;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
-import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
-import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
-import com.tianhua.datafactory.domain.bo.datafactory.DataBuildResponseBO;
-import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
+import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +32,7 @@ public class SerialProcessingCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
         DataBuildRequestBO dataBuildRequestBO = this.getRequestData();
-        ArrayList<Map<String, Object>> batchResultList = new ArrayList<>(dataBuildRequestBO.getBuildCount());
+        List<Map<String, Object>> batchResultList = new ArrayList<>(dataBuildRequestBO.getBuildCount());
 
         for (int i = 0; i < dataBuildRequestBO.getBuildCount(); i ++) {
             Map<String, Object> fieldValueMap = new HashMap<>(dataBuildRequestBO.getFieldBOList().size());
@@ -49,6 +49,13 @@ public class SerialProcessingCmp extends NodeComponent {
                 //获取随机字段值
                 Object fieldValue = fieldValueFactory.getFieldValue(dataSourceFieldRequestBean);
                 fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), fieldValue);
+
+
+                List<DataFilter> dataFilterList = SpringContextUtil.getBeanOfType(DataFilter.class);
+                for (DataFilter dataFilter : dataFilterList){
+                    dataFilter.dataFilt(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
+                }
+
             }
             batchResultList.add(fieldValueMap);
         }

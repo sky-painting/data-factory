@@ -18,7 +18,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Description
@@ -156,19 +155,28 @@ public class DataFactoryTest {
     @Test
     public void testDataFactory5(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(100000);
+        dataBuildRequestBO.setBuildCount(10);
         dataBuildRequestBO.setProjectCode("xxxx");
         dataBuildRequestBO.setParamModelCode("XxxModel");
 
         List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
         DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO.setDataSourceCode("com.datafactory.user.chineseName");
-        dataBuildRequestFieldBO.setFieldName("chinseName");
+        dataBuildRequestFieldBO.setFieldName("chineseName");
         dataBuildRequestFieldBO.setFunction(chineseNameFunc);
         dataBuildRequestFieldBO.setFieldType("String");
         String ruleDsl = "prefix=abc;subfix=bdff;";
         dataBuildRequestFieldBO.setBuildRuleDSL(ruleDsl);
         fieldBOList.add(dataBuildRequestFieldBO);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO2.setFieldName("userIdList");
+        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
+        dataBuildRequestFieldBO2.setFieldType("List<Long>");
+        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
+        fieldBOList.add(dataBuildRequestFieldBO2);
 
 
         dataBuildRequestBO.setFieldBOList(fieldBOList);
@@ -179,6 +187,9 @@ public class DataFactoryTest {
             result = dataFactoryService.generateData(dataBuildRequestBO);
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            for (Map<String, Object> map : result.getData()){
+                log.info("userIdList = "+JSON.toJSONString(map.get("userIdList")));
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);

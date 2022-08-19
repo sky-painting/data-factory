@@ -3,6 +3,7 @@ package com.tianhua.datafactory.core.service.impl;
 import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.tianhua.datafactory.core.service.DataValueHandler;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ public class DataGenerateDefaultServiceImpl implements DataGenerateService {
 
     @Override
     public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
-        DataBuildRequestFieldBO dataFactoryRequestFieldBean = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
-        if (CollectionUtils.isNotEmpty(dataFactoryRequestFieldBean.getDefaultValueList())) {
-            int index = dataFactoryRequestFieldBean.getDefaultValueList().size();
-            return dataFactoryRequestFieldBean.getDefaultValueList().get(dataSourceFieldRequestBean.getCurrentIndex() % index);
+        DataBuildRequestFieldBO dataBuildRequestFieldBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
+        if (CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getDefaultValueList())) {
+            int index = dataBuildRequestFieldBO.getDefaultValueList().size();
+            return dataBuildRequestFieldBO.getDefaultValueList().get(dataSourceFieldRequestBean.getCurrentIndex() % index);
         }
         return null;
     }

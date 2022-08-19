@@ -3,6 +3,7 @@ package com.tianhua.datafactory.core.filter;
 import com.tianhua.datafactory.domain.ability.DataFilter;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,13 +29,14 @@ public class FuncVarFilter implements DataFilter {
         }
 
         String funcVar = dataBuildRequestFieldRuleBO.getFuncVar();
-        if(funcVar.startsWith("$")){
+        if(StringUtils.isNotEmpty(funcVar) && funcVar.startsWith("$")){
             String funcField = funcVar.replaceFirst("\\$","");
             Object funcFieldValue = valueMap.get(funcField);
             if(funcFieldValue == null){
                 return;
             }
             dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().setFuncVar(funcFieldValue.toString());
+
         }
 
 

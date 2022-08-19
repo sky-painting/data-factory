@@ -100,12 +100,13 @@ public class DataBuildRequestFieldBO<T> {
      * @return
      */
     public String getGenerics(){
+
         if(fieldType.contains("List<")){
             String genericType = fieldType.replaceFirst("List<","");
             if(genericType.contains(">>")){
                 return genericType.replace(">>",">");
             }
-            return genericType.replace(">",">");
+            return genericType.replace(">","");
         }
 
         if(fieldType.contains("Set<")){

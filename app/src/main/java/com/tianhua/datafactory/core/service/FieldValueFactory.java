@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.core.service;
 
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
@@ -42,8 +43,10 @@ public class FieldValueFactory {
         DataBuildRequestFieldBO dataBuildRequestFieldBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
 
         String dataSourceCode = dataBuildRequestFieldBO.getDataSourceCode();
+
         //从默认值中获取数据
-        if (StringUtils.isEmpty(dataSourceCode) || CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getDefaultValueList())) {
+        if (StringUtils.isEmpty(dataSourceCode)
+                || CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getDefaultValueList())) {
             return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
         int dataSourceType = dataBuildRequestFieldBO.getDataSourceType();
@@ -67,6 +70,7 @@ public class FieldValueFactory {
         if(DataSourceTypeEnum.FROM_DUBBO.getCode() == dataSourceType){
             return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
         }
+
         return null;
     }
 

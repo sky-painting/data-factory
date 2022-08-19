@@ -42,9 +42,15 @@ public class FieldRuleDslFactory {
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.PREFIX)){
                 dataBuildRequestFieldRuleBO.setPrefix(kvArr[1].trim());
             }
-
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.SUBFIX)){
+                dataBuildRequestFieldRuleBO.setPrefix(kvArr[1].trim());
+            }
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_FIELD)){
                 dataBuildRequestFieldRuleBO.setRelyFieldLink(kvArr[1].trim());
+            }
+
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_LIST_FIELD)){
+                dataBuildRequestFieldRuleBO.setRelyListField(kvArr[1].trim());
             }
 
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){

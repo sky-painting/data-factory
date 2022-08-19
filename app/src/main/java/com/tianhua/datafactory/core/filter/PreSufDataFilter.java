@@ -27,6 +27,9 @@ public class PreSufDataFilter implements DataFilter {
         String fieldName = dataBuildRequestFieldBO.getFieldName();
         String prefix = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().getPrefix();
         String subfix = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().getSubfix();
+        if(valueMap.get(fieldName) == null){
+            return;
+        }
         String currentValue = valueMap.get(fieldName).toString();
         if(!StringUtils.isEmpty(prefix)){
             currentValue = prefix + currentValue;

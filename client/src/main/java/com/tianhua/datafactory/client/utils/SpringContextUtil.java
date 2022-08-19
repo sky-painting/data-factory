@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Author fanchunshuai
@@ -39,10 +41,21 @@ public class SpringContextUtil implements ApplicationContextAware {
     public static Object getBean(String name) {
         try {
             return applicationContext.getBean(name);
+
         } catch (BeansException e) {
             return null;
         }
     }
+
+
+    public static <T> List<T> getBeanOfType(Class T){
+        Map<String,T> beanMap = applicationContext.getBeansOfType(T);
+        if(beanMap == null){
+            return null;
+        }
+        return beanMap.values().stream().collect(Collectors.toList());
+    }
+
 
 
 }

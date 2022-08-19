@@ -103,6 +103,7 @@ public class DataPreProcessingCmp extends NodeComponent {
                 newFieldBOList.add(dataBuildRequestFieldBO);
                 continue;
             }
+
             DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = fieldRuleDslFactory.buildRuleBO(dataBuildRequestFieldBO.getBuildRuleDSL());
             dataBuildRequestFieldBO.setDataBuildRequestFieldRuleBO(dataBuildRequestFieldRuleBO);
 
