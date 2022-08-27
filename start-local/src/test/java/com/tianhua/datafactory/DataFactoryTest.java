@@ -135,6 +135,10 @@ public class DataFactoryTest {
         fieldBOList.add(dataBuildRequestFieldBO5);
 
 
+
+
+
+
         dataBuildRequestBO.setFieldBOList(fieldBOList);
 
         ResultDataDto<List<Map<String, Object>>> result = null;
@@ -179,6 +183,39 @@ public class DataFactoryTest {
         fieldBOList.add(dataBuildRequestFieldBO2);
 
 
+        DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO3.setFieldName("departIdSet");
+        dataBuildRequestFieldBO3.setFieldType("Set<Long>");
+        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
+        fieldBOList.add(dataBuildRequestFieldBO3);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO4 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO4.setFieldName("chineseNameV2");
+        dataBuildRequestFieldBO4.setFieldType("String");
+        String ruleDsl4 = "relyField=chineseName;";
+        dataBuildRequestFieldBO4.setBuildRuleDSL(ruleDsl4);
+        fieldBOList.add(dataBuildRequestFieldBO4);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO5.setFieldName("fieldBO");
+        dataBuildRequestFieldBO5.setFieldType("FieldBO");
+        String ruleDsl5 = "fieldName.relyField=chineseName;projectCode.relySourceCode=com.datafactory.random(10)";
+        dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
+        fieldBOList.add(dataBuildRequestFieldBO5);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO6 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO6.setFieldName("xxxMapping");
+        dataBuildRequestFieldBO6.setFieldType("Map<String,Long>");
+        String ruleDsl6 = "relyMapKeyField={a,b,c,d};relyMapValueField={1,2,3,4,5,6,7}";
+        dataBuildRequestFieldBO6.setBuildRuleDSL(ruleDsl6);
+        fieldBOList.add(dataBuildRequestFieldBO6);
+
+
+
         dataBuildRequestBO.setFieldBOList(fieldBOList);
 
         ResultDataDto<List<Map<String, Object>>> result = null;
@@ -189,6 +226,9 @@ public class DataFactoryTest {
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){
                 log.info("userIdList = "+JSON.toJSONString(map.get("userIdList")));
+                log.info("departIdSet = "+JSON.toJSONString(map.get("departIdSet")));
+                log.info("chineseNameV2 = "+JSON.toJSONString(map.get("chineseNameV2")));
+                log.info("xxxMapping = "+JSON.toJSONString(map.get("xxxMapping")));
             }
 
         } catch (Exception e) {

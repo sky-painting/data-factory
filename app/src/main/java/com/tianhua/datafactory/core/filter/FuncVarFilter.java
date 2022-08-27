@@ -36,7 +36,6 @@ public class FuncVarFilter implements DataFilter {
                 return;
             }
             dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().setFuncVar(funcFieldValue.toString());
-
         }
 
 

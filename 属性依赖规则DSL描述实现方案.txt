@@ -18,8 +18,11 @@
 属性.subfix=xxx
 属性.子属性.relySourceCode
 属性.子属性.relyField=属性
+
 属性.relyMapKeyField=$属性 or valueList{}
-属性.relyMapValueField=属性 or valueList{}
+属性.relyMapValueField=$属性 or valueList{}
+属性.relyMapKVField={k:1=v:1,123,345644;}
+
 属性.relySetField=$属性 or valueList{}
 属性.relyListField=$属性 or valueList{}
 属性.relyArrayField=$属性 or valueList{}

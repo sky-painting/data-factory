@@ -107,8 +107,8 @@ public class DataPreProcessingCmp extends NodeComponent {
             DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = fieldRuleDslFactory.buildRuleBO(dataBuildRequestFieldBO.getBuildRuleDSL());
             dataBuildRequestFieldBO.setDataBuildRequestFieldRuleBO(dataBuildRequestFieldRuleBO);
 
-            if(StringUtils.isNotEmpty(dataBuildRequestFieldRuleBO.getRelyFieldLink())){
-                relationMap.put(dataBuildRequestFieldBO.getFieldName(),dataBuildRequestFieldRuleBO.getRelyFieldLink());
+            if(StringUtils.isNotEmpty(dataBuildRequestFieldRuleBO.getRelyField())){
+                relationMap.put(dataBuildRequestFieldBO.getFieldName(),dataBuildRequestFieldRuleBO.getRelyField());
             }
         }
 
@@ -116,8 +116,15 @@ public class DataPreProcessingCmp extends NodeComponent {
         for (Map.Entry<String,String> entry : relationMap.entrySet()){
             String relyField = entry.getValue();
             String relyFieldTmp = relyField;
+            Set<String> relyFieldSet = new HashSet<>();
             while (!StringUtils.isEmpty(relyFieldTmp)){
+                relyFieldSet.add(relyFieldTmp);
                 relyFieldTmp = relationMap.get(relyFieldTmp);
+                //循环引用检测
+                if(relyFieldSet.contains(relyFieldTmp)){
+                    log.warn("存在属性循环引用,请检查field DSL内容。");
+                    break;
+                }
                 String finalRelyFieldTmp = relyFieldTmp;
                 Optional<DataBuildRequestFieldBO> optionalDataBuildRequestFieldBO = newFieldBOList.stream()
                         .filter(dataBuildRequestFieldBO -> dataBuildRequestFieldBO.getFieldName().equals(finalRelyFieldTmp))

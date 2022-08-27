@@ -1,33 +1,22 @@
 package com.tianhua.datafactory.core.service.impl;
 
-import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
-import com.tianhua.datafactory.client.function.Function;
-
-import com.tianhua.datafactory.client.function.factory.FunctionFactory;
 import com.tianhua.datafactory.core.service.DataFactoryService;
-import com.tianhua.datafactory.core.service.DataGenerateService;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
-import com.tianhua.datafactory.core.service.task.DataGenerateTask;
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
-import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.factory.FieldRuleDslFactory;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.security.SecureRandom;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.Collectors;
 
 /**
  * description: DataFactoryServiceImpl <br>

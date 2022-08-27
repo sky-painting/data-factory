@@ -114,7 +114,7 @@ public class DataBuildRequestFieldBO<T> {
             if(genericType.contains(">>")){
                 return genericType.replace(">>",">");
             }
-            return genericType.replace(">",">");
+            return genericType.replace(">","");
         }
         return null;
 

@@ -32,7 +32,7 @@ public class DataBuildRequestFieldRuleBO {
      * 当前属性依赖的另外一个属性名称
      *  a.b.c.xxFieldValue = currentFieldValue
      */
-    private String relyFieldLink;
+    private String relyField;
 
     private List listDefault;
 
