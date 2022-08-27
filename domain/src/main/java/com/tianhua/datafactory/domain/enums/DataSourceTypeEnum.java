@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum DataSourceTypeEnum {
+    UN_KNOWN(-1,"UN_KNOWN"),
 
     //服务获取
     FROM_SERVICE_API_HTTP(1,"API_HTTP"),

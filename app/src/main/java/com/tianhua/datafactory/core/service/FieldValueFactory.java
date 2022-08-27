@@ -49,6 +49,7 @@ public class FieldValueFactory {
                 || CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getDefaultValueList())) {
             return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
+
         int dataSourceType = dataBuildRequestFieldBO.getDataSourceType();
 
         //来自服务模型枚举

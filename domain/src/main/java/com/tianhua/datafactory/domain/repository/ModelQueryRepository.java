@@ -1,6 +1,5 @@
 package com.tianhua.datafactory.domain.repository;
 
-import com.tianhua.datafactory.domain.bo.PageBO;
 import com.tianhua.datafactory.domain.bo.PageBean;
 import com.tianhua.datafactory.domain.bo.model.*;
 
@@ -63,6 +62,10 @@ public interface ModelQueryRepository{
 	List<ParamModelBO> searchParamModel(String content);
 
 
+	/**
+	 * 获取项目模型配置
+	 * @return
+	 */
 	List<ModelSuffixConfigBO> getModelSuffixConfigList();
 
 
@@ -86,6 +89,7 @@ public interface ModelQueryRepository{
 	/**
 	 * 表模型+参数模型
 	 * @param projectCode
+	 * @param modelName
 	 * @return
 	 */
 	List<FieldBO> getModelField(String projectCode, String modelName);

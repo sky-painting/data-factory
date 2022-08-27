@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.infrast.servicepiml;
+package com.tianhua.datafactory.infrast.serviceiml;
 
 import com.tianhua.datafactory.domain.ability.KVPairService;
 import com.tianhua.datafactory.domain.support.kvpair.KVPairBO;

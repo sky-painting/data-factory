@@ -16,8 +16,6 @@ public class ModelSuffixConfigBO {
 
    private Long id;
 
-
-
    /** 模型后缀 **/
    private  String suffix;
 
@@ -26,6 +24,5 @@ public class ModelSuffixConfigBO {
 
    /** 模型类型 **/
    private  String modelType;
-
 
 }

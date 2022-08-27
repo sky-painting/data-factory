@@ -50,7 +50,7 @@ subfix=000x;
 
 比如orderDetailBOList的dsl内容描述:
 orderCode.relyField=orderCode
-itemId.relySourceCode=com.item.skuFacade#skuid (依赖商品服务的skuid)
+itemId.relySourceCode=com.item.skuFacade.getxxx(a,bc,ddd)#skuid (依赖商品服务的skuid)
 count.relySourceCode=com.datafactory.random(10) (随机数函数,10以内)
 price.relySourceCode=com.datafactory.random(1000) (随机数函数,1000以内)
 

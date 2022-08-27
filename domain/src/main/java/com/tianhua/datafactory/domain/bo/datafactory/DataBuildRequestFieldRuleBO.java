@@ -45,10 +45,9 @@ public class DataBuildRequestFieldRuleBO {
     private Integer relyCount;
 
     /**
-     * 当前依赖的List<BO>,BO的属性依赖哪些数据源
-     * 如果没有则使用默认的数据源
+     * 属性值需要的数据源编码
      */
-    private Map<String,String> relySourceCodeMap;
+    private String relySourceCode;
 
     /**
      * 当前属性值依赖的脚本计算内容

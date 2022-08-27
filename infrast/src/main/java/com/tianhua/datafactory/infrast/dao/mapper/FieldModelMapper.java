@@ -66,5 +66,11 @@ public interface FieldModelMapper{
 	public int deleteByProjectCodeAndParamClassName(@Param(value = "projectCode") String projectCode,@Param(value = "paramClassName") String paramClassName);
 
 
+	/**
+	 * 根据项目名称和模型名称获取属性列表
+	 * @param projectCode
+	 * @param paramClassName
+	 * @return
+	 */
 	public List<FieldModelDO> getByCode(String projectCode, String paramClassName);
 }

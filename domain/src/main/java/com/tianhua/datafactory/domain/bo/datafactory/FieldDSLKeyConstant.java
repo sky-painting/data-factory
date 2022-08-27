@@ -35,6 +35,9 @@ public class FieldDSLKeyConstant {
      */
     public static final String  RELY_COUNT = "relyCount";
 
+    /**
+     * 函数变量值
+     */
     public static final String  FUNC_VAR = "funcVar";
 
 
@@ -55,10 +58,6 @@ public class FieldDSLKeyConstant {
 
 
     public static final String RELY_MAP_VALUE_FIELD = "relyMapValueField";
-
-
-
-
 
 
     //public static final String  RELY_LIST_FIELD = "relyListField";

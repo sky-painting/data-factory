@@ -39,10 +39,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Autowired
     private DataSourceQueryRepository dataSourceQueryRepository;
 
-
-    @Autowired
-    private FieldRuleDslFactory fieldRuleDslFactory;
-
     @Resource
     private FlowExecutor flowExecutor;
 

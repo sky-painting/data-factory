@@ -92,8 +92,23 @@ public class DataBuildRequestFieldBO<T> {
     private String buildRuleDSL;
 
 
+    /**
+     * 属性值生成规则
+     */
     private DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO;
 
+
+    /**
+     * 属性是模型类型如：
+     * a引用的b属性是xxBO,xxDTO,或者List<xxBO>
+     */
+    private List<DataBuildRequestFieldBO> referFieldList;
+
+
+    /**
+     * 源属性名称
+     */
+    private String originFieldName;
 
     /**
      * 获取属性的泛型类型

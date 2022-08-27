@@ -9,6 +9,7 @@ import com.tianhua.datafactory.domain.enums.JavaFieldTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -26,6 +27,8 @@ import java.util.*;
  */
 @Service(value = "collectionValueFilter")
 @Slf4j
+//1代表要在构建变量之后执行
+@Order(value = 1)
 public class CollectionValueFilter implements DataFilter {
     private Random random = new SecureRandom();
 
@@ -218,9 +221,7 @@ public class CollectionValueFilter implements DataFilter {
             }
 
             valueMap.put(dataBuildRequestFieldBO.getFieldName(),map);
-
         }
-
 
     }
 }

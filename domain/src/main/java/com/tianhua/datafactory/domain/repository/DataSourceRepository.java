@@ -89,7 +89,11 @@ public interface DataSourceRepository {
     public Boolean updateStatus(Long id, Integer status);
 
 
-
+    /**
+     * 分页获取数据源
+     * @param pageBean
+     * @return
+     */
     public PageBean getPageList(PageBean pageBean);
 
 

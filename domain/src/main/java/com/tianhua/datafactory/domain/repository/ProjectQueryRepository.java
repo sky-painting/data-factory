@@ -1,6 +1,5 @@
 package com.tianhua.datafactory.domain.repository;
 
-import com.tianhua.datafactory.domain.bo.PageBO;
 import com.tianhua.datafactory.domain.bo.PageBean;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;

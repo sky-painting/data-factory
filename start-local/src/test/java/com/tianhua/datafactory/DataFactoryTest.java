@@ -160,10 +160,22 @@ public class DataFactoryTest {
     public void testDataFactory5(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setBuildCount(10);
-        dataBuildRequestBO.setProjectCode("xxxx");
-        dataBuildRequestBO.setParamModelCode("XxxModel");
+        dataBuildRequestBO.setProjectCode("sdfasdf");
+        dataBuildRequestBO.setParamModelCode("XxxBO");
 
         List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO0 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO0.setDataSourceCode("com.datafactory.user.getRandom");
+        dataBuildRequestFieldBO0.setFieldName("id");
+        dataBuildRequestFieldBO0.setFunction(randomNumFunc);
+        dataBuildRequestFieldBO0.setFieldType("Long");
+        String ruleDsl0 = "funcVar=6;";
+        dataBuildRequestFieldBO0.setBuildRuleDSL(ruleDsl0);
+        fieldBOList.add(dataBuildRequestFieldBO0);
+
+
         DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO.setDataSourceCode("com.datafactory.user.chineseName");
         dataBuildRequestFieldBO.setFieldName("chineseName");
@@ -202,7 +214,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("fieldBO");
         dataBuildRequestFieldBO5.setFieldType("FieldBO");
-        String ruleDsl5 = "fieldName.relyField=chineseName;projectCode.relySourceCode=com.datafactory.random(10)";
+        String ruleDsl5 = "fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 
@@ -213,7 +225,6 @@ public class DataFactoryTest {
         String ruleDsl6 = "relyMapKeyField={a,b,c,d};relyMapValueField={1,2,3,4,5,6,7}";
         dataBuildRequestFieldBO6.setBuildRuleDSL(ruleDsl6);
         fieldBOList.add(dataBuildRequestFieldBO6);
-
 
 
         dataBuildRequestBO.setFieldBOList(fieldBOList);
