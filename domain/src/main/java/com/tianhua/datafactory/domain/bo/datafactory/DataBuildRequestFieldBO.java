@@ -111,6 +111,14 @@ public class DataBuildRequestFieldBO<T> {
     private String originFieldName;
 
     /**
+     * 如果集合类的业务模型属性如List<XxxBO>
+     * 或者Map<String, XxxBO>
+     * 则realFieldType为XxxBO
+     *
+     */
+    private String realFieldType;
+
+    /**
      * 获取属性的泛型类型
      * @return
      */

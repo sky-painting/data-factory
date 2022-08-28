@@ -21,6 +21,7 @@ import java.util.Map;
 
 /**
  * Description
+ * 数据工厂构建过程，整体测试内容
  * date: 2022/8/5
  *
  * @author shenshuai
@@ -248,7 +249,111 @@ public class DataFactoryTest {
     }
 
 
+    @Test
+    public void testDataFactory6(){
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setProjectCode("sdfasdf");
+        dataBuildRequestBO.setParamModelCode("XxxBO");
 
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO2.setFieldName("userIdList");
+        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
+        dataBuildRequestFieldBO2.setFieldType("List<Long>");
+        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
+        fieldBOList.add(dataBuildRequestFieldBO2);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO3.setFieldName("departIdSet");
+        dataBuildRequestFieldBO3.setFieldType("Set<Long>");
+        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
+        fieldBOList.add(dataBuildRequestFieldBO3);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO5.setFieldName("fieldBO");
+        dataBuildRequestFieldBO5.setFieldType("List<FieldBO>");
+        String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
+        fieldBOList.add(dataBuildRequestFieldBO5);
+
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
+
+        ResultDataDto<List<Map<String, Object>>> result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = dataFactoryService.generateData(dataBuildRequestBO);
+            long endTime = System.currentTimeMillis();
+            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            for (Map<String, Object> map : result.getData()){
+
+                log.info("fieldBO = "+JSON.toJSONString(map.get("fieldBO")));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testDataFactory7(){
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setProjectCode("sdfasdf");
+        dataBuildRequestBO.setParamModelCode("XxxBO");
+
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO2.setFieldName("userIdList");
+        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
+        dataBuildRequestFieldBO2.setFieldType("List<Long>");
+        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
+        fieldBOList.add(dataBuildRequestFieldBO2);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO3.setFieldName("departIdSet");
+        dataBuildRequestFieldBO3.setFieldType("Set<Long>");
+        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
+        fieldBOList.add(dataBuildRequestFieldBO3);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO5.setFieldName("apiBO");
+        dataBuildRequestFieldBO5.setFieldType("ApiBO");
+        //String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        //dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
+        fieldBOList.add(dataBuildRequestFieldBO5);
+
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
+
+        ResultDataDto<List<Map<String, Object>>> result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = dataFactoryService.generateData(dataBuildRequestBO);
+            long endTime = System.currentTimeMillis();
+            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            for (Map<String, Object> map : result.getData()){
+                log.info("apiBO = "+JSON.toJSONString(map.get("apiBO")));
+
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 

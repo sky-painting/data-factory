@@ -1,9 +1,10 @@
 package com.tianhua.datafactory.core.service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
-import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
  * @since JDK 1.8
  */
 @Service
+@Slf4j
 public class FieldValueFactory {
 
     @Resource(name = "dataGenerateDefaultServiceImpl")
@@ -50,6 +52,11 @@ public class FieldValueFactory {
             return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
 
+        if(dataBuildRequestFieldBO.getDataSourceType() == null){
+            log.warn("数据源类型为空,dataBuildRequestFieldBO = {}", JSON.toJSONString(dataBuildRequestFieldBO));
+            return null;
+        }
+
         int dataSourceType = dataBuildRequestFieldBO.getDataSourceType();
 
         //来自服务模型枚举
@@ -69,7 +76,10 @@ public class FieldValueFactory {
 
         //从dubbo远程接口中获取随机数据
         if(DataSourceTypeEnum.FROM_DUBBO.getCode() == dataSourceType){
-            return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
+
+            return null;
+            //todo 临时注释
+           // return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
         }
 
         return null;

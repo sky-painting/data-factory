@@ -110,9 +110,13 @@ public class DataSourceQueryRepositoryImpl  implements DataSourceQueryRepository
 
     @Override
     public DataSourceBO getByDataSourceCode(String dataSourceCode) {
+        if(dataSourceCode == null){
+            return null;
+        }
+        if(dataSourceCode.contains("#")){
+            dataSourceCode = dataSourceCode.split("#")[0];
+        }
         DataSourceBO dataSourceBO = DataSourceConvert.INSTANCE.do2bo(dataSourceMapper.getBySourceCode(dataSourceCode));
-
-
         return dataSourceBO;
     }
 

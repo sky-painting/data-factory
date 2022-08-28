@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.client.function.factory.FunctionFactory;
+import com.tianhua.datafactory.core.service.GenericService;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
@@ -52,6 +54,8 @@ public class DataPreProcessingCmp extends NodeComponent {
     @Autowired
     private ModelQueryRepository modelQueryRepository;
 
+    @Autowired
+    private GenericService genericService;
 
     @Override
     public void process() throws Exception {
@@ -60,8 +64,9 @@ public class DataPreProcessingCmp extends NodeComponent {
         Map<String, Function> functionMap = new HashMap<>();
         dataBuildRequestBO.setFunctionMap(functionMap);
 
-
+        //1.构建数据源
         bindDataSource(dataBuildRequestBO);
+        //2.解析构建属性dsl信息
         buildFieldDslRuleBO(dataBuildRequestBO);
 
         List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList = dataBuildRequestBO.getFieldBOList();
@@ -75,7 +80,6 @@ public class DataPreProcessingCmp extends NodeComponent {
         }
 
         dataBuildRequestBO.setFunctionMap(functionMap);
-
 
     }
 
@@ -110,13 +114,24 @@ public class DataPreProcessingCmp extends NodeComponent {
         List<ModelSuffixConfigBO>  modelSuffixConfigBOList = modelQueryRepository.getModelSuffixConfigList();
 
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBOS){
-            if(StringUtils.isEmpty(dataBuildRequestFieldBO.getBuildRuleDSL())){
+            boolean isModelClassRefer = checkModelClass(dataBuildRequestFieldBO,modelSuffixConfigBOList);
+
+            //普通数据类型，同时dsl为空
+            if(StringUtils.isEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && !isModelClassRefer){
                 newFieldBOList.add(dataBuildRequestFieldBO);
                 continue;
             }
+            List<DataBuildRequestFieldBO> referList = null;
+            //普通数据类型，同时dsl为空
+            if(StringUtils.isEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && isModelClassRefer){
+                referList = fieldRuleDslFactory.buildReferFieldBOFromDB(dataBuildRequestFieldBO, dataBuildRequestBO.getProjectCode());
+            }
 
-            if(checkModelClass(dataBuildRequestFieldBO.getFieldType(),modelSuffixConfigBOList)){
-                List<DataBuildRequestFieldBO> referList = fieldRuleDslFactory.buildReferFieldBO(dataBuildRequestFieldBO, dataBuildRequestBO.getProjectCode());
+            if(StringUtils.isNotEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && isModelClassRefer ){
+                referList = fieldRuleDslFactory.buildReferFieldBOFromDsl(dataBuildRequestFieldBO, dataBuildRequestBO.getProjectCode());
+            }
+
+            if(CollectionUtils.isNotEmpty(referList)){
                 referList.stream().forEach(requestFieldBO -> {
                     String dataSourceCode = requestFieldBO.getDataSourceCode();
                     if(StringUtils.isNotEmpty(dataSourceCode) && dataBuildRequestBO.getFunctionMap().get(dataSourceCode) == null){
@@ -124,10 +139,8 @@ public class DataPreProcessingCmp extends NodeComponent {
                         dataBuildRequestBO.getFunctionMap().put(dataSourceCode, function);
                     }
                 });
-
-
                 dataBuildRequestFieldBO.setReferFieldList(referList);
-                continue;
+                newFieldBOList.add(dataBuildRequestFieldBO);
             }
 
             DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = fieldRuleDslFactory.buildRuleBO(dataBuildRequestFieldBO.getBuildRuleDSL());
@@ -178,19 +191,38 @@ public class DataPreProcessingCmp extends NodeComponent {
 
     /**
      * 检查属性是否是模型属性
-     * @param fieldType
+     * @param dataBuildRequestFieldBO
      * @param modelSuffixConfigBOList
      * @return
      */
-    private boolean checkModelClass(String fieldType,List<ModelSuffixConfigBO> modelSuffixConfigBOList){
+    private boolean checkModelClass(DataBuildRequestFieldBO dataBuildRequestFieldBO, List<ModelSuffixConfigBO> modelSuffixConfigBOList){
+
+        dataBuildRequestFieldBO.setRealFieldType(dataBuildRequestFieldBO.getFieldType());
 
         if(CollectionUtils.isEmpty(modelSuffixConfigBOList)){
             return false;
         }
 
-        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> fieldType.endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+        GenericTypeBO genericTypeBO = genericService.getGenericType(dataBuildRequestFieldBO.getRealFieldType());
+
+        if(StringUtils.isNotEmpty(genericTypeBO.getRealType())){
+            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealType());
+        }
+
+        else if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
+            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealValueType());
+        }
+
+        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
         if(optional.isPresent()){
             return true;
+        }
+
+        if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
+            optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> genericTypeBO.getRealValueType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+            if(optional.isPresent()){
+                return true;
+            }
         }
         return false;
     }

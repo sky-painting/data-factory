@@ -50,6 +50,7 @@ public class FieldBO {
     * 扩展字段
     */
    private FieldExtBO fieldExtBO;
+
    /**
     * 构建属性注释
     * @param desc

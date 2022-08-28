@@ -9,6 +9,7 @@ import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
 import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,9 @@ public class FieldRuleDslFactory {
      */
     public DataBuildRequestFieldRuleBO buildRuleBO(String fieldBuildRuleDSL){
         DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = new DataBuildRequestFieldRuleBO();
+        if(StringUtils.isEmpty(fieldBuildRuleDSL)){
+            return dataBuildRequestFieldRuleBO;
+        }
         String [] array = fieldBuildRuleDSL.trim().split(";");
         for (String dslStr : array){
             String [] kvArr = dslStr.trim().split("=");
@@ -102,15 +106,16 @@ public class FieldRuleDslFactory {
     }
 
     /**
-     * 构建对象类型的引用关系
+     * 根据dsl文件构建对象类型的引用关系
      * @param dataBuildRequestFieldBO
      * @param projectCode
      * @return
      */
-    public List<DataBuildRequestFieldBO> buildReferFieldBO(DataBuildRequestFieldBO dataBuildRequestFieldBO, String projectCode){
+    public List<DataBuildRequestFieldBO> buildReferFieldBOFromDsl(DataBuildRequestFieldBO dataBuildRequestFieldBO, String projectCode){
+
         String [] array = dataBuildRequestFieldBO.getBuildRuleDSL().trim().split(";");
 
-        List<FieldBO> fieldBOList = modelQueryRepository.getModelField(projectCode, dataBuildRequestFieldBO.getFieldType());
+        List<FieldBO> fieldBOList = modelQueryRepository.getModelField(projectCode, dataBuildRequestFieldBO.getRealFieldType());
         Map<String,FieldBO> fieldBOMap = fieldBOList.stream().collect(Collectors.toMap(FieldBO::getFieldName,o->o));
 
         Map<String, DataBuildRequestFieldBO> dataBuildRequestFieldBOMap = new HashMap<>();
@@ -118,6 +123,18 @@ public class FieldRuleDslFactory {
         for (String dslStr : array){
             String [] kvArr = dslStr.trim().split("=");
             String [] fieldArr = kvArr[0].split("\\.");
+
+
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){
+                if(dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO() == null){
+                    dataBuildRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
+                }
+                dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().setRelyCount(Integer.valueOf(kvArr[1].trim()));
+                continue;
+
+            }
+
+
             FieldBO fieldBO = fieldBOMap.get(fieldArr[0]);
 
             if(fieldBO == null){
@@ -207,6 +224,45 @@ public class FieldRuleDslFactory {
         return dataBuildRequestFieldBOMap.values().stream().collect(Collectors.toList());
     }
 
+    /**
+     * 根据配置好的对象类型的引用关系
+     * @param dataBuildRequestFieldBO
+     * @param projectCode
+     * @return
+     */
+    public List<DataBuildRequestFieldBO> buildReferFieldBOFromDB(DataBuildRequestFieldBO dataBuildRequestFieldBO, String projectCode){
+
+        List<FieldBO> fieldBOList = modelQueryRepository.getModelField(projectCode, dataBuildRequestFieldBO.getRealFieldType());
+
+        Map<String, DataBuildRequestFieldBO> dataBuildRequestFieldBOMap = new HashMap<>();
+
+        for (FieldBO fieldBO : fieldBOList){
+
+            DataBuildRequestFieldBO referRequestFieldBO = dataBuildRequestFieldBOMap.getOrDefault(fieldBO.getFieldName(),new DataBuildRequestFieldBO<>());
+
+            referRequestFieldBO.setFieldName(fieldBO.getFieldName());
+            referRequestFieldBO.setFieldType(fieldBO.getFieldType());
+            referRequestFieldBO.setOriginFieldName(dataBuildRequestFieldBO.getFieldName());
+
+            if(referRequestFieldBO.getDataBuildRequestFieldRuleBO() == null){
+                referRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
+            }
+
+            DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
+            if(dataSourceBO == null){
+                log.error("根据数据源查不到对应的数据源对象,dataSourceCode = {}",referRequestFieldBO.getDataSourceCode());
+                referRequestFieldBO.setDataSourceType(DataSourceTypeEnum.UN_KNOWN.getCode());
+                continue;
+            }
+
+            referRequestFieldBO.setDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
+            referRequestFieldBO.setDataSourceType(dataSourceBO.getSourceType());
+            referRequestFieldBO.setDataSourceBO(dataSourceBO);
+            dataBuildRequestFieldBOMap.put(fieldBO.getFieldName(), referRequestFieldBO);
+        }
+
+        return dataBuildRequestFieldBOMap.values().stream().collect(Collectors.toList());
+    }
 
 
 }
