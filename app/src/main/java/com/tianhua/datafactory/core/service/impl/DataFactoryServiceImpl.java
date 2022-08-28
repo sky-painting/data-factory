@@ -47,16 +47,14 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     public ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         randomThreadLocal.set(new SecureRandom());
 
+        //1.进入liteflow工作流
         LiteflowResponse liteflowResponse = flowExecutor.execute2Resp(GlobalConstant.CHAIN_FLOW, dataBuildRequestBO, DataBuildResponseBO.class);
 
         ResultDataDto resultDataDto = new ResultDataDto();
 
         DataBuildResponseBO context = liteflowResponse.getContextBean(DataBuildResponseBO.class);
-
-        int coreNum = Runtime.getRuntime().availableProcessors();
-        log.info("coreNum ============================ "+coreNum);
+        //2.从工作流中获取结果
         resultDataDto.setData(context.getResultList());
-
         return resultDataDto;
     }
 

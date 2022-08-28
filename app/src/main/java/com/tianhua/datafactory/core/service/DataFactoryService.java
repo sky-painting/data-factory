@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * description: DataFactoryservice <br>
+ * description: DataFactoryservice
+ * 数据工厂接口,生成仿真数据的入口
+ * 有三种模式
+ * 1.纯模型的生成
+ * 2.根据api签名生成方法入参数据
+ * 3.根据api签名生成方法出参数据
  * date: 2020/12/5 23:39 <br>
  * author: coderman <br>
  * version: 1.0 <br>
@@ -20,11 +25,18 @@ public interface DataFactoryService {
    // ResultDataDto generateSimplex(List<DataFactoryRequestFieldBean> dataFactoryRequestFieldBeanList) throws Exception;
 
     /**
-     * 生成简单数据列表
+     * 根据数据工作台设置的数据属性生成规则构建一定数量的仿真数据
+     *
+     * 适用于自定义业务模型
+     *
+     *
      * @param dataBuildRequestBO
      * @return
      */
     ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception;
+
+
+
 
     /**
      * 通过数据源编码获取单个数据源对应的随机数

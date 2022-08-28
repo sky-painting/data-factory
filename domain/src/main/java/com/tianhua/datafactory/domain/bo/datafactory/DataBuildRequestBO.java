@@ -50,8 +50,4 @@ public class DataBuildRequestBO extends BaseBO {
      * 需要用到的function
      */
     private Map<String, Function> functionMap;
-
-
-
-
 }
