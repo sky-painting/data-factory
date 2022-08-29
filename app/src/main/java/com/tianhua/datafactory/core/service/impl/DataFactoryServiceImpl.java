@@ -66,13 +66,17 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Override
     public ResultDataDto<List<Map<String, Object>>> generateDataApiReqParam(DataBuildRequestBO dataBuildRequestBO) throws Exception {
-        String apiSign = dataBuildRequestBO.getApiSign();
-        ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
-        List<ParamModelBO> paramModelBOList = apiBO.getParamList();
+        randomThreadLocal.set(new SecureRandom());
 
-        dataBuildRequestBO.getFieldBOList();
+        //1.进入liteflow工作流
+        LiteflowResponse liteflowResponse = flowExecutor.execute2Resp(GlobalConstant.CHAIN_FLOW, dataBuildRequestBO, DataBuildResponseBO.class);
 
-        return null;
+        ResultDataDto resultDataDto = new ResultDataDto();
+
+        DataBuildResponseBO context = liteflowResponse.getContextBean(DataBuildResponseBO.class);
+        //2.从工作流中获取结果
+        resultDataDto.setData(context.getResultList());
+        return resultDataDto;
     }
 
     @Override

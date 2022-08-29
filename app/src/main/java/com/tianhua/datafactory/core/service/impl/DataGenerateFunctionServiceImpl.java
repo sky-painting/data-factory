@@ -20,10 +20,10 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
         DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO().getDataBuildRequestFieldRuleBO();
 
         Function function = dataSourceFieldRequestBean.getFunction();
+        if(dataBuildRequestFieldRuleBO == null){
+            return   function.createOneData();
+        }
 
-
-        Object value = function.createOneData(dataBuildRequestFieldRuleBO.getFuncVar());
-        return value;
-
+        return function.createOneData(dataBuildRequestFieldRuleBO.getFuncVar());
     }
 }
