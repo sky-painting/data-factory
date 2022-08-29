@@ -71,4 +71,7 @@ public interface ApiModelMapper{
 
 	public void deleteByProjectCode(String projectCode);
 
+
+	public ApiModelDO getByApiSign(String apiSign);
+
 }

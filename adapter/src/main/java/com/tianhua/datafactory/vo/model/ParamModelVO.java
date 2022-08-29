@@ -19,6 +19,12 @@ public class ParamModelVO {
     /** 模型类名称 **/
     private  String paramClassName;
 
+    /**
+     * 模型参数名称
+     * 模型作为api参数使用
+     */
+    private String paramVarName;
+
 
     /** 参数类描述 **/
     private  String classDesc;

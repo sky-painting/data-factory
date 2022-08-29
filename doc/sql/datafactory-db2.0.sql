@@ -39,6 +39,7 @@ CREATE TABLE `param_model`(
  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT  COMMENT '主键',
  `project_code` varchar(50) NOT NULL DEFAULT  '' COMMENT '项目名称',
  `param_class_name` varchar(50) NOT NULL DEFAULT  '' COMMENT '参数类名',
+ `param_var_name` varchar(50) NOT NULL DEFAULT  '' COMMENT '模型参数名称',
  `param_class_desc` varchar(500) NOT NULL DEFAULT  '' COMMENT '参数类描述',
  `module_code` varchar(50) NOT NULL DEFAULT  '' COMMENT '所属上下文或模块编码',
  `model_suffix` varchar(50) NOT NULL DEFAULT  '' COMMENT '模型后缀',

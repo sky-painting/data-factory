@@ -116,4 +116,8 @@
 
     </delete>
 
+    <select id="getByApiSign" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from api_model  where  api_sign = #{apiSign}
+
+    </select>
 </mapper>

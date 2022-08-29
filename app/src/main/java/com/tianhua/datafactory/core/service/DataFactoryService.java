@@ -36,6 +36,23 @@ public interface DataFactoryService {
     ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception;
 
 
+    /**
+     * 根据api签名构建api参数值随机列表
+     * @param dataBuildRequestBO
+     * @return
+     * @throws Exception
+     */
+    ResultDataDto<List<Map<String, Object>>> generateDataApiReqParam(DataBuildRequestBO dataBuildRequestBO) throws Exception;
+
+    /**
+     * 根据api签名构建api返回值随机列表
+     * @param dataBuildRequestBO
+     * @return
+     * @throws Exception
+     */
+    ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(DataBuildRequestBO dataBuildRequestBO) throws Exception;
+
+
 
 
     /**

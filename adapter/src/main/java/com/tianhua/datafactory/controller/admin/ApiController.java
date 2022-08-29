@@ -72,7 +72,6 @@ public class ApiController extends BaseController {
 		pageBean = projectQueryRepository.queryApiPage(pageBean);
 		List<ApiVO> apiVOList = ApiConverter.INSTANCE.BOs2VOs(projectQueryRepository.queryApiPage(pageBean).getRows());
 
-
 		apiQueryVO.setRows(apiVOList);
 		apiQueryVO.setCount(pageBean.getCount());
 		return ResultDataDto.success(apiQueryVO);
@@ -148,12 +147,22 @@ public class ApiController extends BaseController {
 	}
 
 
+	/**
+	 * 以文件上传的方式批量构建api模型
+	 * @param apiVO
+	 * @return
+	 */
 	@PostMapping("/api/batchBuild")
 	public ResultDataDto<Boolean> batchBuild(@RequestBody ApiVO apiVO){
 		plantUMLApiModelBuilderService.initPlantUMlModel(apiVO.getProjectCode(), apiVO.getFile());
 		return ResultDataDto.success();
 	}
 
+	/**
+	 * 根据项目编码查询apiSign
+	 * @param projectCode
+	 * @return
+	 */
 	@GetMapping("/api/searchApiSign")
 	public ResultDataDto batchBuild(@RequestParam(value = "projectCode", required = false) String projectCode){
 		if(StringUtils.isEmpty(projectCode)){

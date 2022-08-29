@@ -88,7 +88,6 @@ public class PlantUMLApiModelBuilderService {
         //注册枚举数据源
         registEnumDataSource(projectCode,plantUMLApiContextBean);
 
-
         ProjectBO projectBO = ProjectBO.getInstance();
         projectBO.setApiList(plantUMLApiContextBean.getApiBeanList());
         projectRepository.saveProject(projectBO);

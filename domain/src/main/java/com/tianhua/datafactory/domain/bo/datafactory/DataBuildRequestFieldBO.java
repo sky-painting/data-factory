@@ -3,6 +3,7 @@ package com.tianhua.datafactory.domain.bo.datafactory;
 import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.domain.bo.DataBuildRequestFieldRuleBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -117,6 +118,12 @@ public class DataBuildRequestFieldBO<T> {
      *
      */
     private String realFieldType;
+
+
+    /**
+     * 如果是api参数则需要属性与api参数模型绑定
+     */
+    private ParamModelBO paramModelBO;
 
     /**
      * 获取属性的泛型类型

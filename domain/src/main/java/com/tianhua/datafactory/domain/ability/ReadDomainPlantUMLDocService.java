@@ -188,7 +188,7 @@ public class ReadDomainPlantUMLDocService {
     private ClassBean buildClassBean(List<String> elementList ){
 
         String[] array = elementList.get(0).trim().replace("{","").trim().split("\"");
-
+        log.info("elementList.get(0) = "+elementList.get(0));
         String classMetaInfoArr = array[1];
         List<FieldBO> fieldBeanList = getFieldBeanList(elementList.subList(1,elementList.size()));
         List<MethodBean> methodBeanList = getMethodBeanList(elementList.subList(1,elementList.size()));

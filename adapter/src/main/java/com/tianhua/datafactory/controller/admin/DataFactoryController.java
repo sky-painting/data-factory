@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class DataFactoryController extends BaseController {
 
-
     @Autowired
     private DataFactoryService dataFactoryService;
 
@@ -46,13 +45,10 @@ public class DataFactoryController extends BaseController {
      */
     @RequestMapping(value = "/datafactory/generate/simple", method = RequestMethod.POST)
     public ResultDataDto generateSimple(@RequestBody DataBuildRequestVo dataFactoryRequestVo) {
-
-
         logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
 
         ResultDataDto resultDataDto = new ResultDataDto();
         return resultDataDto;
     }
-
 
 }

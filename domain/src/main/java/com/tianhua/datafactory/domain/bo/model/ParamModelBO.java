@@ -21,6 +21,12 @@ public class ParamModelBO extends BaseBO {
    /** 模型类名称 **/
    private  String paramClassName;
 
+   /**
+    * 模型参数名称
+    * 模型作为api参数使用
+    */
+   private String paramVarName;
+
 
    /** 所属项目名称 **/
    private  String projectCode;
@@ -53,12 +59,20 @@ public class ParamModelBO extends BaseBO {
       this.paramClassName = paramClassName;
    }
 
+   public ParamModelBO(String paramClassName, String paramVarName){
+      this.paramClassName = paramClassName;
+      this.paramVarName = paramVarName;
+   }
 
 
    public static  ParamModelBO getInstance(String paramClassName){
       return new ParamModelBO(paramClassName);
    }
 
+
+   public static  ParamModelBO getInstance(String paramClassName, String paramVarName){
+      return new ParamModelBO(paramClassName, paramVarName);
+   }
 
    /**
     *

@@ -42,10 +42,10 @@ public interface ProjectQueryRepository{
 	/**
 	 *
 	 * @Description 获取单条api
-	 * @param methodSign
+	 * @param apiSign api签名,全局唯一
 	 * @return ApiBO
 	 */
-     ApiBO getBySign(String methodSign);
+     ApiBO getBySign(String apiSign);
 
 	/**
 	 *

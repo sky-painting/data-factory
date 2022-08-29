@@ -69,8 +69,11 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
 
     @Override
 	public ApiBO getBySign(String methodSign){
-
-        return null;
+        ApiModelDO apiModelDO = apiModelMapper.getByApiSign(methodSign);
+        ApiBO apiBO = ApiConvert.INSTANCE.do2bo(apiModelDO);
+        apiBO.buildRequestParam();
+        apiBO.buildReturnParamModel();
+        return apiBO;
     }
 
     @Override

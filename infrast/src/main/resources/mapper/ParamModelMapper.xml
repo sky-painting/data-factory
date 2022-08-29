@@ -9,6 +9,7 @@
         <result column="id" property="id" />
         <result column="project_code" property="projectCode" />
         <result column="param_class_name" property="paramClassName" />
+        <result column="param_var_name" property="paramVarName" />
         <result column="param_class_desc" property="paramClassDesc" />
         <result column="module_code" property="moduleCode" />
         <result column="model_suffix" property="modelSuffix" />

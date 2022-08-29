@@ -296,7 +296,12 @@ public class ReadApiPlantUMLDocService {
     }
 
 
-
+    /**
+     * 构建枚举
+     * @param enumBean
+     * @param valueStr
+     * @return
+     */
     private Map<String,String> buildEnumValueMap(EnumBean enumBean,String valueStr){
         List<FieldBO> fieldBOList = enumBean.getFieldBeanList();
 
@@ -337,7 +342,7 @@ public class ReadApiPlantUMLDocService {
         if(!param.contains(",")){
             if(param.contains(" ")){
                 String [] paramArr = param.split(" ");
-                ParamModelBO paramBean = ParamModelBO.getInstance(paramArr[0]);
+                ParamModelBO paramBean = ParamModelBO.getInstance(paramArr[0], paramArr[1]);
                 paramBeanList.add(paramBean);
             }
             return paramBeanList;
@@ -347,7 +352,7 @@ public class ReadApiPlantUMLDocService {
         for (String paramStr : paramArr){
             if(paramStr.contains(" ")){
                 String [] paramStrArr = paramStr.split(" ");
-                ParamModelBO paramBean = ParamModelBO.getInstance(paramStrArr[0]);
+                ParamModelBO paramBean = ParamModelBO.getInstance(paramStrArr[0],paramStrArr[1]);
                 paramBeanList.add(paramBean);
             }
         }

@@ -25,6 +25,15 @@ public class ParamModelDO{
    /** 参数类名 **/
    private String paramClassName;
 
+
+   /**
+    * 模型参数名称
+    * 模型作为api参数使用
+    */
+   private String paramVarName;
+
+
+
    /** 参数类描述 **/
    private String paramClassDesc;
 

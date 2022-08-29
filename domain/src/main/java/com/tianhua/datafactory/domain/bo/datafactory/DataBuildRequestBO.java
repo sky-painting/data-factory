@@ -50,4 +50,10 @@ public class DataBuildRequestBO extends BaseBO {
      * 需要用到的function
      */
     private Map<String, Function> functionMap;
+
+    /**
+     * 是否使用ResultDTO进行api 参数结果包装
+     */
+    private Boolean useResultDtoWrapper;
+
 }
