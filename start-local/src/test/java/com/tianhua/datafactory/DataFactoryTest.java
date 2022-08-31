@@ -293,7 +293,6 @@ public class DataFactoryTest {
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){
-
                 log.info("fieldBO = "+JSON.toJSONString(map.get("fieldBO")));
             }
 

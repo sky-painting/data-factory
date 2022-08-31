@@ -56,4 +56,23 @@ public class DataBuildRequestBO extends BaseBO {
      */
     private Boolean useResultDtoWrapper;
 
+    /**
+     * api返回值对应的数据源编码
+     * 适用场景:非业务模型返回值如
+     * String
+     * Long
+     * Integer
+     * List<String>
+     * Set<Long>
+     * Boolean
+     * Map<String,String>
+     *
+     *
+     */
+    private String apiRespDataSourceCode;
+
+    /**
+     * api返回值对应的数据规则
+     */
+    private DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO;
 }

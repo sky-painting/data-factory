@@ -46,7 +46,7 @@ public class DataFactoryApiParamTest {
     private DataFactoryService dataFactoryService;
 
     @Test
-    public void testDataFactoryApiParam(){
+    public void testDataFactoryApiRequestParam(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setBuildCount(10);
         dataBuildRequestBO.setProjectCode("sdfasdf");
@@ -101,5 +101,59 @@ public class DataFactoryApiParamTest {
     }
 
 
+    @Test
+    public void testDataFactoryApiResponseParam(){
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setProjectCode("sdfasdf");
+        dataBuildRequestBO.setApiSign("");
+
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO.setFieldName("apiBO");
+        dataBuildRequestFieldBO.setFieldType("ApiBO");
+        String ruleDsl = "apiSign.relySourceCode=com.datafactory.user.chineseName;projectCode.relySourceCode=com.datafactory.user.getRandom(6)";
+        dataBuildRequestFieldBO.setBuildRuleDSL(ruleDsl);
+        fieldBOList.add(dataBuildRequestFieldBO);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO2.setFieldName("validate");
+        dataBuildRequestFieldBO2.setFieldType("Boolean");
+        List<Boolean> list = new ArrayList<>();
+        list.add(true);
+        dataBuildRequestFieldBO2.setDefaultValueList(list);
+        fieldBOList.add(dataBuildRequestFieldBO2);
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO3.setFieldName("projectCode");
+        dataBuildRequestFieldBO3.setFieldType("String");
+        dataBuildRequestFieldBO3.setDataSourceCode("com.datafactory.user.chineseName");
+        fieldBOList.add(dataBuildRequestFieldBO3);
+
+
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
+
+        ResultDataDto<List<Map<String, Object>>> result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = dataFactoryService.generateDataApiRespParam(dataBuildRequestBO);
+            long endTime = System.currentTimeMillis();
+            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            for (Map<String, Object> map : result.getData()){
+                log.info("apiBO = "+ JSON.toJSONString(map.get("apiBO")));
+                log.info("validate = "+ JSON.toJSONString(map.get("validate")));
+                log.info("projectCode = "+ JSON.toJSONString(map.get("projectCode")));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

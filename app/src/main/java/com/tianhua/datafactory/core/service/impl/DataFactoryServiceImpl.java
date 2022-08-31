@@ -81,6 +81,8 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Override
     public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(DataBuildRequestBO dataBuildRequestBO) throws Exception {
+
+
         return null;
     }
 

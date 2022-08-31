@@ -3,7 +3,7 @@ package com.tianhua.datafactory.domain.bo.datafactory;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
+
 import java.util.Set;
 
 /**
@@ -34,8 +34,14 @@ public class DataBuildRequestFieldRuleBO {
      */
     private String relyField;
 
+    /**
+     * list的默认值
+     */
     private List listDefault;
 
+    /**
+     * set的默认值
+     */
     private Set setDefault;
 
 
@@ -61,8 +67,13 @@ public class DataBuildRequestFieldRuleBO {
     private String funcVar;
 
 
+    /**
+     * 如果是map结构，则标示key对应的规则
+     */
     private String relyMapKeyField;
-
+    /**
+     * 如果是map结构，则标示value对应的规则
+     */
     private String relyMapValueField;
 
     private String relySetField;
