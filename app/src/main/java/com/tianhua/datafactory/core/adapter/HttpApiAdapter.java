@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.core.adapter;
 
+import com.tianhua.datafactory.domain.bo.HttpApiRequestBO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +13,10 @@ import java.util.Map;
  */
 public interface HttpApiAdapter {
     /**
-     * 动态获取服务类--api数据
-     * @param url    url
-     * @param params 参数
+     * http协议获取数据
+     * @param httpApiRequestBO
      * @return
      */
-    List<String> getServiceDataFromHttp(String url, Map<String, Object> params);
+    List<Map<String,Object>> getServiceDataFromHttp(HttpApiRequestBO httpApiRequestBO);
+
 }

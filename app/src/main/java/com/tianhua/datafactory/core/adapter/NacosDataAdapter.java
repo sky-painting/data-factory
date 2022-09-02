@@ -11,6 +11,8 @@ import java.util.Map;
  * author: coderman <br>
  * version: 1.0 <br>
  */
+
+@Deprecated
 public interface NacosDataAdapter {
     /**
      * 获取nacos数据--匹配jsonTemplate

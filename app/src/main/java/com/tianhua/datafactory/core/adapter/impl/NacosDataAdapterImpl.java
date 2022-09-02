@@ -2,6 +2,7 @@ package com.tianhua.datafactory.core.adapter.impl;
 
 import com.tianhua.datafactory.core.adapter.NacosDataAdapter;
 import com.coderman.utils.kvpair.KVPair;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Map;
  * version: 1.0 <br>
  */
 @Service
+@Deprecated
 public class NacosDataAdapterImpl implements NacosDataAdapter {
 
     @Override
