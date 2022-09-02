@@ -2,6 +2,7 @@ package com.tianhua.datafactory.client.enums;
 
 /**
  * Description:
+ * 内置注册的文件数据源
  * date: 2021/1/14
  *
  * @author fanchunshuai

@@ -53,9 +53,6 @@ public class FileReadService {
         // ClassPathResource类的构造方法接收路径名称，自动去classpath路径下找文件
         String path = FACTORY_PATH+"/"+fileName;
         ClassPathResource classPathResource = new ClassPathResource(path);
-
-        // 获得File对象，当然也可以获取输入流对象
-        File file = null;
         try {
             return classPathResource.getFile();
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.tianhua.datafactory;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.adapter.HttpApiAdapter;
 import com.tianhua.datafactory.domain.bo.HttpApiRequestBO;
 import com.tianhua.datafactory.domain.enums.ReturnTypeEnum;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description
@@ -40,7 +42,8 @@ public class HttpApiAdaptorTest {
         paramFieldList.add("country");
         paramFieldList.add("age");
         httpApiRequestBO.setParamFieldList(paramFieldList);
-        httpApiAdapter.getServiceDataFromHttp(httpApiRequestBO);
+        List<Map<String,Object>> resultList = httpApiAdapter.getServiceDataFromHttp(httpApiRequestBO);
+        System.out.println(JSON.toJSONString(resultList));
     }
 
 }

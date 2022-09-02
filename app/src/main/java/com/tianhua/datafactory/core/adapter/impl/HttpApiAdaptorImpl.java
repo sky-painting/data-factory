@@ -32,11 +32,8 @@ public class HttpApiAdaptorImpl implements HttpApiAdapter {
 
     @Override
     public List<Map<String, Object>> getServiceDataFromHttp(HttpApiRequestBO httpApiRequestBO) {
-
         String jsonStr = HttpUtils.doGet(httpApiRequestBO.getUrl(),httpApiRequestBO.getParams());
-        log.info("jsonStr = "+jsonStr);
-        responseFactory.getResponseListMap(jsonStr, httpApiRequestBO);
-        return Lists.newArrayList();
+        return responseFactory.getResponseListMap(jsonStr, httpApiRequestBO);
     }
 
 

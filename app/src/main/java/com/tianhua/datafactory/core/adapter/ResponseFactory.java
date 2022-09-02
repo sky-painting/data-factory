@@ -72,7 +72,9 @@ public class ResponseFactory {
 
         if(httpApiRequestBO.getReturnType().equals(ReturnTypeEnum.RESULT_DTO.getType())) {
             ResultDataDto resultDataDto = getResultDataDto(responseStr);
-
+            if(!resultDataDto.isSuccess()){
+                return resultList;
+            }
             List responseDataList = (List) resultDataDto.getData();
             responseDataList.stream().forEach(obj -> {
                 try {

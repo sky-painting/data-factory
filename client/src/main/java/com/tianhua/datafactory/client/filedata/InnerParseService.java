@@ -10,11 +10,12 @@ import java.util.List;
  * @version 1.0.0
  * @since JDK 1.8
  */
-public interface ParseService {
+public interface InnerParseService {
     /**
      * 通过文件名解析文件内容并返回文件数据
      * @return
      */
     List<String> parseFileData();
+
 
 }

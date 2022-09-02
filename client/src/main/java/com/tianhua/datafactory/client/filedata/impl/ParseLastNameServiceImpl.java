@@ -3,7 +3,7 @@ package com.tianhua.datafactory.client.filedata.impl;
 import com.tianhua.datafactory.client.cache.KVCacheService;
 import com.tianhua.datafactory.client.enums.FileDataEnums;
 import com.tianhua.datafactory.client.filedata.FileReadService;
-import com.tianhua.datafactory.client.filedata.ParseService;
+import com.tianhua.datafactory.client.filedata.InnerParseService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since JDK 1.8
  */
 @Service(value = "parseLastNameServiceImpl")
-public class ParseLastNameServiceImpl implements ParseService {
+public class ParseLastNameServiceImpl implements InnerParseService {
 
     @Autowired
     private KVCacheService cacheService;
