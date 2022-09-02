@@ -1,15 +1,19 @@
 package com.tianhua.datafactory.core.adapter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.domain.bo.HttpApiRequestBO;
 import com.tianhua.datafactory.domain.enums.ReturnTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Maps;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +26,7 @@ import java.util.Map;
  * @since JDK 1.8
  */
 @Service
+@Slf4j
 public class ResponseFactory {
 
     private List<Long> getListLong(String response){
@@ -67,14 +72,36 @@ public class ResponseFactory {
 
         if(httpApiRequestBO.getReturnType().equals(ReturnTypeEnum.RESULT_DTO.getType())) {
             ResultDataDto resultDataDto = getResultDataDto(responseStr);
-            List responseData = (List) resultDataDto.getData();
-            Type type = responseData.getClass().getGenericSuperclass();
-            System.err.println("generic super class type:" + type);
 
-            Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
-
+            List responseDataList = (List) resultDataDto.getData();
+            responseDataList.stream().forEach(obj -> {
+                try {
+                    JSONObject jsonObject = (JSONObject) obj;
+                    Map<String,Object> objectMap = getObjMap(jsonObject, httpApiRequestBO.getParamFieldList());
+                    resultList.add(objectMap);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
         return resultList;
     }
+
+
+    /**
+     * 根据对应的属性key找到匹配的值map
+     * @param jsonObject
+     * @param paramFieldList
+     * @return
+     */
+    private Map<String,Object> getObjMap(JSONObject jsonObject, List<String> paramFieldList){
+        Map<String,Object> map = new HashMap<>();
+        for (String fieldName : paramFieldList){
+            map.put(fieldName, jsonObject.get(fieldName));
+        }
+        return map;
+    }
+
+
 }

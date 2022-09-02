@@ -35,7 +35,7 @@ public class HttpApiAdaptorImpl implements HttpApiAdapter {
 
         String jsonStr = HttpUtils.doGet(httpApiRequestBO.getUrl(),httpApiRequestBO.getParams());
         log.info("jsonStr = "+jsonStr);
-
+        responseFactory.getResponseListMap(jsonStr, httpApiRequestBO);
         return Lists.newArrayList();
     }
 
