@@ -53,11 +53,11 @@ public class ChineseNameFunc   implements CacheFunction {
     }
 
     private List  initCache(Integer count){
-        List<String> firstNameList = fileDataService.getFileDataList(FileDataEnums.FIRST_NAME.getFileName());
-        List<String> lastNameList = fileDataService.getFileDataList(FileDataEnums.LAST_NAME.getFileName());
+        List<Object> firstNameList = fileDataService.getFileDataList(FileDataEnums.FIRST_NAME.getFileName());
+        List<Object> lastNameList = fileDataService.getFileDataList(FileDataEnums.LAST_NAME.getFileName());
         List<String> list = new ArrayList<>(count);
         for (int i =0;i < count;i++){
-            String chineseName = firstNameList.get(random.nextInt(firstNameList.size())) + lastNameList.get(random.nextInt(lastNameList.size()));
+            String chineseName = firstNameList.get(random.nextInt(firstNameList.size())).toString() + lastNameList.get(random.nextInt(lastNameList.size())).toString();
             list.add(chineseName);
         }
         return list;

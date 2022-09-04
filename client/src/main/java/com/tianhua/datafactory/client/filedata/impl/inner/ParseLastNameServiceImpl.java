@@ -1,6 +1,7 @@
-package com.tianhua.datafactory.client.filedata.impl;
+package com.tianhua.datafactory.client.filedata.impl.inner;
 
 import com.tianhua.datafactory.client.cache.KVCacheService;
+import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.enums.FileDataEnums;
 import com.tianhua.datafactory.client.filedata.FileReadService;
 import com.tianhua.datafactory.client.filedata.InnerParseService;
@@ -32,12 +33,12 @@ public class ParseLastNameServiceImpl implements InnerParseService {
     private FileReadService fileReadService;
 
     @Override
-    public List<String> parseFileData() {
-        String fileName = FileDataEnums.LAST_NAME.getFileName();
-        List<String> list = cacheService.getCache(fileName);
+    public List<Object> parseFileData() {
+        String dataSourceCode = InnerDataSourceCode.LAST_NAME;
+        List<Object> list = cacheService.getCache(dataSourceCode);
         if (CollectionUtils.isEmpty(list)) {
             list = new ArrayList<>();
-            File dataFile = fileReadService.getDataFile(fileName);
+            File dataFile = fileReadService.getDataFile(FileDataEnums.LAST_NAME.getFileName());
             if (dataFile == null) {
                 return null;
             }
@@ -49,7 +50,7 @@ public class ParseLastNameServiceImpl implements InnerParseService {
                         list.add(gStr);
                     }
                 }
-                cacheService.putCache(fileName, list);
+                cacheService.putCache(dataSourceCode, list);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -24,9 +24,6 @@ public class DataGenerateServiceFactory {
     private DataGenerateService dataGenerateFunctionServiceImpl;
 
 
-    @Resource(name = "dataGenerateRemoteServiceImpl")
-    private DataGenerateService dataGenerateRemoteServiceImpl;
-
 
     public DataGenerateService getDataGenerateService(Integer dataSouceType){
         if(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == dataSouceType.intValue()){

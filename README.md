@@ -6,7 +6,7 @@
 data-factory 平台对各个相关服务领域的数据源进行聚合，同时基于业务模型帮助构建大规模大数据量的仿真业务数据。
 致力于在分布式微服务等架构落地的同时提供真正的高并发大数据量的实战数据环境。
 
-#### 软件架构
+#### 软件架构-1.0
 1.  功能架构图
 ![image](doc/img/天画-数据工厂平台.png) 
 2.  数据模型图
@@ -22,7 +22,7 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 
 1.  通过sql文件中的sql脚本初始化
 2.  克隆本项目，并搭建本地nacos集群,进行服务注册调试
-3.  克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils
+3.  克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils(1.0.5版本)
 4.  运行api工程中的DataSourceControllerTest,DataFactoryControllerTest 测试服务即可看到随机数据
 
 #### 使用api

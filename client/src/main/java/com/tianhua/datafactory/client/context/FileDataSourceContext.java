@@ -64,6 +64,11 @@ public class FileDataSourceContext {
     private Integer loadCount;
 
     /**
+     * 要忽略多少条
+     */
+    private Integer skipCount;
+
+    /**
      * 属性模型
      */
     private List<FieldIndex> fieldIndexBOList;
@@ -147,5 +152,13 @@ public class FileDataSourceContext {
 
     public void setLoadCount(Integer loadCount) {
         this.loadCount = loadCount;
+    }
+
+    public Integer getSkipCount() {
+        return skipCount;
+    }
+
+    public void setSkipCount(Integer skipCount) {
+        this.skipCount = skipCount;
     }
 }

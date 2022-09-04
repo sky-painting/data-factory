@@ -25,7 +25,7 @@ public interface FileDataService {
      * @param fileName
      * @return
      */
-    List<String>  getFileDataList(String fileName);
+    List<Object>  getFileDataList(String fileName);
 
     /**
      * 注册文件数据源

@@ -1,8 +1,9 @@
-package com.tianhua.datafactory.client.filedata.impl;
+package com.tianhua.datafactory.client.filedata.impl.common;
 
 import com.tianhua.datafactory.client.context.FieldIndex;
 import com.tianhua.datafactory.client.context.FileDataSourceContext;
 import com.tianhua.datafactory.client.filedata.CommonParseService;
+import com.tianhua.datafactory.client.filedata.AbstractParseService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +23,9 @@ import java.util.stream.Collectors;
  * @since JDK 1.8
  */
 @Service(value = "txtParseServiceImpl")
-public class TxtParseServiceImpl implements CommonParseService {
+public class TxtParseServiceImpl extends AbstractParseService implements CommonParseService {
 
     private Logger logger = LoggerFactory.getLogger(TxtParseServiceImpl.class);
-
-    private static Random random = new Random();
 
     @Override
     public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException {
@@ -42,13 +41,13 @@ public class TxtParseServiceImpl implements CommonParseService {
         List<Map<String, Object>> list = new ArrayList<>();
 
         List<String> contentList = FileUtils.readLines(file,"utf-8");
-        int errorCount = 0;
-        if(contentList.size() < fileDataSourceContext.getLoadCount()){
-            buildResultList(contentList.subList(1,contentList.size()), fileDataSourceContext, list);
-        }else {
-            buildResultList(contentList.subList(1,fileDataSourceContext.getLoadCount()), fileDataSourceContext, list);
+        if(fileDataSourceContext.getSkipCount() > 0){
+            contentList = contentList.subList(fileDataSourceContext.getSkipCount(),contentList.size());
         }
+        //获取随机子集合
+        List<String> currentList = getRandomList(contentList, fileDataSourceContext.getLoadCount());
 
+        buildResultList(currentList, fileDataSourceContext, list);
         return list;
     }
 
@@ -73,33 +72,16 @@ public class TxtParseServiceImpl implements CommonParseService {
             Map<String, Object> rowMap = new HashMap<>();
             for (int i = 0;i < array.length;i ++){
                 FieldIndex fieldIndex = fieldIndexMap.get(i);
-                buildRowMap(fieldIndex,str,rowMap);
+                if(fieldIndex == null){
+                    continue;
+                }
+                buildRowMap(fieldIndex,array[i],rowMap);
             }
             list.add(rowMap);
         }
-    }
-
-    /**
-     * 收集单个元素
-     * @param fieldIndex
-     * @param value
-     * @param rowMap
-     */
-    private void buildRowMap(FieldIndex fieldIndex, String value,   Map<String, Object> rowMap){
-
-        if(fieldIndex.isLong()){
-            rowMap.put(fieldIndex.getFieldName(), Long.valueOf(value));
-        }
-        else if(fieldIndex.isInteger()){
-            rowMap.put(fieldIndex.getFieldName(), Integer.valueOf(value));
-        }
-
-        else if(fieldIndex.isShort()){
-            rowMap.put(fieldIndex.getFieldName(), Short.valueOf(value));
-        }
-
-        else if(fieldIndex.isString()){
-            rowMap.put(fieldIndex.getFieldName(), value);
+        if(errorCount > 0){
+            logger.error("解析错误次数:{}",errorCount);
         }
     }
+
 }

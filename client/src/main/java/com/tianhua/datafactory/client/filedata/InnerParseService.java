@@ -15,7 +15,7 @@ public interface InnerParseService {
      * 通过文件名解析文件内容并返回文件数据
      * @return
      */
-    List<String> parseFileData();
+    List<Object> parseFileData();
 
 
 }

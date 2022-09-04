@@ -27,6 +27,15 @@ public class FieldIndex {
      */
     private String fieldType;
 
+    public FieldIndex(){}
+    public FieldIndex(Integer index,String fieldName, String fieldType){
+        this.index= index;
+        this.fieldName = fieldName;
+        this.fieldType = fieldType;
+    }
+
+
+
     public Integer getIndex() {
         return index;
     }
