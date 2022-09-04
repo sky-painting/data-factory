@@ -28,4 +28,7 @@ public class UserDTO {
     private Long id;
     private int age;
 
+    private String company;
+
+
 }

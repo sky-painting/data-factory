@@ -2,9 +2,6 @@
 
 1.datafactory内置下:
 服务名=datafactory
-2.数据源来源于nacos则是：
-dataId:group
-
 
 
 身份证号=datafactory:com.datafactory.user.cardnumber
@@ -17,18 +14,8 @@ dataId:group
 随机数=datafactory:com.datafactory.user.getRandom
 姓名=datafactory:com.datafactory.user.chineseName
 
-编码Code=
 时间(yyyy-mm-dd HH:mm:ss)=
 单号=
 时间戳=
-文本=
 商品名称=
 业务线=
-验证码(数字+字母)=
-
-
-
-
-
-
-

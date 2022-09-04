@@ -14,6 +14,7 @@ import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceReqConfigBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceRespConfigBO;
+import com.tianhua.datafactory.domain.enums.ReturnTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,20 +69,29 @@ public class DataGenerateHttpApiServiceImpl implements DataGenerateService {
         return value;
     }
 
+    /**
+     * 缓存接口响应数据
+     * @param dataSourceFieldRequestBean
+     * @return
+     */
     private synchronized Object  initCache(DataSourceFieldRequestBean dataSourceFieldRequestBean){
         DataSourceBO dataSourceBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO().getDataSourceBO();
 
         HttpApiRequestBO httpApiRequestBO = new HttpApiRequestBO(dataSourceBO.getProviderDomainUrl() + dataSourceBO.getUrl());
         httpApiRequestBO.setServiceName(dataSourceBO.getProviderService());
 
-        for (DataSourceReqConfigBO dataSourceReqConfigBO : dataSourceBO.getDataSourceReqConfigList()){
-            httpApiRequestBO.addParam(dataSourceReqConfigBO.getParamKey(),dataSourceReqConfigBO.getParamValue());
+        httpApiRequestBO.setReturnType(dataSourceBO.getStructType());
+
+        if(dataSourceBO.getDataSourceReqConfigList() != null){
+            for (DataSourceReqConfigBO dataSourceReqConfigBO : dataSourceBO.getDataSourceReqConfigList()){
+                httpApiRequestBO.addParam(dataSourceReqConfigBO.getParamKey(),dataSourceReqConfigBO.getParamValue());
+            }
         }
+
 
         for (DataSourceRespConfigBO dataSourceRespConfigBO : dataSourceBO.getDataSourceRespConfigList()){
             httpApiRequestBO.addParamField(dataSourceRespConfigBO.getFieldKey());
         }
-
 
         List<Map<String,Object>> dataList = httpApiAdapter.getServiceDataFromHttp(httpApiRequestBO);
 

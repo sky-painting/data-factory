@@ -37,4 +37,13 @@ public class DataSourceReqConfigBO {
      * 是否是请求接口参数
      */
     private boolean interfaceParam;
+
+
+    public DataSourceReqConfigBO(){}
+
+    public DataSourceReqConfigBO(String paramKey, String paramValue){
+        this.paramKey = paramKey;
+        this.paramValue = paramValue;
+    }
+
 }

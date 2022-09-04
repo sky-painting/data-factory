@@ -6,7 +6,10 @@ import com.tianhua.datafactory.core.service.FieldValueFactory;
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
+import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
+import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +44,10 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Resource
     private FlowExecutor flowExecutor;
 
+
+    @Autowired
+    private ProjectQueryRepository projectQueryRepository;
+
     @Override
     public ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         randomThreadLocal.set(new SecureRandom());
@@ -72,10 +79,21 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     }
 
     @Override
-    public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(DataBuildRequestBO dataBuildRequestBO) throws Exception {
+    public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception {
+
+        ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
+
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setApiSign(apiSign);
+        dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());
 
 
-        return null;
+        ParamModelBO paramModelBO = apiBO.getReturnParamModel();
+        paramModelBO.getFieldBeanList();
+
+
+
+        return generateData(dataBuildRequestBO);
     }
 
     @Override

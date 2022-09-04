@@ -46,11 +46,11 @@ public interface DataFactoryService {
 
     /**
      * 根据api签名构建api返回值随机列表
-     * @param dataBuildRequestBO
+     * @param apiSign
      * @return
      * @throws Exception
      */
-    ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(DataBuildRequestBO dataBuildRequestBO) throws Exception;
+    ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception;
 
 
 

@@ -31,4 +31,10 @@ public class DataSourceRespConfigBO {
      * 数据类型
      */
     private String fieldType;
+
+    public DataSourceRespConfigBO (){}
+    public DataSourceRespConfigBO(String fieldKey, String fieldType){
+        this.fieldKey = fieldKey;
+        this.fieldType = fieldType;
+    }
 }

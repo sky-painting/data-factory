@@ -46,6 +46,14 @@ public class ApiModelDO{
 
 
    /**
+    * 进行接口mock调用的时候接口返回的条数
+    * 1条或者多条
+    * 模拟后端数据返回
+    */
+   private Integer mockCount;
+
+
+   /**
     * 响应参数元信息
     */
    private String returnParam;
@@ -64,5 +72,9 @@ public class ApiModelDO{
 
    /** 创建人 **/
    private Long createUserId;
+
+
+
+
 
 }

@@ -142,7 +142,8 @@ public class DataFactoryApiParamTest {
         ResultDataDto<List<Map<String, Object>>> result = null;
         try {
             long startTime = System.currentTimeMillis();
-            result = dataFactoryService.generateDataApiRespParam(dataBuildRequestBO);
+            String apiSign = "";
+            result = dataFactoryService.generateDataApiRespParam(apiSign);
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){

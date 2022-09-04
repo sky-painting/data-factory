@@ -23,7 +23,7 @@ public class DataBuildRequestBO extends BaseBO {
     private String paramModelCode;
 
     /**
-     * 数据构建规则
+     * 数据属性列表
      */
     private List<DataBuildRequestFieldBO> fieldBOList;
 

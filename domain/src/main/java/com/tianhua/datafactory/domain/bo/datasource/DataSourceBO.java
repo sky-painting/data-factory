@@ -66,7 +66,7 @@ public class DataSourceBO extends BaseBO {
 	private Integer visitStrategy;
 
 	/**
-	 * 数据源格式
+	 * 数据源返回格式
 	 */
 	private String structType;
 

@@ -59,6 +59,18 @@ public class ApiVO extends BaseVO {
      private String apiDoc;
 
 
+     /**
+      * 进行接口mock调用的时候接口返回的条数
+      * 1条或者多条
+      * 模拟后端数据返回
+      */
+     private Integer mockCount;
+
+
+
+     /**
+      * 上传的plantuml文件
+      */
      private String file;
 
      /**
