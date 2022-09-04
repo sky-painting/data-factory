@@ -26,14 +26,18 @@ public class DataSourceBO extends BaseBO {
 	/** 数据源名称 **/
 	private String sourceName;
 
-	/** 数据源code,唯一 **/
+	/** 数据源code,全局唯一 **/
 	/**
 	 * 格式如下:
 	 * 服务名:com.xxx.xxx.服务名.模块名.模型名
 	 */
 	private String sourceCode;
 
-	/** 数据源类型/(regist,api,enum,constant) **/
+	/**
+	 *
+	 * 数据源类型
+	 * @See DataSourceTypeEnum
+	 */
 	private Integer sourceType;
 
 	/**

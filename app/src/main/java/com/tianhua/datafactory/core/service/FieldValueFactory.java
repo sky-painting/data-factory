@@ -35,6 +35,13 @@ public class FieldValueFactory {
 
     @Resource(name = "dataGenerateLocalKVImpl")
     private DataGenerateService dataGenerateLocalKVImpl;
+
+
+    @Resource(name = "dataGenerateFileDataServiceImpl")
+    private DataGenerateService dataGenerateFileDataServiceImpl;
+
+
+
     /**
      * 根据请求的数据上下文生成随机的数据字段值
      * @param dataSourceFieldRequestBean
@@ -80,6 +87,13 @@ public class FieldValueFactory {
             return null;
             //todo 临时注释
            // return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+
+
+        //从文件中获取数据
+        if(DataSourceTypeEnum.FROM_FILE_DATA.getCode() == dataSourceType){
+            dataGenerateFileDataServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
 
         return null;

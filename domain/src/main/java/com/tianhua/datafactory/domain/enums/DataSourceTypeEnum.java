@@ -19,8 +19,8 @@ public enum DataSourceTypeEnum {
     //服务本身自带枚举-->plantUMl解析到KV表中
     FROM_SERVICE_ENUM(3,"ENUM"),
 
-    //自定义 ---json文件，excel-->业务方上传的大批量随机数据
-    FROM_CUSTOM(4,"CUSTOM"),
+    //来自文件数据源的数据
+    FROM_FILE_DATA(4,"fileData"),
 
     //函数式数据源，datafactory内置提供
     FUNCTION_DATASOURCE(5,"INNER_FUNCTION"),

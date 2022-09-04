@@ -2,6 +2,7 @@ package com.tianhua.datafactory.domain.bo;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,11 @@ public class HttpApiRequestBO {
      */
     private Map<String, String> fieldExtractRuleMap;
 
-    public HttpApiRequestBO(){}
+    /**
+     * 数据源
+     */
+    private String dataSourceCode;
+
 
     public HttpApiRequestBO(String url){
         this.url = url;
@@ -62,6 +67,25 @@ public class HttpApiRequestBO {
         this.url = url;
         this.params = paramMap;
     }
+    public void addParam(String key,Object value){
+        if(params == null) {
+            params = new HashMap<>();
+        }
+
+        params.put(key,value);
+    }
+
+    public void addParamField(String fieldName){
+        if(this.paramFieldList == null){
+            this.paramFieldList = new ArrayList<>();
+        }
+
+        this.paramFieldList.add(fieldName);
+    }
+
+
+
+
 
 
 }

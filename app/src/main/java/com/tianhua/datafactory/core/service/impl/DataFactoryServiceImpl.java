@@ -6,11 +6,7 @@ import com.tianhua.datafactory.core.service.FieldValueFactory;
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
-import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
-import com.tianhua.datafactory.domain.bo.project.ApiBO;
-import com.tianhua.datafactory.domain.factory.FieldRuleDslFactory;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
-import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -44,10 +40,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Resource
     private FlowExecutor flowExecutor;
-
-    @Autowired
-    private ProjectQueryRepository projectQueryRepository;
-
 
     @Override
     public ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
