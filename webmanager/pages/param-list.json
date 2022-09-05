@@ -105,6 +105,17 @@
         },
         {
           "type": "text",
+          "name": "statusDesc",
+          "label": "模型状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
+        },
+        {
+          "type": "text",
           "name": "projectCode",
           "label": "所属项目编码",
           "searchable": {

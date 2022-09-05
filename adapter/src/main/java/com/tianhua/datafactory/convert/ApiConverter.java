@@ -34,6 +34,10 @@ public interface ApiConverter{
 	 * @Description:
 	 * @return ApiBO
 	 */
+	 @Mappings({
+			 @Mapping(target = "requestParam",expression = "java(com.alibaba.fastjson.JSON.toJSONString(apiVO.getParamList()))"),
+
+	 })
 	 ApiBO vo2bo(ApiVO apiVO);
 	/**
 	 *

@@ -72,6 +72,10 @@ public interface ProjectQueryRepository{
 	PageBean queryProjectPage(PageBean pageBean);
 
 
-
+	/**
+	 * 根据id查询api
+	 * @param id
+	 * @return
+	 */
 	ApiBO getApiById(Long id);
 }

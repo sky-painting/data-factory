@@ -54,7 +54,7 @@ public class ProjectRepositoryImpl  implements ProjectRepository{
         List<ApiBO> apiBOList = projectBO.getApiList();
         if(CollectionUtils.isNotEmpty(apiBOList)){
             for (ApiBO apiBO : apiBOList){
-                apiBO.enable();
+                apiBO.using();
                 apiBO.buildApiSign();
                 ApiModelDO apiModelDO = ApiConvert.INSTANCE.bo2do(apiBO);
                 apiModelDO.setRequestParam(JSON.toJSONString(apiBO.getParamList()));

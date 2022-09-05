@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
-import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
 import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import com.tianhua.datafactory.domain.bo.BaseBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
@@ -70,7 +69,7 @@ public class ApiBO extends BaseBO {
     private String returnValue;
 
     /**
-     * api参数列表
+     * api 请求参数列表
      **/
     private List<ParamModelBO> paramList;
 
@@ -79,17 +78,13 @@ public class ApiBO extends BaseBO {
      **/
     private Map<Integer, List<Object>> paramDefaultValueList;
 
-    /**
-     * api状态
-     **/
-    private Integer status;
 
     /**
      * api所属项目编码
      **/
     private String projectCode;
     /**
-     * api返回的对象信息
+     * api返回参数对象
      */
     private ParamModelBO returnParamModel;
 
@@ -150,13 +145,6 @@ public class ApiBO extends BaseBO {
     }
 
 
-    public void disable() {
-        this.setStatus(0);
-    }
-
-    public void enable() {
-        this.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
-    }
 
     /**
      * 构建api签名

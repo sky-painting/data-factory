@@ -41,6 +41,14 @@
         },
         {
           "type": "static",
+          "name": "statusDesc",
+          "label": "状态"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
           "name": "moduleCode",
           "label": "所属上下文"
         },

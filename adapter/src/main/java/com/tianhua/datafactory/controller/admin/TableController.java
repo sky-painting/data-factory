@@ -31,14 +31,11 @@ public class TableController {
 	
 	protected Logger logger = LoggerFactory.getLogger(TableController.class);
 
-
 	@Autowired
 	private ModelRepository modelRepository;
 
-
 	@Autowired
 	private ModelQueryRepository modelQueryRepository;
-
 
 	@Autowired
 	private TableModelBuilderService tableModelBuilderService;

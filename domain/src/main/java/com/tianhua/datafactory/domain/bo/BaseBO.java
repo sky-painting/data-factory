@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.domain.bo;
 
+import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
+
 import java.util.Date;
 
 /**
@@ -20,6 +22,9 @@ public class BaseBO {
     /**  创建人 **/
     public Long createUserId;
 
+    public Integer status;
+
+    private String statusDesc;
     public void init(){
        this.createUserId = 1L;
        this.updateUserId = 1L;
@@ -59,8 +64,38 @@ public class BaseBO {
         this.createUserId = createUserId;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
 
+    public String getStatusDesc() {
+        return statusDesc;
+    }
+
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
+
+    public void willDeprecate() {
+        this.setStatus(ApiModelFieldStatusEnum.WILL_DEPRECATED.getStatus());
+    }
+
+    public void deprecate() {
+        this.setStatus(ApiModelFieldStatusEnum.DEPRECATED.getStatus());
+    }
+
+    public void using() {
+        this.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
+    }
+
+    public void delete() {
+        this.setStatus(ApiModelFieldStatusEnum.DELETEED.getStatus());
+    }
 
 
 

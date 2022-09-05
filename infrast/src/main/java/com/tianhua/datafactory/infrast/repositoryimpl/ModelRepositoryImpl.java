@@ -4,6 +4,7 @@ import com.tianhua.datafactory.domain.bo.model.*;
 
 import java.util.List;
 
+import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
 import com.tianhua.datafactory.domain.event.DataSourceBindEvent;
 import com.tianhua.datafactory.domain.repository.ModelRepository;
 
@@ -62,12 +63,14 @@ public class ModelRepositoryImpl  implements ModelRepository{
     @Override
 	public boolean saveDBModel(TableBO tableBO){
         tableBO.init();
+        tableBO.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
         TableModelDO tableModelDO = TableConvert.INSTANCE.bo2do(tableBO);
         tableModelMapper.insert(tableModelDO);
         if(!CollectionUtils.isEmpty(tableBO.getColumnList())){
             for (ColumnBO columnBO : tableBO.getColumnList()){
                 columnBO.setTableId(tableModelDO.getId());
                 columnBO.init();
+                columnBO.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
                 columnModelMapper.insert(ColumnConvert.INSTANCE.bo2do(columnBO));
             }
         }
@@ -102,7 +105,7 @@ public class ModelRepositoryImpl  implements ModelRepository{
     @Override
 	public boolean saveParamModel(ParamModelBO paramModelBO){
         paramModelBO.init();
-
+        paramModelBO.using();
         paramModelMapper.insert(ParamModelConvert.INSTANCE.bo2do(paramModelBO));
 
         List<FieldBO> fieldBOList = paramModelBO.getFieldBeanList();

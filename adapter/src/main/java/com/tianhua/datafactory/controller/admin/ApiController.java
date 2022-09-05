@@ -1,10 +1,12 @@
 package com.tianhua.datafactory.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
@@ -58,6 +60,10 @@ public class ApiController extends BaseController {
 	public ResultDataDto<Boolean> add(@RequestBody  ApiVO apiVO){
 		ApiBO apiBO = ApiConverter.INSTANCE.vo2bo(apiVO);
 		apiBO.init();
+		ParamModelBO returnParamModel = new ParamModelBO();
+		returnParamModel.setParamClassName(apiVO.getReturnParamClass());
+		apiBO.setReturnParamModel(returnParamModel);
+		apiBO.setReturnValue("");
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.saveProject(projectBO);
@@ -92,6 +98,12 @@ public class ApiController extends BaseController {
 	public ResultDataDto<Boolean> update(@PathVariable(value = "id") Long id, @RequestBody  ApiVO apiVO){
 		ApiBO apiBO = ApiConverter.INSTANCE.vo2bo(apiVO);
 		apiBO.setId(id);
+
+		ParamModelBO returnParamModel = new ParamModelBO();
+		returnParamModel.setParamClassName(apiVO.getReturnParamClass());
+		apiBO.setReturnParamModel(returnParamModel);
+		apiBO.setReturnParam(JSON.toJSONString(apiBO.getReturnParamModel()));
+
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.updateProject(projectBO);
@@ -108,7 +120,7 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = "/api/disable/{id}",method = RequestMethod.POST)
 	public ResultDataDto<Boolean> disable(@PathVariable(value = "id") Long id){
 		ApiBO apiBO = projectQueryRepository.getApiById(id);
-		apiBO.disable();
+		apiBO.deprecate();
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.updateProject(projectBO);
@@ -124,7 +136,7 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = "/api/enable/{id}",method = RequestMethod.POST)
 	public ResultDataDto<Boolean> enable(@PathVariable(value = "id") Long id){
 		ApiBO apiBO = projectQueryRepository.getApiById(id);
-		apiBO.enable();
+		apiBO.using();
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.updateProject(projectBO);

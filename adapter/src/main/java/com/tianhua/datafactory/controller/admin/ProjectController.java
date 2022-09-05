@@ -3,9 +3,9 @@ package com.tianhua.datafactory.controller.admin;
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ProjectConverter;
-import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.PageBean;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
+import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
 import com.tianhua.datafactory.vo.PageVO;
@@ -41,9 +41,6 @@ public class ProjectController extends BaseController {
 	private ProjectQueryRepository projectQueryRepository;
 
 
-	@Autowired
-	private PlantUMLApiModelBuilderService plantUMLModelBuilderService;
-
 	/**
 	 *
 	 * @Description 新建项目
@@ -53,6 +50,7 @@ public class ProjectController extends BaseController {
 	@RequestMapping(value = "/project/add")
 	public ResultDataDto<Boolean> add(@RequestBody  ProjectVO projectVO){
 		projectVO.init();
+		projectVO.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
 		projectRepository.saveProject(ProjectConverter.INSTANCE.vo2bo(projectVO));
 		return ResultDataDto.success();
 	}

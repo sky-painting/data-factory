@@ -41,6 +41,7 @@ public interface ParamConverter{
 	 */
 	@Mappings({
 			@Mapping(target = "fieldBeanList",expression = "java(FieldConverter.INSTANCE.BOs2VOs(paramModelBO.getFieldBeanList()))"),
+			@Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(paramModelBO.getStatus()))"),
 	})
 	 ParamModelVO bo2VO(ParamModelBO paramModelBO);
 	/**

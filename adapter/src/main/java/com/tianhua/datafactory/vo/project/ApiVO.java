@@ -47,7 +47,7 @@ public class ApiVO extends BaseVO {
     /** api所属项目编码 **/
     private String projectCode;
 
-    /** api参数列表 **/
+    /** api 请求参数列表 **/
     private List<ParamModelVO> paramList;
 
 
@@ -88,7 +88,7 @@ public class ApiVO extends BaseVO {
      private String returnParamClass;
 
      /**
-      * 请求参数列表
+      * 请求参数类名
       */
      private String requestParamClasses;
 

@@ -128,7 +128,7 @@ public class PlantUMLDomainModelBuilderService {
             ApiBO apiBO = ApiBO.getInstance(projectCode,className+"."+methodBean.getSimplMethodName());
             apiBO.setApiType(ApiTypeEnum.SERVICE_API.getType());
             apiBO.init();
-            apiBO.enable();
+            apiBO.using();
             apiBO.setApiDoc(methodBean.getDesc());
             if(methodBean.getParamArr() !=null){
                 List<ParamModelBO> paramModelBOList = Lists.newArrayList();
@@ -147,14 +147,15 @@ public class PlantUMLDomainModelBuilderService {
                 returnParamModel.setGeneralType(false);
                 returnParamModel.setParamClassName(methodBean.getReturnClass());
                 apiBO.setReturnParamModel(returnParamModel);
+                apiBO.setApiReturnWrapType(ReturnWrapClassEnum.RESULT_ORIGIN.getReturnWrapCode());
 
                 apiBO.setParamList(paramModelBOList);
                 apiBO.setReturnValue("");
                 apiBO.setMethodType(MethodTypeEnum.INNER_SERVICE.getType());
-                apiBO.enable();
+                apiBO.using();
                 apiBO.buildApiSign();
 
-                ApiBO oldApi =projectQueryRepository.getBySign(apiBO.getApiSign());
+                ApiBO oldApi = projectQueryRepository.getBySign(apiBO.getApiSign());
                 if(oldApi == null){
                     ProjectBO projectBO = ProjectBO.getInstance();
                     projectBO.addApiBo(apiBO);

@@ -62,6 +62,7 @@ public class PlantUMLApiModelBuilderService {
         PlantUMLApiContextBean plantUMLApiContextBean = readApiPlantUMLDocService.readDoc(plantUMLFilePath);
         for (ParamModelBO paramModelBO : plantUMLApiContextBean.getParamClassBeanList()) {
             paramModelBO.init();
+            paramModelBO.using();
             paramModelBO.setModuleCode("");
             paramModelBO.setModelSuffix("");
             paramModelBO.getFieldBeanList().stream().forEach(fieldBO -> {
@@ -75,7 +76,7 @@ public class PlantUMLApiModelBuilderService {
         }
 
         plantUMLApiContextBean.getApiBeanList().stream().forEach(apiBO -> {
-            apiBO.enable();
+            apiBO.using();
             apiBO.setProjectCode(projectCode);
             if (apiBO.getApiUrl().contains("/")) {
                 apiBO.setApiType(ApiTypeEnum.HTTP_API.getType());

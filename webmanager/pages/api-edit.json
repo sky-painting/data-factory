@@ -128,32 +128,35 @@
           "type": "divider"
         },
         {
-          "type": "textarea",
-          "name": "returnValue",
-          "label": "返回值列表(多个逗号分割)",
-          "required": true,
-          "maxRows": 500,
-          "showCounter": true,
-          "required": true
-        },
-        {
-          "type": "divider"
-        },
-        {
           "label": "请求参数列表",
           "type": "input-table",
-          "name": "apiList",
+          "name": "paramList",
           "multiple": true,
           "addable": true,
           "editable": true,
           "columns": [
             {
               "name": "paramClassName",
-              "type": "text",
+              "type": "input-text",
               "label": "参数类名"
+            },
+            {
+              "name": "paramVarName",
+              "type": "input-text",
+              "label": "参数变量名"
             }
           ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "returnParamClass",
+          "label": "api返回类型",
+          "required": true
         }
+
 
       ]
     }

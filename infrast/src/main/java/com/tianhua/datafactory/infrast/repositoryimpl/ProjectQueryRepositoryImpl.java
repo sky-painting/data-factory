@@ -71,6 +71,9 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
 	public ApiBO getBySign(String methodSign){
         ApiModelDO apiModelDO = apiModelMapper.getByApiSign(methodSign);
         ApiBO apiBO = ApiConvert.INSTANCE.do2bo(apiModelDO);
+        if(apiBO == null){
+            return null;
+        }
         apiBO.buildRequestParam();
         apiBO.buildReturnParamModel();
         return apiBO;
@@ -98,7 +101,10 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
     @Override
     public ApiBO getApiById(Long id) {
         ApiModelDO apiModelDO = apiModelMapper.getById(id);
-        return ApiConvert.INSTANCE.do2bo(apiModelDO);
+        ApiBO apiBO = ApiConvert.INSTANCE.do2bo(apiModelDO);
+        apiBO.buildReturnParamModel();
+        apiBO.buildRequestParam();
+        return apiBO;
     }
 
 }

@@ -16,9 +16,9 @@ import lombok.Getter;
  */
 @Getter
 public enum ApiModelFieldStatusEnum {
-    USING(0,"正常"),
-    DEPRECATED(1,"即将过期"),
-    WILL_DEPRECATED(2,"已过期"),
+    USING(0,"使用中"),
+    WILL_DEPRECATED(1,"即将过期"),
+    DEPRECATED(2,"已过期"),
     DELETEED(-1,"删除"),
 
     ;
