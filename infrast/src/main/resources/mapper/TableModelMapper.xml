@@ -10,6 +10,7 @@
         <result column="table_name" property="tableName" />
         <result column="table_comment" property="tableComment" />
         <result column="db_name" property="dbName" />
+        <result column="status" property="status" />
         <result column="project_code" property="projectCode" />
         <result column="date_create" property="dateCreate" />
         <result column="date_update" property="dateUpdate" />
@@ -25,22 +26,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,table_name,table_comment,db_name,project_code,date_create,date_update,update_user_id,create_user_id
+        id,table_name,table_comment,db_name,project_code,status,date_create,date_update,update_user_id,create_user_id
     </sql>
 
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO" useGeneratedKeys="true">
         insert into table_model(
-        table_name,table_comment,db_name,project_code,date_create,date_update,update_user_id,create_user_id
+        table_name,table_comment,db_name,project_code,status,date_create,date_update,update_user_id,create_user_id
         )
         values(
-        #{tableName},#{tableComment},#{dbName},#{projectCode},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        #{tableName},#{tableComment},#{dbName},#{projectCode},#{status},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO">
         update table_model
         set
-        table_name=#{tableName},table_comment=#{tableComment},db_name=#{dbName},project_code=#{projectCode},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        table_name=#{tableName},table_comment=#{tableComment},db_name=#{dbName},project_code=#{projectCode},status=#{status},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
         where  id = #{id}
     </update>
 

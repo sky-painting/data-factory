@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
+import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
 import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import com.tianhua.datafactory.domain.bo.BaseBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
@@ -154,7 +155,7 @@ public class ApiBO extends BaseBO {
     }
 
     public void enable() {
-        this.setStatus(1);
+        this.setStatus(ApiModelFieldStatusEnum.USING.getStatus());
     }
 
     /**

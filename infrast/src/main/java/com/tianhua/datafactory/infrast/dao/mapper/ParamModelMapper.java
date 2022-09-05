@@ -70,4 +70,7 @@ public interface ParamModelMapper{
 
 
 	public List<ParamModelDO> search(String content);
+
+
+	public ParamModelDO getByParamClassName(@Param(value = "projectCode") String projectCode, @Param(value = "paramClassName") String paramClassName);
 }

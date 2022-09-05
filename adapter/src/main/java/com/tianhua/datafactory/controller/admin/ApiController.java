@@ -2,6 +2,7 @@ package com.tianhua.datafactory.controller.admin;
 
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
+import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.PageBean;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
@@ -9,6 +10,7 @@ import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
 import com.tianhua.datafactory.vo.PageVO;
+import com.tianhua.datafactory.vo.project.ApiMockVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.query.ApiQueryVO;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +45,8 @@ public class ApiController extends BaseController {
 
 	@Autowired
 	private PlantUMLApiModelBuilderService plantUMLApiModelBuilderService;
+	@Autowired
+	private ApiMockDataAdapter apiMockDataAdapter;
 
 	/**
 	 *
@@ -171,6 +175,20 @@ public class ApiController extends BaseController {
 		List<ApiBO> list = projectQueryRepository.getApiListByCode(projectCode);
 		return ResultDataDto.success(wrapperApiModel(ApiConverter.INSTANCE.BOs2VOs(list)));
 	}
+
+
+	/**
+	 *
+	 * @Description mock api接口返回值数据
+	 * @param apiMockVO
+	 * @return Boolean
+	 */
+	@RequestMapping(value = "/api/reqmock",method = RequestMethod.POST)
+	public ResultDataDto reqMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
+		Object value = apiMockDataAdapter.getApiMockData(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
+		return ResultDataDto.success(value);
+	}
+
 
 
 }

@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.demomodel;
 
+import com.tianhua.datafactory.domain.enums.ReturnTypeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,10 +15,13 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
 public class UserInfo {
     private Long id;
     private String userName;
     private Integer age;
     private String city;
     private String company;
+
+    private ReturnTypeEnum returnTypeEnum;
 }

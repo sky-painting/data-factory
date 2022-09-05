@@ -3,6 +3,7 @@ package com.tianhua.datafactory.controller.webmock;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.client.factory.ReturnWrapClassFactory;
 import com.tianhua.datafactory.convert.ApiConverter;
+import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
@@ -31,28 +32,21 @@ public class WebMockController {
 
 
     @Autowired
-    private DataFactoryService dataFactoryService;
+    private ApiMockDataAdapter apiMockDataAdapter;
 
-    @Autowired
-    private ReturnWrapClassFactory returnWrapClassFactory;
 
     /**
      * 前后端接口联调时接口的数据mock返回
      * @return
      */
     @RequestMapping(value = "/apimock",method = RequestMethod.GET)
-    public Map<String, Object> getApiResponseData(@RequestParam(value = "apiSign") String apiSign){
+    public Object getApiResponseData(@RequestParam(value = "apiSign") String apiSign,@RequestParam(value = "successData",required = false) Boolean successData){
         try {
-            ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiRespParam(apiSign);
-            List<Map<String, Object>> randomDataList = randomData.getData();
-            if(randomDataList.size() == 1){
-                return returnWrapClassFactory.buildSuccessResultDTO(randomDataList.get(0));
-            }
-            return returnWrapClassFactory.buildSuccessResultDTO(randomDataList);
+            return apiMockDataAdapter.getApiMockData(apiSign, successData);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("获取数据失败",e);
         }
-
+        return ResultDataDto.fail("500","获取mock数据失败,请联系管理员");
     }
 
 

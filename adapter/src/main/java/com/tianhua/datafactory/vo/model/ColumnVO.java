@@ -40,4 +40,13 @@ public class ColumnVO {
      /** 字段类型 **/
      private String columnType;
 
+
+     /**
+      * 状态
+      * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+      */
+     private Integer status;
+
+     public String statusDesc;
+
 }

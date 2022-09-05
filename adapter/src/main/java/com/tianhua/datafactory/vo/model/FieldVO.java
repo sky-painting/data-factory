@@ -76,4 +76,13 @@ public class FieldVO {
     */
    private String buildRuleDSL;
 
+
+   public String statusDesc;
+
+
+   /**
+    * 状态
+    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+    */
+   private Integer status;
 }

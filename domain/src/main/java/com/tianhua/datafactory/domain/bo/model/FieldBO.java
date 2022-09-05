@@ -52,6 +52,14 @@ public class FieldBO {
    private FieldExtBO fieldExtBO;
 
    /**
+    * 状态
+    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+    */
+   private Integer status;
+
+   private String statusDesc;
+
+   /**
     * 构建属性注释
     * @param desc
     */

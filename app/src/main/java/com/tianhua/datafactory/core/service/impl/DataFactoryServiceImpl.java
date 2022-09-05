@@ -95,6 +95,9 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());
         dataBuildRequestBO.setBuildCount(apiBO.getMockCount());
         ParamModelBO paramModelBO = apiBO.getReturnParamModel();
+        if(paramModelBO == null){
+            throw new Exception("接口返回模型为空,请在接口管理中配置返回模型");
+        }
         List<FieldBO> fieldModelBOList = modelQueryRepository.getModelField(apiBO.getProjectCode(), paramModelBO.getParamClassName());
 
         List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();

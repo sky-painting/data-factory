@@ -58,6 +58,9 @@ public class DataEnumController extends BaseController {
             return ResultDataDto.success(ReturnWrapClassEnum.getOptionList());
         }
 
+        if(ApiModelFieldStatusEnum.isApiModelFieldStatus(enumCode)){
+            return ResultDataDto.success(ApiModelFieldStatusEnum.getOptionList());
+        }
         return ResultDataDto.success();
     }
 

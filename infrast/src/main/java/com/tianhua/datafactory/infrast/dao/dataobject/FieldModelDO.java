@@ -44,4 +44,8 @@ public class FieldModelDO{
    private String fieldExtJsonStr;
 
 
+   /**
+    * 状态
+    */
+   private Integer status;
 }

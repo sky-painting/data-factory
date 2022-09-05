@@ -3,6 +3,7 @@ package com.tianhua.datafactory.advisor;
 
 import com.alibaba.fastjson.JSON;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.vo.ResultAmisVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -36,7 +37,11 @@ public class ControllerAdvisor {
             if (StringUtils.isNotBlank(exception.getMessage())) {
                 msg = exception.getMessage();
             }
-            return ResultDataDto.fail("500",msg);
+            ResultAmisVO resultAmisVO = new ResultAmisVO<>();
+            resultAmisVO.setStatus(-1);
+            resultAmisVO.setMsg(msg);
+            resultAmisVO.setCode("500");
+            return resultAmisVO;
         }
     }
 }

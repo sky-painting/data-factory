@@ -222,10 +222,15 @@
             "icon": "fa fa-cube",
             "children": [
               {
-                "label": "数据构建",
+                "label": "数据模型构建",
                 "url": "/workspace/new",
                 "icon": "fa fa-list",
                 "schemaApi": "get:/pages/workspace-new.json"
+              },{
+                "label": "接口返回值mock",
+                "url": "/workspace/apireqmock",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/workspace-apireqmock.json"
               }
             ]
           }

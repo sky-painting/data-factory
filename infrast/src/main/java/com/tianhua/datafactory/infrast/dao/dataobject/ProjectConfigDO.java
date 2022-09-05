@@ -49,4 +49,8 @@ public class ProjectConfigDO{
    /** 创建人 **/
    private Long createUserId;
 
+   /**
+    * 状态
+    */
+   private Integer status;
 }

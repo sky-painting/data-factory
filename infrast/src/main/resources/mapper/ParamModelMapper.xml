@@ -12,6 +12,7 @@
         <result column="param_var_name" property="paramVarName" />
         <result column="param_class_desc" property="paramClassDesc" />
         <result column="module_code" property="moduleCode" />
+        <result column="status" property="status" />
         <result column="model_suffix" property="modelSuffix" />
         <result column="date_create" property="dateCreate" />
         <result column="date_update" property="dateUpdate" />
@@ -27,22 +28,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,project_code,param_class_name,param_class_desc,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
+        id,project_code,param_class_name,param_class_desc,status,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
     </sql>
 
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO" useGeneratedKeys="true">
         insert into param_model(
-        project_code,param_class_name,param_class_desc,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
+        project_code,param_class_name,param_class_desc,status,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
         )
         values(
-        #{projectCode},#{paramClassName},#{paramClassDesc},#{moduleCode},#{modelSuffix},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        #{projectCode},#{paramClassName},#{paramClassDesc},#{status},#{moduleCode},#{modelSuffix},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO">
         update param_model
         set
-        project_code=#{projectCode},param_class_name=#{paramClassName},param_class_desc=#{paramClassDesc},module_code=#{moduleCode},model_suffix=#{modelSuffix},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        project_code=#{projectCode},param_class_name=#{paramClassName},param_class_desc=#{paramClassDesc},status=#{status},module_code=#{moduleCode},model_suffix=#{modelSuffix},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
         where  id = #{id}
     </update>
 
@@ -111,4 +112,8 @@
         </where>
     </select>
 
+
+    <select id="getByParamClassName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model where project_code=#{projectCode} and param_class_name=#{paramClassName}
+    </select>
 </mapper>

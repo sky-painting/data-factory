@@ -68,22 +68,16 @@ public class ProjectRepositoryImpl  implements ProjectRepository{
     @Override
 	public boolean updateProject(ProjectBO projectBO){
         if(StringUtils.isNotEmpty(projectBO.getProjectCode())){
-
             ProjectConfigDO projectConfigDO = ProjectConvert.INSTANCE.bo2do(projectBO);
             projectConfigMapper.update(projectConfigDO);
         }
 
         List<ApiBO> apiBOList = projectBO.getApiList();
         if(CollectionUtils.isNotEmpty(apiBOList)){
-            //整体聚合更新
-            if(StringUtils.isNotEmpty(projectBO.getProjectCode())){
-                apiModelMapper.deleteByProjectCode(projectBO.getProjectCode());
-                for (ApiBO apiBO : apiBOList){
+            for (ApiBO apiBO : apiBOList){
+                if(apiBO.getId() == null) {
                     apiModelMapper.insert(ApiConvert.INSTANCE.bo2do(apiBO));
-                }
-            }else {
-                //局部聚合更新
-                for (ApiBO apiBO : apiBOList){
+                }else {
                     apiModelMapper.update(ApiConvert.INSTANCE.bo2do(apiBO));
                 }
             }

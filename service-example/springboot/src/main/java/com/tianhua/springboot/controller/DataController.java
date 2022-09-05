@@ -64,9 +64,6 @@ public class DataController {
     }
 
 
-
-
-
     @RequestMapping(value = "getlist")
     public List getList(){
         List list = new ArrayList<>();

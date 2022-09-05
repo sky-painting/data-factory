@@ -13,6 +13,7 @@
         <result column="domain_desc" property="domainDesc" />
         <result column="bus_line" property="busLine" />
         <result column="dept_name" property="deptName" />
+        <result column="status" property="status" />
         <result column="date_create" property="dateCreate" />
         <result column="date_update" property="dateUpdate" />
         <result column="update_user_id" property="updateUserId" />
@@ -27,22 +28,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,project_code,project_desc,domain_code,domain_desc,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
+        id,project_code,project_desc,domain_code,status,domain_desc,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
     </sql>
 
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO" useGeneratedKeys="true">
         insert into project_config(
-        project_code,project_desc,domain_code,domain_desc,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
+        project_code,project_desc,domain_code,domain_desc,status,bus_line,dept_name,date_create,date_update,update_user_id,create_user_id
         )
         values(
-        #{projectCode},#{projectDesc},#{domainCode},#{domainDesc},#{busLine},#{deptName},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        #{projectCode},#{projectDesc},#{domainCode},#{domainDesc},#{status},#{busLine},#{deptName},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO">
         update project_config
         set
-        project_desc=#{projectDesc},domain_code=#{domainCode},domain_desc=#{domainDesc},bus_line=#{busLine},dept_name=#{deptName},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        project_desc=#{projectDesc},domain_code=#{domainCode},domain_desc=#{domainDesc},status=#{status},bus_line=#{busLine},dept_name=#{deptName},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
         where  project_code = #{projectCode}
     </update>
 

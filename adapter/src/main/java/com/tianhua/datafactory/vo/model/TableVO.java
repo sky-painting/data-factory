@@ -44,4 +44,11 @@ public class TableVO {
     /** 模型后缀 **/
     private String modelSuffix;
 
+    /**
+     * 状态
+     * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+     */
+    private Integer status;
+    public String statusDesc;
+
 }

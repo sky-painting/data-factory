@@ -51,6 +51,14 @@ public class ParamModelBO extends BaseBO {
    /** 是否是泛型参数 **/
    private boolean isGeneralType;
 
+   /**
+    * 状态
+    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+    */
+   private Integer status;
+
+   private String statusDesc;
+
    /** 参数映射模型 **/
    private  List<ModelMappingBO> modelMappingBOList;
    public ParamModelBO(){}

@@ -32,6 +32,12 @@ public class ApiQueryVO  extends PageVO {
     /**  **/
      String projectCode;
 
+    /**
+     * 状态
+     * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+     */
+    private Integer status;
+
     public PageBean getPageBean(){
         PageBean pageBean = super.getPageBean();
         Map<String,Object> query = new HashMap<>();
@@ -44,8 +50,11 @@ public class ApiQueryVO  extends PageVO {
         if(StringUtils.isNotEmpty(apiSign)){
             query.put("apiSign",apiSign);
         }
-        if(projectCode != null){
+        if(StringUtils.isNotEmpty(projectCode)){
             query.put("projectCode",projectCode);
+        }
+        if(status != null){
+            query.put("status",status);
         }
         pageBean.setQuery(query);
         return pageBean;

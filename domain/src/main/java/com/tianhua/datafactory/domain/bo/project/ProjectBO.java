@@ -43,6 +43,14 @@ public class ProjectBO extends BaseBO {
    /** 项目api列表 **/
    private  List<ApiBO> apiList;
 
+   /**
+    * 状态
+    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+    */
+   private Integer status;
+
+   private String statusDesc;
+
    public ProjectBO(){}
 
    public ProjectBO(String projectCode){

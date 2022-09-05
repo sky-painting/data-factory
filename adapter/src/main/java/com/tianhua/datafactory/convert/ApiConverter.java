@@ -24,6 +24,10 @@ public interface ApiConverter{
 	 * @Description:
 	 * @return ApiVO
 	 */
+	@Mappings({
+			@Mapping(target = "apiReturnWrapTypeDesc",expression = "java(com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum.getDesc(apiBO.getApiReturnWrapType()))"),
+			@Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(apiBO.getStatus()))"),
+	})
 	 ApiVO bo2VO(ApiBO apiBO);
 	/**
 	 *

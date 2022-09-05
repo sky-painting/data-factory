@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.core.service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.domain.ability.ReadDomainPlantUMLDocService;
 import com.tianhua.datafactory.domain.bo.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
@@ -45,6 +46,10 @@ public class PlantUMLDomainModelBuilderService {
     @Autowired
     private ProjectRepository projectRepository;
 
+
+    @Autowired
+    private ProjectQueryRepository projectQueryRepository;
+
     @Autowired
     private ModelQueryRepository modelQueryRepository;
 
@@ -80,8 +85,17 @@ public class PlantUMLDomainModelBuilderService {
                     fieldBO.setProjectCode(projectCode);
                     fieldBO.setFieldDoc("");
                 });
+
                 paramModelBO.setFieldBeanList(fieldBOList);
-                modelRepository.saveParamModel(paramModelBO);
+
+                ParamModelBO oldParamModel = modelRepository.getModel(projectCode, paramModelBO.getParamClassName());
+                if(oldParamModel == null){
+                    modelRepository.saveParamModel(paramModelBO);
+                }else {
+                    paramModelBO.setId(oldParamModel.getId());
+                    modelRepository.updateParamModel(paramModelBO);
+                }
+
             }else {
                 //业务服务api类
                 buildApiBatch(projectCode,classBeanEntry.getKey(),classBeanEntry.getValue().getMethodBeanList());
@@ -95,8 +109,6 @@ public class PlantUMLDomainModelBuilderService {
             }
             buildApiBatch(projectCode,interfaceBeanEntry.getKey(),interfaceBeanEntry.getValue().getMethodBeanList());
         }
-
-
 
         //注册枚举数据源
         registEnumDataSource(projectCode,plantUmlDomainContextBean);
@@ -131,12 +143,35 @@ public class PlantUMLDomainModelBuilderService {
                     paramModelBOList.add(paramModelBO);
                 }
 
+                ParamModelBO returnParamModel = new ParamModelBO();
+                returnParamModel.setGeneralType(false);
+                returnParamModel.setParamClassName(methodBean.getReturnClass());
+                apiBO.setReturnParamModel(returnParamModel);
+
                 apiBO.setParamList(paramModelBOList);
                 apiBO.setReturnValue("");
                 apiBO.setMethodType(MethodTypeEnum.INNER_SERVICE.getType());
-                ProjectBO projectBO = ProjectBO.getInstance();
-                projectBO.addApiBo(apiBO);
-                projectRepository.saveProject(projectBO);
+                apiBO.enable();
+                apiBO.buildApiSign();
+
+                ApiBO oldApi =projectQueryRepository.getBySign(apiBO.getApiSign());
+                if(oldApi == null){
+                    ProjectBO projectBO = ProjectBO.getInstance();
+                    projectBO.addApiBo(apiBO);
+                    projectRepository.saveProject(projectBO);
+                }else {
+                    apiBO.setId(oldApi.getId());
+                    //部分用户设置好的数据则不更新
+                    apiBO.setMockCount(oldApi.getMockCount());
+                    apiBO.setStatus(oldApi.getStatus());
+                    apiBO.setApiReturnWrapType(oldApi.getApiReturnWrapType());
+                    apiBO.setModuleCode(oldApi.getModuleCode());
+                    ProjectBO projectBO = ProjectBO.getInstance();
+                    projectBO.addApiBo(apiBO);
+                    projectRepository.updateProject(projectBO);
+                }
+
+
             }
         }
     }

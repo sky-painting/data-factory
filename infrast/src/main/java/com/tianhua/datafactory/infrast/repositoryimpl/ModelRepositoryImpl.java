@@ -8,6 +8,7 @@ import com.tianhua.datafactory.domain.event.DataSourceBindEvent;
 import com.tianhua.datafactory.domain.repository.ModelRepository;
 
 import com.tianhua.datafactory.domain.util.AppEventPublisher;
+import com.tianhua.datafactory.infrast.dao.dataobject.FieldModelDO;
 import com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO;
 import com.tianhua.datafactory.infrast.dao.dataobject.TableModelDO;
 import com.tianhua.datafactory.infrast.dao.mapper.*;
@@ -101,12 +102,16 @@ public class ModelRepositoryImpl  implements ModelRepository{
     @Override
 	public boolean saveParamModel(ParamModelBO paramModelBO){
         paramModelBO.init();
+
         paramModelMapper.insert(ParamModelConvert.INSTANCE.bo2do(paramModelBO));
+
         List<FieldBO> fieldBOList = paramModelBO.getFieldBeanList();
         if(org.apache.commons.collections.CollectionUtils.isNotEmpty(fieldBOList)){
             for (FieldBO fieldBO : fieldBOList){
                 fieldBO.setProjectCode(paramModelBO.getProjectCode());
                 fieldBO.setParamClassName(paramModelBO.getParamClassName());
+
+
                 fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));
             }
         }
@@ -124,10 +129,13 @@ public class ModelRepositoryImpl  implements ModelRepository{
         List<FieldBO> fieldBOList = paramModelBO.getFieldBeanList();
         if(org.apache.commons.collections.CollectionUtils.isNotEmpty(fieldBOList)){
             for (FieldBO fieldBO : fieldBOList){
-                if(fieldBO.getId() == null){
+                FieldModelDO fieldModelDO = fieldModelMapper.getByCodeField(paramModelBO.getProjectCode(), paramModelBO.getParamClassName(), fieldBO.getFieldName());
+                if(fieldModelDO == null){
                     fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));
                 }else {
-                    fieldModelMapper.update(FieldModelConvert.INSTANCE.bo2do(fieldBO));
+                    fieldModelDO.setFieldType(fieldBO.getFieldType());
+                    fieldModelDO.setFieldDesc(fieldBO.getFieldDesc());
+                    fieldModelMapper.update(fieldModelDO);
                 }
             }
         }
@@ -141,6 +149,13 @@ public class ModelRepositoryImpl  implements ModelRepository{
         List<ParamModelBO> paramModelBOS = ParamModelConvert.INSTANCE.doList2boList(paramModelDOList);
 
         return paramModelBOS;
+    }
+
+    @Override
+    public ParamModelBO getModel(String projectCode, String paramClassName) {
+        ParamModelDO paramModelDO = paramModelMapper.getByParamClassName(projectCode, paramClassName);
+
+        return ParamModelConvert.INSTANCE.do2bo(paramModelDO);
     }
 
     @Override

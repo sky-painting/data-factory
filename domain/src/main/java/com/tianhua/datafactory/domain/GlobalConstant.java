@@ -50,5 +50,11 @@ public class GlobalConstant {
      */
     public static final String CHAIN_FLOW = "dataProcessingFlowChain";
 
+    /**
+     * 数据源编码分隔符
+     */
+    public static final String  SPLIT_FLAG = "#";
+
+
 }
 

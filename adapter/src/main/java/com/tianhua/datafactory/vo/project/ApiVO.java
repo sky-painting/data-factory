@@ -92,4 +92,7 @@ public class ApiVO extends BaseVO {
       */
      private String requestParamClasses;
 
+     public String statusDesc;
+
+
  }

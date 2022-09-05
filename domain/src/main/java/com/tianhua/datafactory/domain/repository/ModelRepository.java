@@ -64,6 +64,17 @@ public interface ModelRepository{
 	 */
      List<ParamModelBO> getModelByProjectCode(String projectCode);
 
+
+	/**
+	 *
+	 * @Description 获取参数模型 模型维度接口
+	 * @param projectCode
+	 * @return List<ParamModelBO>
+	 */
+	ParamModelBO getModel(String projectCode, String paramClassName);
+
+
+
 	/**
 	 *
 	 * @Description 保存模型后缀信息

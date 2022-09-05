@@ -37,7 +37,6 @@ public enum ReturnWrapClassEnum {
         this.returnWrapDesc = returnWrapDesc;
     }
 
-
     public static boolean isReturnWrapClass(String enumCode){
         return "returnWrapClass".equals(enumCode);
     }
@@ -61,4 +60,40 @@ public enum ReturnWrapClassEnum {
     public String getReturnWrapDesc() {
         return returnWrapDesc;
     }
+
+
+    public static String getDesc(Integer returnWrapCode){
+        if(returnWrapCode == null){
+            returnWrapCode = 0;
+        }
+        for (ReturnWrapClassEnum returnWrapClassEnum : ReturnWrapClassEnum.values()){
+            if(returnWrapClassEnum.getReturnWrapCode().intValue() == returnWrapCode.intValue()){
+                return returnWrapClassEnum.getReturnWrapDesc();
+            }
+        }
+        return "";
+    }
+
+    public static  boolean isOrigin(Integer returnWrapCode){
+        if(returnWrapCode == null){
+            return true;
+        }
+        return ReturnWrapClassEnum.RESULT_ORIGIN.getReturnWrapCode().intValue() == returnWrapCode.intValue();
+    }
+
+    public static  boolean isResultDTO(Integer returnWrapCode){
+        if(returnWrapCode == null){
+            return false;
+        }
+        return ReturnWrapClassEnum.RESULT_DTO.getReturnWrapCode().intValue() == returnWrapCode.intValue();
+    }
+
+    public static  boolean isResultPageDTO(Integer returnWrapCode){
+        if(returnWrapCode == null){
+            return false;
+        }
+        return ReturnWrapClassEnum.RESULT_PAGE_DTO.getReturnWrapCode().intValue() == returnWrapCode.intValue();
+    }
+
+
 }

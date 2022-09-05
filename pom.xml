@@ -27,8 +27,10 @@
     <module>domain</module>
     <module>infrast</module>
     <module>start-local</module>
-      <module>service-example</module>
-      <module>service-example/springboot</module>
+    <module>service-example</module>
+    <module>service-example/springboot</module>
+    <module>service-example/springcloud</module>
+    <module>start-cloud</module>
   </modules>
 
   <properties>

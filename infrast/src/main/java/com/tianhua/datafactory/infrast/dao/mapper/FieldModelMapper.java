@@ -73,4 +73,12 @@ public interface FieldModelMapper{
 	 * @return
 	 */
 	public List<FieldModelDO> getByCode(String projectCode, String paramClassName);
+
+	/**
+	 * 根据项目名称和模型名称获取属性列表
+	 * @param projectCode
+	 * @param paramClassName
+	 * @return
+	 */
+	public FieldModelDO getByCodeField(String projectCode, String paramClassName,String fieldName);
 }
