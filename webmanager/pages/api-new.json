@@ -49,15 +49,6 @@
         },
         {
           "type": "input-text",
-          "name": "returnType",
-          "label": "api返回类型",
-          "required": true
-        },
-        {
-          "type": "divider"
-        },
-        {
-          "type": "input-text",
           "name": "methodType",
           "label": "api请求方式",
           "required": true,
@@ -111,7 +102,6 @@
           "type": "textarea",
           "name": "apiDoc",
           "label": "api文档",
-          "required": true,
           "maxRows": 500,
           "showCounter": true,
           "required": true
@@ -120,10 +110,27 @@
           "type": "divider"
         },
         {
+          "type": "input-text",
+          "name": "mockCount",
+          "label": "接口返回值mock数量"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "apiReturnWrapType",
+          "label": "api返回包装类型",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/returnWrapClass"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "textarea",
           "name": "returnValue",
           "label": "返回值列表(多个逗号分割)",
-          "required": true,
           "maxRows": 500,
           "showCounter": true,
           "required": true

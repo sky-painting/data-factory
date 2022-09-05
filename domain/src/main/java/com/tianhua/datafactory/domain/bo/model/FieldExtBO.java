@@ -64,4 +64,10 @@ public class FieldExtBO {
      */
     private String subfixStr;
 
+
+    /**
+     * 构建的属性模型DSL描述
+     */
+    private String buildRuleDSL;
+
 }

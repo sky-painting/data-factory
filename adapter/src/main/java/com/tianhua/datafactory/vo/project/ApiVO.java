@@ -3,7 +3,7 @@ package com.tianhua.datafactory.vo.project;
 import java.util.List;
 import java.util.Map;
 
-import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
+import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import com.tianhua.datafactory.vo.BaseVO;
 import com.tianhua.datafactory.vo.model.ParamModelVO;
 import lombok.Data;
@@ -66,7 +66,16 @@ public class ApiVO extends BaseVO {
       */
      private Integer mockCount;
 
+     /**
+      * api返回包装类型
+      * @see ReturnWrapClassEnum
+      */
+     private Integer apiReturnWrapType;
 
+     /**
+      * api返回包装类型名称
+      */
+     private String apiReturnWrapTypeDesc;
 
      /**
       * 上传的plantuml文件

@@ -6,9 +6,11 @@ import com.tianhua.datafactory.core.service.FieldValueFactory;
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
+import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
@@ -48,6 +50,11 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Autowired
     private ProjectQueryRepository projectQueryRepository;
 
+
+    @Autowired
+    private ModelQueryRepository modelQueryRepository;
+
+
     @Override
     public ResultDataDto<List<Map<String, Object>>> generateData(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         randomThreadLocal.set(new SecureRandom());
@@ -86,11 +93,22 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setApiSign(apiSign);
         dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());
-
-
+        dataBuildRequestBO.setBuildCount(apiBO.getMockCount());
         ParamModelBO paramModelBO = apiBO.getReturnParamModel();
-        paramModelBO.getFieldBeanList();
+        List<FieldBO> fieldModelBOList = modelQueryRepository.getModelField(apiBO.getProjectCode(), paramModelBO.getParamClassName());
 
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+        for (FieldBO fieldBO : fieldModelBOList){
+            DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO<>();
+            dataBuildRequestFieldBO.setFieldType(fieldBO.getFieldType());
+            dataBuildRequestFieldBO.setFieldName(fieldBO.getFieldName());
+            dataBuildRequestFieldBO.setDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
+            dataBuildRequestFieldBO.setDefaultValueList(fieldBO.getFieldExtBO().getDefaultValueList());
+            dataBuildRequestFieldBO.setBuildRuleDSL(fieldBO.getFieldExtBO().getBuildRuleDSL());
+            fieldBOList.add(dataBuildRequestFieldBO);
+        }
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
 
 
         return generateData(dataBuildRequestBO);

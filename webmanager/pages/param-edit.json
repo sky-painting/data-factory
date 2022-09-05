@@ -120,6 +120,11 @@
               "name": "defaultValueList",
               "type": "textarea",
               "label": "默认值列表"
+            },
+            {
+              "name": "buildRuleDSL",
+              "type": "textarea",
+              "label": "属性dsl"
             }
           ]
         }

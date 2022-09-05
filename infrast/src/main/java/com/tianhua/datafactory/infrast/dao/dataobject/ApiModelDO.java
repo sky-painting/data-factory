@@ -2,7 +2,7 @@ package com.tianhua.datafactory.infrast.dao.dataobject;
 
 import java.util.Date;
 
-import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
+import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import lombok.Data;
 import lombok.ToString;
 
@@ -26,7 +26,7 @@ public class ApiModelDO{
    /** api信息 **/
    private String apiUrl;
 
-   /** api信息 **/
+   /** api类型 **/
    private String apiType;
 
    /** api返回值集合 **/
@@ -52,6 +52,13 @@ public class ApiModelDO{
     */
    private Integer mockCount;
 
+   /**
+    * api返回包装类型
+    * @see ReturnWrapClassEnum
+    */
+   private Integer apiReturnWrapType;
+
+
 
    /**
     * 响应参数元信息
@@ -72,9 +79,6 @@ public class ApiModelDO{
 
    /** 创建人 **/
    private Long createUserId;
-
-
-
 
 
 }

@@ -355,5 +355,19 @@ public class DataFactoryTest {
     }
 
 
+    @Test
+    public void testgenerateDataApiRespParam(){
+        String apiSign = "sdfasdf:/api/pagelist.get.1";
+        try {
+            ResultDataDto<List<Map<String, Object>>> resultDataDto = dataFactoryService.generateDataApiRespParam(apiSign);
+            log.info("resultDataDto = {}",JSON.toJSONString(resultDataDto));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
 }

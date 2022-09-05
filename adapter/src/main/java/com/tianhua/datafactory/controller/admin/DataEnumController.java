@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.controller.admin;
 
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.domain.enums.*;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,9 @@ public class DataEnumController extends BaseController {
             return ResultDataDto.success(RegistServerEnum.getOptionList());
         }
 
-
+        if(ReturnWrapClassEnum.isReturnWrapClass(enumCode)){
+            return ResultDataDto.success(ReturnWrapClassEnum.getOptionList());
+        }
 
         return ResultDataDto.success();
     }

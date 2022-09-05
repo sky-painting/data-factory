@@ -1,15 +1,17 @@
 package com.tianhua.datafactory.controller.webmock;
 
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.client.factory.ReturnWrapClassFactory;
 import com.tianhua.datafactory.convert.ApiConverter;
 import com.tianhua.datafactory.core.service.DataFactoryService;
-import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
  * @since JDK 1.8
  */
 @RestController
+@Slf4j
 public class WebMockController {
 
     @Autowired
@@ -30,19 +33,26 @@ public class WebMockController {
     @Autowired
     private DataFactoryService dataFactoryService;
 
+    @Autowired
+    private ReturnWrapClassFactory returnWrapClassFactory;
+
     /**
      * 前后端接口联调时接口的数据mock返回
      * @return
      */
-    @RequestMapping(value = "/apimock/{apiSign}",method = RequestMethod.GET)
-    public String getApiResponseData(@PathVariable(value = "apiSign") String apiSign){
-
+    @RequestMapping(value = "/apimock",method = RequestMethod.GET)
+    public Map<String, Object> getApiResponseData(@RequestParam(value = "apiSign") String apiSign){
         try {
-            dataFactoryService.generateDataApiRespParam(apiSign);
+            ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiRespParam(apiSign);
+            List<Map<String, Object>> randomDataList = randomData.getData();
+            if(randomDataList.size() == 1){
+                return returnWrapClassFactory.buildSuccessResultDTO(randomDataList.get(0));
+            }
+            return returnWrapClassFactory.buildSuccessResultDTO(randomDataList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return "";
+
     }
 
 

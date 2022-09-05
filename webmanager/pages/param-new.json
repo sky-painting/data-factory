@@ -71,7 +71,6 @@
           "label": "模型后缀",
           "required": true,
           "source": "http://127.0.0.1:8090/modelsuffix/listoption"
-
         },
         {
           "type": "divider"
@@ -134,6 +133,11 @@
               "name": "defaultValueList",
               "type": "textarea",
               "label": "默认值列表"
+            },
+            {
+              "name": "buildRuleDSL",
+              "type": "textarea",
+              "label": "属性dsl"
             }
 
           ]

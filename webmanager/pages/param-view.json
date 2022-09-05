@@ -110,6 +110,11 @@
               "name": "defaultValueList",
               "type": "static",
               "label": "默认值列表"
+            },
+            {
+              "name": "buildRuleDSL",
+              "type": "static",
+              "label": "属性dsl"
             }
           ]
         }

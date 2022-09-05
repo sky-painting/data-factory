@@ -2,10 +2,10 @@ package com.tianhua.datafactory.domain.bo.project;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
+import com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum;
 import com.tianhua.datafactory.domain.bo.BaseBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 
@@ -98,6 +98,9 @@ public class ApiBO extends BaseBO {
     private String returnParam;
 
 
+    /**
+     * api返回参数类名
+     */
     private String returnParamClass;
     /**
      * 请求参数列表
@@ -120,6 +123,13 @@ public class ApiBO extends BaseBO {
      * 模拟后端数据返回
      */
     private Integer mockCount;
+
+
+    /**
+     * api返回包装类型
+     * @see ReturnWrapClassEnum
+     */
+    private Integer apiReturnWrapType;
 
 
 
@@ -163,6 +173,9 @@ public class ApiBO extends BaseBO {
     }
 
 
+    /**
+     * 构建返回参数模型
+     */
     public void buildReturnParamModel() {
         if (StringUtils.isNotEmpty(returnParam)) {
             this.returnParamModel = JSON.parseObject(returnParam,ParamModelBO.class);
@@ -172,10 +185,15 @@ public class ApiBO extends BaseBO {
         }
     }
 
-
+    /**
+     * 构建请求参数模型
+     */
     public void buildRequestParam() {
         if (StringUtils.isNotEmpty(requestParam)) {
             this.paramList = JSON.parseArray(requestParam,ParamModelBO.class);
+            if(this.paramList == null || this.paramList.isEmpty()){
+                return;
+            }
             List<String> requestParamClassList =  this.paramList.stream().map(ParamModelBO::getParamClassName).collect(Collectors.toList());
             this.requestParamClasses = StringUtils.join(requestParamClassList,",");
         }

@@ -14,6 +14,8 @@
         <result column="api_sign" property="apiSign" />
         <result column="api_doc" property="apiDoc" />
         <result column="method_type" property="methodType" />
+        <result column="return_wrap_type" property="apiReturnWrapType" />
+        <result column="mock_count" property="mockCount" />
         <result column="request_param" property="requestParam" />
         <result column="return_param" property="returnParam" />
         <result column="status" property="status" />
@@ -31,22 +33,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
+        id,project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,mock_count,return_wrap_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
     </sql>
 
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO" useGeneratedKeys="true">
         insert into api_model(
-        project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
+        project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,mock_count,return_wrap_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
         )
         values(
-        #{projectCode},#{apiUrl},#{apiType},#{returnValue},#{apiSign},#{apiDoc},#{methodType},#{requestParam},#{returnParam},#{status},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        #{projectCode},#{apiUrl},#{apiType},#{returnValue},#{apiSign},#{apiDoc},#{methodType},#{mockCount},#{apiReturnWrapType},#{requestParam},#{returnParam},#{status},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
         )
     </insert>
 
     <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO">
         update api_model
         set
-        project_code=#{projectCode},api_url=#{apiUrl},api_type=#{apiType},api_return_value=#{returnValue},api_sign=#{apiSign},api_doc=#{apiDoc},method_type=#{methodType},request_param=#{requestParam},return_param=#{returnParam},status=#{status},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        project_code=#{projectCode},api_url=#{apiUrl},api_type=#{apiType},api_return_value=#{returnValue},api_sign=#{apiSign},api_doc=#{apiDoc},method_type=#{methodType},mock_count=#{mockCount},return_wrap_type=#{apiReturnWrapType},request_param=#{requestParam},return_param=#{returnParam},status=#{status},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
         where  id = #{id}
     </update>
 

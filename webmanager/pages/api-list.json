@@ -139,6 +139,11 @@
         },
         {
           "type": "text",
+          "name": "apiReturnWrapTypeDesc",
+          "label": "api返回包装类型"
+        },
+        {
+          "type": "text",
           "name": "methodType",
           "label": "api请求方式",
           "searchable": {
