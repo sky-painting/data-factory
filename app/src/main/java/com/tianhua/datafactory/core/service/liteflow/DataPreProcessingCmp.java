@@ -34,10 +34,9 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@LiteflowComponent(id = "dataPreProcessingCmp", name = "组装数据")
+@LiteflowComponent(id = "dataPreProcessingCmp", name = "数据构建预处理")
 @Slf4j
 public class DataPreProcessingCmp extends NodeComponent {
-
 
     @Autowired
     private DataSourceQueryRepository dataSourceQueryRepository;
@@ -91,6 +90,7 @@ public class DataPreProcessingCmp extends NodeComponent {
         List<DataBuildRequestFieldBO> dataBuildRequestFieldBeans = dataBuildRequestBO.getFieldBOList();
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBeans){
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getDataSourceCode())){
+                log.warn("当前属性没有绑定数据源,无法生成对应数据值,fieldName = {}, apiSign = {}",dataBuildRequestFieldBO.getFieldName(),dataBuildRequestBO.getApiSign());
                 continue;
             }
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataBuildRequestFieldBO.getDataSourceCode());

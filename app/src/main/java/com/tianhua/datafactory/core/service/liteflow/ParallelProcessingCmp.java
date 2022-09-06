@@ -23,7 +23,7 @@ import java.util.concurrent.*;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@LiteflowComponent(id = "parallelProcessingCmp", name = "线程池执行数据构建任务")
+@LiteflowComponent(id = "parallelProcessingCmp", name = "并行执行数据构建任务")
 @Slf4j
 public class ParallelProcessingCmp  extends NodeComponent {
 

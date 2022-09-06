@@ -25,7 +25,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@LiteflowComponent(id = "serialProcessingCmp", name = "单线程执行数据构建任务")
+@LiteflowComponent(id = "serialProcessingCmp", name = "串行执行数据构建任务")
 public class SerialProcessingCmp extends NodeComponent {
     @Autowired
     private FieldValueFactory fieldValueFactory;
