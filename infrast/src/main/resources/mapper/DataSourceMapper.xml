@@ -47,7 +47,7 @@
     </update>
 
     <select id="getAll" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from data_source where status = 1;
+        select <include refid="Base_Column_List" />  from data_source where status in(0,1)
     </select>
 
     <select id="getById"  resultMap="BaseResultMap">
@@ -60,7 +60,7 @@
 
     <select id="getBySourceCode" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO"
             resultMap="BaseResultMap" >
-        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode} and status = 1;
+        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode} and status in(0,1);
 
     </select>
 
@@ -137,7 +137,7 @@
         select <include refid="Base_Column_List" /> from data_source
         <where>
             <if test="content != null">
-                and (source_name  like concat('%',#{content},'%') or source_code  like concat('%',#{content},'%') or url  like concat('%',#{content},'%'))
+                and (source_name  like concat('%',#{content},'%') or source_code  like concat('%',#{content},'%') or url  like concat('%',#{content},'%')) and status in(0,1)
             </if>
         </where>
     </select>

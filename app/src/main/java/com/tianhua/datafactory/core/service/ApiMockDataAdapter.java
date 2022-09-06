@@ -47,8 +47,7 @@ public class ApiMockDataAdapter {
         Map<String, Object> resultMap = new HashMap<>();
         ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
         if(apiBO == null){
-            //todo throw exception
-            return resultMap;
+            throw  new Exception("根据apiSign找不到对应的API模型");
         }
 
         ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiRespParam(apiSign);

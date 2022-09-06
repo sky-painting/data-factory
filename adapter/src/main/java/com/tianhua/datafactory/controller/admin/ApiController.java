@@ -1,6 +1,8 @@
 package com.tianhua.datafactory.controller.admin;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
@@ -188,8 +190,25 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = "/api/reqmock",method = RequestMethod.POST)
 	public ResultDataDto reqMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
 		Object value = apiMockDataAdapter.getApiMockData(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
-		return ResultDataDto.success(value);
+		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
+		apiMockVO.setMockResultData(jsonValue);
+		return ResultDataDto.success(apiMockVO);
 	}
+
+	/**
+	 *
+	 * @Description mock api接口入参mock
+	 * @param apiMockVO
+	 * @return Boolean
+	 */
+	@RequestMapping(value = "/api/respmock",method = RequestMethod.POST)
+	public ResultDataDto respMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
+
+		//todo make it
+		return ResultDataDto.success(null);
+	}
+
+
 
 
 

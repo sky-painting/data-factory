@@ -29,4 +29,10 @@ public class ApiMockVO extends BaseVO {
      * 适用于对外接口返回场景
      */
     private Boolean successData;
+
+
+    /**
+     * mock数据结果
+     */
+    private String mockResultData;
 }

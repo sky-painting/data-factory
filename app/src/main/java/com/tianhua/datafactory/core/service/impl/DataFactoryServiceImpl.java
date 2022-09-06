@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.core.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
@@ -89,7 +90,7 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception {
 
         ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
-
+        log.info("构建接口mock数据的apiBO = {}", JSON.toJSONString(apiBO));
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setApiSign(apiSign);
         dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());

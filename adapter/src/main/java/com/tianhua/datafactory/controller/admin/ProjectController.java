@@ -64,6 +64,7 @@ public class ProjectController extends BaseController {
 	@RequestMapping(value = "/project/getByCode/{projectCode}")
 	public ResultDataDto<ProjectVO> getByCode(@PathVariable(value = "projectCode") String projectCode){
 		ProjectBO projectBO = projectRepository.getByCode(projectCode);
+		projectBO.setApiList(null);
 		return ResultDataDto.success(ProjectConverter.INSTANCE.bo2VO(projectBO));
 	}
 

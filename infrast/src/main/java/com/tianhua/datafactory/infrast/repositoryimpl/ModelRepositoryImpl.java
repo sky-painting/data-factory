@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.infrast.repositoryimpl;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.domain.bo.model.*;
 
 import java.util.List;
@@ -135,6 +136,10 @@ public class ModelRepositoryImpl  implements ModelRepository{
                 if(fieldModelDO == null){
                     fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));
                 }else {
+                    //导入的话不会存在fieldExtBO,页面修改的时候可能会存在
+                    if(StringUtils.isNotEmpty(fieldBO.getFieldExtBO().getDataSourceCode())){
+                        fieldModelDO.setFieldExtJsonStr(JSON.toJSONString(fieldBO.getFieldExtBO()));
+                    }
                     fieldModelDO.setFieldType(fieldBO.getFieldType());
                     fieldModelDO.setFieldDesc(fieldBO.getFieldDesc());
                     fieldModelMapper.update(fieldModelDO);

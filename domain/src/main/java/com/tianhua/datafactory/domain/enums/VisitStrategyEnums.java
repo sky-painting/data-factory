@@ -45,6 +45,9 @@ public enum VisitStrategyEnums {
     }
 
     public static String getDesc(Integer visit){
+        if(visit == null){
+            return "";
+        }
         for (VisitStrategyEnums visitStrategyEnums : VisitStrategyEnums.values()){
             if(visitStrategyEnums.getCode() == visit.intValue()){
                 return visitStrategyEnums.getDesc();

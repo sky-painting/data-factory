@@ -15,8 +15,6 @@
       "type": "form",
       "mode": "horizontal",
       "api": "http://127.0.0.1:8090/api/reqmock",
-      "redirect": "/index/1",
-
       "actions": [
         {
           "type": "submit",
@@ -44,6 +42,15 @@
           "label": "Api签名",
           "source": "http://127.0.0.1:8090/api/searchApiSign?projectCode=${projectCode}",
           "required": false
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "label": "数据mock结果"
         }
 
       ]

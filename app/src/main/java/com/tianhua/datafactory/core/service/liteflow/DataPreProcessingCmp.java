@@ -90,10 +90,14 @@ public class DataPreProcessingCmp extends NodeComponent {
         List<DataBuildRequestFieldBO> dataBuildRequestFieldBeans = dataBuildRequestBO.getFieldBOList();
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBeans){
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getDataSourceCode())){
-                log.warn("当前属性没有绑定数据源,无法生成对应数据值,fieldName = {}, apiSign = {}",dataBuildRequestFieldBO.getFieldName(),dataBuildRequestBO.getApiSign());
+                log.warn("当前属性没有绑定数据源,无法生成对应数据值,fieldName = {}, apiSign = {}, paramModelCode = {}",dataBuildRequestFieldBO.getFieldName(),dataBuildRequestBO.getApiSign(),dataBuildRequestBO.getParamModelCode());
                 continue;
             }
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(dataBuildRequestFieldBO.getDataSourceCode());
+            if(dataSourceBO == null){
+                log.error("当前属性已绑定数据源,但找不到对应的数据源信息,fieldName = {},  dataSourceCode = {}",dataBuildRequestFieldBO.getFieldName(), dataBuildRequestFieldBO.getDataSourceCode());
+                continue;
+            }
             dataBuildRequestFieldBO.setDataSourceType(dataSourceBO.getSourceType());
             dataBuildRequestFieldBO.setDataSourceBO(dataSourceBO);
         }
@@ -213,7 +217,7 @@ public class DataPreProcessingCmp extends NodeComponent {
             dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealValueType());
         }
 
-        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> StringUtils.isNotEmpty(genericTypeBO.getRealType()) && genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
         if(optional.isPresent()){
             return true;
         }

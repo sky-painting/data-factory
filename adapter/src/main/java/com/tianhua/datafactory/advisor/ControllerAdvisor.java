@@ -41,6 +41,8 @@ public class ControllerAdvisor {
             resultAmisVO.setStatus(-1);
             resultAmisVO.setMsg(msg);
             resultAmisVO.setCode("500");
+            log.warn("resultAmisVO = {}", JSON.toJSONString(resultAmisVO));
+
             return resultAmisVO;
         }
     }

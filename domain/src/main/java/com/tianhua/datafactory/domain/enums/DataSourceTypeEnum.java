@@ -45,6 +45,9 @@ public enum DataSourceTypeEnum {
     }
 
     public static String getDesc(Integer enumCode){
+        if(enumCode == null){
+            return "";
+        }
        for (DataSourceTypeEnum dataSourceTypeEnum : DataSourceTypeEnum.values()){
            if(dataSourceTypeEnum.getCode() == enumCode.intValue()){
                return dataSourceTypeEnum.getDesc();
