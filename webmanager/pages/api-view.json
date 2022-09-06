@@ -72,6 +72,14 @@
           "type": "divider"
         },
         {
+          "type": "static",
+          "name": "returnParamClass",
+          "label": "api出参类型"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "label": "入参列表",
           "type": "input-table",
           "name": "paramList",

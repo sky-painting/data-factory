@@ -36,8 +36,6 @@ public class DataSourceVO extends BaseVO {
 	/** 数据源访问url **/
 	private String url;
 
-	/** 状态(0正常,1过期) **/
-	private Integer status;
 
 	/** 访问策略 **/
 	private Integer visitStrategy;

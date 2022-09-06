@@ -131,8 +131,6 @@ public class DataSourceRepositoryImpl implements DataSourceRepository {
 
     @Override
     public Boolean update(DataSourceBO dataSourceBO) throws Exception {
-        dataSourceBO.init();
-        dataSourceBO.enable();
         DataSourceDO dataSourceDO = DataSourceConvert.INSTANCE.bo2do(dataSourceBO);
         dataSourceMapper.update(dataSourceDO);
         if (CollectionUtils.isNotEmpty(dataSourceBO.getDataSourceReqConfigList())) {

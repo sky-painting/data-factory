@@ -80,6 +80,17 @@
         },
         {
           "type": "text",
+          "name": "statusDesc",
+          "label": "api状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
+        },
+        {
+          "type": "text",
           "name": "providerService",
           "label": "数据源所属服务",
           "searchable": {
@@ -104,11 +115,6 @@
             "source": "http://127.0.0.1:8090/dataEnum/visiteStrategy"
 
           }
-        },
-        {
-          "type": "text",
-          "name": "structType",
-          "label": "数据源格式"
         },
 
         {

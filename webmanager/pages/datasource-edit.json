@@ -34,10 +34,20 @@
         "type": "divider"
       },
       {
-        "type": "input-text",
+        "type": "static",
         "name": "sourceCode",
         "label": "数据源编码",
         "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "status",
+        "label": "状态",
+        "required": true,
+        "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
       },
       {
         "type": "divider"
@@ -53,7 +63,7 @@
         "type": "divider"
       },
       {
-        "type": "input-text",
+        "type": "static",
         "name": "providerService",
         "label": "数据源所属服务",
         "required": true

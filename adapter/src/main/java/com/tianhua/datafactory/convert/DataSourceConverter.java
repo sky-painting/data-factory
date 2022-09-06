@@ -35,7 +35,11 @@ public interface DataSourceConverter {
     @Mappings({
             @Mapping(target = "dataSourceReqConfigList",expression = "java(DataSourceReqConverter.INSTANCE.bo2VOs(dataSourceBO.getDataSourceReqConfigList()))"),
             @Mapping(target = "dataSourceRespConfigList",expression = "java(DataSourceRespConverter.INSTANCE.bo2VOs(dataSourceBO.getDataSourceRespConfigList()))"),
-            @Mapping(target = "kvPairList",expression = "java(KVPairConverter.INSTANCE.BOs2VOs(dataSourceBO.getKvPairList()))")
+            @Mapping(target = "kvPairList",expression = "java(KVPairConverter.INSTANCE.BOs2VOs(dataSourceBO.getKvPairList()))"),
+            @Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(dataSourceBO.getStatus()))"),
+            @Mapping(target = "visitStrategyDesc",expression = "java(com.tianhua.datafactory.domain.enums.VisitStrategyEnums.getDesc(dataSourceBO.getVisitStrategy()))"),
+            @Mapping(target = "sourceTypeDesc",expression = "java(com.tianhua.datafactory.domain.enums.DataSourceTypeEnum.getDesc(dataSourceBO.getSourceType()))"),
+
     })
     DataSourceVO bo2VO(DataSourceBO dataSourceBO);
 

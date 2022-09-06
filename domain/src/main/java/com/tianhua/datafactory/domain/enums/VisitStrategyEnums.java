@@ -11,21 +11,21 @@ public enum VisitStrategyEnums {
     /**
      * 内置数据源或者导入的数据源文件，json,excel等
      */
-    LOCAL_FILE(2,"本地文件"),
+    LOCAL_FILE(2,"文件数据源"),
     /**
      * 内置数据源或者导入的数据源文件，json,excel等
      */
-    INNER_FUNCTION(3,"内置函数"),
+    INNER_FUNCTION(3,"内置函数数据源"),
 
     /**
      * 这里指数据工厂平台会通过定时任务获取数据源更新到数据工厂平台本身的数据库中
      */
-    LOCAL_CACHE(1,"本地缓存"),
+    LOCAL_CACHE(1,"项目数据源"),
     /**
      * 这里则每次使用都会通过url的方式获取最新数据
      *
      */
-    DYNAMIC_ACCESS(0,"远程动态获取"),
+    DYNAMIC_ACCESS(0,"远程API数据源"),
     ;
     private int code;
     private String desc;

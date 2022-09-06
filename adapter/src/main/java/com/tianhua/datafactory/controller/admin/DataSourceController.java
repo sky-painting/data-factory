@@ -63,6 +63,7 @@ public class DataSourceController extends BaseController {
     @RequestMapping(value = "/datasource/update/{id}",method = RequestMethod.POST)
     public ResultDto update(@PathVariable(value = "id") Long id, @RequestBody DataSourceVO dataSourceVo){
 		try {
+			dataSourceVo.init();
 			dataSourceVo.setId(id);
 			dataSourceRepository.update(DataSourceConverter.INSTANCE.vo2bo(dataSourceVo));
 			return ResultDto.success();

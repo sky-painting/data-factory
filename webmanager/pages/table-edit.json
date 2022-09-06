@@ -13,6 +13,7 @@
     {
       "type": "form",
       "mode": "horizontal",
+      "redirect": "/table/list",
       "initApi": "http://127.0.0.1:8090/table/getById/${params.id}",
       "api": "http://127.0.0.1:8090/table/update/${params.id}",
       "actions": [

@@ -36,7 +36,15 @@
       },
       {
         "type": "static",
-        "name": "visitStrategy",
+        "name": "statusDesc",
+        "label": "状态"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "visitStrategyDesc",
         "label": "数据源访问策略"
       },
       {
@@ -60,7 +68,7 @@
       },
       {
         "type": "static",
-        "name": "sourceType",
+        "name": "sourceTypeDesc",
         "label": "数据源类型"
       },
       {

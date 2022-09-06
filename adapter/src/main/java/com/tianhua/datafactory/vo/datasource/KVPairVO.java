@@ -17,7 +17,6 @@ import lombok.Data;
  *
  * 建造者模式
  */
-@Data
 public class KVPairVO {
     private String key;
     private String value;
@@ -287,4 +286,6 @@ public class KVPairVO {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
 }
