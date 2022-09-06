@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "接口出参mock",
+  "title": "接口入参mock",
   "remark": null,
   "toolbar": [
     {
@@ -14,7 +14,7 @@
     {
       "type": "form",
       "mode": "horizontal",
-      "api": "http://127.0.0.1:8090/api/reqmock",
+      "api": "http://127.0.0.1:8090/api/respmock",
       "actions": [
         {
           "type": "submit",
@@ -52,7 +52,6 @@
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
           "label": "数据mock结果"
         }
-
       ]
     }
   ]
