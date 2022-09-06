@@ -20,6 +20,15 @@ public class BaseVO {
     /**  创建人 **/
     public Long createUserId;
 
+    /**
+     * 状态
+     * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
+     */
+    private Integer status;
+    public String statusDesc;
+
+
+
     public void init(){
        this.createUserId = 1L;
        this.updateUserId = 1L;
@@ -59,5 +68,19 @@ public class BaseVO {
         this.createUserId = createUserId;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
 
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getStatusDesc() {
+        return statusDesc;
+    }
+
+    public void setStatusDesc(String statusDesc) {
+        this.statusDesc = statusDesc;
+    }
 }

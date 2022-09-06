@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.vo.model;
 
 
+import com.tianhua.datafactory.vo.BaseVO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,7 +13,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class ColumnVO {
+public class ColumnVO extends BaseVO {
 
 
     /** 字段名称 **/
@@ -40,13 +41,5 @@ public class ColumnVO {
      /** 字段类型 **/
      private String columnType;
 
-
-     /**
-      * 状态
-      * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
-      */
-     private Integer status;
-
-     public String statusDesc;
 
 }

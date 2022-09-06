@@ -48,11 +48,4 @@ public class TableBO extends BaseBO {
    /** 模型后缀 **/
    private String modelSuffix;
 
-   /**
-    * 状态
-    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
-    */
-   private Integer status;
-
-   private String statusDesc;
 }

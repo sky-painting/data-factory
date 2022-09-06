@@ -16,6 +16,7 @@ public enum ColumnTypeEnums {
     TIMESTAMP("timestamp"),
     BIGINT("bigint"),
     TINYINT("tinyint"),
+    JSON("tinyint"),
 
     ;
     private String columnType;
@@ -47,5 +48,9 @@ public enum ColumnTypeEnums {
 
     public static Boolean isDate(String columnTypeTag){
         return columnTypeTag.contains("timestamp") || columnTypeTag.contains("date");
+    }
+
+    public static Boolean isJson(String columnTypeTag){
+        return columnTypeTag.contains("json") || columnTypeTag.contains("JSON");
     }
 }

@@ -56,9 +56,18 @@ public interface ModelQueryRepository{
 	ParamModelBO getByParamId(Long id);
 
 
+	/**
+	 * 搜索表模型
+	 * @param content
+	 * @return
+	 */
 	List<TableBO> searchTable(String content);
 
-
+	/**
+	 * 搜索业务模型
+	 * @param content
+	 * @return
+	 */
 	List<ParamModelBO> searchParamModel(String content);
 
 

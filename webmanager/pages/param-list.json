@@ -162,14 +162,6 @@
                   "level": "info",
                   "actionType": "link",
                   "link": "/param/${id}/edit"
-                },
-                {
-                  "type": "button",
-                  "label": "删除",
-                  "level": "danger",
-                  "actionType": "ajax",
-                  "confirmText": "您确认要删除?",
-                  "api": "delete:http://127.0.0.1:8090/paramModel/delete/$id"
                 }
               ]
             }

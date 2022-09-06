@@ -41,9 +41,6 @@ public class ApiVO extends BaseVO {
     /** api参数可选值列表 **/
     private Map<Integer,List<Object>> paramDefaultValueList;
 
-    /** api状态 **/
-    private Integer status;
-
     /** api所属项目编码 **/
     private String projectCode;
 
@@ -91,8 +88,5 @@ public class ApiVO extends BaseVO {
       * 请求参数类名
       */
      private String requestParamClasses;
-
-     public String statusDesc;
-
 
  }

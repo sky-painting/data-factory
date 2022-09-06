@@ -75,6 +75,11 @@
         },
         {
           "type": "text",
+          "name": "statusDesc",
+          "label": "项目状态"
+        },
+        {
+          "type": "text",
           "name": "domainCode",
           "label": "业务领域编码",
           "searchable": {

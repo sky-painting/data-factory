@@ -67,6 +67,16 @@
         },
         {
           "type": "select",
+          "name": "status",
+          "label": "状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
           "name": "modelSuffix",
           "label": "模型后缀",
           "required": true,

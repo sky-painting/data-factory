@@ -48,18 +48,18 @@
     </update>
 
     <select id="getAll" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from param_model
+        select <include refid="Base_Column_List" />  from param_model where  status in (0,1)
     </select>
 
     <select id="getByProjectCode" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from param_model where  project_code=#{projectCode}
+        select <include refid="Base_Column_List" />  from param_model where  project_code=#{projectCode} and  status in (0,1)
     </select>
 
     <select id="search" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" />  from param_model
         <where>
             <if test="content != null">
-                and (project_code  like concat('%',#{content},'%') or param_class_name  like concat('%',#{content},'%'))
+                and (project_code  like concat('%',#{content},'%') or param_class_name  like concat('%',#{content},'%')) and  status in (0,1)
             </if>
         </where>
     </select>
@@ -86,6 +86,12 @@
                 <if test="page.query.modelSuffix != null">
                     and model_suffix = #{page.query.modelSuffix}
                 </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+
             </if>
         </where>
 
@@ -108,12 +114,16 @@
                 <if test="page.query.modelSuffix != null">
                     and model_suffix = #{page.query.modelSuffix}
                 </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
             </if>
         </where>
     </select>
 
 
     <select id="getByParamClassName" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from param_model where project_code=#{projectCode} and param_class_name=#{paramClassName}
+        select <include refid="Base_Column_List" />  from param_model where project_code=#{projectCode} and param_class_name=#{paramClassName} and status in (0,1)
     </select>
 </mapper>

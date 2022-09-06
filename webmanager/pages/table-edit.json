@@ -60,6 +60,16 @@
           "type": "divider"
         },
         {
+          "type": "select",
+          "name": "status",
+          "label": "状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "label": "表字段列表",
           "type": "input-table",
           "name": "columnList",

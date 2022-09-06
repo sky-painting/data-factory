@@ -99,6 +99,16 @@
           "type": "divider"
         },
         {
+          "type": "select",
+          "name": "status",
+          "label": "状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "textarea",
           "name": "apiDoc",
           "label": "api文档",
@@ -128,7 +138,7 @@
           "type": "divider"
         },
         {
-          "label": "请求参数列表",
+          "label": "入参列表",
           "type": "input-table",
           "name": "paramList",
           "multiple": true,
@@ -153,7 +163,7 @@
         {
           "type": "input-text",
           "name": "returnParamClass",
-          "label": "api返回类型",
+          "label": "api出参类型",
           "required": true
         }
 

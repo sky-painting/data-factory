@@ -36,6 +36,9 @@ public interface TableConverter{
 	 * @Description:
 	 * @return TableVO
 	 */
+	@Mappings({
+			@Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(tableBO.getStatus()))"),
+	})
 	 TableVO bo2VO(TableBO tableBO);
 	/**
 	 *

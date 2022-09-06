@@ -84,6 +84,9 @@
                 <if test="page.query.tableComment != null">
                     and table_comment like concat('%',#{page.query.tableComment},'%')
                 </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
             </if>
         </where>
 
@@ -105,6 +108,9 @@
                 </if>
                 <if test="page.query.tableComment != null">
                     and table_comment like concat('%',#{page.query.tableComment},'%')
+                </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
                 </if>
             </if>
         </where>

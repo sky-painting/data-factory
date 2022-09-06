@@ -41,6 +41,14 @@
         },
         {
           "type": "static",
+          "name": "statusDesc",
+          "label": "项目状态"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
           "name": "domainDesc",
           "label": "业务领域描述"
         },

@@ -19,7 +19,7 @@ public enum ApiModelFieldStatusEnum {
     USING(0,"使用中"),
     WILL_DEPRECATED(1,"即将过期"),
     DEPRECATED(2,"已过期"),
-    DELETEED(-1,"删除"),
+    DELETEED(-1,"已删除"),
 
     ;
     private Integer status;

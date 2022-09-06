@@ -29,6 +29,8 @@ public class TableQueryVO extends PageVO {
 
      String tableComment;
 
+     Integer status;
+
 
     public PageBean getPageBean(){
         PageBean pageBean = super.getPageBean();
@@ -42,6 +44,11 @@ public class TableQueryVO extends PageVO {
         if(StringUtils.isNotEmpty(tableComment)){
             query.put("tableComment",tableComment);
         }
+
+        if(status != null){
+            query.put("status",status);
+        }
+
         pageBean.setQuery(query);
         return pageBean;
     }

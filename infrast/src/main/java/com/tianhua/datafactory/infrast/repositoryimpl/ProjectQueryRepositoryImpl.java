@@ -102,6 +102,9 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
     public ApiBO getApiById(Long id) {
         ApiModelDO apiModelDO = apiModelMapper.getById(id);
         ApiBO apiBO = ApiConvert.INSTANCE.do2bo(apiModelDO);
+        if(apiBO == null){
+            return null;
+        }
         apiBO.buildReturnParamModel();
         apiBO.buildRequestParam();
         return apiBO;

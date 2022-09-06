@@ -30,6 +30,9 @@ public interface ProjectConverter{
 	 * @Description:
 	 * @return ProjectVO
 	 */
+	@Mappings({
+			@Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(projectBO.getStatus()))"),
+	})
 	 ProjectVO bo2VO(ProjectBO projectBO);
 	/**
 	 *

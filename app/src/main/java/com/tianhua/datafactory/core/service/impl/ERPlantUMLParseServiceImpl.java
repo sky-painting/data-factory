@@ -108,7 +108,7 @@ public class ERPlantUMLParseServiceImpl implements ERPlantUMLParseService {
      * @return
      */
     private List<ColumnBO> getColumnBeanList(List<String> elementList) {
-        List<ColumnBO> fieldBeanList = new ArrayList<>();
+        List<ColumnBO> columnBOList = new ArrayList<>();
 
         for (String fieldStr : elementList) {
             if (fieldStr.contains("key") && fieldStr.contains("extend")) {
@@ -120,33 +120,46 @@ public class ERPlantUMLParseServiceImpl implements ERPlantUMLParseService {
             }
 
             String[] fieldArr = fieldStr.trim().split(":");
-            ColumnBO entityFieldBean = new ColumnBO();
+            ColumnBO columnBO = new ColumnBO();
             String[] tagArr = fieldArr[1].split("/");
 
-            entityFieldBean.setColumnComment(tagArr[0]);
-            entityFieldBean.setColumnName(fieldArr[0]);
+            columnBO.setColumnComment(tagArr[0]);
+            columnBO.setColumnName(fieldArr[0]);
             if (tagArr.length == 2) {
-                entityFieldBean.setColumnType(tagArr[1]);
+                columnBO.setColumnType(tagArr[1]);
             }
             if (tagArr.length == 3) {
-                entityFieldBean.setDefaultValue(tagArr[1]);
-                entityFieldBean.setColumnType(tagArr[2]);
+                columnBO.setDefaultValue(tagArr[1]);
+                columnBO.setColumnType(tagArr[2]);
             }
-            if (StringUtils.isEmpty(entityFieldBean.getDefaultValue())) {
-                if (ColumnTypeEnums.isInt(entityFieldBean.getColumnType())) {
-                    entityFieldBean.setDefaultValue("0");
+            if (StringUtils.isEmpty(columnBO.getDefaultValue())) {
+                if (ColumnTypeEnums.isInt(columnBO.getColumnType())) {
+                    columnBO.setDefaultValue("0");
                 }
-                if (ColumnTypeEnums.isVarchar(entityFieldBean.getColumnType())) {
-                    entityFieldBean.setDefaultValue("''");
+                if (ColumnTypeEnums.isVarchar(columnBO.getColumnType())) {
+                    columnBO.setDefaultValue("''");
                 }
-                if (ColumnTypeEnums.isDate(entityFieldBean.getColumnType())) {
-                    entityFieldBean.setDefaultValue("'2000-01-01 00:00:00'");
+
+                if (ColumnTypeEnums.isJson(columnBO.getColumnType())) {
+                    columnBO.setDefaultValue("{}");
                 }
+
+
+                if (ColumnTypeEnums.isDate(columnBO.getColumnType())) {
+                    columnBO.setDefaultValue("'2000-01-01 00:00:00'");
+                }
+            }
+
+            if(columnBO.getColumnType().contains("(")){
+               String columnLength = columnBO.getColumnType().substring(columnBO.getColumnType().indexOf("(")+1, columnBO.getColumnType().indexOf(")"));
+                columnBO.setColumnLength(Integer.parseInt(columnLength));
+            }else {
+                columnBO.setColumnLength(0);
             }
            // entityFieldBean.setNullable(false);
-            fieldBeanList.add(entityFieldBean);
+            columnBOList.add(columnBO);
         }
-        return fieldBeanList;
+        return columnBOList;
     }
 
     /**

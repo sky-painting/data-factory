@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.vo.model;
 
 
+import com.tianhua.datafactory.vo.BaseVO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Data
 @ToString
-public class TableVO {
+public class TableVO extends BaseVO {
 
     private Long id;
 
@@ -44,11 +45,5 @@ public class TableVO {
     /** 模型后缀 **/
     private String modelSuffix;
 
-    /**
-     * 状态
-     * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
-     */
-    private Integer status;
-    public String statusDesc;
 
 }

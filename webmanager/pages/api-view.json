@@ -66,13 +66,13 @@
         {
           "type": "static",
           "name": "apiReturnWrapTypeDesc",
-          "label": "api返回包装类型"
+          "label": "api出参包装类型"
         },
         {
           "type": "divider"
         },
         {
-          "label": "请求参数列表",
+          "label": "入参列表",
           "type": "input-table",
           "name": "paramList",
           "multiple": false,

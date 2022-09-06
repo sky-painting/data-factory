@@ -48,6 +48,14 @@
           "type": "divider"
         },
         {
+          "type": "static",
+          "name": "statusDesc",
+          "label": "状态"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "label": "表字段列表",
           "type": "input-table",
           "name": "columnList",

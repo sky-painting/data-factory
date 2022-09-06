@@ -71,7 +71,7 @@ public class TableModelBuilderService {
                         FieldBO fieldBO = new FieldBO();
                         String columnFieldName = getHumpTableName(columnBO.getColumnName());
                         fieldBO.setFieldName(columnFieldName);
-
+                        fieldBO.init();
                         String columnTypeName = getColumnTypeName(columnBO.getColumnType());
                         fieldBO.setFieldType(columnTypeName);
                         fieldBO.setFieldExtBO(new FieldExtBO());

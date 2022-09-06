@@ -74,13 +74,13 @@ public class PlantUMLDomainModelBuilderService {
             //业务模型类
             if(suffixOptional.isPresent()){
                 ParamModelBO paramModelBO = ParamModelBO.getInstance(classBeanEntry.getKey());
-                paramModelBO.init();
                 paramModelBO.setProjectCode(projectCode);
                 paramModelBO.setModuleCode("");
                 paramModelBO.setParamClassDesc(classBeanEntry.getValue().getClassDesc());
                 paramModelBO.setModelSuffix(suffixOptional.get());
                 List<FieldBO> fieldBOList = classBeanEntry.getValue().getFieldBeanList();
                 fieldBOList.stream().forEach(fieldBO -> {
+                    fieldBO.using();
                     fieldBO.setFieldExtBO(new FieldExtBO());
                     fieldBO.setProjectCode(projectCode);
                     fieldBO.setFieldDoc("");
@@ -93,6 +93,7 @@ public class PlantUMLDomainModelBuilderService {
                     modelRepository.saveParamModel(paramModelBO);
                 }else {
                     paramModelBO.setId(oldParamModel.getId());
+                    paramModelBO.setStatus(oldParamModel.getStatus());
                     modelRepository.updateParamModel(paramModelBO);
                 }
 
@@ -128,7 +129,6 @@ public class PlantUMLDomainModelBuilderService {
             ApiBO apiBO = ApiBO.getInstance(projectCode,className+"."+methodBean.getSimplMethodName());
             apiBO.setApiType(ApiTypeEnum.SERVICE_API.getType());
             apiBO.init();
-            apiBO.using();
             apiBO.setApiDoc(methodBean.getDesc());
             if(methodBean.getParamArr() !=null){
                 List<ParamModelBO> paramModelBOList = Lists.newArrayList();

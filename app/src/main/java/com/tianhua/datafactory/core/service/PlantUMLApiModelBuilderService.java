@@ -61,12 +61,11 @@ public class PlantUMLApiModelBuilderService {
     public void initPlantUMlModel(String projectCode, String plantUMLFilePath) {
         PlantUMLApiContextBean plantUMLApiContextBean = readApiPlantUMLDocService.readDoc(plantUMLFilePath);
         for (ParamModelBO paramModelBO : plantUMLApiContextBean.getParamClassBeanList()) {
-            paramModelBO.init();
-            paramModelBO.using();
             paramModelBO.setModuleCode("");
             paramModelBO.setModelSuffix("");
             paramModelBO.getFieldBeanList().stream().forEach(fieldBO -> {
                 fieldBO.setFieldDoc("");
+                fieldBO.init();
                 fieldBO.setFieldExtBO(new FieldExtBO());
                 fieldBO.setProjectCode(projectCode);
                 fieldBO.setParamClassName(paramModelBO.getParamClassName());

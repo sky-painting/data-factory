@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.domain.bo.model;
 
+import com.tianhua.datafactory.domain.bo.BaseBO;
 import com.tianhua.datafactory.domain.enums.VisibilityEnum;
 import lombok.Data;
 import lombok.ToString;
@@ -14,7 +15,7 @@ import java.util.List;
 */
 @Data
 @ToString
-public class FieldBO {
+public class FieldBO extends BaseBO {
 
    private Long id;
 
@@ -51,13 +52,6 @@ public class FieldBO {
     */
    private FieldExtBO fieldExtBO;
 
-   /**
-    * 状态
-    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
-    */
-   private Integer status;
-
-   private String statusDesc;
 
    /**
     * 构建属性注释

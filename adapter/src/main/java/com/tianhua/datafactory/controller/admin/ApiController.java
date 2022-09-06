@@ -12,6 +12,7 @@ import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
 import com.tianhua.datafactory.vo.PageVO;
+import com.tianhua.datafactory.vo.StatusChangeVO;
 import com.tianhua.datafactory.vo.project.ApiMockVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.query.ApiQueryVO;
@@ -113,30 +114,19 @@ public class ApiController extends BaseController {
 
 	/**
 	 *
-	 * @Description 修改api信息
+	 * @Description 修改api状态
+	 * amis bug, 迷之不好实现
 	 * @param id
 	 * @return Boolean
 	 */
-	@RequestMapping(value = "/api/disable/{id}",method = RequestMethod.POST)
-	public ResultDataDto<Boolean> disable(@PathVariable(value = "id") Long id){
+	@Deprecated
+	@RequestMapping(value = "/api/status/{id}",method = RequestMethod.POST)
+	public ResultDataDto<Boolean> updateStatus(@PathVariable(value = "id") Long id,@RequestBody StatusChangeVO statusChangeVO){
+		logger.info("id = {}",id);
+		logger.info("statusChangeVO = {}",JSON.toJSONString(statusChangeVO));
 		ApiBO apiBO = projectQueryRepository.getApiById(id);
-		apiBO.deprecate();
-		ProjectBO projectBO = ProjectBO.getInstance();
-		projectBO.addApiBo(apiBO);
-		projectRepository.updateProject(projectBO);
-		return ResultDataDto.success(true);
-	}
 
-	/**
-	 *
-	 * @Description 修改api信息
-	 * @param id
-	 * @return Boolean
-	 */
-	@RequestMapping(value = "/api/enable/{id}",method = RequestMethod.POST)
-	public ResultDataDto<Boolean> enable(@PathVariable(value = "id") Long id){
-		ApiBO apiBO = projectQueryRepository.getApiById(id);
-		apiBO.using();
+		apiBO.updateStatus(statusChangeVO.getStatus());
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.updateProject(projectBO);

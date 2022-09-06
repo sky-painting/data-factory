@@ -48,7 +48,7 @@
     </update>
 
     <select id="getAll" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from project_config
+        select <include refid="Base_Column_List" />  from project_config where  status in (0,1)
     </select>
 
     <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO"
@@ -70,6 +70,9 @@
                 <if test="page.query.projectDesc != null">
                     and project_desc like concat('%',#{page.query.projectDesc},'%')
                 </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
             </if>
         </where>
 
@@ -89,12 +92,15 @@
                 <if test="page.query.projectDesc != null">
                     and project_desc like concat('%',#{page.query.projectDesc},'%')
                 </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
             </if>
         </where>
     </select>
 
     <select id="getByCode" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from project_config where project_code = #{projectCode}
+        select <include refid="Base_Column_List" />  from project_config where project_code = #{projectCode} and  status in (0,1)
 
     </select>
 
@@ -102,7 +108,7 @@
         select <include refid="Base_Column_List" />  from project_config
         <where>
             <if test="content != null">
-                and (project_code  like concat('%',#{content},'%') or project_desc  like concat('%',#{content},'%'))
+                and (project_code  like concat('%',#{content},'%') or project_desc  like concat('%',#{content},'%')) and  status in (0,1)
             </if>
         </where>
     </select>

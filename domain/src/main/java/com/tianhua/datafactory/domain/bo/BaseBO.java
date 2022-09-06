@@ -26,10 +26,11 @@ public class BaseBO {
 
     private String statusDesc;
     public void init(){
-       this.createUserId = 1L;
-       this.updateUserId = 1L;
-       this.dateCreate = new Date();
-       this.dateUpdate = new Date();
+        this.status = ApiModelFieldStatusEnum.USING.getStatus();
+        this.createUserId = 1L;
+        this.updateUserId = 1L;
+        this.dateCreate = new Date();
+        this.dateUpdate = new Date();
     }
 
     public Date getDateCreate() {
@@ -98,5 +99,26 @@ public class BaseBO {
     }
 
 
+    /**
+     * 状态行为封装
+     * @param status
+     */
+    public void updateStatus(Integer status){
+        if(status == null){
+            return;
+        }
+        if(ApiModelFieldStatusEnum.DELETEED.getStatus().intValue() == status.intValue()){
+            this.delete();
+        }
+        if(ApiModelFieldStatusEnum.USING.getStatus().intValue() == status.intValue()){
+            this.using();
+        }
+        if(ApiModelFieldStatusEnum.DEPRECATED.getStatus().intValue() == status.intValue()){
+            this.deprecate();
+        }
+        if(ApiModelFieldStatusEnum.WILL_DEPRECATED.getStatus().intValue() == status.intValue()){
+            this.willDeprecate();
+        }
+    }
 
 }

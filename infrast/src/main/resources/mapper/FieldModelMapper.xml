@@ -45,12 +45,12 @@
     </update>
 
     <select id="getAll" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from field_model
+        select <include refid="Base_Column_List" />  from field_model  where status in(0,1)
     </select>
 
     <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.FieldModelDO"
             resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from field_model  where id = #{id}
+        select <include refid="Base_Column_List" /> from field_model  where id = #{id} and status in(0,1)
     </select>
 
     <delete id="deleteById" >
@@ -58,11 +58,11 @@
     </delete>
 
     <select id="getPageList" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />  from field_model
+        select <include refid="Base_Column_List" />  from field_model where status in(0,1)
     </select>
 
     <select id="getCount" resultMap="count">
-        select count(1)  from field_model
+        select count(1)  from field_model where status in (0,1)
     </select>
 
     <delete id="deleteByProjectCodeAndParamClassName">
@@ -70,11 +70,11 @@
     </delete>
 
     <select id="getByCode" resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List" />   from field_model where   project_code=#{projectCode} and param_class_name=#{paramClassName}
+        select  <include refid="Base_Column_List" />   from field_model where   project_code=#{projectCode} and param_class_name=#{paramClassName}  and status in(0,1)
     </select>
 
     <select id="getByCodeField" resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List" />   from field_model where   project_code=#{projectCode} and param_class_name=#{paramClassName} and field_name=#{fieldName}
+        select  <include refid="Base_Column_List" />   from field_model where   project_code=#{projectCode} and param_class_name=#{paramClassName} and field_name=#{fieldName} and status in(0,1)
     </select>
 
 </mapper>

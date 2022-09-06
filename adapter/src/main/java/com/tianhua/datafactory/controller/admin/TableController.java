@@ -89,6 +89,7 @@ public class TableController {
 	 */
 	@RequestMapping(value = "/table/update/{id}")
 	public ResultDataDto<Boolean> update(@PathVariable(value = "id") Long id, @RequestBody  TableVO tableVO){
+		tableVO.init();
 		TableBO tableBO = TableConverter.INSTANCE.vo2bo(tableVO);
 		tableBO.setId(id);
 		modelRepository.updateDBModel(tableBO);

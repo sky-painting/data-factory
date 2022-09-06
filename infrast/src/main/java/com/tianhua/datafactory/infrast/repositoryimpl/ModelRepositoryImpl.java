@@ -82,7 +82,7 @@ public class ModelRepositoryImpl  implements ModelRepository{
 	public boolean updateDBModel(TableBO tableBO){
         tableModelMapper.update(TableConvert.INSTANCE.bo2do(tableBO));
         if(org.apache.commons.collections.CollectionUtils.isNotEmpty(tableBO.getColumnList())){
-            columnModelMapper.deleteById(tableBO.getId());
+            columnModelMapper.deleteByTableId(tableBO.getId());
             for (ColumnBO columnBO : tableBO.getColumnList()){
                 columnBO.setTableId(tableBO.getId());
                 columnModelMapper.insert(ColumnConvert.INSTANCE.bo2do(columnBO));
@@ -111,10 +111,9 @@ public class ModelRepositoryImpl  implements ModelRepository{
         List<FieldBO> fieldBOList = paramModelBO.getFieldBeanList();
         if(org.apache.commons.collections.CollectionUtils.isNotEmpty(fieldBOList)){
             for (FieldBO fieldBO : fieldBOList){
+                fieldBO.init();
                 fieldBO.setProjectCode(paramModelBO.getProjectCode());
                 fieldBO.setParamClassName(paramModelBO.getParamClassName());
-
-
                 fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));
             }
         }
