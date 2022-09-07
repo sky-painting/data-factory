@@ -47,10 +47,9 @@
           "type": "divider"
         },
         {
-          "type": "json",
+          "type": "static",
           "name": "mockResultData",
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
-          "json": "data.mockResultData",
           "label": "数据mock结果"
         }
 
