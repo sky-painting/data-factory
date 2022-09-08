@@ -172,12 +172,30 @@ public class ApiController extends BaseController {
 	 * @return
 	 */
 	@GetMapping("/api/searchApiSign")
-	public ResultDataDto batchBuild(@RequestParam(value = "projectCode", required = false) String projectCode){
+	public ResultDataDto searchApiSign(@RequestParam(value = "projectCode", required = false) String projectCode){
 		if(StringUtils.isEmpty(projectCode)){
 			return ResultDataDto.success();
 		}
 		List<ApiBO> list = projectQueryRepository.getApiListByCode(projectCode);
 		return ResultDataDto.success(wrapperApiModel(ApiConverter.INSTANCE.BOs2VOs(list)));
+	}
+
+
+
+	/**
+	 * 根据项目编码查询apiSign
+	 * @param projectCode
+	 * @return
+	 */
+	@GetMapping("/api/searchApiSignV2")
+	public ResultDataDto searchApiSignV2(@RequestParam(value = "projectCode", required = false) String projectCode){
+		if(StringUtils.isEmpty(projectCode)){
+			return ResultDataDto.success();
+		}
+		List<ApiBO> list = projectQueryRepository.getApiListByCode(projectCode);
+
+
+		return ResultDataDto.success(wrapperApiModelV2(ApiConverter.INSTANCE.BOs2VOs(list)));
 	}
 
 
@@ -189,6 +207,9 @@ public class ApiController extends BaseController {
 	 */
 	@RequestMapping(value = "/api/reqmock",method = RequestMethod.POST)
 	public ResultDataDto reqMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
+		if(StringUtils.isNotEmpty(apiMockVO.getApiMethod())){
+			apiMockVO.setApiSign(apiMockVO.getApiMethod());
+		}
 		Object value = apiMockDataAdapter.getApiMockData(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
 		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
 		apiMockVO.setMockResultData(jsonValue);

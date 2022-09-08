@@ -25,6 +25,7 @@ public class ApiMockVO extends BaseVO {
      */
     private String apiSign;
 
+
     /**
      * 适用于对外接口返回场景
      */
@@ -35,4 +36,10 @@ public class ApiMockVO extends BaseVO {
      * mock数据结果
      */
     private String mockResultData;
+
+    /**
+     * 与api sign一样
+     */
+    private String apiMethod;
+
 }

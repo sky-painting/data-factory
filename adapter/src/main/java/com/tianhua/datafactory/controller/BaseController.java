@@ -128,4 +128,33 @@ public class BaseController{
 		});
 		return optionsVO;
 	}
+
+	/**
+	 * 包装option适配amis框架
+	 * @param apiVOList
+	 * @return
+	 */
+	public OptionsVO wrapperApiModelV2(List<ApiVO> apiVOList){
+		OptionsVO optionsVO = new OptionsVO();
+		if(CollectionUtils.isEmpty(apiVOList)){
+			return optionsVO;
+		}
+		apiVOList.stream().forEach(apiVO -> {
+			String apiMethod = apiVO.getReturnParamClass() + " " + apiVO.getApiUrl();
+			StringBuilder builder = new StringBuilder(apiMethod);
+			if(CollectionUtils.isNotEmpty(apiVO.getParamList())){
+				builder.append("(");
+				for (ParamModelVO paramModelVO : apiVO.getParamList()){
+					builder.append(paramModelVO.getParamClassName()+",");
+				}
+				builder = builder.deleteCharAt(builder.length() - 1);
+				builder.append(")");
+			}
+
+			optionsVO.addOptionItem(builder.toString(), apiVO.getApiSign());
+		});
+		return optionsVO;
+	}
+
+
 }

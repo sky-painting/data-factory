@@ -47,6 +47,16 @@
           "type": "divider"
         },
         {
+          "type": "select",
+          "name": "apiMethod",
+          "label": "Api方法",
+          "source": "http://127.0.0.1:8090/api/searchApiSignV2?projectCode=${projectCode}",
+          "required": false
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "json",
           "name": "mockResultData",
           "visibleOn": "typeof data.mockResultData !== 'undefined'",

@@ -157,7 +157,11 @@ public class ApiBO extends BaseBO {
         }
 
         if (this.paramList != null && !this.paramList.isEmpty()) {
-            this.apiSign = this.apiSign + "." + this.paramList.size();
+            this.apiSign = this.apiSign + "." + this.paramList.size()+"(";
+            for (ParamModelBO paramModelBO : this.paramList){
+                this.apiSign = this.apiSign + paramModelBO.getParamClassName().substring(0,1);
+            }
+            this.apiSign = this.apiSign + ")";
         }
     }
 
