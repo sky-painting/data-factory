@@ -228,13 +228,13 @@
                 "schemaApi": "get:/pages/workspace-new.json"
               },
               {
-                "label": "接口出参mock",
+                "label": "接口入参mock",
                 "url": "/workspace/apireqmock",
                 "icon": "fa fa-list",
                 "schemaApi": "get:/pages/workspace-apireqmock.json"
               },
               {
-                "label": "接口入参mock",
+                "label": "接口出参mock",
                 "url": "/workspace/apirespmock",
                 "icon": "fa fa-list",
                 "schemaApi": "get:/pages/workspace-apirespmock.json"

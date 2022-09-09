@@ -1,7 +1,10 @@
 package com.tianhua.datafactory.vo.project;
 
 import com.tianhua.datafactory.vo.BaseVO;
+import com.tianhua.datafactory.vo.model.ParamModelVO;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Description
@@ -41,5 +44,11 @@ public class ApiMockVO extends BaseVO {
      * 与api sign一样
      */
     private String apiMethod;
+
+    /**
+     * 参数模型
+     *
+     */
+    private List<ParamModelVO> paramModelVOList;
 
 }

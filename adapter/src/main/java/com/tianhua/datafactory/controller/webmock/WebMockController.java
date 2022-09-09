@@ -42,7 +42,7 @@ public class WebMockController {
     @RequestMapping(value = "/apimock",method = RequestMethod.GET)
     public Object getApiResponseData(@RequestParam(value = "apiSign") String apiSign,@RequestParam(value = "successData",required = false) Boolean successData){
         try {
-            return apiMockDataAdapter.getApiMockData(apiSign, successData);
+            return apiMockDataAdapter.getApiMockDataResp(apiSign, successData);
         } catch (Exception e) {
             log.error("获取数据失败",e);
         }

@@ -47,7 +47,6 @@ public class ApiVO extends BaseVO {
     /** api 请求参数列表 **/
     private List<ParamModelVO> paramList;
 
-
      /** api信息 **/
      private String apiUrl;
 

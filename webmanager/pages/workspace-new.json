@@ -113,16 +113,6 @@
           "type": "divider"
         },
         {
-          "type": "select",
-          "name": "apiSign",
-          "label": "Api签名",
-          "source": "http://127.0.0.1:8090/api/searchApiSign?projectCode=${projectCode}",
-          "required": false
-        },
-        {
-          "type": "divider"
-        },
-        {
           "type": "input-text",
           "name": "dataUseType",
           "label": "数据使用方式(在线接口导入,导出insert.sql,导出json,导出excel)",

@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
+import com.tianhua.datafactory.convert.FieldConverter;
+import com.tianhua.datafactory.convert.ParamConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.PageBean;
@@ -13,16 +15,24 @@ import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
+import com.tianhua.datafactory.infrast.dataconvert.ParamModelConvert;
 import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.StatusChangeVO;
+import com.tianhua.datafactory.vo.amis.ComponentVO;
+import com.tianhua.datafactory.vo.amis.ContainerVO;
+import com.tianhua.datafactory.vo.model.FieldVO;
 import com.tianhua.datafactory.vo.project.ApiMockVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.query.ApiQueryVO;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -201,16 +211,16 @@ public class ApiController extends BaseController {
 
 	/**
 	 *
-	 * @Description mock api接口返回值数据
+	 * @Description mock api接口出参mock
 	 * @param apiMockVO
 	 * @return Boolean
 	 */
-	@RequestMapping(value = "/api/reqmock",method = RequestMethod.POST)
+	@RequestMapping(value = "/api/respmock",method = RequestMethod.POST)
 	public ResultDataDto reqMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
 		if(StringUtils.isNotEmpty(apiMockVO.getApiMethod())){
 			apiMockVO.setApiSign(apiMockVO.getApiMethod());
 		}
-		Object value = apiMockDataAdapter.getApiMockData(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
+		Object value = apiMockDataAdapter.getApiMockDataResp(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
 		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
 		apiMockVO.setMockResultData(jsonValue);
 		return ResultDataDto.success(apiMockVO);
@@ -222,13 +232,42 @@ public class ApiController extends BaseController {
 	 * @param apiMockVO
 	 * @return Boolean
 	 */
-	@RequestMapping(value = "/api/respmock",method = RequestMethod.POST)
+	@RequestMapping(value = "/api/reqmock",method = RequestMethod.POST)
 	public ResultDataDto respMock(@RequestBody ApiMockVO apiMockVO) throws Exception {
+		if(StringUtils.isNotEmpty(apiMockVO.getApiMethod())){
+			apiMockVO.setApiSign(apiMockVO.getApiMethod());
+		}
 
-		//todo make it
-		return ResultDataDto.success(null);
+		Object value = apiMockDataAdapter.getApiMockDataReq(apiMockVO.getApiSign(), ParamConverter.INSTANCE.VOs2BOs(apiMockVO.getParamModelVOList()));
+		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
+		apiMockVO.setMockResultData(jsonValue);
+		return ResultDataDto.success(apiMockVO);
 	}
 
+	@RequestMapping(value = "/api/getparamlist")
+	public ResultDataDto getFieldListV2(@RequestParam(value = "apiSign", required = false) String apiSign){
+
+		Map<String,Object> mapResult = new HashMap<>();
+		mapResult.put("rows", null);
+		mapResult.put("count", 0);
+		if(StringUtils.isEmpty(apiSign)){
+			return ResultDataDto.success(mapResult);
+		}
+
+		ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
+
+		if(CollectionUtils.isEmpty(apiBO.getParamList())){
+			return ResultDataDto.success(mapResult);
+		}
+
+		ApiVO apiVO = ApiConverter.INSTANCE.bo2VO(apiBO);
+
+		//适配amis service组件 使用map封装一层
+		mapResult.put("rows", apiVO.getParamList());
+		mapResult.put("count",apiVO.getParamList().size());
+
+		return ResultDataDto.success(mapResult);
+	}
 
 
 

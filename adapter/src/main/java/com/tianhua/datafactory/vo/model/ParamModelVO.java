@@ -61,5 +61,12 @@ public class ParamModelVO extends BaseVO {
 
     private String file;
 
+    /**
+     * 接口入参为string,long,integer之类的参数类型,从前端绑定
+     *
+     */
+    private String dataSourceCode;
+
+
 
 }

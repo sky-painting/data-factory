@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "接口出参mock",
+  "title": "接口入参mock",
   "remark": null,
   "toolbar": [
     {
@@ -38,20 +38,37 @@
         },
         {
           "type": "select",
-          "name": "apiSign",
-          "label": "Api签名",
-          "source": "http://127.0.0.1:8090/api/searchApiSign?projectCode=${projectCode}",
-          "required": false
-        },
-        {
-          "type": "divider"
-        },
-        {
-          "type": "select",
           "name": "apiMethod",
           "label": "Api方法",
           "source": "http://127.0.0.1:8090/api/searchApiSignV2?projectCode=${projectCode}",
           "required": false
+        },
+
+        {
+          "type": "divider"
+        },
+        {
+          "label": "属性列表",
+          "type": "input-table",
+          "name": "paramModelVOList",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "removable": true,
+
+          "columns": [
+              {
+                "name": "paramVarName",
+                "type": "input-text",
+                "label": "参数名"
+              },
+              {
+                "name": "dataSourceCode",
+                "type": "select",
+                "label": "数据源编码",
+                "autoComplete": "http://127.0.0.1:8090/datasource/search"
+              }
+            ]
         },
         {
           "type": "divider"
@@ -61,6 +78,15 @@
           "name": "mockResultData",
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
           "json": "data.mockResultData",
+          "label": "数据mock结果json"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
           "label": "数据mock结果"
         }
 

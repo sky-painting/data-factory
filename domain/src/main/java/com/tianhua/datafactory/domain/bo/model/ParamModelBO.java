@@ -52,6 +52,12 @@ public class ParamModelBO extends BaseBO {
    private boolean isGeneralType;
 
 
+   /**
+    * 接口入参为string,long,integer之类的参数类型,从前端绑定
+    *
+    */
+   private String dataSourceCode;
+
 
    /** 参数映射模型 **/
    private  List<ModelMappingBO> modelMappingBOList;

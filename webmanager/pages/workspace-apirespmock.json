@@ -14,7 +14,7 @@
     {
       "type": "form",
       "mode": "horizontal",
-      "api": "http://127.0.0.1:8090/api/reqmock",
+      "api": "http://127.0.0.1:8090/api/respmock",
       "actions": [
         {
           "type": "submit",
@@ -47,10 +47,30 @@
           "type": "divider"
         },
         {
+          "type": "select",
+          "name": "apiMethod",
+          "label": "Api方法",
+          "source": "http://127.0.0.1:8090/api/searchApiSignV2?projectCode=${projectCode}",
+          "required": false
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "json",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "json": "data.mockResultData",
+          "label": "数据mock结果json"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "static",
           "name": "mockResultData",
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
-          "label": "数据mock结果"
+          "label": "数据mock结果txt"
         }
 
       ]
