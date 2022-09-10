@@ -61,6 +61,11 @@ public class DataEnumController extends BaseController {
         if(ApiModelFieldStatusEnum.isApiModelFieldStatus(enumCode)){
             return ResultDataDto.success(ApiModelFieldStatusEnum.getOptionList());
         }
+
+        if(JavaFieldTypeEnum.isJavaFieldTypeEnum(enumCode)){
+            return ResultDataDto.success(JavaFieldTypeEnum.getOptionList());
+        }
+
         return ResultDataDto.success();
     }
 

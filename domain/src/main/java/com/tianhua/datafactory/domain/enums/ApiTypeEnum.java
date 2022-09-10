@@ -39,7 +39,11 @@ public enum ApiTypeEnum{
       return optionsBO;
    }
 
-
+   /**
+    * 数据枚举路由
+    * @param enumCode
+    * @return
+    */
    public static boolean isApiType(String enumCode){
       return "apiType".equals(enumCode);
    }

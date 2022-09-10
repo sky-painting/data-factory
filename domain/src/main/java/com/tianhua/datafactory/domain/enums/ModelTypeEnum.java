@@ -40,7 +40,11 @@ public enum ModelTypeEnum{
       return optionsBO;
    }
 
-
+   /**
+    * 数据枚举路由
+    * @param enumCode
+    * @return
+    */
    public static boolean isModelType(String enumCode){
       return "modelType".equals(enumCode);
    }

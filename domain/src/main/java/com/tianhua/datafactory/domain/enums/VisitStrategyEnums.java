@@ -39,7 +39,11 @@ public enum VisitStrategyEnums {
         }
         return optionsBO;
     }
-
+    /**
+     * 数据枚举路由
+     * @param enumCode
+     * @return
+     */
     public static boolean isVisitStrategy(String enumCode){
         return "visiteStrategy".equals(enumCode);
     }

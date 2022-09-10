@@ -2,13 +2,19 @@ package com.tianhua.datafactory.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.controller.BaseController;
+import com.tianhua.datafactory.convert.DataFactoryConverter;
+import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.vo.datafactory.DataBuildRequestVo;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.vo.datasource.DataSourceVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,9 +38,13 @@ public class DataFactoryController extends BaseController {
      */
     @PostMapping(value = "/datafactory/generate")
     public ResultDataDto generate(@RequestBody DataBuildRequestVo dataFactoryRequestVo) {
-        logger.info("dataFactoryRequestVo = {}", JSON.toJSONString(dataFactoryRequestVo));
+        DataBuildRequestBO dataBuildRequestBO = DataFactoryConverter.INSTANCE.convert2BO(dataFactoryRequestVo);
 
-        return ResultDataDto.success();
+        try {
+            return dataFactoryService.generateData(dataBuildRequestBO);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -16,10 +16,10 @@ public enum MethodTypeEnum {
     /**
      *
      */
-    HTTP_POST("HTTP_POST","http-post方法"),
-    HTTP_GET("HTTP_GET","http-get方法"),
-    HTTP_PUT("HTTP_PUT","http-put方法"),
-    HTTP_DELETE("HTTP_DELETE","http-delete方法"),
+    HTTP_POST("post","http-post方法"),
+    HTTP_GET("get","http-get方法"),
+    HTTP_PUT("put","http-put方法"),
+    HTTP_DELETE("delete","http-delete方法"),
 
     DUBBO("DUBBO","dubbo服务接口"),
     SPRING_CLOUD("SPRING_CLOUD","spring_cloud服务接口"),

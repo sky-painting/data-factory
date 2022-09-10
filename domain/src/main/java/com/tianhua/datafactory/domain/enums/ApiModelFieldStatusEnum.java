@@ -31,6 +31,11 @@ public enum ApiModelFieldStatusEnum {
     }
 
 
+    /**
+     * 数据枚举路由
+     * @param enumCode
+     * @return
+     */
     public static boolean isApiModelFieldStatus(String enumCode){
         return "apiModelFieldStatus".equals(enumCode);
     }
