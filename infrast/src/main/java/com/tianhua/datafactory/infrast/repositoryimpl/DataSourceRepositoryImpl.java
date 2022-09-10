@@ -77,7 +77,6 @@ public class DataSourceRepositoryImpl implements DataSourceRepository {
     @Transactional(rollbackFor = Exception.class)
     public Boolean regist(DataSourceBO dataSourceBO) {
         dataSourceBO.init();
-        dataSourceBO.enable();
         DataSourceDO dataSourceDO = DataSourceConvert.INSTANCE.bo2do(dataSourceBO);
         dataSourceMapper.insert(dataSourceDO);
         if (CollectionUtils.isNotEmpty(dataSourceBO.getDataSourceReqConfigList())) {

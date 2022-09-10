@@ -84,15 +84,6 @@ public class DataSourceBO extends BaseBO {
 	private List<KVPairBO> kvPairList;
 
 
-
-	public void disable(){
-		this.setStatus(0);
-	}
-
-	public void enable(){
-		this.setStatus(1);
-	}
-
 	public boolean isLocalEnum(){
 		return sourceType == DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode();
 
