@@ -34,6 +34,15 @@ public enum JavaFieldTypeEnum {
 
     OBJECT ("Object"),
 
+
+    LIST("List"),
+
+    SET("SET"),
+
+    ARRAY("Array"),
+
+
+
     ;
 
     String type;
@@ -85,11 +94,22 @@ public enum JavaFieldTypeEnum {
     }
 
 
-
     public static boolean isLocalDate(String type){
         return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.LOCALDATE.getType().toLowerCase().equals(type.toLowerCase());
     }
 
+
+    public static boolean isList(String type){
+        return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.LIST.getType().toLowerCase().equals(type.toLowerCase());
+    }
+
+    public static boolean isSet(String type){
+        return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.SET.getType().toLowerCase().equals(type.toLowerCase());
+    }
+
+    public static boolean isArray(String type){
+        return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.ARRAY.getType().toLowerCase().equals(type.toLowerCase());
+    }
 
     /**
      * 数据枚举路由

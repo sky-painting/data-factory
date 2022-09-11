@@ -133,6 +133,17 @@ public class DataPreProcessingCmp extends NodeComponent {
 
             if(StringUtils.isNotEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && isModelClassRefer ){
                 referList = fieldRuleDslFactory.buildReferFieldBOFromDsl(dataBuildRequestFieldBO, dataBuildRequestBO.getProjectCode());
+                Map<String, DataBuildRequestFieldBO> fieldBOMap = referList.stream().collect(Collectors.toMap(DataBuildRequestFieldBO::getFieldName, o->o));
+
+                List<DataBuildRequestFieldBO> originReferList = fieldRuleDslFactory.buildReferFieldBOFromDB(dataBuildRequestFieldBO, dataBuildRequestBO.getProjectCode());
+                originReferList.stream().forEach(dataBuildRequestFieldBO1 -> {
+                    DataBuildRequestFieldBO dslBO = fieldBOMap.get(dataBuildRequestFieldBO1.getFieldName());
+                    if(dslBO != null){
+                        dataBuildRequestFieldBO1.setDataSourceCode(dslBO.getDataSourceCode());
+                        dataBuildRequestFieldBO1.setDefaultValueList(dslBO.getDefaultValueList());
+                    }
+                });
+                referList = originReferList;
             }
 
             if(CollectionUtils.isNotEmpty(referList)){

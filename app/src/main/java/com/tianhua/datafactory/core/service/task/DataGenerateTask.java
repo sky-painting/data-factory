@@ -46,9 +46,7 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
             Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(start);
-            //如果有字段依赖可以进行排序
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
-
                 dataSourceFieldRequestBean.setFunction(functionMap.get(dataBuildRequestFieldBO.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);

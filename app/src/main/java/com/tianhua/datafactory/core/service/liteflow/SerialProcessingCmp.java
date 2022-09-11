@@ -39,20 +39,20 @@ public class SerialProcessingCmp extends NodeComponent {
             Map<String, Object> fieldValueMap = new HashMap<>(dataBuildRequestBO.getFieldBOList().size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(i);
-            //如果有字段依赖可以进行排序
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataBuildRequestBO.getFieldBOList()) {
-
                 dataSourceFieldRequestBean.setFunction(dataBuildRequestBO.getFunctionMap().get(dataBuildRequestFieldBO.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
                 dataSourceFieldRequestBean.setRandom(new SecureRandom());
                 dataSourceFieldRequestBean.setVarDependencyMap(dataBuildRequestFieldBO.getVarDependencyMap());
-                //获取随机字段值
+
+                //1.前置数据过滤
                 exeFilterBefore(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
+                //获取随机字段值
+                Object fieldValue = fieldValueFactory.getFieldValueWrapper(dataSourceFieldRequestBean);
 
-                Object fieldValue = fieldValueFactory.getFieldValue(dataSourceFieldRequestBean);
                 fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), fieldValue);
-
+                //2.后置数据过滤
                 exeFilterAfter(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
 
                 List<DataBuildRequestFieldBO> referFieldList = dataBuildRequestFieldBO.getReferFieldList();
@@ -68,13 +68,16 @@ public class SerialProcessingCmp extends NodeComponent {
                     referFieldDataSourcdFieldRequestBean.setDataBuildRequestFieldBO(referFieldBO);
                     referFieldDataSourcdFieldRequestBean.setRandom(new SecureRandom());
 
+                    //1.前置数据过滤
                     exeFilterBefore(referFieldBO, fieldValueMap, batchResultList);
 
                     //获取随机字段值
-                    Object referFieldValue = fieldValueFactory.getFieldValue(referFieldDataSourcdFieldRequestBean);
+                    Object referFieldValue = fieldValueFactory.getFieldValueWrapper(referFieldDataSourcdFieldRequestBean);
+
                     referFieldValueMap.put(referFieldBO.getFieldName(), referFieldValue);
 
                     fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referFieldValueMap);
+                    //2.后置数据过滤
                     exeFilterAfter(referFieldBO, fieldValueMap, batchResultList);
                 }
                 fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referFieldValueMap);

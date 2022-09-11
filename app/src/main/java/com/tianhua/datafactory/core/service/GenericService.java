@@ -28,6 +28,13 @@ public class GenericService {
      */
     public GenericTypeBO getGenericType(String fieldType){
         GenericTypeBO genericTypeBO = new GenericTypeBO();
+
+        if(fieldType.contains("[]")){
+            genericTypeBO.setRealType(fieldType.replace("[]","").trim());
+            genericTypeBO.setWrapType("Array");
+            return genericTypeBO;
+        }
+
         if(!fieldType.contains("<")){
             genericTypeBO.setRealType(fieldType);
             return genericTypeBO;
@@ -74,6 +81,9 @@ public class GenericService {
 
     public static void main(String[] args) {
         GenericService genericService = new GenericService();
+        System.out.println(JSON.toJSONString(genericService.getGenericType("Integer []")));
+        System.out.println(JSON.toJSONString(genericService.getGenericType("String []")));
+
         System.out.println(JSON.toJSONString(genericService.getGenericType("List<XxxBO>")));
         System.out.println(JSON.toJSONString(genericService.getGenericType("List<List<List<List<XxxBO>>>>")));
 

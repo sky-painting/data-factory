@@ -332,10 +332,9 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("apiBO");
         dataBuildRequestFieldBO5.setFieldType("ApiBO");
-        //String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
-        //dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
+        String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
-
 
         dataBuildRequestBO.setFieldBOList(fieldBOList);
 
@@ -347,7 +346,6 @@ public class DataFactoryTest {
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){
                 log.info("apiBO = "+JSON.toJSONString(map.get("apiBO")));
-
             }
 
         } catch (Exception e) {
@@ -370,6 +368,40 @@ public class DataFactoryTest {
         }
 
 
+    }
+
+    @Test
+    public void testDataFactoryMultModel(){
+        DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
+        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setProjectCode("sdfasdf");
+        dataBuildRequestBO.setParamModelCode("XxxBO");
+
+        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
+
+
+        DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
+        dataBuildRequestFieldBO5.setFieldName("apiBO");
+        dataBuildRequestFieldBO5.setFieldType("ApiBO");
+        String ruleDsl5 = "relyCount=10;projectCode.relySourceCode=com.datafactory.user.chineseName;apiSign.relySourceCode=com.datafactory.user.getRandom(6)";
+        dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
+        fieldBOList.add(dataBuildRequestFieldBO5);
+
+        dataBuildRequestBO.setFieldBOList(fieldBOList);
+
+        ResultDataDto<List<Map<String, Object>>> result = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            result = dataFactoryService.generateData(dataBuildRequestBO);
+            long endTime = System.currentTimeMillis();
+            log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
+            for (Map<String, Object> map : result.getData()){
+                log.info("apiBO = "+JSON.toJSONString(map.get("apiBO")));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

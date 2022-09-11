@@ -100,6 +100,10 @@ public class FieldRuleDslFactory {
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.FUNC_VAR)){
                 dataBuildRequestFieldRuleBO.setFuncVar(kvArr[1].trim());
             }
+
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_SOURCE_CODE)){
+                dataBuildRequestFieldRuleBO.setRelySourceCode(kvArr[1].trim());
+            }
         }
 
         return dataBuildRequestFieldRuleBO;
@@ -124,7 +128,6 @@ public class FieldRuleDslFactory {
             String [] kvArr = dslStr.trim().split("=");
             String [] fieldArr = kvArr[0].split("\\.");
 
-
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){
                 if(dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO() == null){
                     dataBuildRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
@@ -138,7 +141,7 @@ public class FieldRuleDslFactory {
             FieldBO fieldBO = fieldBOMap.get(fieldArr[0]);
 
             if(fieldBO == null){
-                log.warn("属性不存在,请检查dsl内容.....dslStr={}",dslStr);
+                log.warn("属性不存在,请检查dsl内容.....dslStr : {}",dslStr);
                 continue;
             }
 
@@ -250,7 +253,7 @@ public class FieldRuleDslFactory {
 
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
             if(dataSourceBO == null){
-                log.error("根据数据源查不到对应的数据源对象,dataSourceCode = {}",referRequestFieldBO.getDataSourceCode());
+                log.error("根据数据源查不到对应的数据源对象,dataSourceCode = {}, fieldName = {}, fieldType = {}",referRequestFieldBO.getDataSourceCode(),fieldBO.getFieldName(),fieldBO.getFieldType());
                 referRequestFieldBO.setDataSourceType(DataSourceTypeEnum.UN_KNOWN.getCode());
                 continue;
             }
