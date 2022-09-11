@@ -4,7 +4,7 @@ import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.DataSourceConverter;
 import com.coderman.utils.response.ResultDataDto;
 import com.coderman.utils.response.ResultDto;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.enums.VisitStrategyEnums;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;

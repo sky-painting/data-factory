@@ -2,7 +2,7 @@ package com.tianhua.datafactory.infrast.dao.mapper;
 
 import java.util.List;
 
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.infrast.dao.dataobject.ProjectConfigDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

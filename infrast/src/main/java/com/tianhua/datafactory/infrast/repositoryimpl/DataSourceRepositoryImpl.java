@@ -1,15 +1,11 @@
 package com.tianhua.datafactory.infrast.repositoryimpl;
 
 import com.coderman.utils.response.ResultDataDto;
-import com.coderman.utils.response.ResultDto;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.tianhua.datafactory.domain.ability.KVPairService;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
-import com.tianhua.datafactory.domain.bo.datasource.DataSourceReqConfigBO;
-import com.tianhua.datafactory.domain.bo.datasource.DataSourceRespConfigBO;
-import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.enums.VisitStrategyEnums;
 import com.tianhua.datafactory.domain.repository.DataSourceRepository;
 import com.tianhua.datafactory.domain.support.kvpair.KVPairBO;
@@ -21,18 +17,14 @@ import com.tianhua.datafactory.infrast.dao.mapper.DataSourceResConfigMapper;
 import com.tianhua.datafactory.infrast.dataconvert.DataSourceConvert;
 import com.tianhua.datafactory.infrast.dataconvert.DataSourceReqConvert;
 import com.tianhua.datafactory.infrast.dataconvert.DataSourceRespConvert;
-import com.tianhua.datafactory.infrast.dataconvert.ProjectConvert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

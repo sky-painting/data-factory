@@ -1,6 +1,7 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.bean;
 
 import com.coderman.utils.kvpair.KVPair;
+import com.tianhua.datafactory.domain.bo.EnumBean;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import lombok.Data;

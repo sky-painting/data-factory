@@ -1,22 +1,20 @@
-package com.tianhua.datafactory.vo.project;
+package com.tianhua.datafactory.domain.bo.datafactory;
 
-import com.tianhua.datafactory.vo.BaseVO;
-import com.tianhua.datafactory.vo.model.ParamModelVO;
+import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import lombok.Data;
 
 import java.util.List;
 
 /**
  * Description
- * api数据mock
- * date: 2022/9/5
+ * date: 2022/9/11
  *
  * @author shenshuai
  * @version 1.0.0
  * @since JDK 1.8
  */
 @Data
-public class ApiMockVO extends BaseVO {
+public class ApiMockBO {
 
     /**
      * 项目编码
@@ -49,13 +47,10 @@ public class ApiMockVO extends BaseVO {
      * 参数模型
      *
      */
-    private List<ParamModelVO> paramModelList;
+    private List<ParamModelBO> paramModelList;
 
     /**
      * mock数据的数量
      */
     private Integer mockCount;
-
-
-
 }

@@ -3,7 +3,7 @@ package com.tianhua.datafactory.controller.admin;
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ProjectConverter;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;

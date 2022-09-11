@@ -2,7 +2,7 @@ package com.tianhua.datafactory.controller.admin;
 
 import com.tianhua.datafactory.convert.TableConverter;
 import com.tianhua.datafactory.core.service.TableModelBuilderService;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.model.TableBO;
 import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.tianhua.datafactory.domain.repository.ModelRepository;

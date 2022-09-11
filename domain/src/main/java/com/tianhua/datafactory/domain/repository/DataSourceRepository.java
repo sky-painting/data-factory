@@ -1,6 +1,6 @@
 package com.tianhua.datafactory.domain.repository;
 
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 
 import java.util.List;

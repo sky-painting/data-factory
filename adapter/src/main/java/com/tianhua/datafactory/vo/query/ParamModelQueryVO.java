@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.vo.query;
 
 
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.vo.PageVO;
 import lombok.Data;
 import lombok.ToString;

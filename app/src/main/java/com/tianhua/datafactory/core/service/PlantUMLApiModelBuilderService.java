@@ -2,7 +2,7 @@ package com.tianhua.datafactory.core.service;
 
 import com.tianhua.datafactory.domain.ability.ReadApiPlantUMLDocService;
 import com.tianhua.datafactory.domain.bo.EnumBean;
-import com.tianhua.datafactory.domain.bo.PlantUMLApiContextBean;
+import com.tianhua.datafactory.domain.bo.bean.PlantUMLApiContextBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import com.tianhua.datafactory.domain.bo.model.FieldExtBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;

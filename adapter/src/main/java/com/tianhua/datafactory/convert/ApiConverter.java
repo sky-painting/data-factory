@@ -3,9 +3,11 @@ package com.tianhua.datafactory.convert;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 
+import com.tianhua.datafactory.vo.project.ApiMockVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
@@ -55,5 +57,14 @@ public interface ApiConverter{
 	 * @return List<ApiBO>
 	 */
 	 List<ApiBO> VOs2BOs(List<ApiVO> vOList);
+
+	/**
+	 * 接口mock请求
+	 * @param apiMockVO
+	 * @return
+	 */
+	ApiMockBO vo2BOMock(ApiMockVO apiMockVO);
+
+
 
 }

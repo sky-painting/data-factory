@@ -1,8 +1,9 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.bean;
 
 
+import com.tianhua.datafactory.domain.bo.ClassBean;
+import com.tianhua.datafactory.domain.bo.EnumBean;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 

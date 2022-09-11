@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;

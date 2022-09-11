@@ -5,7 +5,7 @@ import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ModelMappingConverter;
 import com.tianhua.datafactory.convert.ModelSuffixConverter;
 import com.tianhua.datafactory.core.service.ModelMappingBuilderService;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.model.ModelSuffixConfigBO;
 import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.tianhua.datafactory.domain.repository.ModelRepository;

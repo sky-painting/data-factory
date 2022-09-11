@@ -1,6 +1,5 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.tianhua.datafactory.domain.enums.VisibilityEnum;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;

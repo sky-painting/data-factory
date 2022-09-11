@@ -5,22 +5,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.ApiConverter;
-import com.tianhua.datafactory.convert.FieldConverter;
 import com.tianhua.datafactory.convert.ParamConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
-import com.tianhua.datafactory.infrast.dataconvert.ParamModelConvert;
 import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.StatusChangeVO;
-import com.tianhua.datafactory.vo.amis.ComponentVO;
-import com.tianhua.datafactory.vo.amis.ContainerVO;
-import com.tianhua.datafactory.vo.model.FieldVO;
 import com.tianhua.datafactory.vo.project.ApiMockVO;
 import com.tianhua.datafactory.vo.project.ApiVO;
 import com.tianhua.datafactory.vo.query.ApiQueryVO;
@@ -29,7 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,7 +227,7 @@ public class ApiController extends BaseController {
 			apiMockVO.setApiSign(apiMockVO.getApiMethod());
 		}
 
-		Object value = apiMockDataAdapter.getApiMockDataReq(apiMockVO.getApiSign(), ParamConverter.INSTANCE.VOs2BOs(apiMockVO.getParamModelVOList()));
+		Object value = apiMockDataAdapter.getApiMockDataReq(apiMockVO.getApiSign(), ParamConverter.INSTANCE.VOs2BOs(apiMockVO.getParamModelList()));
 		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
 		apiMockVO.setMockResultData(jsonValue);
 		return ResultDataDto.success(apiMockVO);

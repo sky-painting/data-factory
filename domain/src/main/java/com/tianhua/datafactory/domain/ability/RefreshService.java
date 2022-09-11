@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.domain.ability;
 
 import com.tianhua.datafactory.domain.GlobalConstant;
-import com.tianhua.datafactory.domain.bo.PlantUMLApiContextBean;
+import com.tianhua.datafactory.domain.bo.bean.PlantUMLApiContextBean;
 import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import org.springframework.stereotype.Service;

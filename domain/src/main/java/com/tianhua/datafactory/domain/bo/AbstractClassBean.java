@@ -2,6 +2,8 @@ package com.tianhua.datafactory.domain.bo;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.tianhua.datafactory.domain.bo.bean.InterfaceBean;
+import com.tianhua.datafactory.domain.bo.bean.MethodBean;
 import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import lombok.Data;
 import org.springframework.util.CollectionUtils;

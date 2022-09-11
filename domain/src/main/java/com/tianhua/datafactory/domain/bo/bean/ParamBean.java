@@ -1,4 +1,4 @@
-package com.tianhua.datafactory.domain.bo;
+package com.tianhua.datafactory.domain.bo.bean;
 
 /**
  * Description:

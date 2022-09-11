@@ -2,6 +2,9 @@ package com.tianhua.datafactory.domain.ability;
 
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.*;
+import com.tianhua.datafactory.domain.bo.bean.InterfaceBean;
+import com.tianhua.datafactory.domain.bo.bean.MethodBean;
+import com.tianhua.datafactory.domain.bo.bean.PlantUmlDomainContextBean;
 import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import com.tianhua.datafactory.domain.enums.ClassEnum;
 import com.tianhua.datafactory.domain.enums.ClassRelationEnum;

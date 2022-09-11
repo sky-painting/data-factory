@@ -1,7 +1,6 @@
 package com.tianhua.datafactory.core.service;
 
 import com.coderman.utils.response.ResultDataDto;
-import com.tianhua.datafactory.domain.bo.DataBuildRequestBean;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 

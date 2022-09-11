@@ -1,8 +1,7 @@
 package com.tianhua.datafactory.infrast.repositoryimpl;
 
 import com.tianhua.datafactory.domain.ability.KVPairService;
-import com.tianhua.datafactory.domain.bo.PageBO;
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceRespConfigBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;

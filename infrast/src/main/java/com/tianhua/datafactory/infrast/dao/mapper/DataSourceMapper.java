@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.infrast.dao.mapper;
 
 
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO;
 import org.apache.ibatis.annotations.Param;
 

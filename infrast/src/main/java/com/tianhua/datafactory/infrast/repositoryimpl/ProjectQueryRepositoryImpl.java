@@ -2,9 +2,8 @@ package com.tianhua.datafactory.infrast.repositoryimpl;
 
 import java.util.List;
 
-import com.tianhua.datafactory.domain.bo.PageBean;
+import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
-import com.tianhua.datafactory.domain.bo.PageBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 
