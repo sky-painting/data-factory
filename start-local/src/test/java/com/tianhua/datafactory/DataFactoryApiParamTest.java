@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import lombok.extern.slf4j.Slf4j;
@@ -143,7 +144,8 @@ public class DataFactoryApiParamTest {
         try {
             long startTime = System.currentTimeMillis();
             String apiSign = "";
-            result = dataFactoryService.generateDataApiRespParam(apiSign);
+            ApiMockBO apiMockBO = new ApiMockBO();
+            result = dataFactoryService.generateDataApiRespParam(apiMockBO);
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){

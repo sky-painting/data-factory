@@ -9,11 +9,13 @@ import com.tianhua.datafactory.convert.ParamConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.PlantUMLApiModelBuilderService;
 import com.tianhua.datafactory.domain.bo.bean.PageBean;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.bo.project.ProjectBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectRepository;
+import com.tianhua.datafactory.infrast.dataconvert.ApiConvert;
 import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.StatusChangeVO;
 import com.tianhua.datafactory.vo.project.ApiMockVO;
@@ -193,7 +195,6 @@ public class ApiController extends BaseController {
 		}
 		List<ApiBO> list = projectQueryRepository.getApiListByCode(projectCode);
 
-
 		return ResultDataDto.success(wrapperApiModelV2(ApiConverter.INSTANCE.BOs2VOs(list)));
 	}
 
@@ -209,7 +210,10 @@ public class ApiController extends BaseController {
 		if(StringUtils.isNotEmpty(apiMockVO.getApiMethod())){
 			apiMockVO.setApiSign(apiMockVO.getApiMethod());
 		}
-		Object value = apiMockDataAdapter.getApiMockDataResp(apiMockVO.getApiSign(), apiMockVO.getSuccessData());
+		if(apiMockVO.getMockCount() != null && apiMockVO.getMockCount() > 1000){
+			throw new Exception("web请求mock数量不可超过1000");
+		}
+		Object value = apiMockDataAdapter.getApiMockDataResp(ApiConverter.INSTANCE.vo2BOMock(apiMockVO));
 		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
 		apiMockVO.setMockResultData(jsonValue);
 		return ResultDataDto.success(apiMockVO);
@@ -226,8 +230,10 @@ public class ApiController extends BaseController {
 		if(StringUtils.isNotEmpty(apiMockVO.getApiMethod())){
 			apiMockVO.setApiSign(apiMockVO.getApiMethod());
 		}
-
-		Object value = apiMockDataAdapter.getApiMockDataReq(apiMockVO.getApiSign(), ParamConverter.INSTANCE.VOs2BOs(apiMockVO.getParamModelList()));
+		if(apiMockVO.getMockCount() != null && apiMockVO.getMockCount() > 1000){
+			throw new Exception("web请求mock数量不可超过1000");
+		}
+		Object value = apiMockDataAdapter.getApiMockDataReq(ApiConverter.INSTANCE.vo2BOMock(apiMockVO));
 		String jsonValue = JSONObject.toJSONString(value, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullNumberAsZero, SerializerFeature.WriteNullStringAsEmpty,SerializerFeature.WriteNullBooleanAsFalse);
 		apiMockVO.setMockResultData(jsonValue);
 		return ResultDataDto.success(apiMockVO);

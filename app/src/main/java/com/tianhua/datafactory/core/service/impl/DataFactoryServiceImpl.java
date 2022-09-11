@@ -97,18 +97,23 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     }
 
     @Override
-    public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception {
+    public ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(ApiMockBO apiMockBO) throws Exception {
 
-        ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
+        ApiBO apiBO = projectQueryRepository.getBySign(apiMockBO.getApiSign());
         log.info("构建接口mock数据的apiBO = {}", JSON.toJSONString(apiBO));
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setApiSign(apiSign);
+        dataBuildRequestBO.setApiSign(apiMockBO.getApiSign());
         dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());
-        if(apiBO.getMockCount() == null || apiBO.getMockCount() == 0){
-            dataBuildRequestBO.setBuildCount(1);
+        if(apiMockBO.getMockCount() == null || apiMockBO.getMockCount() <= 0){
+            if(apiBO.getMockCount() == null || apiBO.getMockCount() == 0){
+                dataBuildRequestBO.setBuildCount(1);
+            }else {
+                dataBuildRequestBO.setBuildCount(apiBO.getMockCount());
+            }
         }else {
-            dataBuildRequestBO.setBuildCount(apiBO.getMockCount());
+            dataBuildRequestBO.setBuildCount(apiMockBO.getMockCount());
         }
+
         ParamModelBO paramModelBO = apiBO.getReturnParamModel();
         if(paramModelBO == null){
             throw new Exception("接口返回模型为空,请在接口管理中配置返回模型");

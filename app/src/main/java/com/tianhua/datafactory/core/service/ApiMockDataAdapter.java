@@ -2,6 +2,7 @@ package com.tianhua.datafactory.core.service;
 
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.client.factory.ReturnWrapClassFactory;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
@@ -41,32 +42,31 @@ public class ApiMockDataAdapter {
     /**
      * apimock场景接口出参适配
      *
-     * @param apiSign     api接口签名
-     * @param successData 是否返回成功的数据
+     * @param apiMockBO     api接口签名
      * @return
      * @throws Exception
      */
-    public Object getApiMockDataResp(String apiSign, Boolean successData) throws Exception {
-        if (successData == null) {
-            successData = true;
+    public Object getApiMockDataResp( ApiMockBO apiMockBO) throws Exception {
+        if (apiMockBO.getSuccessData() == null) {
+            apiMockBO.setSuccessData(true);
         }
 
         Map<String, Object> resultMap = new HashMap<>();
-        ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
+        ApiBO apiBO = projectQueryRepository.getBySign(apiMockBO.getApiSign());
         if (apiBO == null) {
             throw new Exception("根据apiSign找不到对应的API模型");
         }
 
-        ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiRespParam(apiSign);
+        ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiRespParam(apiMockBO);
 
         if (ReturnWrapClassEnum.isOrigin(apiBO.getApiReturnWrapType())) {
-            if (successData) {
+            if (apiMockBO.getSuccessData()) {
                 return randomData.getData();
             }
             return null;
         }
 
-        if (!successData) {
+        if (!apiMockBO.getSuccessData()) {
             resultMap.put("code", "500");
             resultMap.put("data", null);
             resultMap.put("msg", "失败");
@@ -92,15 +92,15 @@ public class ApiMockDataAdapter {
 
 
     /**
-     * 接口入参
+     * 接口入参数据mock
      *
-     * @param apiSign
+     * @param apiMockBO
      * @return
      * @throws Exception
      */
-    public Object getApiMockDataReq(String apiSign, List<ParamModelBO> paramModelBOList ) throws Exception {
+    public Object getApiMockDataReq( ApiMockBO apiMockBO) throws Exception {
 
-        ApiBO apiBO = projectQueryRepository.getBySign(apiSign);
+        ApiBO apiBO = projectQueryRepository.getBySign(apiMockBO.getApiSign());
         if (apiBO == null) {
             throw new Exception("根据apiSign找不到对应的API模型");
         }
@@ -108,12 +108,19 @@ public class ApiMockDataAdapter {
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
 
         dataBuildRequestBO.setBuildCount(1);
+
+        if(apiMockBO.getMockCount() == null || apiMockBO.getMockCount() <= 0){
+            dataBuildRequestBO.setBuildCount(1);
+        }else {
+            dataBuildRequestBO.setBuildCount(apiMockBO.getMockCount());
+        }
+
         dataBuildRequestBO.setProjectCode(apiBO.getProjectCode());
         dataBuildRequestBO.setApiSign(apiBO.getApiSign());
 
         List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
 
-        if(CollectionUtils.isEmpty(paramModelBOList)){
+        if(CollectionUtils.isEmpty(apiMockBO.getParamModelList())){
             for (int i = 0;i < apiBO.getParamList().size();i ++){
                 ParamModelBO paramModelBO = apiBO.getParamList().get(i);
                 DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
@@ -126,9 +133,9 @@ public class ApiMockDataAdapter {
             for (int i = 0;i < apiBO.getParamList().size();i ++){
                 ParamModelBO paramModelBO = apiBO.getParamList().get(i);
                 DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO();
-                dataBuildRequestFieldBO.setFieldName(paramModelBOList.get(i).getParamVarName());
+                dataBuildRequestFieldBO.setFieldName(apiMockBO.getParamModelList().get(i).getParamVarName());
                 dataBuildRequestFieldBO.setFieldType(paramModelBO.getParamClassName());
-                dataBuildRequestFieldBO.setDataSourceCode(paramModelBOList.get(i).getDataSourceCode());
+                dataBuildRequestFieldBO.setDataSourceCode(apiMockBO.getParamModelList().get(i).getDataSourceCode());
                 fieldBOList.add(dataBuildRequestFieldBO);
             }
         }
@@ -138,7 +145,7 @@ public class ApiMockDataAdapter {
 
         ResultDataDto<List<Map<String, Object>>> randomData = dataFactoryService.generateDataApiReqParam(dataBuildRequestBO);
 
-        return randomData.getData().get(0);
+        return randomData.getData();
     }
 
 }

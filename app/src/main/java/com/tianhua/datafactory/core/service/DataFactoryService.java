@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.core.service;
 
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 
@@ -45,11 +46,11 @@ public interface DataFactoryService {
 
     /**
      * 根据api签名构建api返回值随机列表
-     * @param apiSign
+     * @param apiMockBO
      * @return
      * @throws Exception
      */
-    ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception;
+    ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(ApiMockBO apiMockBO) throws Exception;
 
 
     /**

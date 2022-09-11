@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import lombok.extern.slf4j.Slf4j;
@@ -359,7 +360,9 @@ public class DataFactoryTest {
     public void testgenerateDataApiRespParam(){
         String apiSign = "sdfasdf:/api/pagelist.get.1";
         try {
-            ResultDataDto<List<Map<String, Object>>> resultDataDto = dataFactoryService.generateDataApiRespParam(apiSign);
+            ApiMockBO apiMockBO = new ApiMockBO();
+            apiMockBO.setApiSign(apiSign);
+            ResultDataDto<List<Map<String, Object>>> resultDataDto = dataFactoryService.generateDataApiRespParam(apiMockBO);
             log.info("resultDataDto = {}",JSON.toJSONString(resultDataDto));
 
         } catch (Exception e) {

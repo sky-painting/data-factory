@@ -55,7 +55,6 @@
           "addable": true,
           "editable": true,
           "removable": true,
-
           "columns": [
               {
                 "name": "paramVarName",
@@ -69,6 +68,14 @@
                 "autoComplete": "http://127.0.0.1:8090/datasource/search"
               }
             ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "mockCount",
+          "label": "mock数据的数量"
         },
         {
           "type": "divider"
@@ -89,7 +96,6 @@
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
           "label": "数据mock结果"
         }
-
       ]
     }
   ]

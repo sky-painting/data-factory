@@ -5,6 +5,7 @@ import com.tianhua.datafactory.client.factory.ReturnWrapClassFactory;
 import com.tianhua.datafactory.convert.ApiConverter;
 import com.tianhua.datafactory.core.service.ApiMockDataAdapter;
 import com.tianhua.datafactory.core.service.DataFactoryService;
+import com.tianhua.datafactory.domain.bo.datafactory.ApiMockBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,10 @@ public class WebMockController {
     @RequestMapping(value = "/apimock",method = RequestMethod.GET)
     public Object getApiResponseData(@RequestParam(value = "apiSign") String apiSign,@RequestParam(value = "successData",required = false) Boolean successData){
         try {
-            return apiMockDataAdapter.getApiMockDataResp(apiSign, successData);
+            ApiMockBO apiMockBO = new ApiMockBO();
+            apiMockBO.setApiSign(apiSign);
+            apiMockBO.setSuccessData(successData);
+            return apiMockDataAdapter.getApiMockDataResp(apiMockBO);
         } catch (Exception e) {
             log.error("获取数据失败",e);
         }
