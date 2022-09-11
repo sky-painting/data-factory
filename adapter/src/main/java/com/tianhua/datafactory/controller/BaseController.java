@@ -140,7 +140,12 @@ public class BaseController{
 			return optionsVO;
 		}
 		apiVOList.stream().forEach(apiVO -> {
-			String apiMethod = apiVO.getReturnParamClass() + " " + apiVO.getApiUrl();
+			String apiMethod;
+			if(apiVO.getReturnParam() != null){
+				apiMethod = apiVO.getReturnParam().getParamClassName() + " " + apiVO.getApiUrl();
+			}else {
+				apiMethod = "void " + apiVO.getApiUrl();
+			}
 			StringBuilder builder = new StringBuilder(apiMethod);
 			if(CollectionUtils.isNotEmpty(apiVO.getParamList())){
 				builder.append("(");

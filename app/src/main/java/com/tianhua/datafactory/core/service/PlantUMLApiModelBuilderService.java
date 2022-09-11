@@ -81,7 +81,6 @@ public class PlantUMLApiModelBuilderService {
                 apiBO.setApiType(ApiTypeEnum.HTTP_API.getType());
             }
             apiBO.setReturnValue("");
-            apiBO.buildReturnParamModel();
             apiBO.init();
         });
 

@@ -64,22 +64,6 @@
           "type": "divider"
         },
         {
-          "type": "static",
-          "name": "apiReturnWrapTypeDesc",
-          "label": "api出参包装类型"
-        },
-        {
-          "type": "divider"
-        },
-        {
-          "type": "static",
-          "name": "returnParamClass",
-          "label": "api出参类型"
-        },
-        {
-          "type": "divider"
-        },
-        {
           "label": "入参列表",
           "type": "input-table",
           "name": "paramList",
@@ -98,7 +82,51 @@
               "label": "参数变量名"
             }
           ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "static",
+              "name": "returnParam.paramClassName",
+              "label": "出参类型"
+            },
+            {
+              "type": "static",
+              "name": "returnParam.paramVarName",
+              "label": "出参变量名"
+            },
+            {
+              "name": "returnParam.dataSourceCode",
+              "type": "static",
+              "label": "数据源编码"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "static",
+              "name": "returnParam.defaultValueList",
+              "label": "api出参默认值列表"
+            },
+            {
+              "type": "static",
+              "name": "returnParam.buildRuleDSL",
+              "label": "api出参dsl配置"
+            }
+          ]
         }
+
       ]
     }
   ]

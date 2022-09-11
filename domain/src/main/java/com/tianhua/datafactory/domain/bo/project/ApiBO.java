@@ -88,11 +88,6 @@ public class ApiBO extends BaseBO {
      */
     private ParamModelBO returnParamModel;
 
-    /**
-     * api返回的对象信息
-     */
-    private String returnParam;
-
 
     /**
      * api返回参数类名
@@ -162,19 +157,6 @@ public class ApiBO extends BaseBO {
                 this.apiSign = this.apiSign + paramModelBO.getParamClassName().substring(0,1);
             }
             this.apiSign = this.apiSign + ")";
-        }
-    }
-
-
-    /**
-     * 构建返回参数模型
-     */
-    public void buildReturnParamModel() {
-        if (StringUtils.isNotEmpty(returnParam)) {
-            this.returnParamModel = JSON.parseObject(returnParam,ParamModelBO.class);
-            if(this.returnParamModel != null){
-                this.returnParamClass = returnParamModel.getParamClassName();
-            }
         }
     }
 

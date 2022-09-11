@@ -24,6 +24,10 @@ public interface ApiConvert{
 	 * @Description:
 	 * @return ApiBO
 	 */
+	@Mappings({
+			@Mapping(target = "paramList",expression = "java(com.alibaba.fastjson.JSON.parseArray(apiModelDO.getRequestParam(),com.tianhua.datafactory.domain.bo.model.ParamModelBO.class))"),
+			@Mapping(target = "returnParamModel",expression = "java(com.alibaba.fastjson.JSON.parseObject(apiModelDO.getReturnParam(),com.tianhua.datafactory.domain.bo.model.ParamModelBO.class))"),
+	})
 	 ApiBO do2bo(ApiModelDO apiModelDO);
 	/**
 	 *
@@ -36,6 +40,10 @@ public interface ApiConvert{
 	 * @Description:
 	 * @return ApiModelDO
 	 */
+	@Mappings({
+			@Mapping(target = "requestParam",expression = "java(com.alibaba.fastjson.JSON.toJSONString(apiBO.getParamList()))"),
+			@Mapping(target = "returnParam",expression = "java(com.alibaba.fastjson.JSON.toJSONString(apiBO.getReturnParamModel()))"),
+	})
 	 ApiModelDO bo2do(ApiBO apiBO);
 	/**
 	 *

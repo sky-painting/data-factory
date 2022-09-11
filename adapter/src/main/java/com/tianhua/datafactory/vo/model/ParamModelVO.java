@@ -67,6 +67,14 @@ public class ParamModelVO extends BaseVO {
      */
     private String dataSourceCode;
 
+    /**
+     * 接口 出入参为string,long,integer之类的参数类型, 构建的属性模型DSL描述
+     */
+    private String buildRuleDSL;
 
+    /**
+     * 出入参为string,long,integer之类的参数类型, 默认值列表(不超过3个，建议常量或者是否之类的，否则使用固定数据源)
+     */
+    private String defaultValueList;
 
 }

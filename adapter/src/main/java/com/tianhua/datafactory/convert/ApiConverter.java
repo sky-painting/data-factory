@@ -1,9 +1,13 @@
 package com.tianhua.datafactory.convert;
 
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 
 import com.tianhua.datafactory.vo.project.ApiVO;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -27,6 +31,7 @@ public interface ApiConverter{
 	@Mappings({
 			@Mapping(target = "apiReturnWrapTypeDesc",expression = "java(com.tianhua.datafactory.domain.enums.ReturnWrapClassEnum.getDesc(apiBO.getApiReturnWrapType()))"),
 			@Mapping(target = "statusDesc",expression = "java(com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum.getStatusDesc(apiBO.getStatus()))"),
+			@Mapping(target = "returnParam",expression = "java(ParamConverter.INSTANCE.bo2VO(apiBO.getReturnParamModel()))"),
 	})
 	 ApiVO bo2VO(ApiBO apiBO);
 	/**
@@ -35,8 +40,7 @@ public interface ApiConverter{
 	 * @return ApiBO
 	 */
 	 @Mappings({
-			 @Mapping(target = "requestParam",expression = "java(com.alibaba.fastjson.JSON.toJSONString(apiVO.getParamList()))"),
-
+			 @Mapping(target = "returnParamModel",expression = "java(ParamConverter.INSTANCE.vo2bo(apiVO.getReturnParam()))"),
 	 })
 	 ApiBO vo2bo(ApiVO apiVO);
 	/**
@@ -51,4 +55,5 @@ public interface ApiConverter{
 	 * @return List<ApiBO>
 	 */
 	 List<ApiBO> VOs2BOs(List<ApiVO> vOList);
+
 }

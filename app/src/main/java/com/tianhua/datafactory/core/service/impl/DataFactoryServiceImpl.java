@@ -3,8 +3,11 @@ package com.tianhua.datafactory.core.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.core.service.DataTypeAdapter;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
+import com.tianhua.datafactory.core.service.GenericService;
 import com.tianhua.datafactory.domain.GlobalConstant;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import com.tianhua.datafactory.domain.bo.model.FieldBO;
@@ -16,6 +19,7 @@ import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +58,12 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     @Autowired
     private ModelQueryRepository modelQueryRepository;
+
+    @Autowired
+    private GenericService genericService;
+
+    @Resource(name = "basicTypeAdapter")
+    private DataTypeAdapter basicTypeAdapter;
 
 
     @Override
@@ -103,19 +113,10 @@ public class DataFactoryServiceImpl implements DataFactoryService {
         if(paramModelBO == null){
             throw new Exception("接口返回模型为空,请在接口管理中配置返回模型");
         }
-        List<FieldBO> fieldModelBOList = modelQueryRepository.getModelField(apiBO.getProjectCode(), paramModelBO.getParamClassName());
 
-        List<DataBuildRequestFieldBO> fieldBOList = new ArrayList<>();
-        for (FieldBO fieldBO : fieldModelBOList){
-            DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO<>();
-            dataBuildRequestFieldBO.setFieldType(fieldBO.getFieldType());
-            dataBuildRequestFieldBO.setFieldName(fieldBO.getFieldName());
-            dataBuildRequestFieldBO.setDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
-            dataBuildRequestFieldBO.setDefaultValueList(fieldBO.getFieldExtBO().getDefaultValueList());
-            dataBuildRequestFieldBO.setBuildRuleDSL(fieldBO.getFieldExtBO().getBuildRuleDSL());
-            fieldBOList.add(dataBuildRequestFieldBO);
-        }
-
+        GenericTypeBO genericTypeBO = genericService.getGenericType(paramModelBO.getParamClassName());
+        genericTypeBO.setApiBO(apiBO);
+        List<DataBuildRequestFieldBO> fieldBOList = basicTypeAdapter.buildFieldList(genericTypeBO);
         dataBuildRequestBO.setFieldBOList(fieldBOList);
         return generateData(dataBuildRequestBO);
     }

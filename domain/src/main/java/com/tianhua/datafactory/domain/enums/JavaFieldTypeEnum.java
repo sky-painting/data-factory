@@ -18,7 +18,8 @@ public enum JavaFieldTypeEnum {
     INT("int"),
     LONG("Long"),
     LONG_BASIC("long"),
-
+    BOOLEAN("Boolean"),
+    BOOLEAN_BASIC("boolean"),
     SHORT("Short"),
     SHORT_BASIC("short"),
     STRING("String"),
@@ -69,6 +70,11 @@ public enum JavaFieldTypeEnum {
         return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.STRING.getType().toLowerCase().equals(type.toLowerCase());
     }
 
+    public static boolean isBoolean(String type){
+        return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.BOOLEAN_BASIC.getType().equals(type.toLowerCase());
+    }
+
+
     public static boolean isDate(String type){
         return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.DATE.getType().toLowerCase().equals(type.toLowerCase());
     }
@@ -101,5 +107,20 @@ public enum JavaFieldTypeEnum {
         }
         return optionsBO;
     }
+
+    /**
+     * 是否是基础类型
+     * @param type
+     * @return
+     */
+    public static boolean isBasicType(String type){
+        return isInt(type) || isString(type) || isShort(type)
+                || isLong(type) || isDate(type) || isBoolean(type)
+                || isDouble(type) || isFloat(type) || isLocalDate(type) || isDateTime(type);
+    }
+
+
+
+
 
 }

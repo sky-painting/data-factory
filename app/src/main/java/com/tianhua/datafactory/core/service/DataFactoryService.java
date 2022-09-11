@@ -53,8 +53,6 @@ public interface DataFactoryService {
     ResultDataDto<List<Map<String, Object>>> generateDataApiRespParam(String apiSign) throws Exception;
 
 
-
-
     /**
      * 通过数据源编码获取单个数据源对应的随机数
      * 主要用于测试

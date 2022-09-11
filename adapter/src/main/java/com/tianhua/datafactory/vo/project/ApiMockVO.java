@@ -51,4 +51,11 @@ public class ApiMockVO extends BaseVO {
      */
     private List<ParamModelVO> paramModelVOList;
 
+    /**
+     * mock数据的数量
+     */
+    private Integer mockCount;
+
+
+
 }

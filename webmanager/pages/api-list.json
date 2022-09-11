@@ -145,7 +145,7 @@
         },
         {
           "type": "text",
-          "name": "returnParamClass",
+          "name": "returnParam.paramClassName",
           "label": "返回参数类型"
         },
         {

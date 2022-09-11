@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.domain.bo;
 
+import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import lombok.Data;
 
 import java.util.Map;
@@ -40,4 +41,10 @@ public class GenericTypeBO {
      * 泛型子类型
      */
     private Map<String, GenericTypeBO> subGenericTypeMap;
+
+    /**
+     * 对应的api模型
+     */
+    private ApiBO apiBO;
+
 }

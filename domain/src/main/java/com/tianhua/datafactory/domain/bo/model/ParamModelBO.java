@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tianhua.datafactory.domain.bo.BaseBO;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -53,14 +54,29 @@ public class ParamModelBO extends BaseBO {
 
 
    /**
-    * 接口入参为string,long,integer之类的参数类型,从前端绑定
+    * 接口 出入参为string,long,integer之类的参数类型,从前端绑定
     *
     */
    private String dataSourceCode;
 
 
+
+   /**
+    * 接口 出入参为string,long,integer之类的参数类型, 构建的属性模型DSL描述
+    */
+   private String buildRuleDSL;
+
+   /**
+    * 出入参为string,long,integer之类的参数类型, 默认值列表(不超过3个，建议常量或者是否之类的，否则使用固定数据源)
+    */
+   private String defaultValueList;
+
+
+
    /** 参数映射模型 **/
    private  List<ModelMappingBO> modelMappingBOList;
+
+
    public ParamModelBO(){}
 
    public ParamModelBO(String paramClassName){

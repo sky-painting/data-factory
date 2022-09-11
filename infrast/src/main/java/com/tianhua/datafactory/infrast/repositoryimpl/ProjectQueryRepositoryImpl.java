@@ -43,7 +43,6 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
         List<ApiModelDO> apiModelDOList = apiModelMapper.getByProjectCode(projectCode);
         List<ApiBO> apiBOList = ApiConvert.INSTANCE.doList2boList(apiModelDOList);
         apiBOList.stream().forEach(apiBO -> {
-            apiBO.buildReturnParamModel();
             apiBO.buildRequestParam();
         });
         return apiBOList;
@@ -59,7 +58,6 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
         List<ApiModelDO> apiModelDOList = apiModelMapper.getPageList(pageBean);
         List<ApiBO> apiBOList = ApiConvert.INSTANCE.doList2boList(apiModelDOList);
         apiBOList.stream().forEach(apiBO -> {
-            apiBO.buildReturnParamModel();
             apiBO.buildRequestParam();
         });
         pageBean.setRows(apiBOList);
@@ -75,7 +73,6 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
             return null;
         }
         apiBO.buildRequestParam();
-        apiBO.buildReturnParamModel();
         return apiBO;
     }
 
@@ -105,7 +102,6 @@ public class ProjectQueryRepositoryImpl  implements ProjectQueryRepository{
         if(apiBO == null){
             return null;
         }
-        apiBO.buildReturnParamModel();
         apiBO.buildRequestParam();
         return apiBO;
     }

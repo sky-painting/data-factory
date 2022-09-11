@@ -167,13 +167,47 @@
           "type": "divider"
         },
         {
-          "type": "input-text",
-          "name": "returnParamClass",
-          "label": "api出参类型",
-          "required": true
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "input-text",
+              "name": "returnParam.paramClassName",
+              "label": "出参类型",
+              "required": true
+            },
+            {
+              "type": "input-text",
+              "name": "returnParam.paramVarName",
+              "label": "出参变量名"
+            },
+            {
+              "name": "returnParam.dataSourceCode",
+              "type": "select",
+              "label": "数据源编码",
+              "autoComplete": "http://127.0.0.1:8090/datasource/search"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "textarea",
+              "name": "returnParam.defaultValueList",
+              "label": "api出参默认值列表"
+            },
+            {
+              "type": "textarea",
+              "name": "returnParam.buildRuleDSL",
+              "label": "api出参dsl配置"
+            }
+          ]
         }
-
-
       ]
     }
   ]

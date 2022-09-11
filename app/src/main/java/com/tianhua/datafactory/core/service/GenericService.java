@@ -75,6 +75,7 @@ public class GenericService {
     public static void main(String[] args) {
         GenericService genericService = new GenericService();
         System.out.println(JSON.toJSONString(genericService.getGenericType("List<XxxBO>")));
+        System.out.println(JSON.toJSONString(genericService.getGenericType("List<List<List<List<XxxBO>>>>")));
 
         System.out.println(JSON.toJSONString(genericService.getGenericType("Map<String,XxxBO>")));
         System.out.println(JSON.toJSONString(genericService.getGenericType("Map<String,List<XxxBO>>")));

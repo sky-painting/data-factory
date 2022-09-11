@@ -112,11 +112,6 @@ public class ApiController extends BaseController {
 		ApiBO apiBO = ApiConverter.INSTANCE.vo2bo(apiVO);
 		apiBO.setId(id);
 
-		ParamModelBO returnParamModel = new ParamModelBO();
-		returnParamModel.setParamClassName(apiVO.getReturnParamClass());
-		apiBO.setReturnParamModel(returnParamModel);
-		apiBO.setReturnParam(JSON.toJSONString(apiBO.getReturnParamModel()));
-
 		ProjectBO projectBO = ProjectBO.getInstance();
 		projectBO.addApiBo(apiBO);
 		projectRepository.updateProject(projectBO);

@@ -88,4 +88,9 @@ public class ApiVO extends BaseVO {
       */
      private String requestParamClasses;
 
+     /**
+      * api返回参数对象
+      */
+     private ParamModelVO returnParam;
+
  }

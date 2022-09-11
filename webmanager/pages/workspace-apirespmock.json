@@ -47,6 +47,14 @@
           "type": "divider"
         },
         {
+          "type": "input-text",
+          "name": "mockCount",
+          "label": "mock数据的数量"
+        },
+        {
+          "type": "divider"
+        },
+        {
           "type": "json",
           "name": "mockResultData",
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
@@ -62,7 +70,6 @@
           "visibleOn": "typeof data.mockResultData !== 'undefined'",
           "label": "数据mock结果txt"
         }
-
       ]
     }
   ]
