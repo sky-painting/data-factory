@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.core.service.liteflow;
 
+import com.tianhua.datafactory.core.service.DataProcessExecutor;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
 import com.tianhua.datafactory.core.service.task.DataGenerateTask;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
@@ -29,6 +30,9 @@ public class ParallelProcessingCmp  extends NodeComponent {
 
     @Autowired
     private FieldValueFactory fieldValueFactory;
+
+    @Autowired
+    private DataProcessExecutor dataProcessExecutor;
 
 
     @Override
@@ -61,7 +65,7 @@ public class ParallelProcessingCmp  extends NodeComponent {
             if(leftSize != 0 && i == taskCount - 1){
                 end = end + leftSize;
             }
-            Future<List<Map<String, Object>>> future = threadPool.submit(new DataGenerateTask(start, end, dataBuildRequestBO.getFieldBOList(),fieldValueFactory));
+            Future<List<Map<String, Object>>> future = threadPool.submit(new DataGenerateTask(start, end, dataBuildRequestBO.getFieldBOList(),dataProcessExecutor));
             batchResultList.addAll(future.get());
         }
 

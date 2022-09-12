@@ -1,11 +1,9 @@
 package com.tianhua.datafactory.core.service.task;
 
-import com.tianhua.datafactory.client.function.Function;
-import com.tianhua.datafactory.core.service.FieldValueFactory;
+import com.tianhua.datafactory.core.service.DataProcessExecutor;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
 
-import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.Callable;
 
@@ -23,14 +21,13 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
 
     private List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList;
 
-    private SecureRandom random = new SecureRandom();
-    private FieldValueFactory fieldValueFactory;
+    private DataProcessExecutor dataProcessExecutor;
 
-    public DataGenerateTask(Integer start, Integer end, List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList, FieldValueFactory fieldValueFactory){
+    public DataGenerateTask(Integer start, Integer end, List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList, DataProcessExecutor dataProcessExecutor){
         this.start = start;
         this.end = end;
         this.dataFactoryRequestFieldBeanList = dataFactoryRequestFieldBeanList;
-        this.fieldValueFactory = fieldValueFactory;
+        this.dataProcessExecutor = dataProcessExecutor;
     }
 
 
@@ -39,10 +36,12 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
     public List<Map<String, Object>> call() throws Exception {
         List<Map<String, Object>> batchList = new ArrayList<>();
         for (int s = this.start * 10000; s < (this.start + 1) * 10000 ; s ++) {
-            Map<String, Object> fieldValueMap = new HashMap<>(dataFactoryRequestFieldBeanList.size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(start);
-            for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
+
+            dataProcessExecutor.exeDataGenerateProcess(dataSourceFieldRequestBean, dataFactoryRequestFieldBeanList, batchList);
+
+            /*for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
                 dataSourceFieldRequestBean.setRandom(random);
@@ -56,7 +55,7 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
                 }
                 fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), fieldValue);
             }
-            batchList.add(fieldValueMap);
+            batchList.add(fieldValueMap);*/
         }
         return batchList;
     }
