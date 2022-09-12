@@ -2,6 +2,7 @@ package com.tianhua.datafactory.core.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.specification.TypeConvertFactory;
+import com.tianhua.datafactory.domain.ability.CollectionFactory;
 import com.tianhua.datafactory.domain.ability.DataFilter;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
@@ -36,6 +37,9 @@ public class CollectionValueFilter implements DataFilter {
     @Autowired
     private TypeConvertFactory typeConvertFactory;
 
+    @Autowired
+    private CollectionFactory collectionFactory;
+
 
     @Override
     public void dataFilt(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> valueMap, List<Map<String, Object>> list) {
@@ -44,9 +48,25 @@ public class CollectionValueFilter implements DataFilter {
             return;
         }
 
-        String relyField = dataBuildRequestFieldRuleBO.getRelyField();
-
+        String defaultValues = dataBuildRequestFieldRuleBO.getDefaultValues();
         GenericTypeBO genericTypeBO = dataBuildRequestFieldBO.getGenericTypeBO();
+
+        if(StringUtils.isNotEmpty(defaultValues) && !genericTypeBO.isRealTypeModel()){
+            String [] array = getDefaultValuesArray(defaultValues);
+            int randomSize = random.nextInt(array.length);
+
+            if(JavaFieldTypeEnum.isList(genericTypeBO.getWrapType())){
+                List valueList = collectionFactory.buildListValues(array, randomSize, genericTypeBO.getRealType());
+                valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueList);
+            }else if(JavaFieldTypeEnum.isSet(genericTypeBO.getWrapType())){
+                Set valueSet = collectionFactory.buildSetValues(array, randomSize, genericTypeBO.getRealType());
+                valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueSet);
+            }
+            return;
+        }
+
+
+        String relyField = dataBuildRequestFieldRuleBO.getRelyField();
 
         //处理list依赖
         if(StringUtils.isNotEmpty(relyField)){
@@ -61,50 +81,6 @@ public class CollectionValueFilter implements DataFilter {
                 }
                 valueMap.put(dataBuildRequestFieldBO.getFieldName(),relyFieldValueList);
                 return;
-            }
-
-            String valueListStr = relyField;
-            //依赖的是自己提供的数据集合,支持两种格式
-            if(relyField.startsWith("{")){
-                valueListStr = valueListStr.replace("{","").replace("}","");
-            }
-
-            if(relyField.startsWith("[")){
-                valueListStr = valueListStr.replace("[","").replace("]","");
-            }
-
-            String [] array = valueListStr.split(",");
-
-            String generics = dataBuildRequestFieldBO.getGenerics();
-
-            //处理List<Integer>
-            if(generics.equals(JavaFieldTypeEnum.INTEGER.getType())){
-                int randomSize = random.nextInt(array.length);
-                List valueList = new ArrayList<>();
-                for (int i = 0;i < randomSize;i++){
-                    valueList.add(Integer.parseInt(array[random.nextInt(array.length)]));
-                }
-                valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueList);
-            }
-
-            //处理List<String>
-            else if(generics.equals(JavaFieldTypeEnum.STRING.getType())){
-                int randomSize = random.nextInt(array.length);
-                List valueList = new ArrayList<>();
-                for (int i = 0;i < randomSize;i++){
-                    valueList.add(array[random.nextInt(array.length)]);
-                }
-                valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueList);
-            }
-
-            //处理List<Long>
-            else if(generics.equals(JavaFieldTypeEnum.LONG.getType())){
-                int randomSize = random.nextInt(array.length);
-                List valueList = new ArrayList<>();
-                for (int i = 0;i < randomSize;i++){
-                    valueList.add(Long.parseLong(array[random.nextInt(array.length)]));
-                }
-                valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueList);
             }
         }
 
@@ -122,47 +98,6 @@ public class CollectionValueFilter implements DataFilter {
                 valueMap.put(dataBuildRequestFieldBO.getFieldName(),relyFieldValueSet);
                 return;
             }
-
-            String valueSetStr = relyField;
-            //依赖的是自己提供的数据集合,支持两种格式
-            if(relyField.startsWith("{")){
-                valueSetStr = valueSetStr.replace("{","").replace("}","");
-            }
-
-            if(relyField.startsWith("[")){
-                valueSetStr = valueSetStr.replace("[","").replace("]","");
-            }
-
-            String [] array = valueSetStr.split(",");
-
-            String generics = dataBuildRequestFieldBO.getGenerics();
-            Set valueSet = new HashSet();
-            int randomSize = random.nextInt(array.length);
-            if(randomSize == 0){
-                randomSize = 1;
-            }
-            //处理Set<Integer>
-            if(generics.equals(JavaFieldTypeEnum.INTEGER.getType())){
-                for (int i = 0;i < randomSize;i++){
-                    valueSet.add(Integer.parseInt(array[random.nextInt(array.length)]));
-                }
-            }
-
-            //处理Set<String>
-            else if(generics.equals(JavaFieldTypeEnum.STRING.getType())){
-                for (int i = 0;i < randomSize;i++){
-                    valueSet.add(array[random.nextInt(array.length)]);
-                }
-            }
-
-            //处理Set<Long>
-            else if(generics.equals(JavaFieldTypeEnum.LONG.getType())){
-                for (int i = 0;i < randomSize;i++){
-                    valueSet.add(Long.parseLong(array[random.nextInt(array.length)]));
-                }
-            }
-
-            valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueSet);
         }
 
         String relyKeyField = dataBuildRequestFieldRuleBO.getRelyKeyField();
@@ -216,4 +151,25 @@ public class CollectionValueFilter implements DataFilter {
         }
 
     }
+
+
+    /**
+     * 获取默认值列表
+     * @param defaultValues
+     * @return
+     */
+    private String [] getDefaultValuesArray(String defaultValues){
+        String valueListStr = defaultValues;
+        //依赖的是自己提供的数据集合,支持两种格式
+        if(valueListStr.startsWith("{")){
+            valueListStr = valueListStr.replace("{","").replace("}","");
+        }
+
+        if(valueListStr.startsWith("[")){
+            valueListStr = valueListStr.replace("[","").replace("]","");
+        }
+
+        return valueListStr.split(",");
+    }
+
 }

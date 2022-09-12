@@ -107,7 +107,7 @@ public class SerialProcessingCmp extends NodeComponent {
 
             if(CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getReferFieldList())){
 
-                if(JavaFieldTypeEnum.isCollectionType(dataBuildRequestFieldBO.getGenericTypeBO().getWrapType())){
+                if(JavaFieldTypeEnum.isCollectionType(dataBuildRequestFieldBO.getGenericTypeBO().getWrapType()) && dataBuildRequestFieldBO.getGenericTypeBO().isRealTypeModel()){
                     int randomCount = secureRandom.nextInt(10);
                     List<Map<String, Object>> list = new ArrayList<>();
                     for (int i = 0;i < randomCount ;i++){

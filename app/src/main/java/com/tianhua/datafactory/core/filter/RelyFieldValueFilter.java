@@ -27,10 +27,17 @@ public class RelyFieldValueFilter implements DataFilter {
     @Override
     public void dataFilt(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> valueMap, List<Map<String, Object>> list) {
         DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO();
-        if (dataBuildRequestFieldRuleBO == null){
+        if (dataBuildRequestFieldRuleBO == null ){
             return;
         }
         String relyField = dataBuildRequestFieldRuleBO.getRelyField();
+        if(StringUtils.isEmpty(relyField)){
+            return;
+        }
+
+        if (relyField.contains("$")) {
+            relyField = relyField.replace("$","");
+        }
 
         Object relyFieldValue = valueMap.get(relyField);
 

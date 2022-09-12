@@ -92,7 +92,7 @@ public class DataFactoryTest {
 
 
     @Test
-    public void testDataFactoryx(){
+    public void testDataFactoryHugeCount(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setBuildCount(100000);
         dataBuildRequestBO.setProjectCode("xxxx");
@@ -159,9 +159,9 @@ public class DataFactoryTest {
 
 
     @Test
-    public void testDataFactory5(){
+    public void testDataFactoryFieldDSL(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setBuildCount(1);
         dataBuildRequestBO.setProjectCode("sdfasdf");
         dataBuildRequestBO.setParamModelCode("XxxBO");
 
@@ -190,9 +190,8 @@ public class DataFactoryTest {
 
         DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO2.setFieldName("userIdList");
-        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
         dataBuildRequestFieldBO2.setFieldType("List<Long>");
-        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        String ruleDsl2 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
         fieldBOList.add(dataBuildRequestFieldBO2);
 
@@ -200,7 +199,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO3.setFieldName("departIdSet");
         dataBuildRequestFieldBO3.setFieldType("Set<Long>");
-        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        String ruleDsl3 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
         fieldBOList.add(dataBuildRequestFieldBO3);
 
@@ -208,7 +207,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO4 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO4.setFieldName("chineseNameV2");
         dataBuildRequestFieldBO4.setFieldType("String");
-        String ruleDsl4 = "relyField=chineseName;";
+        String ruleDsl4 = "relyField=$chineseName;";
         dataBuildRequestFieldBO4.setBuildRuleDSL(ruleDsl4);
         fieldBOList.add(dataBuildRequestFieldBO4);
 
@@ -216,7 +215,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("fieldBO");
         dataBuildRequestFieldBO5.setFieldType("FieldBO");
-        String ruleDsl5 = "fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        String ruleDsl5 = "fieldName.dataSourceCode=com.datafactory.user.chineseName;paramClassName.dataSourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 
@@ -224,7 +223,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO6 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO6.setFieldName("xxxMapping");
         dataBuildRequestFieldBO6.setFieldType("Map<String,Long>");
-        String ruleDsl6 = "relyMapKeyField={a,b,c,d};relyMapValueField={1,2,3,4,5,6,7}";
+        String ruleDsl6 = "relyKeyField={a,b,c,d};relyValueField={1,2,3,4,5,6,7}";
         dataBuildRequestFieldBO6.setBuildRuleDSL(ruleDsl6);
         fieldBOList.add(dataBuildRequestFieldBO6);
 
@@ -238,6 +237,9 @@ public class DataFactoryTest {
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
             for (Map<String, Object> map : result.getData()){
+                log.info("id = "+JSON.toJSONString(map.get("id")));
+                log.info("chineseName = "+JSON.toJSONString(map.get("chineseName")));
+
                 log.info("userIdList = "+JSON.toJSONString(map.get("userIdList")));
                 log.info("departIdSet = "+JSON.toJSONString(map.get("departIdSet")));
                 log.info("chineseNameV2 = "+JSON.toJSONString(map.get("chineseNameV2")));
@@ -251,7 +253,7 @@ public class DataFactoryTest {
 
 
     @Test
-    public void testDataFactory6(){
+    public void testDataFactoryDataSourceRefer(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
         dataBuildRequestBO.setBuildCount(10);
         dataBuildRequestBO.setProjectCode("sdfasdf");
@@ -262,9 +264,8 @@ public class DataFactoryTest {
 
         DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO2.setFieldName("userIdList");
-        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
         dataBuildRequestFieldBO2.setFieldType("List<Long>");
-        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        String ruleDsl2 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
         fieldBOList.add(dataBuildRequestFieldBO2);
 
@@ -272,7 +273,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO3.setFieldName("departIdSet");
         dataBuildRequestFieldBO3.setFieldType("Set<Long>");
-        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        String ruleDsl3 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
         fieldBOList.add(dataBuildRequestFieldBO3);
 
@@ -280,7 +281,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("fieldBO");
         dataBuildRequestFieldBO5.setFieldType("List<FieldBO>");
-        String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        String ruleDsl5 = "genCount=10;fieldName.dataSourceCode=com.datafactory.user.chineseName;paramClassName.dataSourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 
@@ -314,9 +315,8 @@ public class DataFactoryTest {
 
         DataBuildRequestFieldBO dataBuildRequestFieldBO2 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO2.setFieldName("userIdList");
-        dataBuildRequestFieldBO2.setFunction(chineseNameFunc);
         dataBuildRequestFieldBO2.setFieldType("List<Long>");
-        String ruleDsl2 = "relyListField={1,2,3,4,5,6,7,8}";
+        String ruleDsl2 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO2.setBuildRuleDSL(ruleDsl2);
         fieldBOList.add(dataBuildRequestFieldBO2);
 
@@ -324,7 +324,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO3 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO3.setFieldName("departIdSet");
         dataBuildRequestFieldBO3.setFieldType("Set<Long>");
-        String ruleDsl3 = "relySetField={1,2,3,4,5,6,7,8}";
+        String ruleDsl3 = "defaultValues={1,2,3,4,5,6,7,8}";
         dataBuildRequestFieldBO3.setBuildRuleDSL(ruleDsl3);
         fieldBOList.add(dataBuildRequestFieldBO3);
 
@@ -332,7 +332,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("apiBO");
         dataBuildRequestFieldBO5.setFieldType("ApiBO");
-        String ruleDsl5 = "relyCount=10;fieldName.relySourceCode=com.datafactory.user.chineseName;paramClassName.relySourceCode=com.datafactory.user.getRandom(6)";
+        String ruleDsl5 = "genCount=10;fieldName.dataSourceCode=com.datafactory.user.chineseName;paramClassName.dataSourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 
@@ -370,6 +370,9 @@ public class DataFactoryTest {
 
     }
 
+    /**
+     * 测试多层嵌套数据生成
+     */
     @Test
     public void testDataFactoryMultModel(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
@@ -383,7 +386,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("apiBO");
         dataBuildRequestFieldBO5.setFieldType("ApiBO");
-        String ruleDsl5 = "projectCode.relySourceCode=com.datafactory.user.chineseName;apiSign.relySourceCode=com.datafactory.user.getRandom(6)";
+        String ruleDsl5 = "projectCode.dataSourceCode=com.datafactory.user.chineseName;apiSign.dataSourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 
