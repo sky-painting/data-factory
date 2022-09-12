@@ -81,33 +81,28 @@ public class FieldRuleDslFactory {
                 dataBuildRequestFieldRuleBO.setRelyField(kvArr[1].trim());
             }
 
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_LIST_FIELD)){
-                dataBuildRequestFieldRuleBO.setRelyListField(kvArr[1].trim());
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.DEFAULT_VALUES)){
+                dataBuildRequestFieldRuleBO.setDefaultValues(kvArr[1].trim());
             }
 
-
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_SET_FIELD)){
-                dataBuildRequestFieldRuleBO.setRelySetField(kvArr[1].trim());
-            }
-
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){
-                dataBuildRequestFieldRuleBO.setRelyCount(Integer.valueOf(kvArr[1].trim()));
-            }
-
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_MAP_KEY_FIELD)){
-                dataBuildRequestFieldRuleBO.setRelyMapKeyField(kvArr[1].trim());
-            }
-
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_MAP_VALUE_FIELD)){
-                dataBuildRequestFieldRuleBO.setRelyMapValueField(kvArr[1].trim());
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.GEN_COUNT)){
+                dataBuildRequestFieldRuleBO.setGenCount(Integer.valueOf(kvArr[1].trim()));
             }
 
             if(kvArr[0].trim().equals(FieldDSLKeyConstant.FUNC_VAR)){
                 dataBuildRequestFieldRuleBO.setFuncVar(kvArr[1].trim());
             }
 
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_SOURCE_CODE)){
-                dataBuildRequestFieldRuleBO.setRelySourceCode(kvArr[1].trim());
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.DATA_SOURCE_CODE)){
+                dataBuildRequestFieldRuleBO.setDataSourceCode(kvArr[1].trim());
+            }
+
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_MAP_KEY_FIELD)){
+                dataBuildRequestFieldRuleBO.setRelyKeyField(kvArr[1].trim());
+            }
+
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_MAP_VALUE_FIELD)){
+                dataBuildRequestFieldRuleBO.setRelyValueField(kvArr[1].trim());
             }
         }
 
@@ -133,11 +128,11 @@ public class FieldRuleDslFactory {
             String [] kvArr = dslStr.trim().split("=");
             String [] fieldArr = kvArr[0].split("\\.");
 
-            if(kvArr[0].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){
+            if(kvArr[0].trim().equals(FieldDSLKeyConstant.GEN_COUNT)){
                 if(dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO() == null){
                     dataBuildRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
                 }
-                dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().setRelyCount(Integer.valueOf(kvArr[1].trim()));
+                dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().setGenCount(Integer.valueOf(kvArr[1].trim()));
                 continue;
 
             }
@@ -174,31 +169,15 @@ public class FieldRuleDslFactory {
                 referRequestFieldRuleBO.setRelyField(kvArr[1].trim());
             }
 
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_LIST_FIELD)){
-                referRequestFieldRuleBO.setRelyListField(kvArr[1].trim());
-            }
-
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_SET_FIELD)){
-                referRequestFieldRuleBO.setRelySetField(kvArr[1].trim());
-            }
-
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_COUNT)){
-                referRequestFieldRuleBO.setRelyCount(Integer.valueOf(kvArr[1].trim()));
-            }
-
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_MAP_KEY_FIELD)){
-                referRequestFieldRuleBO.setRelyMapKeyField(kvArr[1].trim());
-            }
-
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_MAP_VALUE_FIELD)){
-                referRequestFieldRuleBO.setRelyMapValueField(kvArr[1].trim());
+            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.GEN_COUNT)){
+                referRequestFieldRuleBO.setGenCount(Integer.valueOf(kvArr[1].trim()));
             }
 
             if(fieldArr[1].trim().equals(FieldDSLKeyConstant.FUNC_VAR)){
                 referRequestFieldRuleBO.setFuncVar(kvArr[1].trim());
             }
 
-            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.RELY_SOURCE_CODE)){
+            if(fieldArr[1].trim().equals(FieldDSLKeyConstant.DATA_SOURCE_CODE)){
                 if( kvArr[1].contains("(")){
                     String dataSourceCode = kvArr[1].trim().split("\\(")[0];
                     String funcVar = kvArr[1].trim().split("\\(")[1].replace(")","");
@@ -206,11 +185,11 @@ public class FieldRuleDslFactory {
                         funcVar = funcVar.split("#")[0];
                         referRequestFieldRuleBO.setRelyField(funcVar.split("#")[1]);
                     }
-                    referRequestFieldRuleBO.setRelySourceCode(dataSourceCode);
+                    referRequestFieldRuleBO.setDataSourceCode(dataSourceCode);
                     referRequestFieldBO.setDataSourceCode(dataSourceCode);
                     referRequestFieldRuleBO.setFuncVar(funcVar);
                 }else {
-                    referRequestFieldRuleBO.setRelySourceCode(kvArr[1]);
+                    referRequestFieldRuleBO.setDataSourceCode(kvArr[1]);
                     referRequestFieldBO.setDataSourceCode(kvArr[1]);
                 }
 

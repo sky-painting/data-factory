@@ -3,6 +3,7 @@ package com.tianhua.datafactory.core.filter;
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.specification.TypeConvertFactory;
 import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.enums.JavaFieldTypeEnum;
@@ -43,21 +44,15 @@ public class CollectionValueFilter implements DataFilter {
             return;
         }
 
-        String relyListField = dataBuildRequestFieldRuleBO.getRelyListField();
-        String fieldType = dataBuildRequestFieldBO.getFieldType();
+        String relyField = dataBuildRequestFieldRuleBO.getRelyField();
 
-
-        String relySetField = dataBuildRequestFieldRuleBO.getRelySetField();
-
-        String relyMapKeyField = dataBuildRequestFieldRuleBO.getRelyMapKeyField();
-
-        String relyMapValueField = dataBuildRequestFieldRuleBO.getRelyMapValueField();
+        GenericTypeBO genericTypeBO = dataBuildRequestFieldBO.getGenericTypeBO();
 
         //处理list依赖
-        if(StringUtils.isNotEmpty(relyListField)){
+        if(StringUtils.isNotEmpty(relyField)){
             //依赖的是另外一个属性的集合值，随机取部分数据做集合数据
-            if(relyListField.startsWith("$") && fieldType.contains("List<")){
-                String relyFieldName = relyListField.replace("$","");
+            if(relyField.startsWith("$") && JavaFieldTypeEnum.isList(genericTypeBO.getWrapType())){
+                String relyFieldName = relyField.replace("$","");
                 List relyFieldValueList = new ArrayList();
                 int randomCount = random.nextInt(100);
                 for (int i = 0;i < randomCount;i ++ ){
@@ -68,13 +63,13 @@ public class CollectionValueFilter implements DataFilter {
                 return;
             }
 
-            String valueListStr = relyListField;
+            String valueListStr = relyField;
             //依赖的是自己提供的数据集合,支持两种格式
-            if(relyListField.startsWith("{")){
+            if(relyField.startsWith("{")){
                 valueListStr = valueListStr.replace("{","").replace("}","");
             }
 
-            if(relyListField.startsWith("[")){
+            if(relyField.startsWith("[")){
                 valueListStr = valueListStr.replace("[","").replace("]","");
             }
 
@@ -114,10 +109,10 @@ public class CollectionValueFilter implements DataFilter {
         }
 
         //处理set依赖
-        if(StringUtils.isNotEmpty(relySetField)){
+        if(StringUtils.isNotEmpty(relyField)){
             //依赖的是另外一个属性的集合值，随机取部分数据做集合数据
-            if(relySetField.startsWith("$") && fieldType.contains("Set<")){
-                String relyFieldName = relySetField.replace("$","");
+            if(relyField.startsWith("$") && JavaFieldTypeEnum.isSet(genericTypeBO.getWrapType())){
+                String relyFieldName = relyField.replace("$","");
                 Set relyFieldValueSet = new HashSet();
                 int randomCount = random.nextInt(100);
                 for (int i = 0;i < randomCount;i ++ ){
@@ -128,13 +123,13 @@ public class CollectionValueFilter implements DataFilter {
                 return;
             }
 
-            String valueSetStr = relySetField;
+            String valueSetStr = relyField;
             //依赖的是自己提供的数据集合,支持两种格式
-            if(relySetField.startsWith("{")){
+            if(relyField.startsWith("{")){
                 valueSetStr = valueSetStr.replace("{","").replace("}","");
             }
 
-            if(relySetField.startsWith("[")){
+            if(relyField.startsWith("[")){
                 valueSetStr = valueSetStr.replace("[","").replace("]","");
             }
 
@@ -170,43 +165,40 @@ public class CollectionValueFilter implements DataFilter {
             valueMap.put(dataBuildRequestFieldBO.getFieldName(),valueSet);
         }
 
+        String relyKeyField = dataBuildRequestFieldRuleBO.getRelyKeyField();
+        String relyValueField = dataBuildRequestFieldRuleBO.getRelyValueField();
+
+
         //处理map  先处理简单的数据类型
-        if(fieldType.contains("Map<") && StringUtils.isNotEmpty(relyMapKeyField) && StringUtils.isNotEmpty(relyMapValueField)){
-
-            String [] array = fieldType.split(",");
-            String keyType = "";
-            String valueType = "";
-            if(array.length == 2){
-                keyType = array[0].replace("Map<","").trim();
-                valueType = array[1].replace(">","").trim();
-            }
-
+        if(JavaFieldTypeEnum.isMap(genericTypeBO.getWrapType()) && StringUtils.isNotEmpty(relyKeyField) && StringUtils.isNotEmpty(relyValueField)){
+            String keyType = genericTypeBO.getRealKeyType();
+            String valueType = genericTypeBO.getRealValueType();
 
             List keyList = new ArrayList();
             //依赖的是另外一个属性的集合值，随机取部分数据做集合数据
-            if(relyMapKeyField.startsWith("$") && fieldType.contains("Map<")){
-                String relyFieldName = relyMapKeyField.replace("$","");
+            if(relyKeyField.startsWith("$") && JavaFieldTypeEnum.isMap(genericTypeBO.getWrapType())){
+                String relyFieldName = relyKeyField.replace("$","");
                 int randomCount = random.nextInt(100);
                 for (int i = 0;i < randomCount;i ++ ){
                     Map map = list.get(random.nextInt(list.size()));
                     keyList.add(map.get(relyFieldName));
                 }
             }else {
-                keyList = typeConvertFactory.convertStringToList(relyMapKeyField, keyType);
+                keyList = typeConvertFactory.convertStringToList(relyKeyField, keyType);
             }
 
 
             List valueList = new ArrayList();
             //依赖的是另外一个属性的集合值，随机取部分数据做集合数据
-            if(relyMapValueField.startsWith("$") && fieldType.contains("Map<")){
-                String relyFieldName = relyMapValueField.replace("$","");
+            if(relyValueField.startsWith("$") && JavaFieldTypeEnum.isMap(genericTypeBO.getWrapType())){
+                String relyFieldName = relyValueField.replace("$","");
                 int randomCount = random.nextInt(100);
                 for (int i = 0;i < randomCount;i ++ ){
                     Map map = list.get(random.nextInt(list.size()));
                     valueList.add(map.get(relyFieldName));
                 }
             }else {
-                valueList = typeConvertFactory.convertStringToList(relyMapValueField, valueType);
+                valueList = typeConvertFactory.convertStringToList(relyValueField, valueType);
             }
 
             Map map = new HashMap<>();

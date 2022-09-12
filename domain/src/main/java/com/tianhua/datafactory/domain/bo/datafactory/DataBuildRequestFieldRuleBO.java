@@ -35,25 +35,14 @@ public class DataBuildRequestFieldRuleBO {
     private String relyField;
 
     /**
-     * list的默认值
-     */
-    private List listDefault;
-
-    /**
-     * set的默认值
-     */
-    private Set setDefault;
-
-
-    /**
      * 当前依赖的List<BO>,属性要生成多少条
      */
-    private Integer relyCount;
+    private Integer genCount;
 
     /**
      * 属性值需要的数据源编码
      */
-    private String relySourceCode;
+    private String dataSourceCode;
 
     /**
      * 当前属性值依赖的脚本计算内容
@@ -70,19 +59,16 @@ public class DataBuildRequestFieldRuleBO {
     /**
      * 如果是map结构，则标示key对应的规则
      */
-    private String relyMapKeyField;
+    private String relyKeyField;
     /**
      * 如果是map结构，则标示value对应的规则
      */
-    private String relyMapValueField;
+    private String relyValueField;
 
-    private String relySetField;
-
-    private String relyListField;
-
-    private String relyArrayField;
-
-
+    /**
+     * 配置的默认值列表
+     */
+    private String defaultValues;
 
 
 }

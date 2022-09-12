@@ -28,38 +28,28 @@ public class FieldDSLKeyConstant {
     /**
      * 属性值依赖特定的数据源编码
      */
-    public static final String  RELY_SOURCE_CODE = "relySourceCode";
+    public static final String  DATA_SOURCE_CODE = "dataSourceCode";
 
     /**
      * 如果是集合类型的属性则需要生成多少条作为随机值集合
      */
-    public static final String  RELY_COUNT = "relyCount";
+    public static final String  GEN_COUNT = "genCount";
 
     /**
      * 函数变量值
      */
     public static final String  FUNC_VAR = "funcVar";
 
-
-    /**
-     * 如果是list类型，属性值依赖的内容
-     */
-    public static final String  RELY_LIST_FIELD = "relyListField";
-
-    /**
-     * 如果是Set类型，属性值依赖的内容
-     */
-    public static final String  RELY_SET_FIELD = "relySetField";
-
     /**
      * 如果属性是map kv的则需要定义key,value相关依赖
      */
-    public static final String RELY_MAP_KEY_FIELD = "relyMapKeyField";
+    public static final String RELY_MAP_KEY_FIELD = "relyKeyField";
 
 
-    public static final String RELY_MAP_VALUE_FIELD = "relyMapValueField";
+    public static final String RELY_MAP_VALUE_FIELD = "relyValueField";
 
-
-    //public static final String  RELY_LIST_FIELD = "relyListField";
-
+    /**
+     * 默认值配置
+     */
+    public static final String DEFAULT_VALUES = "defaultValues";
 }

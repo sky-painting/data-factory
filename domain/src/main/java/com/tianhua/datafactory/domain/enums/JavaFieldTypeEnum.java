@@ -41,7 +41,7 @@ public enum JavaFieldTypeEnum {
 
     ARRAY("Array"),
 
-
+    Map("Map"),
 
     ;
 
@@ -106,6 +106,11 @@ public enum JavaFieldTypeEnum {
     public static boolean isSet(String type){
         return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.SET.getType().toLowerCase().equals(type.toLowerCase());
     }
+
+    public static boolean isMap(String type){
+        return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.Map.getType().toLowerCase().equals(type.toLowerCase());
+    }
+
 
     public static boolean isArray(String type){
         return   StringUtils.isNotEmpty(type) && JavaFieldTypeEnum.ARRAY.getType().toLowerCase().equals(type.toLowerCase());
