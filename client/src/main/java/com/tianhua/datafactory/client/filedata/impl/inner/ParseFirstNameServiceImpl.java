@@ -27,9 +27,6 @@ import java.util.List;
  */
 @Service(value = "parseFirstNameServiceImpl")
 public class ParseFirstNameServiceImpl implements InnerParseService {
-
-
-
     private static Logger logger = LoggerFactory.getLogger(ParseFirstNameServiceImpl.class);
 
     @Autowired

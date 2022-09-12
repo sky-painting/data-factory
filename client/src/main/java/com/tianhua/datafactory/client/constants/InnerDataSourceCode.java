@@ -55,6 +55,14 @@ public class InnerDataSourceCode {
      */
     public static final String CHINESE_NAME = "com.datafactory.user.chineseName";
 
+
+    /**
+     * 评论内容--内置实现
+     */
+    public static final String COMMENT = "com.datafactory.user.comment";
+
+
+
     /**
      * 电话号码--内置实现
      */
@@ -83,12 +91,18 @@ public class InnerDataSourceCode {
      */
     public static final String RANDOM = "com.datafactory.user.getRandom";
 
+    /**
+     * 一个英文名单词
+     */
+    public static final String ONE_ENGLISH_WORD = "com.datafactory.user.oneEnWord";
 
 
     /**
      * 时间戳 当前时间戳
      */
     public static final String CURRENT_TIME = "com.datafactory.currenttime";
+
+
 
     /**
      * 获取一个随机数---内置实现

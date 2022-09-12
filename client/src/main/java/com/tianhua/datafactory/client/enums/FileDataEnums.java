@@ -19,6 +19,16 @@ public enum  FileDataEnums {
      */
     LAST_NAME("lastname.txt","中国名称","parseLastNameServiceImpl"),
 
+
+    /**
+     *
+     */
+    COMMENT("comment.txt","评论","parseCommentServiceImpl"),
+
+    /**
+     *
+     */
+    EN_WORD("enword.txt.txt","英文名单词","parseEnWordServiceImpl"),
     ;
 
     FileDataEnums(String fileName,String desc,String parseBeanName){
