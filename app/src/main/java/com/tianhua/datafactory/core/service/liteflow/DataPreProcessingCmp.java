@@ -5,16 +5,13 @@ import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import com.tianhua.datafactory.client.function.factory.FunctionFactory;
-import com.tianhua.datafactory.core.service.GenericService;
-import com.tianhua.datafactory.domain.bo.GenericTypeBO;
+import com.tianhua.datafactory.domain.ability.GenericService;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
-import com.tianhua.datafactory.domain.bo.model.ModelSuffixConfigBO;
 import com.tianhua.datafactory.domain.factory.FieldRuleDslFactory;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
-import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +47,6 @@ public class DataPreProcessingCmp extends NodeComponent {
     private FunctionFactory functionFactory;
 
 
-    @Autowired
-    private ModelQueryRepository modelQueryRepository;
 
     @Autowired
     private GenericService genericService;
@@ -60,26 +55,11 @@ public class DataPreProcessingCmp extends NodeComponent {
     public void process() throws Exception {
 
         DataBuildRequestBO dataBuildRequestBO = this.getRequestData();
-        Map<String, Function> functionMap = new HashMap<>();
-        dataBuildRequestBO.setFunctionMap(functionMap);
 
         //1.构建数据源
         bindDataSource(dataBuildRequestBO);
         //2.解析构建属性dsl信息
         buildFieldDslRuleBO(dataBuildRequestBO);
-
-        List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList = dataBuildRequestBO.getFieldBOList();
-
-        for (DataBuildRequestFieldBO dataFactoryRequestFieldBean : dataFactoryRequestFieldBeanList) {
-            String dataSourceCode = dataFactoryRequestFieldBean.getDataSourceCode();
-            if (StringUtils.isNotBlank(dataSourceCode) && dataBuildRequestBO.getFunctionMap().get(dataSourceCode) == null && dataSourceCode.startsWith(InnerDataSourceCode.DEFAULT_PREFIX)) {
-                Function function = functionFactory.createFunction(dataSourceCode);
-                functionMap.put(dataSourceCode,function);
-            }
-        }
-
-        dataBuildRequestBO.setFunctionMap(functionMap);
-
     }
 
     /**
@@ -115,11 +95,9 @@ public class DataPreProcessingCmp extends NodeComponent {
 
         Map<String,String> relationMap = new HashMap<>();
 
-        List<ModelSuffixConfigBO>  modelSuffixConfigBOList = modelQueryRepository.getModelSuffixConfigList();
 
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBOS){
-            boolean isModelClassRefer = checkModelClass(dataBuildRequestFieldBO,modelSuffixConfigBOList);
-
+            boolean isModelClassRefer = genericService.checkModelClass(dataBuildRequestFieldBO);
             //普通数据类型，同时dsl为空
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && !isModelClassRefer){
                 newFieldBOList.add(dataBuildRequestFieldBO);
@@ -147,13 +125,6 @@ public class DataPreProcessingCmp extends NodeComponent {
             }
 
             if(CollectionUtils.isNotEmpty(referList)){
-                referList.stream().forEach(requestFieldBO -> {
-                    String dataSourceCode = requestFieldBO.getDataSourceCode();
-                    if(StringUtils.isNotEmpty(dataSourceCode) && dataBuildRequestBO.getFunctionMap().get(dataSourceCode) == null){
-                        Function function = functionFactory.createFunction(dataSourceCode);
-                        dataBuildRequestBO.getFunctionMap().put(dataSourceCode, function);
-                    }
-                });
                 dataBuildRequestFieldBO.setReferFieldList(referList);
                 newFieldBOList.add(dataBuildRequestFieldBO);
             }
@@ -201,45 +172,6 @@ public class DataPreProcessingCmp extends NodeComponent {
         }
 
         log.info("dataBuildRequestFieldBOS ======= "+ JSON.toJSONString(dataBuildRequestFieldBOS));
-    }
-
-
-    /**
-     * 检查属性是否是模型属性
-     * @param dataBuildRequestFieldBO
-     * @param modelSuffixConfigBOList
-     * @return
-     */
-    private boolean checkModelClass(DataBuildRequestFieldBO dataBuildRequestFieldBO, List<ModelSuffixConfigBO> modelSuffixConfigBOList){
-
-        dataBuildRequestFieldBO.setRealFieldType(dataBuildRequestFieldBO.getFieldType());
-
-        if(CollectionUtils.isEmpty(modelSuffixConfigBOList)){
-            return false;
-        }
-
-        GenericTypeBO genericTypeBO = genericService.getGenericType(dataBuildRequestFieldBO.getRealFieldType());
-
-        if(StringUtils.isNotEmpty(genericTypeBO.getRealType())){
-            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealType());
-        }
-
-        else if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
-            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealValueType());
-        }
-
-        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> StringUtils.isNotEmpty(genericTypeBO.getRealType()) && genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
-        if(optional.isPresent()){
-            return true;
-        }
-
-        if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
-            optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> genericTypeBO.getRealValueType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
-            if(optional.isPresent()){
-                return true;
-            }
-        }
-        return false;
     }
 
 

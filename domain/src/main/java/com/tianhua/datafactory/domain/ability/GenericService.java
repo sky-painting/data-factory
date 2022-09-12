@@ -1,11 +1,19 @@
-package com.tianhua.datafactory.core.service;
+package com.tianhua.datafactory.domain.ability;
 
 import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
+import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
+import com.tianhua.datafactory.domain.bo.model.ModelSuffixConfigBO;
+import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Description
@@ -17,6 +25,10 @@ import java.util.Map;
  */
 @Service
 public class GenericService {
+
+    @Autowired
+    private ModelQueryRepository modelQueryRepository;
+
 
     /**
      * 获取属性类型中的泛型对象
@@ -78,6 +90,71 @@ public class GenericService {
 
         return genericTypeBO;
     }
+
+    /**
+     * 获取属性类型中的泛型对象
+     *
+     * List<XxxBO>
+     * List<List<XxxBO>>
+     * @param fieldType
+     * @return
+     */
+    public GenericTypeBO getGenericTypeWrapper(String fieldType){
+        GenericTypeBO genericTypeBO = getGenericType(fieldType);
+        List<ModelSuffixConfigBO>  modelSuffixConfigBOList = modelQueryRepository.getModelSuffixConfigList();
+        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> StringUtils.isNotEmpty(genericTypeBO.getRealType()) && genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+        if(optional.isPresent()){
+            genericTypeBO.setRealTypeModel(true);
+        }
+
+        return genericTypeBO;
+    }
+
+
+
+    /**
+     * 检查属性是否是模型属性
+     * @param dataBuildRequestFieldBO
+     * @return
+     */
+    public boolean checkModelClass(DataBuildRequestFieldBO dataBuildRequestFieldBO){
+
+        List<ModelSuffixConfigBO>  modelSuffixConfigBOList = modelQueryRepository.getModelSuffixConfigList();
+
+        dataBuildRequestFieldBO.setRealFieldType(dataBuildRequestFieldBO.getFieldType());
+
+        if(CollectionUtils.isEmpty(modelSuffixConfigBOList)){
+            return false;
+        }
+
+        GenericTypeBO genericTypeBO = getGenericType(dataBuildRequestFieldBO.getRealFieldType());
+
+        if(StringUtils.isNotEmpty(genericTypeBO.getRealType())){
+            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealType());
+        }
+
+        else if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
+            dataBuildRequestFieldBO.setRealFieldType(genericTypeBO.getRealValueType());
+        }
+
+        Optional<ModelSuffixConfigBO> optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> StringUtils.isNotEmpty(genericTypeBO.getRealType()) && genericTypeBO.getRealType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+        if(optional.isPresent()){
+            genericTypeBO.setRealTypeModel(true);
+            return true;
+        }
+
+        if(StringUtils.isNotEmpty(genericTypeBO.getRealValueType())){
+            optional = modelSuffixConfigBOList.stream().filter(modelSuffixConfigBO -> genericTypeBO.getRealValueType().endsWith(modelSuffixConfigBO.getSuffix())).findAny();
+            if(optional.isPresent()){
+                genericTypeBO.setRealValueTypeModel(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 
     public static void main(String[] args) {
         GenericService genericService = new GenericService();

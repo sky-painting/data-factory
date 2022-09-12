@@ -46,10 +46,6 @@ public class DataBuildRequestBO extends BaseBO {
      */
     private String apiSign;
 
-    /**
-     * 需要用到的function
-     */
-    private Map<String, Function> functionMap;
 
     /**
      * 是否使用ResultDTO进行api 参数结果包装

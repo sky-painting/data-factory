@@ -32,10 +32,6 @@ public class DataSourceFieldRequestBean {
     private Map<String, Object> fieldValueMap;
 
     /**
-     * 内置的生成数据的随机函数
-     */
-    private Function function;
-    /**
      * 用于具有一对多的数据依赖关系场景，当存在这种情况时多方不必定义
      * dataSourceCode,dataSourceField 多方取值根据一方的实际值进行路由，然后随机取一个值作为最终的值
      *

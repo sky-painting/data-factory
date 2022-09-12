@@ -383,7 +383,7 @@ public class DataFactoryTest {
         DataBuildRequestFieldBO dataBuildRequestFieldBO5 = new DataBuildRequestFieldBO();
         dataBuildRequestFieldBO5.setFieldName("apiBO");
         dataBuildRequestFieldBO5.setFieldType("ApiBO");
-        String ruleDsl5 = "relyCount=10;projectCode.relySourceCode=com.datafactory.user.chineseName;apiSign.relySourceCode=com.datafactory.user.getRandom(6)";
+        String ruleDsl5 = "projectCode.relySourceCode=com.datafactory.user.chineseName;apiSign.relySourceCode=com.datafactory.user.getRandom(6)";
         dataBuildRequestFieldBO5.setBuildRuleDSL(ruleDsl5);
         fieldBOList.add(dataBuildRequestFieldBO5);
 

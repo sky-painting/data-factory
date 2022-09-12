@@ -23,17 +23,13 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
 
     private List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList;
 
-
-    private Map<String, Function> functionMap;
-
     private SecureRandom random = new SecureRandom();
     private FieldValueFactory fieldValueFactory;
 
-    public DataGenerateTask(Integer start, Integer end, List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList, Map<String, Function> functionMap, FieldValueFactory fieldValueFactory){
+    public DataGenerateTask(Integer start, Integer end, List<DataBuildRequestFieldBO> dataFactoryRequestFieldBeanList, FieldValueFactory fieldValueFactory){
         this.start = start;
         this.end = end;
         this.dataFactoryRequestFieldBeanList = dataFactoryRequestFieldBeanList;
-        this.functionMap = functionMap;
         this.fieldValueFactory = fieldValueFactory;
     }
 
@@ -47,7 +43,6 @@ public class DataGenerateTask implements Callable<List<Map<String, Object>>> {
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(start);
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataFactoryRequestFieldBeanList) {
-                dataSourceFieldRequestBean.setFunction(functionMap.get(dataBuildRequestFieldBO.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
                 dataSourceFieldRequestBean.setRandom(random);

@@ -40,7 +40,6 @@ public class SerialProcessingCmp extends NodeComponent {
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(i);
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataBuildRequestBO.getFieldBOList()) {
-                dataSourceFieldRequestBean.setFunction(dataBuildRequestBO.getFunctionMap().get(dataBuildRequestFieldBO.getDataSourceCode()));
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
                 dataSourceFieldRequestBean.setRandom(new SecureRandom());
@@ -63,7 +62,6 @@ public class SerialProcessingCmp extends NodeComponent {
 
                 for (DataBuildRequestFieldBO referFieldBO : referFieldList){
                     DataSourceFieldRequestBean referFieldDataSourcdFieldRequestBean = new DataSourceFieldRequestBean();
-                    referFieldDataSourcdFieldRequestBean.setFunction(dataBuildRequestBO.getFunctionMap().get(referFieldBO.getDataSourceCode()));
                     referFieldDataSourcdFieldRequestBean.setFieldValueMap(fieldValueMap);
                     referFieldDataSourcdFieldRequestBean.setDataBuildRequestFieldBO(referFieldBO);
                     referFieldDataSourcdFieldRequestBean.setRandom(new SecureRandom());

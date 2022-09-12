@@ -1,6 +1,7 @@
 package com.tianhua.datafactory.core.service;
 
 import com.alibaba.fastjson.JSON;
+import com.tianhua.datafactory.domain.ability.GenericService;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
@@ -47,7 +48,7 @@ public class FieldValueFactory {
 
 
     @Autowired
-    private  GenericService genericService;
+    private GenericService genericService;
 
     private static SecureRandom secureRandom = new SecureRandom();
 

@@ -47,4 +47,21 @@ public class GenericTypeBO {
      */
     private ApiBO apiBO;
 
+
+    /**
+     * 泛型被包裹的类型是否是模型对象
+     */
+    private boolean realTypeModel;
+
+    /**
+     * map-key的类型是否是模型对象
+     */
+    private boolean realKeyTypeModel;
+    /**
+     * map-value的类型是否是模型对象
+     */
+    private boolean realValueTypeModel;
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.domain.factory;
 
+import com.tianhua.datafactory.domain.ability.GenericService;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datafactory.FieldDSLKeyConstant;
@@ -50,6 +52,9 @@ public class FieldRuleDslFactory {
 
     @Autowired
     private DataSourceQueryRepository dataSourceQueryRepository;
+
+    @Autowired
+    private GenericService genericService;
 
     /**
      * 根据属性dsl规则解析成规则对象
@@ -251,6 +256,15 @@ public class FieldRuleDslFactory {
                 referRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
             }
 
+            //如果是业务模型类型则进行引用属性的构建
+            GenericTypeBO genericTypeBO = genericService.getGenericTypeWrapper(fieldBO.getFieldType());
+            if(genericTypeBO.isRealTypeModel()){
+                referRequestFieldBO.setRealFieldType(genericTypeBO.getRealType());
+                List<DataBuildRequestFieldBO> referFieldList = buildReferFieldBOFromDB(referRequestFieldBO, projectCode);
+                referRequestFieldBO.setReferFieldList(referFieldList);
+                dataBuildRequestFieldBOMap.put(fieldBO.getFieldName(), referRequestFieldBO);
+                continue;
+            }
             DataSourceBO dataSourceBO = dataSourceQueryRepository.getByDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
             if(dataSourceBO == null){
                 log.error("根据数据源查不到对应的数据源对象,dataSourceCode = {}, fieldName = {}, fieldType = {}",referRequestFieldBO.getDataSourceCode(),fieldBO.getFieldName(),fieldBO.getFieldType());

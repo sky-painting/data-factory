@@ -5,12 +5,11 @@ import com.tianhua.datafactory.core.service.DataFactoryService;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.core.service.DataTypeAdapter;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
-import com.tianhua.datafactory.core.service.GenericService;
+import com.tianhua.datafactory.domain.ability.GenericService;
 import com.tianhua.datafactory.domain.GlobalConstant;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
-import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
@@ -19,7 +18,6 @@ import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -129,8 +127,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Override
     public String buildData(DataBuildRequestFieldBO dataBuildRequestFieldBO) {
         DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
-        dataSourceFieldRequestBean.setFunction(dataBuildRequestFieldBO.getFunction());
-
         String dataSourceCode = dataBuildRequestFieldBO.getDataSourceCode();
         if(dataSourceCode.contains("#")){
             dataSourceCode = dataSourceCode.split("#")[0];

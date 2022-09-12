@@ -61,7 +61,7 @@ public class ParallelProcessingCmp  extends NodeComponent {
             if(leftSize != 0 && i == taskCount - 1){
                 end = end + leftSize;
             }
-            Future<List<Map<String, Object>>> future = threadPool.submit(new DataGenerateTask(start, end, dataBuildRequestBO.getFieldBOList(), dataBuildRequestBO.getFunctionMap(),fieldValueFactory));
+            Future<List<Map<String, Object>>> future = threadPool.submit(new DataGenerateTask(start, end, dataBuildRequestBO.getFieldBOList(),fieldValueFactory));
             batchResultList.addAll(future.get());
         }
 
