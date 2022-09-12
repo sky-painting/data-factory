@@ -306,7 +306,7 @@ public class DataFactoryTest {
     @Test
     public void testDataFactory7(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setBuildCount(20000);
         dataBuildRequestBO.setProjectCode("sdfasdf");
         dataBuildRequestBO.setParamModelCode("XxxBO");
 
@@ -344,9 +344,7 @@ public class DataFactoryTest {
             result = dataFactoryService.generateData(dataBuildRequestBO);
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
-            for (Map<String, Object> map : result.getData()){
-                log.info("apiBO = "+JSON.toJSONString(map.get("apiBO")));
-            }
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -376,7 +374,7 @@ public class DataFactoryTest {
     @Test
     public void testDataFactoryMultModel(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(1);
+        dataBuildRequestBO.setBuildCount(20000);
         dataBuildRequestBO.setProjectCode("sdfasdf");
         dataBuildRequestBO.setParamModelCode("XxxBO");
 
@@ -398,10 +396,10 @@ public class DataFactoryTest {
             result = dataFactoryService.generateData(dataBuildRequestBO);
             long endTime = System.currentTimeMillis();
             log.info("useTime = "+(endTime - startTime)+"ms,size = "+result.getData().size());
-            for (Map<String, Object> map : result.getData()){
+        /*    for (Map<String, Object> map : result.getData()){
                 log.info("apiBO = "+JSON.toJSONString(map.get("apiBO")));
             }
-
+*/
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
