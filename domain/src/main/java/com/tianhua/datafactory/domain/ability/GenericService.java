@@ -1,9 +1,12 @@
 package com.tianhua.datafactory.domain.ability;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.model.ModelSuffixConfigBO;
+import com.tianhua.datafactory.domain.enums.JavaFieldTypeEnum;
 import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -151,6 +154,26 @@ public class GenericService {
             }
         }
         return false;
+    }
+
+
+    public Object buildGenericData(String wrapClass, List<Map<String, Object>> list) {
+        if(JavaFieldTypeEnum.isList(wrapClass)){
+            return list;
+        }
+        if(JavaFieldTypeEnum.isSet(wrapClass)){
+            return Sets.newHashSet(list);
+        }
+
+        if(JavaFieldTypeEnum.isArray(wrapClass)){
+            Object [] array = new Object[list.size()];
+            for (int i = 0;i < array.length;i++){
+                array[i] = list.get(i);
+            }
+            return array;
+        }
+
+        return list;
     }
 
 

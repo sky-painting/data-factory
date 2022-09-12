@@ -373,7 +373,7 @@ public class DataFactoryTest {
     @Test
     public void testDataFactoryMultModel(){
         DataBuildRequestBO dataBuildRequestBO = new DataBuildRequestBO();
-        dataBuildRequestBO.setBuildCount(10);
+        dataBuildRequestBO.setBuildCount(1);
         dataBuildRequestBO.setProjectCode("sdfasdf");
         dataBuildRequestBO.setParamModelCode("XxxBO");
 

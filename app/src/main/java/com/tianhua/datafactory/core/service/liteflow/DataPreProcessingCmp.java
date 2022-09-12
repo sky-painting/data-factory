@@ -2,10 +2,8 @@ package com.tianhua.datafactory.core.service.liteflow;
 
 
 import com.alibaba.fastjson.JSON;
-import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
-import com.tianhua.datafactory.client.function.Function;
-import com.tianhua.datafactory.client.function.factory.FunctionFactory;
 import com.tianhua.datafactory.domain.ability.GenericService;
+import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
@@ -41,11 +39,6 @@ public class DataPreProcessingCmp extends NodeComponent {
 
     @Autowired
     private FieldRuleDslFactory fieldRuleDslFactory;
-
-
-    @Autowired
-    private FunctionFactory functionFactory;
-
 
 
     @Autowired
@@ -97,6 +90,8 @@ public class DataPreProcessingCmp extends NodeComponent {
 
 
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBOS){
+            GenericTypeBO genericTypeBO = genericService.getGenericTypeWrapper(dataBuildRequestFieldBO.getFieldType());
+            dataBuildRequestFieldBO.setGenericTypeBO(genericTypeBO);
             boolean isModelClassRefer = genericService.checkModelClass(dataBuildRequestFieldBO);
             //普通数据类型，同时dsl为空
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getBuildRuleDSL()) && !isModelClassRefer){
@@ -137,7 +132,7 @@ public class DataPreProcessingCmp extends NodeComponent {
             }
         }
 
-
+        //循环引用检测
         for (Map.Entry<String,String> entry : relationMap.entrySet()){
             String relyField = entry.getValue();
             String relyFieldTmp = relyField;
@@ -147,7 +142,7 @@ public class DataPreProcessingCmp extends NodeComponent {
                 relyFieldTmp = relationMap.get(relyFieldTmp);
                 //循环引用检测
                 if(relyFieldSet.contains(relyFieldTmp)){
-                    log.warn("存在属性循环引用,请检查field DSL内容。");
+                    log.error("存在属性循环引用,请检查field DSL内容。");
                     break;
                 }
                 String finalRelyFieldTmp = relyFieldTmp;

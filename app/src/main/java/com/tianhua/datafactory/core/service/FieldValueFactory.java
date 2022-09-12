@@ -116,12 +116,12 @@ public class FieldValueFactory {
      */
     public Object getFieldValueWrapper(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
         DataBuildRequestFieldBO dataBuildRequestFieldBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO();
+        int randomCount = secureRandom.nextInt(10);
 
         GenericTypeBO genericTypeBO = genericService.getGenericType(dataBuildRequestFieldBO.getFieldType());
         //外部是list类型，内部是java基本类型，则随机生成一定数量的数据当做集合数据
         if(JavaFieldTypeEnum.isList(genericTypeBO.getWrapType()) && JavaFieldTypeEnum.isBasicType(genericTypeBO.getRealType())){
             List list = new ArrayList<>();
-            int randomCount = secureRandom.nextInt(10);
             for (int i = 0;i < randomCount;i ++){
                 list.add(getFieldValue(dataSourceFieldRequestBean));
             }
@@ -131,7 +131,6 @@ public class FieldValueFactory {
         //外部是set类型，内部是java基本类型，则随机生成一定数量的数据当做集合数据
         if(JavaFieldTypeEnum.isSet(genericTypeBO.getWrapType()) && JavaFieldTypeEnum.isBasicType(genericTypeBO.getRealType())){
             Set set = new HashSet();
-            int randomCount = secureRandom.nextInt(10);
             for (int i = 0;i < randomCount;i ++){
                 set.add(getFieldValue(dataSourceFieldRequestBean));
             }
@@ -140,7 +139,6 @@ public class FieldValueFactory {
 
         //外部是数组类型，内部是java基本类型，则随机生成一定数量的数据当做集合数据
         if(JavaFieldTypeEnum.isArray(genericTypeBO.getWrapType()) && JavaFieldTypeEnum.isBasicType(genericTypeBO.getRealType())){
-            int randomCount = secureRandom.nextInt(10);
             if(JavaFieldTypeEnum.isInt(genericTypeBO.getRealType())){
                 return buildIntegerArray(randomCount, dataSourceFieldRequestBean);
             }
@@ -157,6 +155,25 @@ public class FieldValueFactory {
                 return buildDateArray(randomCount, dataSourceFieldRequestBean);
             }
         }
+
+        //List<XxxBO>
+        if(JavaFieldTypeEnum.isList(genericTypeBO.getWrapType()) && genericTypeBO.isRealTypeModel()) {
+            List list = new ArrayList<>();
+            for (int i = 0;i < randomCount;i ++){
+                list.add(getFieldValue(dataSourceFieldRequestBean));
+            }
+            return list;
+        }
+
+        //Set<XxxBO>
+        if(JavaFieldTypeEnum.isSet(genericTypeBO.getWrapType()) && genericTypeBO.isRealTypeModel()) {
+            Set set = new HashSet();
+            for (int i = 0;i < randomCount;i ++){
+                set.add(getFieldValue(dataSourceFieldRequestBean));
+            }
+            return set;
+        }
+
 
         return getFieldValue(dataSourceFieldRequestBean);
     }

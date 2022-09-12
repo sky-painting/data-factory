@@ -139,7 +139,14 @@ public enum JavaFieldTypeEnum {
                 || isDouble(type) || isFloat(type) || isLocalDate(type) || isDateTime(type);
     }
 
-
+    /**
+     * 是否是集合类型
+     * @param type
+     * @return
+     */
+    public static boolean isCollectionType(String type){
+        return isSet(type) || isList(type) || isArray(type) ;
+    }
 
 
 

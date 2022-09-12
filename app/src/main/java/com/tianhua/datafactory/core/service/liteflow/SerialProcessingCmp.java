@@ -1,11 +1,16 @@
 package com.tianhua.datafactory.core.service.liteflow;
 
+import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.client.utils.SpringContextUtil;
+import com.tianhua.datafactory.core.filter.FilterExecutor;
 import com.tianhua.datafactory.core.service.FieldValueFactory;
 import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.ability.GenericService;
 import com.tianhua.datafactory.domain.bo.datafactory.*;
+import com.tianhua.datafactory.domain.enums.JavaFieldTypeEnum;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -26,9 +31,18 @@ import java.util.Map;
  * @since JDK 1.8
  */
 @LiteflowComponent(id = "serialProcessingCmp", name = "串行执行数据构建任务")
+@Slf4j
 public class SerialProcessingCmp extends NodeComponent {
     @Autowired
     private FieldValueFactory fieldValueFactory;
+
+    @Autowired
+    private FilterExecutor filterExecutor;
+
+    @Autowired
+    private GenericService genericService;
+
+    private static SecureRandom secureRandom = new SecureRandom();
 
     @Override
     public void process() throws Exception {
@@ -39,6 +53,7 @@ public class SerialProcessingCmp extends NodeComponent {
             Map<String, Object> fieldValueMap = new HashMap<>(dataBuildRequestBO.getFieldBOList().size());
             DataSourceFieldRequestBean dataSourceFieldRequestBean = new DataSourceFieldRequestBean();
             dataSourceFieldRequestBean.setCurrentIndex(i);
+
             for (DataBuildRequestFieldBO dataBuildRequestFieldBO : dataBuildRequestBO.getFieldBOList()) {
                 dataSourceFieldRequestBean.setFieldValueMap(fieldValueMap);
                 dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
@@ -46,39 +61,22 @@ public class SerialProcessingCmp extends NodeComponent {
                 dataSourceFieldRequestBean.setVarDependencyMap(dataBuildRequestFieldBO.getVarDependencyMap());
 
                 //1.前置数据过滤
-                exeFilterBefore(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
+                filterExecutor.exeFilterBefore(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
                 //获取随机字段值
                 Object fieldValue = fieldValueFactory.getFieldValueWrapper(dataSourceFieldRequestBean);
 
                 fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), fieldValue);
                 //2.后置数据过滤
-                exeFilterAfter(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
+                filterExecutor.exeFilterAfter(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
 
                 List<DataBuildRequestFieldBO> referFieldList = dataBuildRequestFieldBO.getReferFieldList();
                 if(CollectionUtils.isEmpty(referFieldList)){
                     continue;
                 }
-                Map<String, Object> referFieldValueMap = new HashMap<>(referFieldList.size());
 
-                for (DataBuildRequestFieldBO referFieldBO : referFieldList){
-                    DataSourceFieldRequestBean referFieldDataSourcdFieldRequestBean = new DataSourceFieldRequestBean();
-                    referFieldDataSourcdFieldRequestBean.setFieldValueMap(fieldValueMap);
-                    referFieldDataSourcdFieldRequestBean.setDataBuildRequestFieldBO(referFieldBO);
-                    referFieldDataSourcdFieldRequestBean.setRandom(new SecureRandom());
+                Map<String, Object> referMap = buildReferData(dataBuildRequestFieldBO, batchResultList);
+                fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referMap);
 
-                    //1.前置数据过滤
-                    exeFilterBefore(referFieldBO, fieldValueMap, batchResultList);
-
-                    //获取随机字段值
-                    Object referFieldValue = fieldValueFactory.getFieldValueWrapper(referFieldDataSourcdFieldRequestBean);
-
-                    referFieldValueMap.put(referFieldBO.getFieldName(), referFieldValue);
-
-                    fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referFieldValueMap);
-                    //2.后置数据过滤
-                    exeFilterAfter(referFieldBO, fieldValueMap, batchResultList);
-                }
-                fieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referFieldValueMap);
             }
             batchResultList.add(fieldValueMap);
         }
@@ -90,36 +88,53 @@ public class SerialProcessingCmp extends NodeComponent {
 
 
     /**
-     * 在获取变量之前执行
-     *
-     * @param dataBuildRequestFieldBO
-     * @param fieldValueMap
+     * 构建属性为对象类型的引用
+     * @param originRequestFieldBO
      * @param batchResultList
+     * @return
+     * @throws Exception
      */
-    private void exeFilterBefore(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> fieldValueMap, List<Map<String, Object>> batchResultList){
-        List<DataFilter> dataFilterList = SpringContextUtil.getBeanOfType(DataFilter.class);
-        for (DataFilter dataFilter : dataFilterList){
-            Order order = dataFilter.getClass().getAnnotation(Order.class);
-            if(order.value() < 0){
-                dataFilter.dataFilt(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
+    private Map<String, Object>  buildReferData(DataBuildRequestFieldBO originRequestFieldBO,  List<Map<String, Object>> batchResultList) throws Exception {
+        List<DataBuildRequestFieldBO> referFieldList = originRequestFieldBO.getReferFieldList();
+
+        Map<String, Object> referFieldValueMap = new HashMap<>(referFieldList.size());
+
+        for (DataBuildRequestFieldBO dataBuildRequestFieldBO : referFieldList){
+            DataSourceFieldRequestBean referFieldDataSourcdFieldRequestBean = new DataSourceFieldRequestBean();
+            referFieldDataSourcdFieldRequestBean.setFieldValueMap(referFieldValueMap);
+            referFieldDataSourcdFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
+            referFieldDataSourcdFieldRequestBean.setRandom(new SecureRandom());
+
+            if(CollectionUtils.isNotEmpty(dataBuildRequestFieldBO.getReferFieldList())){
+
+                if(JavaFieldTypeEnum.isCollectionType(dataBuildRequestFieldBO.getGenericTypeBO().getWrapType())){
+                    int randomCount = secureRandom.nextInt(10);
+                    List<Map<String, Object>> list = new ArrayList<>();
+                    for (int i = 0;i < randomCount ;i++){
+                        Map<String, Object> referObjectMap = buildReferData(dataBuildRequestFieldBO, batchResultList);
+                        list.add(referObjectMap);
+                    }
+                    referFieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), genericService.buildGenericData(dataBuildRequestFieldBO.getGenericTypeBO().getWrapType(),list));
+                }else {
+                    Map<String, Object> referObjectMap = buildReferData(dataBuildRequestFieldBO, batchResultList);
+                    referFieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referObjectMap);
+                }
+
+            }else {
+                //1.前置数据过滤
+                filterExecutor.exeFilterBefore(dataBuildRequestFieldBO, referFieldValueMap, batchResultList);
+                //获取随机字段值
+                Object referFieldValue = fieldValueFactory.getFieldValueWrapper(referFieldDataSourcdFieldRequestBean);
+
+                referFieldValueMap.put(dataBuildRequestFieldBO.getFieldName(), referFieldValue);
+
+                //2.后置数据过滤
+                filterExecutor.exeFilterAfter(dataBuildRequestFieldBO, referFieldValueMap, batchResultList);
             }
         }
+
+        return referFieldValueMap;
     }
 
-    /**
-     * 在获取变量之后执行
-     * @param dataBuildRequestFieldBO
-     * @param fieldValueMap
-     * @param batchResultList
-     */
-    private void exeFilterAfter(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> fieldValueMap, List<Map<String, Object>> batchResultList){
-        List<DataFilter> dataFilterList = SpringContextUtil.getBeanOfType(DataFilter.class);
-        for (DataFilter dataFilter : dataFilterList){
-            Order order = dataFilter.getClass().getAnnotation(Order.class);
-            if(order.value() > 0){
-                dataFilter.dataFilt(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
-            }
-        }
-    }
 
 }

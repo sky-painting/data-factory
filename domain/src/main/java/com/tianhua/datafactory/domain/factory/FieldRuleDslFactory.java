@@ -251,15 +251,16 @@ public class FieldRuleDslFactory {
             referRequestFieldBO.setFieldName(fieldBO.getFieldName());
             referRequestFieldBO.setFieldType(fieldBO.getFieldType());
             referRequestFieldBO.setOriginFieldName(dataBuildRequestFieldBO.getFieldName());
+            GenericTypeBO genericTypeBO = genericService.getGenericTypeWrapper(fieldBO.getFieldType());
+            referRequestFieldBO.setGenericTypeBO(genericTypeBO);
 
             if(referRequestFieldBO.getDataBuildRequestFieldRuleBO() == null){
                 referRequestFieldBO.setDataBuildRequestFieldRuleBO(new DataBuildRequestFieldRuleBO());
             }
 
             //如果是业务模型类型则进行引用属性的构建
-            GenericTypeBO genericTypeBO = genericService.getGenericTypeWrapper(fieldBO.getFieldType());
-            if(genericTypeBO.isRealTypeModel()){
-                referRequestFieldBO.setRealFieldType(genericTypeBO.getRealType());
+            if(referRequestFieldBO.getGenericTypeBO().isRealTypeModel()){
+                referRequestFieldBO.setRealFieldType(referRequestFieldBO.getGenericTypeBO().getRealType());
                 List<DataBuildRequestFieldBO> referFieldList = buildReferFieldBOFromDB(referRequestFieldBO, projectCode);
                 referRequestFieldBO.setReferFieldList(referFieldList);
                 dataBuildRequestFieldBOMap.put(fieldBO.getFieldName(), referRequestFieldBO);
