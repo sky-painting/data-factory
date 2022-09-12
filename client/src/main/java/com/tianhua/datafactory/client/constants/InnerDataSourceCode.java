@@ -87,9 +87,17 @@ public class InnerDataSourceCode {
 
 
     /**
-     * 获取一个随机数---内置实现
+     * 获取一个随机整数---内置实现
      */
     public static final String RANDOM = "com.datafactory.user.getRandom";
+
+
+    /**
+     * 获取一个随机浮点数数---内置实现
+     */
+    public static final String RANDOM_FLOAT = "com.datafactory.random.float";
+
+
 
     /**
      * 一个英文名单词

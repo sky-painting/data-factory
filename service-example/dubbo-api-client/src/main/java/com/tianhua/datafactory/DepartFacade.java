@@ -1,5 +1,10 @@
 package com.tianhua.datafactory;
 
+import com.coderman.utils.response.ResultDataDto;
+import com.tianhua.datafactory.dto.DepartmentDTO;
+
+import java.util.List;
+
 /**
  * Description
  * date: 2022/9/11
@@ -9,4 +14,11 @@ package com.tianhua.datafactory;
  * @since JDK 1.8
  */
 public interface DepartFacade {
+    /**
+     * 获取部门数据信息
+     * @param departId
+     * @return
+     */
+    ResultDataDto<List<DepartmentDTO>> searchDepart(Long departId);
+
 }

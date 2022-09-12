@@ -33,6 +33,13 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.coderman.utils</groupId>
+            <artifactId>coderman-utils</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>
