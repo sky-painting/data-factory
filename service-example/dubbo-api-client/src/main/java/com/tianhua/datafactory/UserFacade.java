@@ -1,7 +1,10 @@
 package com.tianhua.datafactory;
 
+import com.coderman.utils.page.PageDTO;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.datafactory.dto.UserDTO;
+
+import java.util.List;
 
 /**
  * Description
@@ -19,5 +22,17 @@ public interface UserFacade {
      * @return
      */
     ResultDataDto<Boolean> saveUser(UserDTO userDTO);
+
+    /**
+     * 分页获取用户信息
+     * @return
+     */
+    ResultDataDto<PageDTO<UserDTO>> getUserListPage(PageDTO pageDTO);
+
+    /**
+     * 获取全量用户信息
+     * @return
+     */
+    ResultDataDto<List<UserDTO>> getAllUserList();
 
 }

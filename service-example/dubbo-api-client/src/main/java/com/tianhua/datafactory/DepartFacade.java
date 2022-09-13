@@ -21,4 +21,13 @@ public interface DepartFacade {
      */
     ResultDataDto<List<DepartmentDTO>> searchDepart(Long departId);
 
+
+    /**
+     * 保存部门数据信息
+     * @param departmentDTO
+     * @return
+     */
+    ResultDataDto<Boolean> saveDepart(DepartmentDTO departmentDTO);
+
+
 }
