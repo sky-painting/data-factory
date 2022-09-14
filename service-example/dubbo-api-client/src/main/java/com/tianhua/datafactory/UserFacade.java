@@ -18,6 +18,7 @@ public interface UserFacade {
 
     /**
      * 保存用户信息
+     * 进行接口数据mock模拟
      * @param userDTO
      * @return
      */
@@ -31,6 +32,9 @@ public interface UserFacade {
 
     /**
      * 获取全量用户信息
+     *
+     * 将此接口注册为数据源，
+     * 在其他数据模型构建的时候从此数据源中获取用户数据信息
      * @return
      */
     ResultDataDto<List<UserDTO>> getAllUserList();

@@ -16,6 +16,9 @@ import java.util.List;
 public interface DepartFacade {
     /**
      * 获取部门数据信息
+     *
+     * 将此接口注册为数据源接口
+     * 并从此接口获取部门数据
      * @param departId
      * @return
      */
@@ -24,6 +27,8 @@ public interface DepartFacade {
 
     /**
      * 保存部门数据信息
+     *
+     * 模拟数据入参mock，或者直接调用
      * @param departmentDTO
      * @return
      */
