@@ -27,7 +27,7 @@ public interface UserFacade {
      * 分页获取用户信息
      * @return
      */
-    ResultDataDto<PageDTO<UserDTO>> getUserListPage(PageDTO pageDTO);
+    ResultDataDto<PageDTO> getUserListPage(PageDTO pageDTO);
 
     /**
      * 获取全量用户信息
