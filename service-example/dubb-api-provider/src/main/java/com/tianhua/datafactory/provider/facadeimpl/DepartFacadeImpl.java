@@ -34,6 +34,10 @@ public class DepartFacadeImpl implements DepartFacade {
     }
 
 
+    /**
+     * demo 数据
+     * @return
+     */
     private List<DepartmentDTO> getDepartmentList(){
         List<DepartmentDTO> list = new ArrayList<>();
 

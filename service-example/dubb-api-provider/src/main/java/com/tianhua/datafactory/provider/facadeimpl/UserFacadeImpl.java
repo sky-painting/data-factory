@@ -44,6 +44,10 @@ public class UserFacadeImpl implements UserFacade {
     }
 
 
+    /**
+     * demo 数据
+     * @return
+     */
     private List<UserDTO> getUserList(){
         List<UserDTO> list = new ArrayList<>();
         for (int i = 0;i < 10 ;i++){
