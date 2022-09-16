@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-public class DataController {
+public class UserController {
 
     @RequestMapping(value = "getlistobjectdto")
     public ResultDataDto getListDto(){
