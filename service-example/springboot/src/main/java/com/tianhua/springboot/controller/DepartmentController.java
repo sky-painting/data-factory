@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.coderman.utils.response.ResultDataDto;
 import com.tianhua.springboot.dto.DepartmentDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +22,7 @@ import java.util.List;
 public class DepartmentController {
 
     @RequestMapping(value = "/depart/search/{departId}")
-    public ResultDataDto<List<DepartmentDTO>> searchDepart(Long departId){
+    public ResultDataDto<List<DepartmentDTO>> searchDepart(@PathVariable(value = "departId") Long departId){
         log.info("departId = {}", departId);
         return ResultDataDto.success(getDepartmentList());
     }

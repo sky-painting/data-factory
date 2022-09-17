@@ -46,6 +46,10 @@ public class FieldValueFactory {
     @Resource(name = "dataGenerateFileDataServiceImpl")
     private DataGenerateService dataGenerateFileDataServiceImpl;
 
+    @Resource(name = "dataGenerateHttpApiServiceImpl")
+    private DataGenerateService dataGenerateHttpApiServiceImpl;
+
+
 
     @Autowired
     private GenericService genericService;
@@ -101,7 +105,12 @@ public class FieldValueFactory {
 
         //从文件中获取数据
         if(DataSourceTypeEnum.FROM_FILE_DATA.getCode() == dataSourceType){
-            dataGenerateFileDataServiceImpl.getRandomData(dataSourceFieldRequestBean);
+            return dataGenerateFileDataServiceImpl.getRandomData(dataSourceFieldRequestBean);
+        }
+
+        //从http api中获取数据
+        if(DataSourceTypeEnum.FROM_SERVICE_API_HTTP.getCode() == dataSourceType){
+            return dataGenerateHttpApiServiceImpl.getRandomData(dataSourceFieldRequestBean);
         }
 
         return null;

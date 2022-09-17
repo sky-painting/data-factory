@@ -16,6 +16,7 @@ import com.tianhua.datafactory.domain.bo.datasource.DataSourceReqConfigBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceRespConfigBO;
 import com.tianhua.datafactory.domain.enums.ReturnTypeEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,7 +95,9 @@ public class DataGenerateHttpApiServiceImpl implements DataGenerateService {
         }
 
         List<Map<String,Object>> dataList = httpApiAdapter.getServiceDataFromHttp(httpApiRequestBO);
-
+        if(CollectionUtils.isEmpty(dataList)){
+            return null;
+        }
 
         Map<String,List<Object>> responseMap = new HashMap<>();
 

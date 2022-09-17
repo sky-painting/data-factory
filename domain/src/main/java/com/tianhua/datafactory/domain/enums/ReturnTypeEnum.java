@@ -24,6 +24,7 @@ public enum ReturnTypeEnum {
 
     VOID("VOID","void"),
     RESULT_DTO("RESULT_DTO","ResultDTO"),
+    RESULT_PAGE_DTO("PageDTO", "PageDTO");
 
     ;
 
@@ -55,4 +56,10 @@ public enum ReturnTypeEnum {
     public String getDesc() {
         return desc;
     }
+
+
+    public static boolean isReturnType(String enumCode){
+        return "returnType".equals(enumCode);
+    }
+
 }

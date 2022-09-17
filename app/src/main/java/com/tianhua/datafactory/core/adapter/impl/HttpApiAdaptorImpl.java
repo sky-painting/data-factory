@@ -11,6 +11,7 @@ import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +33,45 @@ public class HttpApiAdaptorImpl implements HttpApiAdapter {
 
     @Override
     public List<Map<String, Object>> getServiceDataFromHttp(HttpApiRequestBO httpApiRequestBO) {
-        String jsonStr = HttpUtils.doGet(httpApiRequestBO.getUrl(),httpApiRequestBO.getParams());
-        return responseFactory.getResponseListMap(jsonStr, httpApiRequestBO);
+
+        //解析url
+        if (httpApiRequestBO.getUrl().contains("/{")){
+            int firstIndex = httpApiRequestBO.getUrl().indexOf("{");
+            int secondIndex = httpApiRequestBO.getUrl().lastIndexOf("}");
+            String restParamStr = httpApiRequestBO.getUrl().substring(firstIndex + 1, secondIndex);
+            if (restParamStr.contains("/")) {
+                String [] params = restParamStr.split("/");
+                for (String param : params){
+                    String tmpParam = param;
+                    if(tmpParam.contains("{")){
+                        tmpParam = tmpParam.replace("{","");
+                    }
+                    if(tmpParam.contains("}")){
+                        tmpParam = tmpParam.replace("}","");
+                    }
+                    String value = "null";
+                    if(httpApiRequestBO.getParams().get(tmpParam) != null){
+                        value = httpApiRequestBO.getParams().get(tmpParam).toString();
+                    }
+                    String url = httpApiRequestBO.getUrl().replace("{"+restParamStr+"}",value);
+                    httpApiRequestBO.setUrl(url);
+                }
+                httpApiRequestBO.setParams(new HashMap<>());
+            }else {
+                String value = httpApiRequestBO.getParams().get(restParamStr).toString();
+                String url = httpApiRequestBO.getUrl().replace("{"+restParamStr+"}",value);
+                httpApiRequestBO.setUrl(url);
+                httpApiRequestBO.setParams(new HashMap<>());
+            }
+        }
+
+        try {
+            String jsonStr = HttpUtils.doGet(httpApiRequestBO.getUrl(),httpApiRequestBO.getParams());
+            return responseFactory.getResponseListMap(jsonStr, httpApiRequestBO);
+        }catch (Exception e){
+            log.error("请求http接口报错",e);
+        }
+        return null;
 
     }
 

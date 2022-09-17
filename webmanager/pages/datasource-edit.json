@@ -73,6 +73,16 @@
       },
       {
         "type": "input-text",
+        "name": "providerDomainUrl",
+        "label": "服务提供者域名",
+        "value": "",
+        "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
         "name": "url",
         "label": "数据源访问URL"
       ,"required": true
@@ -86,6 +96,15 @@
         "label": "数据源类型",
         "required": true,
         "source": "http://127.0.0.1:8090/dataEnum/dataSourceType"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "structType",
+        "label": "数据源接口返回格式",
+        "source": "http://127.0.0.1:8090/dataEnum/returnType"
       },
       {
         "type": "divider"
