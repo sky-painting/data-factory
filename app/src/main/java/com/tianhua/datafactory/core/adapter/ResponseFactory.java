@@ -70,6 +70,24 @@ public class ResponseFactory {
             responseList.stream().forEach(value-> resultList.add(Maps.newHashMap(key,value)));
         }
 
+
+
+        if(httpApiRequestBO.getReturnType().equals(ReturnTypeEnum.LIST_DTO.getType())){
+            List<Map>  responseList = JSON.parseArray(responseStr,Map.class);
+            responseList.stream().forEach(obj -> {
+                try {
+                    Map jsonObject = obj;
+                    Map<String,Object> objectMap = getObjMapV2(jsonObject, httpApiRequestBO.getParamFieldList());
+                    resultList.add(objectMap);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+
+
+
         if(httpApiRequestBO.getReturnType().equals(ReturnTypeEnum.RESULT_DTO.getType())) {
             ResultDataDto resultDataDto = getResultDataDto(responseStr);
             if(!resultDataDto.isSuccess()){
@@ -105,5 +123,17 @@ public class ResponseFactory {
         return map;
     }
 
-
+    /**
+     * 根据对应的属性key找到匹配的值map
+     * @param map
+     * @param paramFieldList
+     * @return
+     */
+    private Map<String,Object> getObjMapV2(Map map, List<String> paramFieldList){
+        Map<String,Object> resultMap = new HashMap<>();
+        for (String fieldName : paramFieldList){
+            resultMap.put(fieldName, map.get(fieldName));
+        }
+        return resultMap;
+    }
 }

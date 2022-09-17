@@ -28,6 +28,12 @@ public class DepartmentController {
     }
 
 
+    @RequestMapping(value = "/depart/search2/{departId}")
+    public List<DepartmentDTO> searchDepartV2(@PathVariable(value = "departId") Long departId){
+        log.info("departId = {}", departId);
+        return getDepartmentList();
+    }
+
     @RequestMapping(value = "/depart/save", method = RequestMethod.POST)
     public ResultDataDto<Boolean> saveDepart(@RequestBody DepartmentDTO departmentDTO){
         log.info("departmentDTO = {}", JSON.toJSONString(departmentDTO));
