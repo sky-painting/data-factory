@@ -31,6 +31,7 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
             return function.createOneData(null);
         }
 
-        return function.createOneData(dataBuildRequestFieldRuleBO.getFuncVar());
+        Object objValue = function.createOneData(dataBuildRequestFieldRuleBO.getFuncVar());
+        return objValue;
     }
 }

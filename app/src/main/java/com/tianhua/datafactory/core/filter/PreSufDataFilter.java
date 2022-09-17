@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * Description
+ * 属性值类型需要是字符串类型
  * date: 2022/8/13
  *
  * @author shenshuai
@@ -30,7 +31,7 @@ public class PreSufDataFilter implements DataFilter {
         String fieldName = dataBuildRequestFieldBO.getFieldName();
         String prefix = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().getPrefix();
         String subfix = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO().getSubfix();
-        if(valueMap.get(fieldName) == null){
+        if(valueMap.get(fieldName) == null || (StringUtils.isEmpty(prefix) && StringUtils.isEmpty(subfix))){
             return;
         }
         String currentValue = valueMap.get(fieldName).toString();

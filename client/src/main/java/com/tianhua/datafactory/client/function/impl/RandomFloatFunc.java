@@ -21,7 +21,7 @@ import java.security.SecureRandom;
  */
 @Service(value = "randomFloatFunc")
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.RANDOM_FLOAT)
-public class RandomFloatFunc implements Function<String> {
+public class RandomFloatFunc implements Function<Float> {
 
     @Resource(name = "randomNumFunc")
     private Function randomNumFunc;
@@ -29,7 +29,7 @@ public class RandomFloatFunc implements Function<String> {
     private static SecureRandom secureRandom = new SecureRandom();
 
     @Override
-    public String createOneData(String... params) {
+    public Float createOneData(String... params) {
         //小数点后两位
         int len = 2;
         if(params != null && StringUtils.isNotEmpty(params[0])){
@@ -39,6 +39,9 @@ public class RandomFloatFunc implements Function<String> {
         String first = randomNumFunc.createOneData((secureRandom.nextInt(5)+1)+"").toString();
         String second = randomNumFunc.createOneData(len + "").toString();
 
-        return first + "." + second;
+        String floatValue = first + "." + second;
+
+        return Float.parseFloat(floatValue);
+
     }
 }
