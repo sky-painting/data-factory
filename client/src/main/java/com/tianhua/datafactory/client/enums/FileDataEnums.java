@@ -28,7 +28,7 @@ public enum  FileDataEnums {
     /**
      *
      */
-    EN_WORD("enword.txt.txt","英文名单词","parseEnWordServiceImpl"),
+    EN_WORD("enword.txt","英文名单词","parseEnWordServiceImpl"),
     ;
 
     FileDataEnums(String fileName,String desc,String parseBeanName){
