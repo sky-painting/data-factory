@@ -61,7 +61,6 @@ public class UserDTO {
     private Date joinDate;
 
 
-
 }
 
 
