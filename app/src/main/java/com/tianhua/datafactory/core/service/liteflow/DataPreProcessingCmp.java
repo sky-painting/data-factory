@@ -91,7 +91,7 @@ public class DataPreProcessingCmp extends NodeComponent {
             dataBuildRequestBO.setFieldBOList(dataBuildRequestFieldBeans);
         }
 
-        for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBeans){
+        for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestBO.getFieldBOList()){
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getDataSourceCode())){
                 log.warn("当前属性没有绑定数据源,无法生成对应数据值,fieldName = {}, apiSign = {}, paramModelCode = {}",dataBuildRequestFieldBO.getFieldName(),dataBuildRequestBO.getApiSign(),dataBuildRequestBO.getParamModelCode());
                 continue;

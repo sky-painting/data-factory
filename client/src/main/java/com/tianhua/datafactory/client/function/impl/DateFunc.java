@@ -25,7 +25,7 @@ import java.util.Date;
 public class DateFunc implements Function<Date> {
     private static SecureRandom random = new SecureRandom();
     private static final int MAX_YEAR = 2030;
-    private static final int MIN_YEAR = 1949;
+    private static final int MIN_YEAR = 1970;
     private static final int MAX_MONTH = 12;
     private static final int MIN_MONTH = 1;
     private static final int MAX_DAY = 1;

@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.client.function.impl;
 
+import com.tianhua.datafactory.client.annotations.DataSourceFunction;
+import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.Date;
  * @since JDK 1.8
  */
 @Service(value = "dateTimeFunc")
+@DataSourceFunction(dataSourceCode = InnerDataSourceCode.DATA_TIME)
 public class DateTimeFunc implements Function {
     private static SecureRandom random = new SecureRandom();
     private static final int MAX_YEAR = 2030;

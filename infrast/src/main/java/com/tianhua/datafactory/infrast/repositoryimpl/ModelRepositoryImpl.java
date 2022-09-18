@@ -134,6 +134,7 @@ public class ModelRepositoryImpl  implements ModelRepository{
             for (FieldBO fieldBO : fieldBOList){
                 FieldModelDO fieldModelDO = fieldModelMapper.getByCodeField(paramModelBO.getProjectCode(), paramModelBO.getParamClassName(), fieldBO.getFieldName());
                 if(fieldModelDO == null){
+                    fieldBO.init();
                     fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));
                 }else {
                     //导入的话不会存在fieldExtBO,页面修改的时候可能会存在
