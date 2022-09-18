@@ -96,6 +96,10 @@ public class InnerDataSourceCode {
      * 获取一个随机浮点数数---内置实现
      */
     public static final String RANDOM_FLOAT = "com.datafactory.random.float";
+    /**
+     * 获取一个随机浮点数数---内置实现
+     */
+    public static final String RANDOM_DOUBLE = "com.datafactory.random.double";
 
 
 
