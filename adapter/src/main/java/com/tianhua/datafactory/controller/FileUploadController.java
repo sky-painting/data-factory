@@ -1,8 +1,10 @@
 package com.tianhua.datafactory.controller;
 
 import com.coderman.utils.response.ResultDataDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import java.util.Map;
  * @since JDK 1.8
  */
 @Controller
+@Slf4j
 public class FileUploadController {
 
     @PostMapping(value = "/apidoc/upload")
@@ -32,8 +35,11 @@ public class FileUploadController {
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
         // 2. 自定义上传路径
-        //todo config
-        String path = "E:\\myspace2\\myspace\\data-factory\\doc";
+        String basePath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+
+        log.info("basePath = {}",basePath);
+
+        String path = basePath + "\\doc";
         // 3. 判断路径是否存在，不存在则新建
         File apiDocFile = new File(path);
         if (!apiDocFile.exists()){

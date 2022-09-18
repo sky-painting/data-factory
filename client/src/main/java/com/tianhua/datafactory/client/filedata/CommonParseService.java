@@ -3,6 +3,7 @@ package com.tianhua.datafactory.client.filedata;
 import com.tianhua.datafactory.client.context.FileDataSourceContext;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +22,5 @@ public interface CommonParseService {
      * @return
      * @throws IOException
      */
-    List<Map<String,Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException;
+    List<Map<String,Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException, ParseException;
 }

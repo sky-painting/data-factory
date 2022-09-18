@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class TxtParseServiceImpl extends AbstractParseService implements CommonP
     private Logger logger = LoggerFactory.getLogger(TxtParseServiceImpl.class);
 
     @Override
-    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException {
+    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException, ParseException {
         File file = new File(fileDataSourceContext.getFileUrl());
         if(!file.exists()){
             logger.error("文件不存在.");
@@ -58,7 +59,7 @@ public class TxtParseServiceImpl extends AbstractParseService implements CommonP
      * @param fileDataSourceContext
      * @param list
      */
-    private void buildResultList(List<String> contentList, FileDataSourceContext fileDataSourceContext, List<Map<String, Object>> list){
+    private void buildResultList(List<String> contentList, FileDataSourceContext fileDataSourceContext, List<Map<String, Object>> list) throws ParseException {
         int errorCount = 0;
         Map<Integer, FieldIndex> fieldIndexMap = fileDataSourceContext.getFieldIndexBOList().stream().collect(Collectors.toMap(FieldIndex::getIndex,o->o));
 

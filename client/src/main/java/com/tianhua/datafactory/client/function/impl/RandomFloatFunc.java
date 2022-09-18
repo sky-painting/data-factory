@@ -29,7 +29,7 @@ public class RandomFloatFunc implements Function<Float> {
     private static SecureRandom secureRandom = new SecureRandom();
 
     @Override
-    public Float createOneData(String... params) {
+    public Float createOneData(String... params) throws Exception {
         //小数点后两位
         int len = 2;
         if(params != null && StringUtils.isNotEmpty(params[0])){

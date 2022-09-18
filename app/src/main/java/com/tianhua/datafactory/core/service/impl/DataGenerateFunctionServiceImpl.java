@@ -21,7 +21,7 @@ public class DataGenerateFunctionServiceImpl implements DataGenerateService {
     private FunctionFactory functionFactory;
 
     @Override
-    public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) {
+    public Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception {
         DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = dataSourceFieldRequestBean.getDataBuildRequestFieldBO().getDataBuildRequestFieldRuleBO();
 
         String dataSourceCode = dataSourceFieldRequestBean.getDataBuildRequestFieldBO().getDataSourceCode();

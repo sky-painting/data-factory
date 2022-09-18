@@ -34,7 +34,7 @@ public class ChineseNameFunc   implements CacheFunction {
     private static List list = new ArrayList<>();
     private static Integer count = 100000;
     @Override
-    public String createOneData(String... params) {
+    public String createOneData(String... params) throws Exception {
         if(list.isEmpty()){
             buildCache(count);
         }
@@ -42,7 +42,7 @@ public class ChineseNameFunc   implements CacheFunction {
     }
 
     @Override
-    public synchronized void buildCache(Integer count) {
+    public synchronized void buildCache(Integer count) throws Exception {
         this.count = count;
         list = initCache(count);
     }
@@ -52,7 +52,7 @@ public class ChineseNameFunc   implements CacheFunction {
         list.clear();
     }
 
-    private List  initCache(Integer count){
+    private List  initCache(Integer count) throws Exception {
         List<Object> firstNameList = fileDataService.getFileDataList(FileDataEnums.FIRST_NAME.getFileName());
         List<Object> lastNameList = fileDataService.getFileDataList(FileDataEnums.LAST_NAME.getFileName());
         List<String> list = new ArrayList<>(count);

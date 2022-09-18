@@ -16,7 +16,7 @@ public interface CacheFunction extends Function{
      * 实现需要加锁
      * @param count 缓存条数
      */
-    void buildCache(Integer count);
+    void buildCache(Integer count) throws Exception;
 
     /**
      * 清空缓存

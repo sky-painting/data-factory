@@ -17,5 +17,5 @@ public interface DataGenerateService {
      * @param dataSourceFieldRequestBean
      * @return
      */
-    Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean);
+    Object getRandomData(DataSourceFieldRequestBean dataSourceFieldRequestBean) throws Exception;
 }

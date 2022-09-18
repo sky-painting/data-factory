@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class JSONParseServiceImpl extends AbstractParseService implements Common
     private Logger logger = LoggerFactory.getLogger(JSONParseServiceImpl.class);
 
     @Override
-    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException {
+    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException, ParseException {
         File file = new File(fileDataSourceContext.getFileUrl());
         if(!file.exists()){
             logger.error("文件不存在.");
@@ -62,7 +63,7 @@ public class JSONParseServiceImpl extends AbstractParseService implements Common
      * @param fileDataSourceContext
      * @param list
      */
-    private void buildResultList(List<String> contentList, FileDataSourceContext fileDataSourceContext, List<Map<String, Object>> list){
+    private void buildResultList(List<String> contentList, FileDataSourceContext fileDataSourceContext, List<Map<String, Object>> list) throws ParseException {
         int errorCount = 0;
         for (String str : contentList){
             JSONObject jsonObject = JSON.parseObject(str);

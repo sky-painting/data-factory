@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ExcelParseServiceImpl  extends AbstractParseService implements Comm
 
 
     @Override
-    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws IOException {
+    public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws  ParseException {
         File file = new File(fileDataSourceContext.getFileUrl());
         if(!file.exists()){
             logger.error("文件不存在.");

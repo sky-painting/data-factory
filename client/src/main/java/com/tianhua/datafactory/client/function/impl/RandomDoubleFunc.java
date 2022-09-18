@@ -26,7 +26,7 @@ public class RandomDoubleFunc implements Function<Double> {
     private static SecureRandom secureRandom = new SecureRandom();
 
     @Override
-    public Double createOneData(String... params) {
+    public Double createOneData(String... params) throws Exception {
         //小数点后两位
         int len = 2;
         if(params != null && StringUtils.isNotEmpty(params[0])){

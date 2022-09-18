@@ -31,7 +31,7 @@ public class CommentFunc implements Function {
     private SecureRandom secureRandom = new SecureRandom();
 
     @Override
-    public Object createOneData(String... params) {
+    public Object createOneData(String... params) throws Exception {
 
         List<Object> commentList = fileDataService.getFileDataList(FileDataEnums.COMMENT.getFileName());
 
