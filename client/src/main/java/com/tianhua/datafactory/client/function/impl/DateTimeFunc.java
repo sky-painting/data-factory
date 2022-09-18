@@ -6,6 +6,7 @@ import com.tianhua.datafactory.client.function.Function;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,20 +25,27 @@ import java.util.Date;
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.DATA_TIME)
 public class DateTimeFunc implements Function {
     private static SecureRandom random = new SecureRandom();
-    private static final int MAX_YEAR = 2030;
-    private static final int MIN_YEAR = 1949;
-    private static final int MAX_MONTH = 12;
-    private static final int MIN_MONTH = 1;
-    private static final int MAX_DAY = 1;
-    private static final int MIN_DAY = 28;
+    private static final int MIN_YEAR = 1999;
+    private static final int MAX_MONTH = 11;
 
-    private static final int SECOND = 60;
+    private static final int SECOND = 59;
+
+    private static final int HOUR = 23;
     @Override
     public Object createOneData(String... params) {
-        int year = random.nextInt(MAX_YEAR) % (MAX_YEAR - MIN_YEAR + 1) + MIN_YEAR;
-        int month = random.nextInt(MAX_MONTH) % (MAX_MONTH - MIN_MONTH + 1) + MIN_MONTH;
-        int day = random.nextInt(MAX_DAY) % (MAX_DAY - MIN_DAY + 1) + MIN_DAY;
-        return localDate2Date(LocalDateTime.of(year, month, day,random.nextInt(SECOND),random.nextInt(SECOND),random.nextInt(SECOND)));
+        int year = random.nextInt(30) + MIN_YEAR;
+        int month = random.nextInt(MAX_MONTH) + 1;
+        int day;
+
+        if(month == 2){
+            day = random.nextInt(27) + 1;
+        }else if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 12) {
+            day = random.nextInt(30) + 1;
+        }else {
+            day = random.nextInt(29) + 1;
+        }
+        return localDate2Date(LocalDateTime.of(year, month, day, random.nextInt(HOUR), random.nextInt(SECOND), random.nextInt(SECOND)));
+
     }
 
 
@@ -49,6 +57,7 @@ public class DateTimeFunc implements Function {
      */
     private Date localDate2Date(LocalDateTime localDateTime) {
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
-        return Date.from(zonedDateTime.toInstant());
+        Date date = Date.from(zonedDateTime.toInstant());
+        return date;
     }
 }

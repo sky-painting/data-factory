@@ -70,7 +70,11 @@ public class DataGenerateHttpApiServiceTest {
         dataBuildRequestFieldBO.setDataSourceBO(dataSourceBO);
         dataSourceFieldRequestBean.setDataBuildRequestFieldBO(dataBuildRequestFieldBO);
 
-        dataGenerateService.getRandomData(dataSourceFieldRequestBean);
+        try {
+            dataGenerateService.getRandomData(dataSourceFieldRequestBean);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

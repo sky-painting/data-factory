@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,8 @@ public class CommonParseServiceTest {
             mapList.stream().forEach(v-> log.info("map = {}", JSON.toJSONString(v)));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -102,6 +105,8 @@ public class CommonParseServiceTest {
             List<Map<String,Object>> mapList = jSONParseServiceImpl.parseData(fileDataSourceContext);
             mapList.stream().forEach(v-> log.info("map = {}", JSON.toJSONString(v)));
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
@@ -135,6 +140,8 @@ public class CommonParseServiceTest {
             List<Map<String,Object>> mapList = excelParseServiceImpl.parseData(fileDataSourceContext);
             mapList.stream().forEach(v-> log.info("map = {}", JSON.toJSONString(v)));
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
