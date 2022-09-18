@@ -8,8 +8,7 @@ import java.util.Map;
 /**
  * Description
  *
- * 数据过滤接口
- * todo 改名为数据处理接口DataProcessor
+ * 数据过滤处理接口
  * date: 2022/8/13
  *
  * @author shenshuai

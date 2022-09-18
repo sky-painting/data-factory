@@ -5,7 +5,6 @@ import com.tianhua.datafactory.domain.ability.GenericService;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataSourceFieldRequestBean;
-import com.tianhua.datafactory.domain.enums.DataSourceTypeEnum;
 import com.tianhua.datafactory.domain.enums.JavaFieldTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -32,27 +31,12 @@ public class FieldValueFactory {
     @Resource(name = "dataGenerateDefaultServiceImpl")
     private DataGenerateService dataGenerateDefaultServiceImpl;
 
-
-    @Resource(name = "dataGenerateDubboImpl")
-    private DataGenerateService dataGenerateDubboImpl;
-
-    @Resource(name = "dataGenerateFunctionServiceImpl")
-    private DataGenerateService dataGenerateFunctionServiceImpl;
-
-    @Resource(name = "dataGenerateLocalKVImpl")
-    private DataGenerateService dataGenerateLocalKVImpl;
-
-
-    @Resource(name = "dataGenerateFileDataServiceImpl")
-    private DataGenerateService dataGenerateFileDataServiceImpl;
-
-    @Resource(name = "dataGenerateHttpApiServiceImpl")
-    private DataGenerateService dataGenerateHttpApiServiceImpl;
-
+    @Autowired
+    private GenericService genericService;
 
 
     @Autowired
-    private GenericService genericService;
+    private DataGenerateServiceFactory dataGenerateServiceFactory;
 
     private static SecureRandom secureRandom = new SecureRandom();
 
@@ -79,41 +63,10 @@ public class FieldValueFactory {
             return null;
         }
 
-        int dataSourceType = dataBuildRequestFieldBO.getDataSourceType();
+        DataGenerateService dataGenerateService = dataGenerateServiceFactory.getDataGenerateService(dataBuildRequestFieldBO.getDataSourceType().intValue());
 
-        //来自服务模型枚举
-        if(DataSourceTypeEnum.FROM_SERVICE_ENUM.getCode() == dataSourceType){
-            return dataGenerateLocalKVImpl.getRandomData(dataSourceFieldRequestBean);
-        }
+        return dataGenerateService.getRandomData(dataSourceFieldRequestBean);
 
-        //属性上直接设置的默认值列表
-        if(DataSourceTypeEnum.FIELD_DEFAULT.getCode() == dataSourceType){
-            return dataGenerateDefaultServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }
-
-        //datafactory内置提供的函数式随机值生成服务
-        if(DataSourceTypeEnum.FUNCTION_DATASOURCE.getCode() == dataSourceType){
-            return dataGenerateFunctionServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }
-
-        //从dubbo远程接口中获取随机数据
-        if(DataSourceTypeEnum.FROM_DUBBO.getCode() == dataSourceType){
-            return dataGenerateDubboImpl.getRandomData(dataSourceFieldRequestBean);
-        }
-
-
-
-        //从文件中获取数据
-        if(DataSourceTypeEnum.FROM_FILE_DATA.getCode() == dataSourceType){
-            return dataGenerateFileDataServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }
-
-        //从http api中获取数据
-        if(DataSourceTypeEnum.FROM_SERVICE_API_HTTP.getCode() == dataSourceType){
-            return dataGenerateHttpApiServiceImpl.getRandomData(dataSourceFieldRequestBean);
-        }
-
-        return null;
     }
 
 

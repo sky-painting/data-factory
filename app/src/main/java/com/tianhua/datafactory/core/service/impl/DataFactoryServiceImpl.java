@@ -13,7 +13,6 @@ import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.bo.project.ApiBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
-import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.tianhua.datafactory.domain.repository.ProjectQueryRepository;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
@@ -37,8 +36,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
 
     private ThreadLocal<SecureRandom> randomThreadLocal = new ThreadLocal<>();
 
-
-
     @Autowired
     private FieldValueFactory fieldValueFactory;
 
@@ -53,9 +50,6 @@ public class DataFactoryServiceImpl implements DataFactoryService {
     @Autowired
     private ProjectQueryRepository projectQueryRepository;
 
-
-    @Autowired
-    private ModelQueryRepository modelQueryRepository;
 
     @Autowired
     private GenericService genericService;
