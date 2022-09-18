@@ -147,51 +147,7 @@ public class DataSourceRepositoryImpl implements DataSourceRepository {
         return false;
     }
 
-    @Override
-    public String getDataSourceDetail(String dataSourceCode) throws Exception {
 
-        String dataContent = dataSourceCache.getIfPresent(dataSourceCode);
-        if (StringUtils.isNotBlank(dataContent)) {
-            return dataContent;
-        }
-        DataSourceDO dataSourceDO = dataSourceMapper.getBySourceCode(dataSourceCode);
-        if (dataSourceDO == null) {
-            throw  new Exception("查询数据源为空");
-        }
-
-        //本地持久化
-        if (dataSourceDO.getVisitStrategy().intValue() == VisitStrategyEnums.LOCAL_CACHE.getCode()) {
-            DataSourceDetailDO dataSourceDetailDO = dataSourceDetailMapper.getByDataSourceId(dataSourceDO.getId());
-            if (dataSourceDetailDO == null || StringUtils.isEmpty(dataSourceDetailDO.getDataContentJson())) {
-                // return ResultDataDto.fail("500","查询数据为空!");
-            }
-            dataSourceCache.put(dataSourceCode, dataSourceDetailDO.getDataContentJson());
-
-        }
-        //todo 远程动态获取---springboot http协议优先支持 dubbo泛化调用支持tcp协议
-        //这里配置的数据源默认时全量，如果需要参数则需要DataFactoryRequestFieldRuleBean2定义远程访问接口的参数和value进行动态获取，
-        // 暂时先不支持
-        //这里先支持全量数据的动态获取，默认进行缓存
-
-        //todo 2.service api对接
-     /*   else {
-            //nacos数据源
-            if (dataSourceDO.getSourceType().intValue() == DataSourceTypeEnum.FROM_NACOS.getCode()) {
-                String groupId = dataSourceCode.substring(dataSourceCode.lastIndexOf(".") + 1);
-                String dataId = dataSourceCode.substring(0, dataSourceCode.lastIndexOf("."));
-                List<KVPair<String, String>> list = configServiceWrapper.getConfigList(dataId, groupId);
-                dataSourceCache.put(dataSourceCode,JSON.toJSONString(list));
-                return resultDataDto.setData(JSON.toJSONString(list));
-            } else if (dataSourceDO.getSourceType().intValue() == DataSourceTypeEnum.FROM_SERVICE_API.getCode()) {
-                ResultDataDto remoteResultDataDto = restTemplate.getForObject(dataSourceDO.getUrl(), ResultDataDto.class);
-                dataSourceCache.put(dataSourceCode,JSON.toJSONString(remoteResultDataDto.getData()));
-                return resultDataDto.setData(JSON.toJSONString(remoteResultDataDto.getData()));
-            }
-        }
-
-        return ResultDataDto.fail("500","查询数据为空!");*/
-        return "";
-    }
 
     @Override
     public Boolean updateStatus(Long id, Integer status) {

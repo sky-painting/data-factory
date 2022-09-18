@@ -71,14 +71,6 @@ public interface DataSourceRepository {
      */
     public Boolean update(DataSourceBO dataSourceBO) throws Exception;
 
-    /**
-     * 根据数据源code获取数据源详情-包括数据源信息
-     * @param dataSourceCode
-     * @return
-     * @throws Exception
-     */
-    public String getDataSourceDetail(String dataSourceCode) throws Exception;
-
 
     /**
      * 修改数据源状态
