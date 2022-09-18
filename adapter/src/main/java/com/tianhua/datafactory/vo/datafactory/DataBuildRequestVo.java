@@ -49,5 +49,9 @@ public class DataBuildRequestVo {
     private String apiSign;
 
 
+    /**
+     * mock数据结果
+     */
+    private String mockResultData;
 
 }

@@ -8,8 +8,10 @@ import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import com.tianhua.datafactory.domain.bo.datasource.DataSourceBO;
+import com.tianhua.datafactory.domain.bo.model.FieldBO;
 import com.tianhua.datafactory.domain.factory.FieldRuleDslFactory;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
+import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,10 @@ public class DataPreProcessingCmp extends NodeComponent {
     @Autowired
     private GenericService genericService;
 
+
+    @Autowired
+    private ModelQueryRepository modelQueryRepository;
+
     @Override
     public void process() throws Exception {
 
@@ -59,8 +65,32 @@ public class DataPreProcessingCmp extends NodeComponent {
      * 获取数据源详情
      * @param dataBuildRequestBO
      */
-    private void bindDataSource(DataBuildRequestBO dataBuildRequestBO){
+    private void bindDataSource(DataBuildRequestBO dataBuildRequestBO) throws Exception {
         List<DataBuildRequestFieldBO> dataBuildRequestFieldBeans = dataBuildRequestBO.getFieldBOList();
+
+        //从项目模型中构建
+        if(CollectionUtils.isEmpty(dataBuildRequestFieldBeans)){
+            List<FieldBO>  fieldBOList = modelQueryRepository.getModelField(dataBuildRequestBO.getProjectCode(), dataBuildRequestBO.getParamModelCode());
+
+            if(CollectionUtils.isEmpty(fieldBOList)){
+                throw new Exception("属性模型为空,无法构建数据.");
+            }
+
+            dataBuildRequestFieldBeans = new ArrayList<>();
+            for (FieldBO fieldBO : fieldBOList){
+                DataBuildRequestFieldBO dataBuildRequestFieldBO = new DataBuildRequestFieldBO<>();
+                dataBuildRequestFieldBO.setFieldName(fieldBO.getFieldName());
+                dataBuildRequestFieldBO.setFieldType(fieldBO.getFieldType());
+                if(fieldBO.getFieldExtBO() != null){
+                    dataBuildRequestFieldBO.setDefaultValueList(fieldBO.getFieldExtBO().getDefaultValueList());
+                    dataBuildRequestFieldBO.setDataSourceCode(fieldBO.getFieldExtBO().getDataSourceCode());
+                    dataBuildRequestFieldBO.setBuildRuleDSL(fieldBO.getFieldExtBO().getBuildRuleDSL());
+                }
+                dataBuildRequestFieldBeans.add(dataBuildRequestFieldBO);
+            }
+            dataBuildRequestBO.setFieldBOList(dataBuildRequestFieldBeans);
+        }
+
         for (DataBuildRequestFieldBO dataBuildRequestFieldBO  : dataBuildRequestFieldBeans){
             if(StringUtils.isEmpty(dataBuildRequestFieldBO.getDataSourceCode())){
                 log.warn("当前属性没有绑定数据源,无法生成对应数据值,fieldName = {}, apiSign = {}, paramModelCode = {}",dataBuildRequestFieldBO.getFieldName(),dataBuildRequestBO.getApiSign(),dataBuildRequestBO.getParamModelCode());

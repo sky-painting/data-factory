@@ -15,8 +15,6 @@
       "type": "form",
       "mode": "horizontal",
       "api": "http://127.0.0.1:8090/datafactory/generate",
-      "redirect": "/index/1",
-
       "actions": [
         {
           "type": "submit",
@@ -112,10 +110,28 @@
           "type": "divider"
         },
         {
-          "type": "input-text",
+          "type": "static",
           "name": "dataUseType",
-          "label": "数据使用方式(在线接口导入,导出insert.sql,导出json,导出excel)",
+          "label": "数据使用方式",
           "required": false
+        },{
+          "type": "divider"
+        },
+        {
+          "type": "json",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "json": "data.mockResultData",
+          "label": "数据mock结果json"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "label": "数据mock结果txt"
         }
       ]
     }
