@@ -149,7 +149,6 @@ public class DataSourceRepositoryImpl implements DataSourceRepository {
 
     @Override
     public String getDataSourceDetail(String dataSourceCode) throws Exception {
-        ResultDataDto resultDataDto = new ResultDataDto();
 
         String dataContent = dataSourceCache.getIfPresent(dataSourceCode);
         if (StringUtils.isNotBlank(dataContent)) {
@@ -157,8 +156,7 @@ public class DataSourceRepositoryImpl implements DataSourceRepository {
         }
         DataSourceDO dataSourceDO = dataSourceMapper.getBySourceCode(dataSourceCode);
         if (dataSourceDO == null) {
-            // todo throw exception
-            //return ResultDataDto.fail("500","查询数据为空!");
+            throw  new Exception("查询数据源为空");
         }
 
         //本地持久化

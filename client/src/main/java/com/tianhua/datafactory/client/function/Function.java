@@ -12,6 +12,6 @@ public interface Function<T> {
      * @param params 参数列表,控制随机函数可以依赖的参数
      * @return
      */
-    T createOneData(String... params);
+    T createOneData(String... params) throws Exception;
 
 }

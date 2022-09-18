@@ -87,10 +87,10 @@ public class ProjectRepositoryImpl  implements ProjectRepository{
     }
 
     @Override
-	public ProjectBO getByCode(String projectCode){
+	public ProjectBO getByCode(String projectCode) throws Exception {
         ProjectBO projectBO = ProjectConvert.INSTANCE.do2bo(projectConfigMapper.getByCode(projectCode));
         if(projectBO == null){
-            //todo throw exception
+            throw  new Exception("查询数据源模型为空");
         }
 
         List<ApiModelDO> apiModelDOList = apiModelMapper.getByProjectCode(projectCode);

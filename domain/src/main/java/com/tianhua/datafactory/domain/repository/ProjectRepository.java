@@ -33,7 +33,7 @@ public interface ProjectRepository{
 	 * @param projectCode
 	 * @return ProjectBO
 	 */
-     ProjectBO getByCode(String projectCode);
+     ProjectBO getByCode(String projectCode) throws Exception;
 
 
 

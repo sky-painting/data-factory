@@ -37,7 +37,7 @@ public class OneEnWordFunc implements Function {
     private SecureRandom secureRandom = new SecureRandom();
 
     @Override
-    public Object createOneData(String... params) {
+    public Object createOneData(String... params) throws Exception {
         List<Object> commentList = fileDataService.getFileDataList(FileDataEnums.EN_WORD.getFileName());
         if(CollectionUtils.isEmpty(commentList)){
             logger.error("数据文件内容读取为空,请检查,fileName = {}",FileDataEnums.EN_WORD.getFileName());
