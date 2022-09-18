@@ -35,7 +35,7 @@ import java.util.Map;
 public class FileDataServiceImpl implements FileDataService{
     private static final String DATA_SOURCE = "datasource";
 
-    public CommonParseService getCommonParseService(String fileType){
+    public CommonParseService getCommonParseService(String fileType) throws Exception {
         if(fileType.equals(FileTypeEnum.TXT.getType())){
             return (CommonParseService) SpringUtil.getBean("txtParseServiceImpl");
         }
@@ -47,8 +47,7 @@ public class FileDataServiceImpl implements FileDataService{
         if(fileType.equals(FileTypeEnum.JSON.getType())){
             return (CommonParseService) SpringUtil.getBean("jSONParseServiceImpl");
         }
-        //todo throw exception
-        return  null;
+        throw new Exception("不支持的解析策略");
     }
 
 
@@ -56,11 +55,10 @@ public class FileDataServiceImpl implements FileDataService{
     private KVCacheService kvCacheService;
 
     @Override
-    public List<Object> getFileDataList(String fileName) {
+    public List<Object> getFileDataList(String fileName) throws Exception {
         String beanName = FileDataEnums.getBeanName(fileName);
         if(StringUtils.isEmpty(beanName)){
-            // todo throw exception
-            return null;
+            throw new Exception("根据文件名找不到配置对应的处理bean");
         }
         InnerParseService parseService = (InnerParseService)SpringUtil.getBean(beanName);
         return parseService.parseFileData();
@@ -84,7 +82,7 @@ public class FileDataServiceImpl implements FileDataService{
     }
 
     @Override
-    public boolean loadFileData(String dataSourceCode, Integer loadCount) throws IOException {
+    public boolean loadFileData(String dataSourceCode, Integer loadCount) throws Exception {
         String jsonPath = DATA_SOURCE+"/"+dataSourceCode+".json";
         File file = new File(jsonPath);
         if(!file.exists()){

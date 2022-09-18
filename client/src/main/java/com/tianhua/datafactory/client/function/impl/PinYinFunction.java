@@ -9,6 +9,8 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PinYinFunction implements Function<String> {
+    private Logger logger = LoggerFactory.getLogger(PinYinFunction.class);
+
     /**
      * 将汉字转换为全拼
      *
@@ -52,8 +56,7 @@ public class PinYinFunction implements Function<String> {
                 }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("格式化异常", e);
         }
         return t4;
     }

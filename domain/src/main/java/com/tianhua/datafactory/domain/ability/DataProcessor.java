@@ -16,7 +16,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since JDK 1.8
  */
-public interface DataFilter {
+public interface DataProcessor {
     /**
      * 数据过滤接口
      * @param dataBuildRequestFieldBO

@@ -25,7 +25,7 @@ public interface FileDataService {
      * @param fileName
      * @return
      */
-    List<Object>  getFileDataList(String fileName);
+    List<Object>  getFileDataList(String fileName) throws Exception;
 
     /**
      * 注册文件数据源
@@ -47,7 +47,7 @@ public interface FileDataService {
      * @return
      * @throws IOException
      */
-    boolean  loadFileData(String dataSourceCode, Integer loadCount) throws IOException;
+    boolean  loadFileData(String dataSourceCode, Integer loadCount) throws Exception;
 
 
     /**

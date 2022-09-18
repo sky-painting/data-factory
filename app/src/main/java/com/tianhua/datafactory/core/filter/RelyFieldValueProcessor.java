@@ -1,6 +1,6 @@
 package com.tianhua.datafactory.core.filter;
 
-import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.ability.DataProcessor;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service(value = "relyFieldValueFilter")
 //1代表要在构建变量之后执行
 @Order(value = 1)
-public class RelyFieldValueFilter implements DataFilter {
+public class RelyFieldValueProcessor implements DataProcessor {
     @Override
     public void dataFilt(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> valueMap, List<Map<String, Object>> list) {
         DataBuildRequestFieldRuleBO dataBuildRequestFieldRuleBO = dataBuildRequestFieldBO.getDataBuildRequestFieldRuleBO();

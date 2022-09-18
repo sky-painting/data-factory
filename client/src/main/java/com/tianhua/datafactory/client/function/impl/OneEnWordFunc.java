@@ -29,6 +29,8 @@ import java.util.List;
 public class OneEnWordFunc implements Function {
 
     private Logger logger = LoggerFactory.getLogger(OneEnWordFunc.class);
+
+
     @Autowired
     private FileDataService fileDataService;
 

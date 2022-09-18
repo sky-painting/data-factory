@@ -1,9 +1,8 @@
 package com.tianhua.datafactory.core.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.tianhua.datafactory.core.specification.TypeConvertFactory;
 import com.tianhua.datafactory.domain.ability.CollectionFactory;
-import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.ability.DataProcessor;
 import com.tianhua.datafactory.domain.bo.GenericTypeBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldRuleBO;
@@ -31,7 +30,7 @@ import java.util.*;
 @Slf4j
 //1代表要在构建变量之后执行
 @Order(value = 1)
-public class CollectionValueFilter implements DataFilter {
+public class CollectionValueProcessor implements DataProcessor {
     private Random random = new SecureRandom();
 
     @Autowired

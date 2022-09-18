@@ -1,7 +1,7 @@
 package com.tianhua.datafactory.core.filter;
 
 import com.tianhua.datafactory.client.utils.SpringContextUtil;
-import com.tianhua.datafactory.domain.ability.DataFilter;
+import com.tianhua.datafactory.domain.ability.DataProcessor;
 import com.tianhua.datafactory.domain.bo.datafactory.DataBuildRequestFieldBO;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class FilterExecutor {
      * @param batchResultList
      */
     public void exeFilterBefore(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> fieldValueMap, List<Map<String, Object>> batchResultList){
-        List<DataFilter> dataFilterList = SpringContextUtil.getBeanOfType(DataFilter.class);
-        for (DataFilter dataFilter : dataFilterList){
+        List<DataProcessor> dataFilterList = SpringContextUtil.getBeanOfType(DataProcessor.class);
+        for (DataProcessor dataFilter : dataFilterList){
             Order order = dataFilter.getClass().getAnnotation(Order.class);
             if(order.value() < 0){
                 dataFilter.dataFilt(dataBuildRequestFieldBO, fieldValueMap, batchResultList);
@@ -44,8 +44,8 @@ public class FilterExecutor {
      * @param batchResultList
      */
     public void exeFilterAfter(DataBuildRequestFieldBO dataBuildRequestFieldBO, Map<String, Object> fieldValueMap, List<Map<String, Object>> batchResultList){
-        List<DataFilter> dataFilterList = SpringContextUtil.getBeanOfType(DataFilter.class);
-        for (DataFilter dataFilter : dataFilterList){
+        List<DataProcessor> dataFilterList = SpringContextUtil.getBeanOfType(DataProcessor.class);
+        for (DataProcessor dataFilter : dataFilterList){
             Order order = dataFilter.getClass().getAnnotation(Order.class);
             if(order.value() > 0){
                 dataFilter.dataFilt(dataBuildRequestFieldBO, fieldValueMap, batchResultList);

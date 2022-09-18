@@ -86,4 +86,7 @@ public class FieldIndex {
         return this.fieldType.toLowerCase(Locale.ROOT).equals("date");
     }
 
+    public boolean isDateTime(){
+        return this.fieldType.toLowerCase(Locale.ROOT).equals("datetime");
+    }
 }

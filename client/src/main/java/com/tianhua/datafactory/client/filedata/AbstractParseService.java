@@ -3,6 +3,8 @@ package com.tianhua.datafactory.client.filedata;
 import com.tianhua.datafactory.client.context.FieldIndex;
 
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -16,6 +18,15 @@ import java.util.*;
 public class AbstractParseService {
 
     private static SecureRandom secureRandom = new SecureRandom();
+
+    private static SimpleDateFormat formatWithLine = new SimpleDateFormat("yyyy-MM-dd");
+
+    private static SimpleDateFormat formatWithSplit = new SimpleDateFormat("yyyy/MM/dd");
+
+    private static SimpleDateFormat formatDataTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+
 
     /**
      * 从一个集合中随机获取一部分子集
@@ -85,7 +96,7 @@ public class AbstractParseService {
      * @param value
      * @param rowMap
      */
-    public void buildRowMap(FieldIndex fieldIndex, String value, Map<String, Object> rowMap){
+    public void buildRowMap(FieldIndex fieldIndex, String value, Map<String, Object> rowMap) throws ParseException {
 
         if(fieldIndex.isLong()){
             rowMap.put(fieldIndex.getFieldName(), Long.valueOf(value));
@@ -101,7 +112,20 @@ public class AbstractParseService {
         else if(fieldIndex.isString()){
             rowMap.put(fieldIndex.getFieldName(), value);
         }
-        // todo date time
+
+        else if(fieldIndex.isDate()){
+            Date date = new Date();
+            if(value.contains("-")){
+                date = formatWithLine.parse(value);
+            }
+            if(value.contains("/")){
+                date = formatWithSplit.parse(value);
+            }
+            rowMap.put(fieldIndex.getFieldName(), date);
+        }
+        else if(fieldIndex.isDateTime()){
+            rowMap.put(fieldIndex.getFieldName(), formatDataTime.parse(value));
+        }
     }
 
 
