@@ -148,7 +148,9 @@
             {
               "name": "paramClassName",
               "type": "input-text",
-              "label": "参数类名"
+              "label": "参数类型",
+              "source": "http://127.0.0.1:8090/dataEnum/javaFieldType"
+
             },
             {
               "name": "paramVarName",

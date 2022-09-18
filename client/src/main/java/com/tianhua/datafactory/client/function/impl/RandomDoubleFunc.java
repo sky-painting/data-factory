@@ -17,7 +17,7 @@ import java.security.SecureRandom;
  * @version 1.0.0
  * @since JDK 1.8
  */
-@Service(value = "randomFloatFunc")
+@Service(value = "randomDoubleFunc")
 @DataSourceFunction(dataSourceCode = InnerDataSourceCode.RANDOM_DOUBLE)
 public class RandomDoubleFunc implements Function<Double> {
     @Resource(name = "randomNumFunc")

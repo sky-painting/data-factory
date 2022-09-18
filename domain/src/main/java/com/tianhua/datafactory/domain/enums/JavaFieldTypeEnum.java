@@ -37,7 +37,7 @@ public enum JavaFieldTypeEnum {
 
     LIST("List"),
 
-    SET("SET"),
+    SET("Set"),
 
     ARRAY("Array"),
 
