@@ -117,9 +117,13 @@ public class InnerDataSourceCode {
 
 
     /**
-     * 获取一个随机数---内置实现
+     * 获取一个雪花算法id---内置实现
      */
     public static final String SNOWFLAKE_ID = "com.datafactory.user.snowflakeid";
 
+    /**
+     * 获取一个uuid---内置实现
+     */
+    public static final String UUID = "com.datafactory.user.uuid";
 
 }
