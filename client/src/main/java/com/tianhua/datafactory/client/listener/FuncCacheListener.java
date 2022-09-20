@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * Description
- * 监听容器启动事件,预先func缓存
+ * 监听容器启动事件,可预先func缓存
+ * 默认走延迟缓存
  * date: 2022/8/9
  *
  * @author shenshuai

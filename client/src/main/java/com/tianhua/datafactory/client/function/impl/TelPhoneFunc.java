@@ -28,10 +28,9 @@ public class TelPhoneFunc implements CacheFunction {
      */
     private static String[] telFirst = "130,134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153,175,176,177,180,182,183,188,189,191,186".split(",");
     private static SecureRandom random = new SecureRandom();
-
+    //todo 改造为caffine缓存
     private static List list = new ArrayList<>();
     private static Integer count = 100000;
-
 
     @Override
     public String createOneData(String... params) {
@@ -53,10 +52,6 @@ public class TelPhoneFunc implements CacheFunction {
         list = initCache(count);
     }
 
-    @Override
-    public void clearCache() {
-        list.clear();
-    }
 
     private List  initCache(Integer count){
         List<String> list = new ArrayList<>(count);

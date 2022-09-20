@@ -28,6 +28,7 @@ public class SnowflakeIdFunc implements CacheFunction {
 
     private static SecureRandom random = new SecureRandom();
 
+    //todo 改造为caffine缓存
     private static List list = new ArrayList<>();
     private static Integer count = 100000;
     @Override
@@ -44,10 +45,6 @@ public class SnowflakeIdFunc implements CacheFunction {
         list = initCache(count);
     }
 
-    @Override
-    public synchronized void clearCache() {
-        list.clear();
-    }
 
     private List  initCache(Integer count){
         List<String> list = new ArrayList<>(count);

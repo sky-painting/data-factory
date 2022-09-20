@@ -26,6 +26,7 @@ public class KVCacheService {
      */
     private static final Cache<String, List<Object>> manualCache = Caffeine.newBuilder()
             .maximumSize(10_000)
+            .expireAfterWrite(10*60,TimeUnit.SECONDS)
             .build();
 
     /**

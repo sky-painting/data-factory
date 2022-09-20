@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -31,28 +32,36 @@ public class ChineseNameFunc   implements CacheFunction {
     private FileDataService fileDataService;
     private static SecureRandom random = new SecureRandom();
 
-    private static List list = new ArrayList<>();
     private static Integer count = 100000;
+
+    /**
+     * 改造为caffine缓存
+     */
+    private static final Cache<String, List> manualCache = Caffeine.newBuilder()
+            .maximumSize(10)
+            .expireAfterWrite(10*60, TimeUnit.SECONDS)
+            .build();
+
     @Override
     public String createOneData(String... params) throws Exception {
+        List list = manualCache.getIfPresent(InnerDataSourceCode.CHINESE_NAME);
         if(list.isEmpty()){
             buildCache(count);
         }
+        list = manualCache.getIfPresent(InnerDataSourceCode.CHINESE_NAME);
         return list.get(random.nextInt(list.size())).toString();
     }
 
     @Override
     public synchronized void buildCache(Integer count) throws Exception {
         this.count = count;
-        list = initCache(count);
+        initCache(count);
     }
 
-    @Override
-    public synchronized void clearCache() {
-        list.clear();
-    }
-
-    private List  initCache(Integer count) throws Exception {
+    private  void   initCache(Integer count) throws Exception {
+        if(manualCache.getIfPresent(InnerDataSourceCode.CHINESE_NAME) != null){
+            return;
+        }
         List<Object> firstNameList = fileDataService.getFileDataList(FileDataEnums.FIRST_NAME.getFileName());
         List<Object> lastNameList = fileDataService.getFileDataList(FileDataEnums.LAST_NAME.getFileName());
         List<String> list = new ArrayList<>(count);
@@ -60,6 +69,6 @@ public class ChineseNameFunc   implements CacheFunction {
             String chineseName = firstNameList.get(random.nextInt(firstNameList.size())).toString() + lastNameList.get(random.nextInt(lastNameList.size())).toString();
             list.add(chineseName);
         }
-        return list;
+        manualCache.put(InnerDataSourceCode.CHINESE_NAME, list);
     }
 }

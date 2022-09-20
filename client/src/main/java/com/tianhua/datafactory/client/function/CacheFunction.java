@@ -18,10 +18,5 @@ public interface CacheFunction extends Function{
      */
     void buildCache(Integer count) throws Exception;
 
-    /**
-     * 清空缓存
-     * 实现需要加锁
-     */
-    void clearCache();
 
 }
