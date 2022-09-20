@@ -34,14 +34,6 @@ public class UUidFunc  implements CacheFunction {
     }
 
     @Override
-    public void clearCache() {
-        if(list.isEmpty()){
-            return;
-        }
-        list.clear();
-    }
-
-    @Override
     public Object createOneData(String... params) throws Exception {
         if(list.isEmpty()){
             buildCache(count);
