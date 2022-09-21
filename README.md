@@ -2,9 +2,16 @@
 
 #### 介绍
 为大规模微服务构建而创建的业务模拟数据生成平台,属于天画项目中的基础产品 
-天画项目链接：https://gitee.com/sky-painting。
-data-factory 平台对各个相关服务领域的数据源进行聚合，同时基于业务模型帮助构建大规模大数据量的仿真业务数据。
-致力于在分布式微服务等架构落地的同时提供真正的高并发大数据量的实战数据环境。
+天画项目链接：https://gitee.com/sky-painting
+
+适用于如下场景:
+1. 平台对各个相关服务领域的数据源进行聚合，同时基于业务模型帮助构建大规模大数据量的仿真业务数据。
+2. 致力于在分布式微服务等架构落地的同时提供真正的高并发大数据量的实战数据环境。
+3. 基于前后端接口数据协议进行数据mock,包括返回值和入参模型
+4. 基于业务数据模型构建大数据平台所需的大量仿真数据
+5. 在线接口调试,将构建的数据直接与微服务的接口进行绑定调试。
+6. 为测试平台提供mock数据,比如联调期间mock下游依赖或者写单元测试的时候动态mock下游依赖
+
 
 #### 软件架构-1.0
 1.  功能架构图
@@ -16,6 +23,8 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 4.  部署架构图
 5.  应用架构图
 ![image](doc/img/天画-数据工厂项目功能架构图.png) 
+
+#### 软件架构-2.0
 
 
 #### 安装教程 
@@ -32,24 +41,56 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 3.  xxxx
 
 
-#### 使用场景
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 内置数据源列表
+#### 内置数据源列表(2.0)
 
 #####  BankFunction
 银行卡号生成
+
 #####  CardNumberFunction
 身份证号生成
+
 #####  PinYinFunction
 汉字转拼音,提取首字母
-#####  UserFunction
-电话,随机数,日期,姓名
+
+#####  RandomNumFunc
+随机N位整数
+
+#####  RandomFloatFunc/RandomDoubleFunc
+随机浮点数
+
+#####  TelPhoneFunc
+电话
+
+#####  TelPhoneFunc
+邮箱
+
+#####  ChineseNameFunc
+中文姓名
+
 ##### PassWordFunction
 随机N位密码
+
+##### UUidFunc
+uuid
+
+##### SnowflakeIdFunc
+snowflakeId
+
+##### CurrentTimeFunc
+当前时间戳
+
+##### DateFunc
+日期(年月日)
+
+##### DateTimeFunc
+时间(年月日 时分秒)
+
+##### CommentFunc
+一段评论(内置数据文件)
+
+##### OneEnWordFunc
+随机英文名单词
 
 
 
