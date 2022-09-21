@@ -6,6 +6,7 @@ import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.function.Function;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.security.SecureRandom;
 
 /**
@@ -25,9 +26,16 @@ public class EmailFunc implements Function<String> {
 
     private static final String[] EMAIL_SUFFIX = "@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn".split(",");
 
-    @Override
-    public String createOneData(String... params) {
+    @Resource(name = "randomNumFunc")
+    private Function randomNumFunc;
 
-        return null;
+    @Override
+    public String createOneData(String... params) throws Exception {
+        Integer randomSize = (Integer) randomNumFunc.createOneData("2");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0;i < randomSize;i++){
+            stringBuilder.append(BASE_CHAR.charAt(random.nextInt(BASE_CHAR.length())));
+        }
+        return stringBuilder.append(EMAIL_SUFFIX[random.nextInt(EMAIL_SUFFIX.length)]).toString();
     }
 }
