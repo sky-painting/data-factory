@@ -66,7 +66,7 @@
 邮箱
 
 #####  ChineseNameFunc
-中文姓名
+中文姓名(内置数据文件)
 
 ##### PassWordFunction
 随机N位密码
@@ -90,7 +90,7 @@ snowflakeId
 一段评论(内置数据文件)
 
 ##### OneEnWordFunc
-随机英文名单词
+随机英文名单词(内置数据文件)
 
 
 
@@ -99,15 +99,9 @@ snowflakeId
 将内置函数实现与内置随机数据文件迁移到client工程,core工程只通过接口依赖client端函数和实现
 因此core的迭代和开发不受随机函数的迭代开发影响。随机函数在客户端可以通过下面的步骤进行开发并可快速集成到core中
 client端无需感知core端变化，因此服务设计上更加灵活。同时通过接口和门面模式将client与core进行隔离，达到高内聚低耦合的特性。
-##### 二次开发步骤
-1.  在datafactory-client工程中的InnerDataSourceCode定义
-唯一的内置数据源dataSourceCode.
-2.  在FileDataEnums增加文件名，描述枚举
-3.  在resources/defaultfactory中增加内置数据源文件.txt
-4.  实现com.coderman.tianhua.datafactory.client.function.Function接口,这里可以单独做单元测试
-5.  在接口实现类的随机数据方法上增加DataSourceFunction注解，标注对应的新增的内置数据源
-6.  启动nacos服务，并在datafactory-api中编写单元测试，引入该新增的内置数据源
-7.  测试新增的内置数据源函数是否正常在整个数据构建中生效
+##### 二次开发场景
+>这里的开发场景有两种1.针对于内置函数 2.针对于文件类的数据源
+
 
 
 #### 版本发布
@@ -120,6 +114,22 @@ client端无需感知core端变化，因此服务设计上更加灵活。同时�
 4.  内部核心模块解耦,方便二次开发
 5.  生成随机数据的核心功能完成
 6.  生成数据的依赖数据源全面打通(自定义数据源,NACOS,内置数据源,spring boot api)
+
+#####  2.0.0-SNAPSHOT
+本次发版为基本雏形版本，内容:
+1. 支持将dubbo 查询api作为数据源接入
+2. 支持将springboot,cloud数据源接入
+3. 代码重构,支持复杂数据模型和大批量数据生成
+4. 基于百度Amis前端低代码框架，增加可视化管理界面
+5. 支持自定义数据集加载(数据加载，数据属性绑定,大文件映射,excel加载,txt加载,json加载)
+6. 调整工程模块,适应项目需求
+7. 管理api模型,领域模型,数据库模型,数据库表字段,实现生命周期全管理
+8. 使用field DSL Rule支持复杂对象参数和模型，返回结果的构建
+9. 实现http接口,dubbo接口,service方法的返回参数和入参模型的数据mock
+10. 相对1.0版本来说增加了几个常用的内置数据源(down)
+11. 支持复杂对象关联数据生成
+
+
 
 #### 参与贡献
 
