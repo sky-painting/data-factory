@@ -7,15 +7,14 @@ import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
 import com.tianhua.datafactory.client.enums.FileDataEnums;
 import com.tianhua.datafactory.client.function.CacheFunction;
 import com.tianhua.datafactory.client.service.FileDataService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * Description
@@ -35,7 +34,7 @@ public class ChineseNameFunc   implements CacheFunction {
     private static Integer count = 100000;
 
     /**
-     * 改造为caffine缓存
+     * caffine缓存
      */
     private static final Cache<String, List> manualCache = Caffeine.newBuilder()
             .maximumSize(10)
@@ -45,7 +44,7 @@ public class ChineseNameFunc   implements CacheFunction {
     @Override
     public String createOneData(String... params) throws Exception {
         List list = manualCache.getIfPresent(InnerDataSourceCode.CHINESE_NAME);
-        if(list.isEmpty()){
+        if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
         list = manualCache.getIfPresent(InnerDataSourceCode.CHINESE_NAME);

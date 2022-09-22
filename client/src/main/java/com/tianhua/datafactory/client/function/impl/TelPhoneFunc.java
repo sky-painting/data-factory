@@ -1,15 +1,17 @@
 package com.tianhua.datafactory.client.function.impl;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.tianhua.datafactory.client.annotations.DataSourceFunction;
 import com.tianhua.datafactory.client.constants.InnerDataSourceCode;
-import com.tianhua.datafactory.client.enums.FileDataEnums;
 import com.tianhua.datafactory.client.function.CacheFunction;
-import com.tianhua.datafactory.client.function.Function;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description
@@ -28,13 +30,26 @@ public class TelPhoneFunc implements CacheFunction {
      */
     private static String[] telFirst = "130,134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153,175,176,177,180,182,183,188,189,191,186".split(",");
     private static SecureRandom random = new SecureRandom();
-    //todo 改造为caffine缓存
-    private static List list = new ArrayList<>();
-    private static Integer count = 100000;
+
+
+    /**
+     * caffine缓存
+     */
+    private static final Cache<String, List> manualCache = Caffeine.newBuilder()
+            .maximumSize(10)
+            .expireAfterWrite(10*60, TimeUnit.SECONDS)
+            .build();
+
+
+
+    private  Integer count = 100000;
 
     @Override
     public String createOneData(String... params) {
-        if(list.isEmpty()){
+
+        List list = manualCache.getIfPresent(InnerDataSourceCode.TEL_PHONE);
+
+        if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
         return list.get(random.nextInt(list.size())).toString();
@@ -49,11 +64,15 @@ public class TelPhoneFunc implements CacheFunction {
     @Override
     public synchronized void buildCache(Integer count) {
         this.count = count;
-        list = initCache(count);
+        initCache(count);
     }
 
 
-    private List  initCache(Integer count){
+    private void   initCache(Integer count){
+
+        if(manualCache.getIfPresent(InnerDataSourceCode.TEL_PHONE) != null){
+            return;
+        }
         List<String> list = new ArrayList<>(count);
         for (int i =0;i < count;i++){
             int index = getNum(0, telFirst.length - 1);
@@ -62,6 +81,6 @@ public class TelPhoneFunc implements CacheFunction {
             String third = String.valueOf(getNum(1, 9100) + 10000).substring(1);
             list.add(first + second + third);
         }
-        return list;
+        manualCache.put(InnerDataSourceCode.TEL_PHONE, list);
     }
 }
