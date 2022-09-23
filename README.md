@@ -25,16 +25,21 @@
 ![image](doc/img/天画-数据工厂项目功能架构图.png) 
 
 #### 软件架构-2.0
+1. 功能架构
+2. 模块说明
+3. 应用架构
+
+#### 安装教程(2.0)
+1. 克隆本项目到工作空间
+2. 通过doc/sql/datafactory-db2.0.sql 文件中的sql脚本初始化
+3. 克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils(1.0.5版本)
+4. 修改start-local项目中的application.properties的数据库链接配置
+5. 后端项目启动: start-local Application springboot应用
+6. 前端项目启动: 在cmd或者终端下到/webmanager目录,输入node server启动前端,访问链接:http://localhost:3000
 
 
-#### 安装教程 
 
-1.  通过sql文件中的sql脚本初始化
-2.  克隆本项目，并搭建本地nacos集群,进行服务注册调试
-3.  克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils(1.0.5版本)
-4.  运行api工程中的DataSourceControllerTest,DataFactoryControllerTest 测试服务即可看到随机数据
-
-#### 使用api
+#### 重点api(2.0)
 
 1.  /data/source/regist  注册数据源
 2.  /datafactory/generate/simple  构建简单数据源
@@ -100,8 +105,12 @@ snowflakeId
 因此core的迭代和开发不受随机函数的迭代开发影响。随机函数在客户端可以通过下面的步骤进行开发并可快速集成到core中
 client端无需感知core端变化，因此服务设计上更加灵活。同时通过接口和门面模式将client与core进行隔离，达到高内聚低耦合的特性。
 ##### 二次开发场景
->这里的开发场景有两种1.针对于内置函数 2.针对于文件类的数据源
+>这里的开发场景有三种
+1. 针对于内置函数 
+    
+2. 针对于文件类的内置函数
 
+3. 把指定的文件当做一种数据源,按照一定格式解析后可以被使用
 
 
 #### 版本发布

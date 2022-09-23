@@ -28,6 +28,13 @@
 14. 支持jsonstr的构建特性
 15. 支持属性是枚举数据映射(如xxxType的值指定好之后根据枚举映射关系找到xxxTypeDesc)
 
+### 2.3.0 交付内容 data-connector
+1. 支持生成SQL Insert语句同步到数据库(优先Mysql)
+2. 支持生成数据同步到消息中间件(kafka,plusar,rocketmq)
+3. 支持生成接口入参并调用对应服务(springboot,http,dubbo)
+
+
+
 数据工厂的服务职责：
 1.对数据源进行管理
 2.快速根据接口模型构建仿真数据

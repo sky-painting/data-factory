@@ -1,20 +1,16 @@
 package com.tianhua.datafactory.client.filedata.impl.common;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.tianhua.datafactory.client.context.FieldIndex;
 import com.tianhua.datafactory.client.context.FileDataSourceContext;
 import com.tianhua.datafactory.client.filedata.AbstractParseService;
 import com.tianhua.datafactory.client.filedata.CommonParseService;
 import com.tianhua.datafactory.client.filedata.listener.NoModelDataListener;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +28,6 @@ import java.util.Map;
 @Service(value = "excelParseServiceImpl")
 public class ExcelParseServiceImpl  extends AbstractParseService implements CommonParseService {
     private Logger logger = LoggerFactory.getLogger(ExcelParseServiceImpl.class);
-
 
     @Override
     public List<Map<String, Object>> parseData(FileDataSourceContext fileDataSourceContext) throws  ParseException {
@@ -56,10 +51,5 @@ public class ExcelParseServiceImpl  extends AbstractParseService implements Comm
         }
         return list;
     }
-
-
-
-
-
 
 }
