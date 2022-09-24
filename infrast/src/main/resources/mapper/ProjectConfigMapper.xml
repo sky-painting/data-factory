@@ -67,8 +67,8 @@
                 <if test="page.query.projectCode != null">
                     and project_code  like concat('%',#{page.query.projectCode},'%')
                 </if>
-                <if test="page.query.projectDesc != null">
-                    and project_desc like concat('%',#{page.query.projectDesc},'%')
+                <if test="page.query.domainCode != null">
+                    and domain_code like concat('%',#{page.query.domainCode},'%')
                 </if>
                 <if test="page.query.status != null">
                     and status = #{page.query.status}
@@ -89,8 +89,8 @@
                 <if test="page.query.projectCode != null">
                     and project_code  like concat('%',#{page.query.projectCode},'%')
                 </if>
-                <if test="page.query.projectDesc != null">
-                    and project_desc like concat('%',#{page.query.projectDesc},'%')
+                <if test="page.query.domainCode != null">
+                    and domain_code like concat('%',#{page.query.domainCode},'%')
                 </if>
                 <if test="page.query.status != null">
                     and status = #{page.query.status}

@@ -115,7 +115,7 @@
           "searchable": {
             "type": "input-text",
             "name": "mappingClass",
-            "placeholder": "输入项目编码"
+            "placeholder": "输入模型或者表名称"
           }
         },
         {

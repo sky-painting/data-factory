@@ -22,7 +22,7 @@ public class ProjectQueryVO extends PageVO {
 
     private String  projectCode;
 
-    private String  projectDesc;
+    private String  domainCode;
 
     public PageBean getPageBean(){
         PageBean pageBean = super.getPageBean();
@@ -30,8 +30,8 @@ public class ProjectQueryVO extends PageVO {
         if(StringUtils.isNotEmpty(projectCode)){
             query.put("projectCode",projectCode);
         }
-        if(StringUtils.isNotEmpty(projectDesc)){
-            query.put("projectDesc",projectDesc);
+        if(StringUtils.isNotEmpty(domainCode)){
+            query.put("domainCode",domainCode);
         }
         pageBean.setQuery(query);
         return pageBean;

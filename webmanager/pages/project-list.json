@@ -106,12 +106,7 @@
         {
           "type": "text",
           "name": "deptName",
-          "label": "所属部门",
-          "searchable": {
-           "type": "input-text",
-           "name": "deptName",
-           "placeholder": "输入所属部门"
-         }
+          "label": "所属部门"
         },
 
         {

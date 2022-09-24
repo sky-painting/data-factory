@@ -45,11 +45,11 @@
         "type": "divider"
       },
       {
-        "type": "select",
+        "type": "input-text",
         "name": "mappingFieldFirst",
         "label": "模型属性名称(或者字段名)",
         "required": true,
-        "source": "http://127.0.0.1:8090/parammodel/getFieldList/${projectCode}/${mappingClassFirst}"
+        "source": "http://127.0.0.1:8090/parammodel/getFieldList?projectCode=${projectCode}&paramClassName=${mappingClassFirst}"
       },
       {
         "type": "divider"
@@ -66,11 +66,11 @@
         "type": "divider"
       },
       {
-        "type": "select",
+        "type": "input-text",
         "name": "mappingFieldSecond",
         "label": "模型属性名称(或者字段名)",
         "required": true,
-        "source": "http://127.0.0.1:8090/parammodel/getFieldList/${projectCode}/${mappingClassSecond}"
+        "source": "http://127.0.0.1:8090/parammodel/getFieldList?projectCode=${projectCode}&paramClassName=${mappingClassSecond}"
       },
       {
         "type": "divider"

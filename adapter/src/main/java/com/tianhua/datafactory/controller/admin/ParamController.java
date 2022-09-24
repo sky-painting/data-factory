@@ -145,7 +145,11 @@ public class ParamController extends BaseController {
 	 * @return List<ParamModelVO>
 	 */
 	@RequestMapping(value = "/parammodel/getFieldList/{projectCode}/{paramClassName}")
-	public ResultDataDto getFieldList(@PathVariable(value = "projectCode", required = false) String projectCode,@PathVariable(value = "paramClassName", required = false) String paramClassName){
+	public ResultDataDto getFieldList(@RequestParam(value = "projectCode", required = false) String projectCode,@RequestParam(value = "paramClassName", required = false) String paramClassName){
+		if(StringUtils.isEmpty(projectCode) || StringUtils.isEmpty(paramClassName)){
+			return ResultDataDto.success(new OptionsVO());
+		}
+
 		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode,paramClassName));
 		return ResultDataDto.success(wrapperFieldModel(fieldVOList));
 	}
