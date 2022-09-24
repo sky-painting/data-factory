@@ -132,7 +132,7 @@ public class ModelRepositoryImpl  implements ModelRepository{
         List<FieldBO> fieldBOList = paramModelBO.getFieldBeanList();
         if(org.apache.commons.collections.CollectionUtils.isNotEmpty(fieldBOList)){
             for (FieldBO fieldBO : fieldBOList){
-                FieldModelDO fieldModelDO = fieldModelMapper.getByCodeField(paramModelBO.getProjectCode(), paramModelBO.getParamClassName(), fieldBO.getFieldName());
+                FieldModelDO fieldModelDO = fieldModelMapper.getByCodeField(paramModelBO.getProjectCode(), fieldBO.getParamClassName(), fieldBO.getFieldName());
                 if(fieldModelDO == null){
                     fieldBO.init();
                     fieldModelMapper.insert(FieldModelConvert.INSTANCE.bo2do(fieldBO));

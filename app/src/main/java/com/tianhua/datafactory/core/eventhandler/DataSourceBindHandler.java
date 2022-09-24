@@ -52,6 +52,7 @@ public class DataSourceBindHandler implements TransEventHandler<DataSourceBindEv
                 StringUtils.isEmpty(secondFieldBO.getFieldExtBO().getDataSourceCode())){
             secondFieldBO.setFieldExtBO(firstFieldBO.getFieldExtBO());
             ParamModelBO paramModelBO = ParamModelBO.getInstance(null);
+            paramModelBO.setProjectCode(modelMappingBO.getProjectCode());
             paramModelBO.addField(secondFieldBO);
             modelRepository.updateParamModel(paramModelBO);
         }
@@ -59,8 +60,8 @@ public class DataSourceBindHandler implements TransEventHandler<DataSourceBindEv
         if(StringUtils.isEmpty(firstFieldBO.getFieldExtBO().getDataSourceCode()) &&
                 !StringUtils.isEmpty(secondFieldBO.getFieldExtBO().getDataSourceCode())){
             firstFieldBO.setFieldExtBO(secondFieldBO.getFieldExtBO());
-
             ParamModelBO paramModelBO = ParamModelBO.getInstance(null);
+            paramModelBO.setProjectCode(modelMappingBO.getProjectCode());
             paramModelBO.addField(secondFieldBO);
             modelRepository.updateParamModel(paramModelBO);
         }

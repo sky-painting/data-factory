@@ -30,7 +30,7 @@
 
 ### 2.3.0 交付内容 data-connector
 1. 支持生成SQL Insert语句同步到数据库(优先Mysql)
-2. 支持生成数据同步到消息中间件(kafka,plusar,rocketmq)
+2. 支持生成数据同步到消息中间件(kafka,plusar,rocketmq,es)
 3. 支持生成接口入参并调用对应服务(springboot,http,dubbo)
 
 

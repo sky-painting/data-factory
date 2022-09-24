@@ -30,6 +30,7 @@
 
 #### 软件架构-2.0
 1. 功能架构
+
 2. 模块说明
 3. 应用架构
 
@@ -39,15 +40,15 @@
 3. 克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils(1.0.5版本)
 4. 修改start-local项目中的application.properties的数据库链接配置
 5. 后端项目启动: start-local Application springboot应用
-6. 前端项目启动: 在cmd或者终端下到/webmanager目录,输入node server启动前端,访问链接:http://localhost:3000
+6. 前端项目启动(需要安装nodejs): 在cmd或者终端下到/webmanager目录,输入node server启动前端,访问链接:http://localhost:3000
 
 
 
 #### 重点api(2.0)
 
-1.  /data/source/regist  注册数据源
-2.  /datafactory/generate/simple  构建简单数据源
-3.  xxxx
+1. 前后端接口联调时接口的数据mock返回: http://localhost:8090/apimock?apiSign=&successData=
+2. api接口入参mock: http://localhost:8090/api/reqmock
+3. api接口出参mock: http://localhost:8090/api/respmock
 
 
 
@@ -129,7 +130,7 @@ client端无需感知core端变化，因此服务设计上更加灵活。同时�
 6.  生成数据的依赖数据源全面打通(自定义数据源,NACOS,内置数据源,spring boot api)
 
 #####  2.0.0-SNAPSHOT
-本次发版为基本雏形版本，内容:
+本次发版在1.0的基础上进行全面升级,主要内容如下:
 1. 支持将dubbo 查询api作为数据源接入
 2. 支持将springboot,cloud数据源接入
 3. 代码重构,支持复杂数据模型和大批量数据生成

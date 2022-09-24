@@ -8,6 +8,7 @@ import com.tianhua.datafactory.domain.bo.bean.PageBean;
 import com.tianhua.datafactory.domain.bo.model.ParamModelBO;
 import com.tianhua.datafactory.domain.repository.ModelQueryRepository;
 import com.tianhua.datafactory.domain.repository.ModelRepository;
+import com.tianhua.datafactory.vo.OptionsVO;
 import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.model.FieldVO;
 import com.tianhua.datafactory.vo.model.ParamModelVO;
@@ -27,7 +28,7 @@ import com.coderman.utils.response.ResultDataDto;
 
 
 /**
-* @Description:控制层
+* @Description:模型控制层
 * @Author:
 * @CreateTime:2022-05-27 17:45:38
 * @version v1.0
@@ -127,8 +128,11 @@ public class ParamController extends BaseController {
 	 * @param projectCode
 	 * @return List<ParamModelVO>
 	 */
-	@RequestMapping(value = "/parammodel/getByProjectCode/{projectCode}")
-	public ResultDataDto getByProjectCode(@PathVariable(value = "projectCode", required = false) String projectCode){
+	@RequestMapping(value = "/parammodel/getByProjectCode")
+	public ResultDataDto getByProjectCode(@RequestParam(value = "projectCode") String projectCode){
+		if (StringUtils.isEmpty(projectCode)){
+			return ResultDataDto.success(new OptionsVO());
+		}
 		List<ParamModelVO> paramModelVOS = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelByProjectCode(projectCode));
 		return ResultDataDto.success(wrapperParamModel(paramModelVOS));
 	}

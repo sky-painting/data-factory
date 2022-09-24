@@ -22,7 +22,7 @@ import java.util.Optional;
 
 
 /**
-* @Description:控制层
+* @Description:模型映射控制层
 * @Author:
 * @CreateTime:2022-05-27 17:45:38
 * @version v1.0
@@ -43,7 +43,7 @@ public class ModelMappingController extends BaseController {
 	private ModelMappingBuilderService modelMappingBuilderService;
 	/**
 	 *
-	 * @Description 新建模型后缀
+	 * @Description 新建模型映射
 	 * @param modelMappingVO
 	 * @return Boolean
 	 */

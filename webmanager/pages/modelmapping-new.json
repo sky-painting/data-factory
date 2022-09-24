@@ -39,7 +39,7 @@
         "name": "mappingClassFirst",
         "label": "模型映射类名称/表名称",
         "required": true,
-        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
       },
       {
         "type": "divider"
@@ -59,7 +59,7 @@
         "name": "mappingClassSecond",
         "label": "模型映射类名称/表名称",
         "required": true,
-        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
 
       },
       {

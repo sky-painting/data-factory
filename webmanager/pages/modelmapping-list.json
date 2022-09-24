@@ -36,14 +36,14 @@
               "name": "mappingClassFirst",
               "label": "选择模型名称-1",
               "required": true,
-              "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+              "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
             },
             {
               "type": "select",
               "name": "mappingClassSecond",
               "label": "选择模型名称-2",
               "required": true,
-              "source": "http://127.0.0.1:8090/parammodel/getByProjectCode/${projectCode}"
+              "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
             }
           ]
         }
