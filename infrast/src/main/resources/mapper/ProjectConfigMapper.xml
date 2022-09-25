@@ -82,6 +82,7 @@
         limit #{page.startRow},#{page.endRow}
     </select>
 
+
     <select id="getPageCount" resultMap="count">
         select count(1) as total from project_config
         <where>
