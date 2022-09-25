@@ -76,7 +76,13 @@
         {
           "type": "text",
           "name": "statusDesc",
-          "label": "项目状态"
+          "label": "项目状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "请选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
         },
         {
           "type": "text",
@@ -96,12 +102,7 @@
         {
           "type": "text",
           "name": "busLine",
-          "label": "所属业务线",
-          "searchable": {
-             "type": "input-text",
-            "name": "busLine",
-            "placeholder": "输入所属业务线"
-          }
+          "label": "所属业务线"
         },
         {
           "type": "text",

@@ -24,6 +24,8 @@ public class ProjectQueryVO extends PageVO {
 
     private String  domainCode;
 
+    private Integer status;
+
     public PageBean getPageBean(){
         PageBean pageBean = super.getPageBean();
         Map<String,Object> query = new HashMap<>();
@@ -32,6 +34,10 @@ public class ProjectQueryVO extends PageVO {
         }
         if(StringUtils.isNotEmpty(domainCode)){
             query.put("domainCode",domainCode);
+        }
+
+        if(status != null){
+            query.put("status",status);
         }
         pageBean.setQuery(query);
         return pageBean;
