@@ -106,9 +106,7 @@ public class BaseController{
 		if(CollectionUtils.isEmpty(fieldVOList)){
 			return optionsVO;
 		}
-		fieldVOList.stream().forEach(fieldVO -> {
-			optionsVO.addOptionItem(fieldVO.getFieldName(), fieldVO.getFieldDesc());
-		});
+		fieldVOList.stream().forEach(fieldVO -> optionsVO.addOptionItem(fieldVO.getFieldType() + " "+ fieldVO.getFieldName(), fieldVO.getFieldName()));
 		return optionsVO;
 	}
 

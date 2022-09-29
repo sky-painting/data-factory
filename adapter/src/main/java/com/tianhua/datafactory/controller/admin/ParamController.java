@@ -35,7 +35,7 @@ import com.coderman.utils.response.ResultDataDto;
 */
 @RestController
 public class ParamController extends BaseController {
-	
+
 	protected Logger logger = LoggerFactory.getLogger(ParamController.class);
 
 	@Autowired
@@ -48,14 +48,13 @@ public class ParamController extends BaseController {
 	private PlantUMLDomainModelBuilderService plantUMLDomainModelBuilderService;
 
 	/**
-	 *
-	 * @Description 新建参数模型
 	 * @param paramModelVO
 	 * @return Boolean
+	 * @Description 新建参数模型
 	 */
-	@RequestMapping(value = "/parammodel/add",method = RequestMethod.POST)
+	@RequestMapping(value = "/parammodel/add", method = RequestMethod.POST)
 	@Transactional(rollbackFor = Exception.class)
-	public ResultDataDto<Boolean> add( @RequestBody ParamModelVO paramModelVO){
+	public ResultDataDto<Boolean> add(@RequestBody ParamModelVO paramModelVO) {
 
 		ParamModelBO paramModelBO = ParamConverter.INSTANCE.vo2bo(paramModelVO);
 		modelRepository.saveParamModel(paramModelBO);
@@ -63,25 +62,23 @@ public class ParamController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @Description 根据code获取参数模型
 	 * @param id
 	 * @return Boolean
+	 * @Description 根据code获取参数模型
 	 */
 	@RequestMapping(value = "/parammodel/getById/{id}")
-	public ResultDataDto<ParamModelVO> getByID(@PathVariable(value = "id") Long id){
+	public ResultDataDto<ParamModelVO> getByID(@PathVariable(value = "id") Long id) {
 		ParamModelBO paramModelBO = modelQueryRepository.getByParamId(id);
 		return ResultDataDto.success(ParamConverter.INSTANCE.bo2VO(paramModelBO));
 	}
 
 	/**
-	 *
-	 * @Description 分页获取参数模型
 	 * @param pageVO
 	 * @return PageVO<ParamModelVO>
+	 * @Description 分页获取参数模型
 	 */
 	@RequestMapping(value = "/parammodel/pagelist")
-	public ResultDataDto<PageVO<ParamModelVO>> getPageList(ParamModelQueryVO pageVO){
+	public ResultDataDto<PageVO<ParamModelVO>> getPageList(ParamModelQueryVO pageVO) {
 		PageBean pageBean = pageVO.getPageBean();
 		List<ParamModelVO> paramModelVOList = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.queryParamPage(pageBean).getRows());
 		pageVO.setRows(paramModelVOList);
@@ -91,14 +88,13 @@ public class ParamController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @Description 修改参数模型
 	 * @param id
 	 * @param paramModelVO
 	 * @return Boolean
+	 * @Description 修改参数模型
 	 */
 	@RequestMapping(value = "/parammodel/update/{id}")
-	public ResultDataDto<Boolean> update(@PathVariable(value = "id") Long id, @RequestBody  ParamModelVO paramModelVO){
+	public ResultDataDto<Boolean> update(@PathVariable(value = "id") Long id, @RequestBody ParamModelVO paramModelVO) {
 		ParamModelBO paramModelBO = ParamConverter.INSTANCE.vo2bo(paramModelVO);
 		paramModelBO.setId(id);
 		paramModelBO.getFieldBeanList().forEach(fieldBO -> {
@@ -110,27 +106,25 @@ public class ParamController extends BaseController {
 	}
 
 	/**
-	 *
-	 * @Description 搜索参数模型
 	 * @param content
 	 * @return List<ParamModelVO>
+	 * @Description 搜索参数模型
 	 */
 	@RequestMapping(value = "/parammodel/search")
-	public ResultDataDto<List<ParamModelVO>> select(@RequestParam(value = "content", required = true) String content){
+	public ResultDataDto<List<ParamModelVO>> select(@RequestParam(value = "content", required = true) String content) {
 		List<ParamModelVO> paramModelVOS = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.searchParamModel(content));
 		return ResultDataDto.success(paramModelVOS);
 	}
 
 
 	/**
-	 *
-	 * @Description 搜索参数模型
 	 * @param projectCode
 	 * @return List<ParamModelVO>
+	 * @Description 搜索参数模型
 	 */
 	@RequestMapping(value = "/parammodel/getByProjectCode")
-	public ResultDataDto getByProjectCode(@RequestParam(value = "projectCode") String projectCode){
-		if (StringUtils.isEmpty(projectCode)){
+	public ResultDataDto getByProjectCode(@RequestParam(value = "projectCode") String projectCode) {
+		if (StringUtils.isEmpty(projectCode)) {
 			return ResultDataDto.success(new OptionsVO());
 		}
 		List<ParamModelVO> paramModelVOS = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelByProjectCode(projectCode));
@@ -139,36 +133,34 @@ public class ParamController extends BaseController {
 
 
 	/**
-	 *
-	 * @Description 搜索参数模型
 	 * @param projectCode
 	 * @return List<ParamModelVO>
+	 * @Description 搜索参数模型
 	 */
 	@RequestMapping(value = "/parammodel/getFieldList/{projectCode}/{paramClassName}")
-	public ResultDataDto getFieldList(@RequestParam(value = "projectCode", required = false) String projectCode,@RequestParam(value = "paramClassName", required = false) String paramClassName){
-		if(StringUtils.isEmpty(projectCode) || StringUtils.isEmpty(paramClassName)){
+	public ResultDataDto getFieldList(@RequestParam(value = "projectCode", required = false) String projectCode, @RequestParam(value = "paramClassName", required = false) String paramClassName) {
+		if (StringUtils.isEmpty(projectCode) || StringUtils.isEmpty(paramClassName)) {
 			return ResultDataDto.success(new OptionsVO());
 		}
 
-		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode,paramClassName));
+		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode, paramClassName));
 		return ResultDataDto.success(wrapperFieldModel(fieldVOList));
 	}
 
 	@PostMapping("/parammodel/batchBuild")
-	public ResultDataDto<Boolean> batchBuild(@RequestBody ParamModelVO paramModelVO){
-		plantUMLDomainModelBuilderService.initPlantUMlDomainModel(paramModelVO.getProjectCode(),paramModelVO.getFile());
+	public ResultDataDto<Boolean> batchBuild(@RequestBody ParamModelVO paramModelVO) {
+		plantUMLDomainModelBuilderService.initPlantUMlDomainModel(paramModelVO.getProjectCode(), paramModelVO.getFile());
 		return ResultDataDto.success();
 	}
 
 	/**
-	 *
-	 * @Description 搜索参数模型
 	 * @param projectCode
 	 * @return List<ParamModelVO>
+	 * @Description 搜索参数模型
 	 */
 	@RequestMapping(value = "/parammodel/getByProjectCodeV2")
-	public ResultDataDto getByProjectCodeV2(@RequestParam(value = "projectCode", required = false) String projectCode){
-		if(StringUtils.isEmpty(projectCode)){
+	public ResultDataDto getByProjectCodeV2(@RequestParam(value = "projectCode", required = false) String projectCode) {
+		if (StringUtils.isEmpty(projectCode)) {
 			return ResultDataDto.success();
 		}
 		List<ParamModelVO> paramModelVOS = ParamConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelByProjectCode(projectCode));
@@ -176,13 +168,27 @@ public class ParamController extends BaseController {
 	}
 
 	@RequestMapping(value = "/parammodel/getFieldListV2")
-	public ResultDataDto getFieldListV2(@RequestParam(value = "projectCode", required = false) String projectCode,@RequestParam(value = "paramClassName", required = false) String paramClassName){
-		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode,paramClassName));
+	public ResultDataDto getFieldListV2(@RequestParam(value = "projectCode", required = false) String projectCode, @RequestParam(value = "paramClassName", required = false) String paramClassName) {
+		if (StringUtils.isEmpty(projectCode) || StringUtils.isEmpty(paramClassName)) {
+			return ResultDataDto.success();
+		}
+		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode, paramClassName));
 		//适配amis service组件 使用map封装一层
-		Map<String,Object> mapResult = new HashMap<>();
-		mapResult.put("rows",fieldVOList);
-		mapResult.put("count",fieldVOList.size());
+		Map<String, Object> mapResult = new HashMap<>();
+		mapResult.put("rows", fieldVOList);
+		mapResult.put("count", fieldVOList.size());
 
 		return ResultDataDto.success(mapResult);
+	}
+
+
+	@RequestMapping(value = "/parammodel/getFieldListV3")
+	public ResultDataDto getFieldListV3(@RequestParam(value = "projectCode", required = false) String projectCode, @RequestParam(value = "paramClassName", required = false) String paramClassName) {
+		if (StringUtils.isEmpty(projectCode) || StringUtils.isEmpty(paramClassName)) {
+			return ResultDataDto.success();
+		}
+		List<FieldVO> fieldVOList = FieldConverter.INSTANCE.BOs2VOs(modelQueryRepository.getModelField(projectCode, paramClassName));
+
+		return ResultDataDto.success(wrapperFieldModel(fieldVOList));
 	}
 }

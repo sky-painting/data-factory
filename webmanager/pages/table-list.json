@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "er数据模型管理",
+  "title": "数据模型管理",
   "remark": null,
   "name": "table",
   "toolbar": [
@@ -50,7 +50,7 @@
             {
               "type": "input-file",
               "name": "file",
-              "label": "plantUML API & 模型文档",
+              "label": "表模型plantuml文档",
               "accept": ".puml",
               "receiver": "http://127.0.0.1:8090/apidoc/upload"
             }
