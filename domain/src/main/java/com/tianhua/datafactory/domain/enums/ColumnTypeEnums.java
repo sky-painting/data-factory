@@ -1,5 +1,7 @@
 package com.tianhua.datafactory.domain.enums;
 
+import com.tianhua.datafactory.domain.support.OptionsBO;
+
 /**
  * Description:
  * date: 2021/8/13
@@ -10,13 +12,24 @@ package com.tianhua.datafactory.domain.enums;
  */
 public enum ColumnTypeEnums {
     VARCHAR("varchar"),
-    INT("int"),
-    DATE("date"),
-    TEXT("text"),
-    TIMESTAMP("timestamp"),
-    BIGINT("bigint"),
     TINYINT("tinyint"),
-    JSON("tinyint"),
+    SMALLINT("smallint"),
+    MEDIUMINT("mediumint"),
+    BIGINT("bigint"),
+    FLOAT("float"),
+    DOUBLE("double"),
+    DECIMAL("decimal"),
+    CHAR("char"),
+    TINYBLOD("tinyblob"),
+    TINYTEXT("tinytext"),
+    BLOB("blob"),
+    TEXT("text"),
+    MEDIUMBLOB("mediumblob"),
+    MEDIUMTEXT("mediumtext"),
+    LONGBLOB("longblob"),
+    LONGTEXT("longtext"),
+    ENUM("enum"),
+    SET("set")
 
     ;
     private String columnType;
@@ -53,4 +66,26 @@ public enum ColumnTypeEnums {
     public static Boolean isJson(String columnTypeTag){
         return columnTypeTag.contains("json") || columnTypeTag.contains("JSON");
     }
+
+
+
+
+
+    /**
+     * 数据枚举路由
+     * @param enumCode
+     * @return
+     */
+    public static boolean isColumnFieldTypeEnum(String enumCode){
+        return "columnTypeEnum".equals(enumCode);
+    }
+
+    public static OptionsBO getOptionList(){
+        OptionsBO optionsBO = new OptionsBO();
+        for (ColumnTypeEnums columnFieldTypeEnum : ColumnTypeEnums.values()){
+            optionsBO.addOptionItem(columnFieldTypeEnum.getColumnType(), columnFieldTypeEnum.getColumnType()+"");
+        }
+        return optionsBO;
+    }
+
 }

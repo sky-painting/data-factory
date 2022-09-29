@@ -87,28 +87,8 @@
               "name": "columnType",
               "type": "select",
               "label": "字段类型",
-              "options": [
-                {
-                  "label": "varchar",
-                  "value": "varchar"
-                },
-                {
-                  "label": "json",
-                  "value": "json"
-                },
-                {
-                  "label": "int",
-                  "value": "int"
-                },
-                {
-                  "label": "bigint",
-                  "value": "bigint"
-                },
-                {
-                  "label": "text",
-                  "value": "text"
-                }
-              ]
+              "source": "http://127.0.0.1:8090/dataEnum/columnTypeEnum"
+
             },
             {
               "name": "columnComment",

@@ -70,6 +70,11 @@ public class DataEnumController extends BaseController {
             return ResultDataDto.success(JavaFieldTypeEnum.getOptionList());
         }
 
+        if(ColumnTypeEnums.isColumnFieldTypeEnum(enumCode)){
+            return ResultDataDto.success(ColumnTypeEnums.getOptionList());
+        }
+
+
         return ResultDataDto.success();
     }
 

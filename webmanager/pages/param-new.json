@@ -96,7 +96,8 @@
             {
               "name": "fieldType",
               "type": "input-text",
-              "label": "属性类型"
+              "label": "属性类型",
+              "source": "http://127.0.0.1:8090/dataEnum/javaFieldType"
             },
             {
               "name": "dataSourceCode",

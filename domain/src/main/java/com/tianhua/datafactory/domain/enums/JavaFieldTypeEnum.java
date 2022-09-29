@@ -34,6 +34,10 @@ public enum JavaFieldTypeEnum {
 
     OBJECT ("Object"),
 
+    BYTE_BASIC("byte"),
+
+    BYTE("Byte"),
+
 
     LIST("List"),
 
@@ -42,6 +46,8 @@ public enum JavaFieldTypeEnum {
     ARRAY("Array"),
 
     Map("Map"),
+
+    BigDecimal("BigDecimal"),
 
     ;
 
