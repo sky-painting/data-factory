@@ -43,13 +43,4 @@ public class ColumnBO extends BaseBO {
    /** 字段类型 **/
    private String columnType;
 
-
-   /**
-    * 状态
-    * @See com.tianhua.datafactory.domain.enums.ApiModelFieldStatusEnum
-    */
-   private Integer status;
-
-   private String statusDesc;
-
 }

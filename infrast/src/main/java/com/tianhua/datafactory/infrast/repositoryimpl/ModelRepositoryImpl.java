@@ -86,6 +86,7 @@ public class ModelRepositoryImpl  implements ModelRepository{
             columnModelMapper.deleteByTableId(tableBO.getId());
             for (ColumnBO columnBO : tableBO.getColumnList()){
                 columnBO.setTableId(tableBO.getId());
+                columnBO.init();
                 columnModelMapper.insert(ColumnConvert.INSTANCE.bo2do(columnBO));
             }
         }

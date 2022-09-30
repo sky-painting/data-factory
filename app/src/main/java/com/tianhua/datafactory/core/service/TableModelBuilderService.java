@@ -18,7 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Description:
@@ -41,13 +43,35 @@ public class TableModelBuilderService {
     private Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 
 
-
+    /**
+     * 批量导入
+     * @param tableBO
+     */
     @Transactional(rollbackFor = Exception.class)
     public void buildERModel(TableBO tableBO){
         try {
             List<String> contentList = FileUtils.readLines(new File(tableBO.getFile()),"UTF-8");
             List<TableBO> tableBOList = erPlantUMLParseService.getPlantUmlContextBean(contentList);
+
+
+            List<TableBO> oldTableBoList = modelRepository.getDbErByProjectCode(tableBO.getProjectCode());
+            Map<String,TableBO> oldTableBOMap = oldTableBoList.stream().collect(Collectors.toMap(TableBO::getTableName, o->o,(k1, k2)->k2));
+
+            List<ParamModelBO> oldParamModelBOList = modelRepository.getModelByProjectCode(tableBO.getProjectCode());
+
+            Map<String,ParamModelBO> oldParamModelMap = oldParamModelBOList.stream().collect(Collectors.toMap(ParamModelBO::getParamClassName,o->o,(k1, k2)->k2));
+
+
+
             for (TableBO table : tableBOList){
+                if(oldTableBOMap.containsKey(table.getTableName())){
+
+                    TableBO oldTableBO = oldTableBOMap.get(table.getTableName());
+                    oldTableBO.setTableComment(table.getTableComment());
+                    oldTableBO.setColumnList(table.getColumnList());
+                    modelRepository.updateDBModel(oldTableBO);
+                    continue;
+                }
                 table.init();
                 table.setDbName(tableBO.getDbName());
                 table.setProjectCode(tableBO.getProjectCode());
@@ -83,6 +107,14 @@ public class TableModelBuilderService {
                     });
 
                     paramModelBO.setFieldBeanList(fieldBOList);
+
+                    if(oldParamModelMap.containsKey(paramModelBO.getParamClassName())){
+                        ParamModelBO oldParamModel = oldParamModelMap.get(paramModelBO.getParamClassName());
+                        oldParamModel.setFieldBeanList(fieldBOList);
+                        modelRepository.updateParamModel(oldParamModel);
+                        continue;
+                    }
+
                     modelRepository.saveParamModel(paramModelBO);
                 }
             }
