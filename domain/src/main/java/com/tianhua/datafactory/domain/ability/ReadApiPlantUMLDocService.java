@@ -352,8 +352,13 @@ public class ReadApiPlantUMLDocService {
         for (String paramStr : paramArr){
             if(paramStr.contains(" ")){
                 String [] paramStrArr = paramStr.split(" ");
-                ParamModelBO paramBean = ParamModelBO.getInstance(paramStrArr[0],paramStrArr[1]);
-                paramBeanList.add(paramBean);
+                if(StringUtils.isEmpty(paramStrArr[0])){
+                    ParamModelBO paramBean = ParamModelBO.getInstance(paramStrArr[1],paramStrArr[1]);
+                    paramBeanList.add(paramBean);
+                }else {
+                    ParamModelBO paramBean = ParamModelBO.getInstance(paramStrArr[0],paramStrArr[1]);
+                    paramBeanList.add(paramBean);
+                }
             }
         }
         return paramBeanList;

@@ -2,6 +2,7 @@ package com.tianhua.datafactory.domain.bo.project;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSON;
@@ -146,17 +147,23 @@ public class ApiBO extends BaseBO {
      */
     public void buildApiSign() {
         if (ApiTypeEnum.HTTP_API.getType().equals(apiType)) {
-            this.apiSign = projectCode + ":" + apiUrl + "." + methodType;
+            if(apiUrl.contains("{")){
+                apiUrl = apiUrl.replace("{","").replace("}","");
+            }
+            this.apiSign = projectCode + ":" + apiUrl.replace("/",".") + "." + methodType;
         } else {
             this.apiSign = projectCode + ":" + apiUrl;
         }
 
         if (this.paramList != null && !this.paramList.isEmpty()) {
-            this.apiSign = this.apiSign + "." + this.paramList.size()+"(";
+            this.apiSign = this.apiSign + "." + this.paramList.size();
             for (ParamModelBO paramModelBO : this.paramList){
-                this.apiSign = this.apiSign + paramModelBO.getParamClassName().substring(0,1);
+                if (Objects.isNull(paramModelBO.getParamClassName())) {
+                    this.apiSign = this.apiSign + "." + paramModelBO.getParamVarName().substring(0,1);
+                }else {
+                    this.apiSign = this.apiSign + "." + paramModelBO.getParamClassName().substring(0,1);
+                }
             }
-            this.apiSign = this.apiSign + ")";
         }
     }
 

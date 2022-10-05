@@ -53,6 +53,8 @@ public class UUidFunc  implements CacheFunction {
         if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
+        list = manualCache.getIfPresent(InnerDataSourceCode.UUID);
+
         return list.get(random.nextInt(list.size())).toString();
     }
 

@@ -122,6 +122,8 @@ public class CardNumberFunction implements CacheFunction {
         if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
+        list = manualCache.getIfPresent(InnerDataSourceCode.CARD_NUMBER);
+
         return list.get(random.nextInt(list.size())).toString();
     }
 

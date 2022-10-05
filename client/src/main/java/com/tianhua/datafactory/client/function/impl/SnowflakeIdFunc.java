@@ -47,6 +47,8 @@ public class SnowflakeIdFunc implements CacheFunction {
         if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
+        list = manualCache.getIfPresent(InnerDataSourceCode.SNOWFLAKE_ID);
+
         return list.get(random.nextInt(list.size())).toString();
     }
 

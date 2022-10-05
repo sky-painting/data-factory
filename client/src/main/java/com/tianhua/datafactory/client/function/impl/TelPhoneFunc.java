@@ -52,6 +52,8 @@ public class TelPhoneFunc implements CacheFunction {
         if(CollectionUtils.isEmpty(list)){
             buildCache(count);
         }
+        list = manualCache.getIfPresent(InnerDataSourceCode.TEL_PHONE);
+
         return list.get(random.nextInt(list.size())).toString();
 
     }

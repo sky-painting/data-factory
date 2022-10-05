@@ -78,7 +78,7 @@ public class TableModelBuilderService {
                 modelRepository.saveDBModel(table);
             }
             //构建javaEntity模型
-            if(tableBO.getBuildJavaEntity()){
+            if(tableBO.buildJavaEntity()){
                 for (TableBO tableBO1 : tableBOList) {
                     ParamModelBO paramModelBO = new ParamModelBO();
                     List<FieldBO> fieldBOList = new ArrayList<>();

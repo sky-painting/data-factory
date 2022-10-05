@@ -48,4 +48,9 @@ public class TableBO extends BaseBO {
    /** 模型后缀 **/
    private String modelSuffix;
 
+   public boolean buildJavaEntity(){
+      return buildJavaEntity != null && buildJavaEntity == true;
+   }
+
+
 }
