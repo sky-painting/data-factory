@@ -126,11 +126,19 @@ public class ERPlantUMLParseServiceImpl implements ERPlantUMLParseService {
             columnBO.setColumnComment(tagArr[0]);
             columnBO.setColumnName(fieldArr[0]);
             if (tagArr.length == 2) {
-                columnBO.setColumnType(tagArr[1]);
+                if(tagArr[1].contains("(")){
+                    columnBO.setColumnType(tagArr[1].substring(0,tagArr[1].indexOf("(")));
+                }else {
+                    columnBO.setColumnType(tagArr[1]);
+                }
             }
             if (tagArr.length == 3) {
                 columnBO.setDefaultValue(tagArr[1]);
-                columnBO.setColumnType(tagArr[2]);
+                if(tagArr[2].contains("(")){
+                    columnBO.setColumnType(tagArr[2].substring(0,tagArr[2].indexOf("(")));
+                }else {
+                    columnBO.setColumnType(tagArr[2]);
+                }
             }
             if (StringUtils.isEmpty(columnBO.getDefaultValue())) {
                 if (ColumnTypeEnums.isInt(columnBO.getColumnType())) {

@@ -8,7 +8,6 @@ import com.tianhua.datafactory.domain.bo.datasource.DataSourceRespConfigBO;
 import com.tianhua.datafactory.domain.repository.DataSourceQueryRepository;
 import com.tianhua.datafactory.domain.support.kvpair.KVPairBO;
 import com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO;
-import com.tianhua.datafactory.infrast.dao.mapper.DataSourceDetailMapper;
 import com.tianhua.datafactory.infrast.dao.mapper.DataSourceMapper;
 import com.tianhua.datafactory.infrast.dao.mapper.DataSourceReqConfigMapper;
 import com.tianhua.datafactory.infrast.dao.mapper.DataSourceResConfigMapper;

@@ -6,7 +6,7 @@
     {
       "type": "button",
       "actionType": "link",
-      "link": "/api/list",
+      "link": "/table/list",
       "label": "返回列表"
     }
   ],
