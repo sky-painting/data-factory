@@ -69,5 +69,5 @@ public interface TableModelMapper{
 	public int  getPageCount(@Param(value = "page") PageBean page);
 
 
-	List<TableModelDO> search(String content);
+	List<TableModelDO> search(@Param(value = "content") String content);
 }

@@ -46,21 +46,23 @@
           "type": "divider"
         },
         {
-          "type": "input-text",
-          "name": "dbName",
-          "label": "数据库名称",
-          "required": true
-        },
-        {
-          "type": "divider"
-        },
-        {
           "type": "select",
           "name": "projectCode",
           "label": "项目编码",
           "required": true,
           "searchable": true,
           "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "dbName",
+          "label": "数据库名称",
+          "required": true,
+          "source": "http://127.0.0.1:8090/table/searchdb?content=${projectCode}"
+
         },
         {
           "type": "divider"

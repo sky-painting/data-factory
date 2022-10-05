@@ -1,5 +1,6 @@
 package com.tianhua.datafactory.controller.admin;
 
+import com.tianhua.datafactory.controller.BaseController;
 import com.tianhua.datafactory.convert.TableConverter;
 import com.tianhua.datafactory.core.service.TableModelBuilderService;
 import com.tianhua.datafactory.domain.bo.bean.PageBean;
@@ -10,10 +11,13 @@ import com.tianhua.datafactory.vo.PageVO;
 import com.tianhua.datafactory.vo.model.ColumnVO;
 import com.tianhua.datafactory.vo.model.TableVO;
 import com.tianhua.datafactory.vo.query.TableQueryVO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +31,7 @@ import com.coderman.utils.response.ResultDataDto;
 * @version v1.0
 */
 @RestController
-public class TableController {
+public class TableController extends BaseController {
 	
 	protected Logger logger = LoggerFactory.getLogger(TableController.class);
 
@@ -107,6 +111,25 @@ public class TableController {
 		List<TableBO> tableBOList = modelQueryRepository.searchTable(content);
 		return ResultDataDto.success(TableConverter.INSTANCE.BOs2VOs(tableBOList));
 	}
+
+	/**
+	 *
+	 * @Description 搜索表结构模型
+	 * @param content
+	 * @return List<TableVO>
+	 */
+	@RequestMapping(value = "/table/searchdb",method = RequestMethod.GET)
+	public ResultDataDto searchdb(String content){
+		if(StringUtils.isEmpty(content)){
+			return ResultDataDto.success();
+		}
+		List<TableBO> tableBOList = modelQueryRepository.searchTable(content);
+		Set<String> dbNameSet = tableBOList.stream().map(TableBO::getDbName).collect(Collectors.toSet());
+
+		return ResultDataDto.success(wrapperDbNameList(dbNameSet));
+	}
+
+
 
 	/**
 	 *

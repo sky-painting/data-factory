@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 /**
 * @Description:控制层基础父类
@@ -43,7 +44,19 @@ public class BaseController{
 
 
 
-
+	/**
+	 * 包装option适配amis框架
+	 * @param dbNameSet
+	 * @return
+	 */
+	public OptionsVO wrapperDbNameList(Set<String> dbNameSet){
+		OptionsVO optionsVO = new OptionsVO();
+		if(CollectionUtils.isEmpty(dbNameSet)){
+			return optionsVO;
+		}
+		dbNameSet.stream().forEach(dbName -> optionsVO.addOptionItem(dbName, dbName));
+		return optionsVO;
+	}
 
 	/**
 	 * 包装option适配amis框架
