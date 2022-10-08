@@ -30,7 +30,7 @@
 
 #### 软件架构-2.0
 1. 技术架构
-![image](doc/img/数据工厂2.0技术架构.png.)
+![image](doc/img/数据工厂2.0技术架构.png)
 2. 应用架构
 ![image](doc/img/数据工厂2.0应用架构图.png)
 
@@ -42,7 +42,27 @@
 5. 后端项目启动: start-local Application springboot应用
 6. 前端项目启动(需要安装nodejs): 在cmd或者终端下到/webmanager目录,输入node server启动前端,访问链接:http://localhost:3000
 
+#### 界面展示
+1. 首页
+![image](doc/img/web/首页1.png)
 
+2. API界面
+![image](doc/img/web/api界面.png)
+
+3. 业务模型管理
+![image](doc/img/web/业务模型.png)
+
+4. 表模型管理
+![image](doc/img/web/表模型管理.png)
+
+5. 数据源管理
+![image](doc/img/web/数据源管理.png)
+
+6. 接口出参mock 
+![image](doc/img/web/接口出参mock.png)
+
+6. 模型后缀配置
+![image](doc/img/web/模型后缀配置.png)
 
 #### 重点api(2.0)
 
