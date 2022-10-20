@@ -1,0 +1,160 @@
+{
+  "type": "page",
+  "title": "数据源管理",
+  "remark": null,
+  "name": "api",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/datasource/new",
+      "label": "新增",
+      "primary": true
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://127.0.0.1:8090/datasource/pagelist",
+      "perPage": 5,
+      "keepItemSelectionOnPageChange": true,
+      "maxKeepItemSelectionLength": 11,
+      "labelTpl": "${id} ${engine}",
+      "orderBy": "id",
+      "orderDir": "asc",
+      "autoGenerateFilter": true,
+      "filterTogglable": false,
+      "headerToolbar": [
+        "filter-toggler",
+        "bulkActions",
+        {
+          "type": "tpl",
+          "tpl": "定制内容示例：当前有 ${count} 条数据。",
+          "className": "v-middle"
+        },
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "right"
+        },
+        {
+          "type": "pagination",
+          "align": "right"
+        }
+      ],
+      "footerToolbar": [
+        "statistics",
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "name": "sourceName",
+          "label": "数据源名称",
+          "searchable": {
+            "type": "input-text",
+            "name": "sourceName",
+            "placeholder": "输入数据源名称"
+          }
+        },
+        {
+          "type": "text",
+          "name": "sourceCode",
+          "label": "数据源编码",
+          "searchable": {
+            "type": "input-text",
+            "name": "sourceCode",
+            "placeholder": "输入数据源编码"
+          }
+        },
+        {
+          "type": "text",
+          "name": "statusDesc",
+          "label": "api状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
+        },
+        {
+          "type": "text",
+          "name": "providerService",
+          "label": "数据源所属服务",
+          "searchable": {
+             "type": "input-text",
+             "name": "providerService",
+             "placeholder": "输入服务名称"
+          }
+        },
+        {
+          "type": "text",
+          "name": "sourceTypeDesc",
+          "label": "数据源类型"
+        },
+        {
+          "type": "text",
+          "name": "visitStrategyDesc",
+          "label": "访问策略",
+          "searchable": {
+            "type": "select",
+            "name": "visitStrategy",
+            "placeholder": "选择访问策略",
+            "source": "http://127.0.0.1:8090/dataEnum/visiteStrategy"
+
+          }
+        },
+
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/datasource/${id}"
+                },
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/datasource/${id}/edit"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

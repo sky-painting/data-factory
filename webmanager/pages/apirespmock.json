@@ -1,0 +1,58 @@
+{
+  "type": "page",
+  "title": "接口入参mock",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/index/1",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "api": "http://127.0.0.1:8090/api/respmock",
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "",
+      "body": [
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "apiSign",
+          "label": "Api签名",
+          "source": "http://127.0.0.1:8090/api/searchApiSign?projectCode=${projectCode}",
+          "required": false
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "label": "数据mock结果"
+        }
+      ]
+    }
+  ]
+}

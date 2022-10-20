@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ParamModelMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO">
+        <result column="id" property="id" />
+        <result column="project_code" property="projectCode" />
+        <result column="param_class_name" property="paramClassName" />
+        <result column="param_var_name" property="paramVarName" />
+        <result column="param_class_desc" property="paramClassDesc" />
+        <result column="module_code" property="moduleCode" />
+        <result column="status" property="status" />
+        <result column="model_suffix" property="modelSuffix" />
+        <result column="date_create" property="dateCreate" />
+        <result column="date_update" property="dateUpdate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,project_code,param_class_name,param_class_desc,status,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO" useGeneratedKeys="true">
+        insert into param_model(
+        project_code,param_class_name,param_class_desc,status,module_code,model_suffix,date_create,date_update,update_user_id,create_user_id
+        )
+        values(
+        #{projectCode},#{paramClassName},#{paramClassDesc},#{status},#{moduleCode},#{modelSuffix},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO">
+        update param_model
+        set
+        project_code=#{projectCode},param_class_name=#{paramClassName},param_class_desc=#{paramClassDesc},status=#{status},module_code=#{moduleCode},model_suffix=#{modelSuffix},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model where  status in (0,1)
+    </select>
+
+    <select id="getByProjectCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model where  project_code=#{projectCode} and  status in (0,1)
+    </select>
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model
+        <where>
+            <if test="content != null">
+                and (project_code  like concat('%',#{content},'%') or param_class_name  like concat('%',#{content},'%')) and  status in (0,1)
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ParamModelDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from param_model  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from param_model where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.paramClassName != null">
+                    and param_class_name like concat('%',#{page.query.paramClassName},'%')
+                </if>
+                <if test="page.query.modelSuffix != null">
+                    and model_suffix = #{page.query.modelSuffix}
+                </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+    </select>
+
+    <select id="getPageCount" resultMap="count">
+        select count(1) as total from param_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.paramClassName != null">
+                    and param_class_name like concat('%',#{page.query.paramClassName},'%')
+                </if>
+                <if test="page.query.modelSuffix != null">
+                    and model_suffix = #{page.query.modelSuffix}
+                </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getByParamClassName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from param_model where project_code=#{projectCode} and param_class_name=#{paramClassName} and status in (0,1)
+    </select>
+</mapper>

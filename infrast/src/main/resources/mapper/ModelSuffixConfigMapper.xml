@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ModelSuffixConfigMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ModelSuffixConfigDO">
+        <result column="id" property="id" />
+        <result column="suffix" property="suffix" />
+        <result column="suffix_desc" property="desc" />
+        <result column="model_type" property="modelType" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,suffix,suffix_desc,model_type
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelSuffixConfigDO" useGeneratedKeys="true">
+        insert into model_suffix_config(
+        suffix,suffix_desc,model_type
+        )
+        values(
+        #{suffix},#{desc},#{modelType}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelSuffixConfigDO">
+        update model_suffix_config
+        set
+        suffix=#{suffix},suffix_desc=#{desc},model_type=#{modelType}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from model_suffix_config
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ModelSuffixConfigDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from model_suffix_config  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from model_suffix_config where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from model_suffix_config
+    </select>
+
+    <select id="getCount" resultMap="count">
+        select count(1)  from model_suffix_config
+    </select>
+
+</mapper>

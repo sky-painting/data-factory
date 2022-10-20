@@ -1,0 +1,179 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "project_config 项目配置" as project_config {
+    id:  主键/bigint(20) unsigned
+    project_code: 项目应用名/varchar(50)
+    project_desc: 应用描述/varchar(500)
+    domain_code:  业务领域编码/varchar(50)
+    domain_desc:  业务领域描述/varchar(50)
+    bus_line: 所属业务线/varchar(50)
+    dept_name: 所属部门/varchar(50)
+
+    date_create: 创建时间/timestamp
+    date_update: 修改时间/timestamp
+    update_user_id: 修改人/bigint(20)
+    create_user_id: 创建人/bigint(20)
+    --key extend --
+    PKey:id
+    UKey:project_code
+}
+
+
+
+entity "api_model API数据表" as api_model {
+    id:  主键/bigint(20) unsigned
+    project_code: 项目名称/varchar(50)
+    api_url: api信息/varchar(500)
+    api_type: api信息/varchar(50)
+    api_return_value: api返回值集合/varchar(500)
+    api_sign: api签名信息/varchar(500)
+    api_doc: api描述/varchar(500)
+    method_type: 请求方式/varchar(500)
+    request_param: 请求参数元信息/json
+    status: api状态/int(11)
+    date_create: 创建时间/timestamp
+    date_update: 修改时间/timestamp
+    update_user_id: 修改人/bigint(20)
+    create_user_id: 创建人/bigint(20)
+    --key extend --
+    PKey:id
+
+}
+
+
+entity "param_model 参数模型表" as param_model {
+    id:  主键/bigint(20) unsigned
+    project_code: 项目名称/varchar(50)
+    param_class_name: 参数类名/varchar(50)
+    param_class_desc: 参数类描述/varchar(500)
+    module_code: 所属上下文或模块编码/varchar(50)
+    model_suffix: 模型后缀/varchar(50)
+
+    date_create: 创建时间/timestamp
+    date_update: 修改时间/timestamp
+    update_user_id: 修改人/bigint(20)
+    create_user_id: 创建人/bigint(20)
+     --key extend --
+     PKey:id
+     UKey:project_code,param_class_name
+
+}
+
+entity "table_model 表模型" as table_model{
+    id: 主键/bigint(20) unsigned
+    table_name: 数据库表名/varchar(50)
+    table_comment: 数据库表描述/varchar(500)
+    db_name: 数据库名称/varchar(50)
+    project_code: 项目编码/varchar(50)
+
+    date_create: 创建时间/timestamp
+    date_update: 修改时间/timestamp
+    update_user_id: 修改人/bigint(20)
+    create_user_id: 创建人/bigint(20)
+     --key extend --
+     PKey:id
+     UKey:project_code,table_name
+}
+
+
+entity "column_model 字段模型" as column_model{
+    id: 主键/bigint(20) unsigned
+    table_id: 所属数据库/bigint(20)
+
+    column_name: 字段名称/varchar(50)
+    column_comment: 字段描述/varchar(500)
+    column_length: 字段长度/int(11)
+    column_type: 字段类型/varchar(50)
+    not_null: 是否可为空/int(11)
+    default_value: 默认值/varchar(500)
+    uniq_column: 是否是唯一键/int(11)
+
+
+    date_create: 创建时间/timestamp
+    date_update: 修改时间/timestamp
+    update_user_id: 修改人/bigint(20)
+    create_user_id: 创建人/bigint(20)
+     --key extend --
+     PKey:id
+     UKey:table_id,column_name
+}
+
+entity "model_suffix_config 后缀配置表" as model_suffix_config{
+    id: 主键/bigint(20) unsigned
+
+    suffix: 模型后缀/varchar(50)
+    desc: 模型后缀描述/varchar(500)
+    model_type: 模型类型/varchar(50)
+     --key extend --
+     PKey:id
+     UKey:suffix
+}
+
+
+entity "model_mapping_config 模型映射表" as model_mapping_config{
+    id: 主键/bigint(20) unsigned
+
+    api_param_field: 对外api参数属性/varchar(100)
+    service_param_field: 服务参数属性/varchar(100)
+    entity_param_field: 数据库实体属性/varchar(100)
+    column_field: 数据库表字段/varchar(100)
+    mapping_type: 映射类型/varchar(50)
+    project_code: 项目编码/varchar(50)
+    --key extend --
+    PKey:id
+    UKey:api_param_field,service_param_field,entity_param_field,column_field
+}
+
+
+entity "field_model 属性模型" as field_model{
+
+    id: 主键/bigint(20) unsigned
+    field_name: 属性名称/varchar(50)
+    field_desc: 属性描述/varchar(500)
+    field_doc: 属性中文注释/varchar(500)
+    data_source_code: 关联数据源编码/varchar(100)
+    param_class_name: 参数类名称/varchar(100)
+    project_code: 项目编码/varchar(50)
+    --key extend --
+    PKey:id
+    UKey:project_code,param_class_name,field_name
+}
+
+entity " data_source_detail 数据源详情表" as data_source_detail {
+    id: 主键/bigint(20) unsigned
+    data_source_id: 所属数据源id/bigint(20)
+    data_content_json: 数据源内容/text
+    --key extend --
+    PKey:id
+}
+
+entity " data_source 数据源管理表" as data_source {
+    id: 主键/bigint(20) unsigned
+    source_name: 数据源名称/varchar(200)
+    source_code: 数据源code,唯一/varchar(200)
+    source_type: 数据源类型/(nacos,api,enum)/int(11)
+    provider_src: 数据源提供来源/varchar(200)
+    tokent: 访问token/varchar(400)
+    url: 数据源访问url/varchar(400)
+    status: 状态(0正常,1过期)/int(11)
+    visit_strategy: 访问策略（0动态获取/1本地缓存）/int(11)
+    create_time: 创建时间/timestamp
+    update_time: 修改时间/timestamp
+    create_user_id: 创建人id/bigint(20)
+    update_user_id: 修改人id/bigint(20)
+    --key extend --
+    PKey:id
+    UKey:source_code
+}
+
+
+
+data_source ||--o{ data_source_detail
+
+
+@enduml

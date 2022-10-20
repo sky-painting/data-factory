@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ColumnModelMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ColumnModelDO">
+        <result column="id" property="id" />
+        <result column="table_id" property="tableId" />
+        <result column="column_name" property="columnName" />
+        <result column="column_comment" property="columnComment" />
+        <result column="column_length" property="columnLength" />
+        <result column="column_type" property="columnType" />
+        <result column="not_null" property="notNull" />
+        <result column="status" property="status" />
+        <result column="default_value" property="defaultValue" />
+        <result column="uniq_column" property="uniqColumn" />
+        <result column="date_create" property="dateCreate" />
+        <result column="date_update" property="dateUpdate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,table_id,column_name,column_comment,status,column_length,column_type,not_null,default_value,uniq_column,date_create,date_update,update_user_id,create_user_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ColumnModelDO" useGeneratedKeys="true">
+        insert into column_model(
+        table_id,column_name,column_comment,status,column_length,column_type,not_null,default_value,uniq_column,date_create,date_update,update_user_id,create_user_id
+        )
+        values(
+        #{tableId},#{columnName},#{columnComment},#{status},#{columnLength},#{columnType},#{notNull},#{defaultValue},#{uniqColumn},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ColumnModelDO">
+        update column_model
+        set
+        table_id=#{tableId},column_name=#{columnName},column_comment=#{columnComment},status=#{status},column_length=#{columnLength},column_type=#{columnType},not_null=#{notNull},default_value=#{defaultValue},uniq_column=#{uniqColumn},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from column_model
+    </select>
+
+
+    <select id="getByTableId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from column_model where table_id = #{tableId}
+
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ColumnModelDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from column_model  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from column_model where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from column_model
+    </select>
+
+    <select id="getCount" resultMap="count">
+        select count(1)  from column_model
+    </select>
+
+    <delete id="deleteByTableId">
+        delete from column_model where table_id = #{tableId}
+    </delete>
+</mapper>

@@ -1,0 +1,53 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/modelsuffix/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [{
+    "type": "form",
+    "mode": "horizontal",
+    "redirect": "/modelsuffix/list",
+    "api": "http://127.0.0.1:8090/modelsuffix/add",
+    "actions": [{
+      "type": "submit",
+      "label": "提交",
+      "primary": true
+    }],
+    "collapsable": true,
+    "title":  "",
+    "body": [
+      {
+        "type": "input-text",
+        "name": "suffix",
+        "label": "模型后缀",
+        "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "desc",
+        "label": "模型后缀描述",
+        "required": true
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "modelType",
+        "label": "模型类型",
+        "required": true,
+        "source": "http://127.0.0.1:8090/dataEnum/modelType"
+      }
+    ]
+  }]
+}

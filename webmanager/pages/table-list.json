@@ -1,0 +1,192 @@
+{
+  "type": "page",
+  "title": "数据模型管理",
+  "remark": null,
+  "name": "table",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/table/new",
+      "label": "新增",
+      "primary": true
+    },
+    {
+      "type": "button",
+      "label": "上传表结构模型文档",
+      "primary": true,
+      "actionType": "dialog",
+      "dialog": {
+        "title": "构建表结构模型",
+        "body": {
+          "type": "form",
+          "api": "http://127.0.0.1:8090/table/upload",
+          "body": [
+            {
+              "type": "select",
+              "name": "projectCode",
+              "required": true,
+              "placeholder": "请选择项目",
+              "label": "项目编码",
+              "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+            },
+            {
+              "type": "input-text",
+              "name": "dbName",
+              "label": "数据库名称",
+              "required": true
+            },
+            {
+              "type": "switch",
+              "name": "buildJavaEntity",
+              "label": "是否快捷构建JavaEntity模型"
+            },
+            {
+              "type": "select",
+              "name": "modelSuffix",
+              "label": "选择javaEntity后缀",
+              "source": "http://127.0.0.1:8090/modelsuffix/listoption"
+            },
+            {
+              "type": "input-file",
+              "name": "file",
+              "label": "表模型plantuml文档",
+              "accept": ".puml",
+              "receiver": "http://127.0.0.1:8090/apidoc/upload"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://127.0.0.1:8090/table/pagelist",
+      "perPage": 5,
+      "keepItemSelectionOnPageChange": true,
+      "maxKeepItemSelectionLength": 11,
+      "labelTpl": "${id} ${engine}",
+      "orderBy": "id",
+      "orderDir": "asc",
+      "autoGenerateFilter": true,
+      "filterTogglable": false,
+      "headerToolbar": [
+        "filter-toggler",
+        "bulkActions",
+        {
+          "type": "tpl",
+          "tpl": "定制内容示例：当前有 ${count} 条数据。",
+          "className": "v-middle"
+        },
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "right"
+        },
+        {
+          "type": "pagination",
+          "align": "right"
+        }
+      ],
+      "footerToolbar": [
+        "statistics",
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "name": "tableName",
+          "label": "表名称",
+          "searchable": {
+            "type": "input-text",
+            "name": "tableName",
+            "placeholder": "输入表名称"
+          }
+        },
+        {
+          "type": "text",
+          "name": "tableComment",
+          "label": "表描述"
+        },
+        {
+          "type": "text",
+          "name": "dbName",
+          "label": "数据库名称"
+        },
+        {
+          "type": "text",
+          "name": "statusDesc",
+          "label": "模型状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
+        },
+        {
+          "type": "text",
+          "name": "projectCode",
+          "label": "项目编码",
+          "searchable": {
+            "type": "select",
+            "name": "projectCode",
+            "placeholder": "输入项目编码",
+            "searchable": true,
+            "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+
+          }
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/table/${id}"
+                },
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/table/${id}/edit"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

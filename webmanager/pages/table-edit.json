@@ -1,0 +1,141 @@
+{
+  "title": "修改er模型",
+  "type": "page",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/table/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "redirect": "/table/list",
+      "initApi": "http://127.0.0.1:8090/table/getById/${params.id}",
+      "api": "http://127.0.0.1:8090/table/update/${params.id}",
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "修改er模型",
+      "body": [
+        {
+          "type": "input-text",
+          "name": "tableName",
+          "label": "表名称",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "tableComment",
+          "label": "表描述",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "dbName",
+          "label": "数据库名称"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "status",
+          "label": "状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "表字段列表",
+          "type": "input-table",
+          "name": "columnList",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "columns": [
+            {
+              "name": "columnName",
+              "type": "input-text",
+              "label": "字段名称"
+            },
+            {
+              "name": "columnType",
+              "type": "select",
+              "label": "字段类型",
+              "source": "http://127.0.0.1:8090/dataEnum/columnTypeEnum"
+
+            },
+            {
+              "name": "columnComment",
+              "type": "input-text",
+              "label": "字段描述"
+            },
+            {
+              "name": "columnLength",
+              "type": "input-text",
+              "label": "字段长度"
+            },
+            {
+              "name": "notNull",
+              "type": "select",
+              "label": "是否可为空",
+              "options": [
+                {
+                  "label": "true",
+                  "value": "true"
+                },
+                {
+                  "label": "false",
+                  "value": "false"
+                }
+              ]
+            },{
+              "name": "defaultValue",
+              "type": "input-text",
+              "label": "默认值"
+            },{
+              "name": "uniqColumn",
+              "type": "select",
+              "label": "是否唯一",
+              "options": [
+                {
+                  "label": "true",
+                  "value": "true"
+                },
+                {
+                  "label": "false",
+                  "value": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+数据源=服务名:数据资源定位符
+
+1.datafactory内置下:
+服务名=datafactory
+
+
+身份证号=datafactory:com.datafactory.user.cardnumber
+日期(yyyy-mm-dd)=datafactory:com.datafactory.user.date
+姓名=datafactory:com.datafactory.user.chineseName
+邮箱=datafactory:com.datafactory.user.email
+电话号码=datafactory:com.datafactory.user.telphone
+密码=datafactory:com.datafactory.user.password
+银行卡号=com.datafactory.bank.cardNumber
+随机数=datafactory:com.datafactory.user.getRandom
+姓名=datafactory:com.datafactory.user.chineseName
+
+时间(yyyy-mm-dd HH:mm:ss)=
+单号=
+时间戳=
+商品名称=
+业务线=

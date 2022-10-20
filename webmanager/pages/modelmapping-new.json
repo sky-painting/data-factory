@@ -1,0 +1,87 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/modelmapping/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [{
+    "type": "form",
+    "mode": "horizontal",
+    "redirect": "/modelmapping/list",
+    "api": "http://127.0.0.1:8090/modelmapping/add",
+    "actions": [{
+      "type": "submit",
+      "label": "提交",
+      "primary": true
+    }],
+    "collapsable": true,
+    "title":  "",
+    "body": [
+      {
+        "type": "input-text",
+        "name": "projectCode",
+        "label": "项目编码",
+        "required": true,
+        "searchable": true,
+        "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "mappingClassFirst",
+        "label": "模型映射类名称/表名称",
+        "required": true,
+        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "mappingFieldFirst",
+        "label": "模型属性名称(或者字段名)",
+        "required": true,
+        "source": "http://127.0.0.1:8090/parammodel/getFieldListV3?projectCode=${projectCode}&paramClassName=${mappingClassFirst}"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "mappingClassSecond",
+        "label": "模型映射类名称/表名称",
+        "required": true,
+        "source": "http://127.0.0.1:8090/parammodel/getByProjectCode?projectCode=${projectCode}"
+
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "input-text",
+        "name": "mappingFieldSecond",
+        "label": "模型属性名称(或者字段名)",
+        "required": true,
+        "source": "http://127.0.0.1:8090/parammodel/getFieldListV3?projectCode=${projectCode}&paramClassName=${mappingClassSecond}"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "select",
+        "name": "mappingType",
+        "label": "映射类型",
+        "required": true,
+        "source": "http://127.0.0.1:8090/dataEnum/modelValueMapping"
+      }
+    ]
+  }]
+}

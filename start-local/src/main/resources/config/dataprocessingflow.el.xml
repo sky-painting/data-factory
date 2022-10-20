@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow>
+    <chain name="dataProcessingFlowChain">
+        THEN(
+            dataPreProcessingCmp,
+            SWITCH(switchProcessingCmp).to(
+                parallelProcessingCmp,
+                serialProcessingCmp
+            )
+        );
+    </chain>
+</flow>

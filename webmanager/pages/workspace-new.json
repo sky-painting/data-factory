@@ -1,0 +1,139 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/index/1",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "api": "http://127.0.0.1:8090/datafactory/generate",
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "",
+      "body": [
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "paramModelCode",
+          "label": "模型名称",
+          "required": true,
+          "source": "http://127.0.0.1:8090/parammodel/getByProjectCodeV2?projectCode=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "属性列表",
+          "type": "input-table",
+          "name": "fieldVOList",
+          "source": "${rows}",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "columns": [
+            {
+              "name": "fieldName",
+              "type": "input-text",
+              "label": "属性名称",
+              "required": true
+            },
+            {
+              "name": "fieldDesc",
+              "type": "input-text",
+              "label": "属性描述"
+            },
+            {
+              "name": "fieldType",
+              "type": "input-text",
+              "label": "属性类型",
+              "required": true,
+              "source": "http://127.0.0.1:8090/dataEnum/javaFieldType"
+            },
+            {
+              "name": "dataSourceCode",
+              "type": "select",
+              "label": "数据源编码",
+              "autoComplete": "http://127.0.0.1:8090/datasource/search"
+            },
+            {
+              "name": "bizUnique",
+              "type": "switch",
+              "label": "是否代表业务唯一性"
+            },
+            {
+              "name": "defaultValueList",
+              "type": "textarea",
+              "label": "默认值列表"
+            },
+            {
+              "name": "buildRuleDSL",
+              "type": "textarea",
+              "label": "规则DSL"
+            }
+          ]
+        }
+        ,
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "buildCount",
+          "label": "生成条数",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "dataUseType",
+          "label": "数据使用方式",
+          "required": false
+        },{
+          "type": "divider"
+        },
+        {
+          "type": "json",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "json": "data.mockResultData",
+          "label": "数据mock结果json"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockResultData",
+          "visibleOn": "typeof data.mockResultData !== 'undefined'",
+          "label": "数据mock结果txt"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.DataSourceReqConfigMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceReqConfigDO">
+        <result column="id" property="id" />
+        <result column="data_source_id" property="dataSourceId" />
+        <result column="param_key" property="paramKey" />
+        <result column="param_value" property="paramValue" />
+        <result column="param_desc" property="paramDesc" />
+        <result column="required" property="required" />
+        <result column="interface_param" property="interfaceParam" />
+
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,data_source_id,param_key,param_value,param_desc,required,interface_param
+    </sql>
+
+    <insert id="insert" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceReqConfigDO">
+        insert into data_source_req_config(
+        data_source_id,param_key,param_value,param_desc,required,interface_param
+        )
+        values(
+        #{dataSourceId},#{paramKey},#{paramValue},#{paramDesc},#{required},#{interfaceParam}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceReqConfigDO">
+        update data_source_req_config
+        set
+        data_source_id=#{dataSourceId},param_key=#{paramKey},param_value=#{paramValue},param_desc=#{paramDesc},required=#{required},interface_param=#{interfaceParam}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from data_source_req_config
+    </select>
+
+    <select id="getById"  resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from data_source_req_config  where id = #{id}
+    </select>
+
+    <delete id="deleteByDataSourceId" >
+        delete from data_source_req_config where data_source_id = #{dataSourceId}
+    </delete>
+
+    <select id="getByDataSourceId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from data_source_req_config  where data_source_id = #{dataSourceId}
+    </select>
+
+</mapper>

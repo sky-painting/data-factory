@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>service-example</artifactId>
+    <groupId>com.tianhua.datafactory</groupId>
+    <version>2.0.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>dubb-api-provider</artifactId>
+
+  <name>dubb-api-provider</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>dubbo-api-client</artifactId>
+      <groupId>com.tianhua.datafactory</groupId>
+      <version>2.0.0-SNAPSHOT</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo-spring-boot-starter</artifactId>
+      <version>2.7.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+
+    <!-- zkclient -->
+    <dependency>
+      <groupId>com.github.sgroschupf</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.1</version>
+    </dependency>
+    <!--        日志会冲突-->
+    <!-- 引入zookeeper -->
+    <dependency>
+      <!-- curator版本建议先用我这个，全部测试成功后再尝试升版本，否则可能报错
+       curator的版本会跟dubbo-stater依赖版本有关
+      -->
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-framework</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-recipes</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <!-- 这个zookeeper的版本要跟你本地下载的一致 -->
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+      <version>3.5.9</version>
+      <!--排除这个slf4j-log4j12-->
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+  </build>
+</project>

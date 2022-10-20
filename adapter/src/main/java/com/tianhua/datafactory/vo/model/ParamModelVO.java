@@ -1,0 +1,80 @@
+package com.tianhua.datafactory.vo.model;
+
+
+import com.tianhua.datafactory.vo.BaseVO;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
+
+/**
+ * @Description:参数模型信息类
+ * @Author:
+ * @CreateTime:2022-05-27 16:48:08
+ * @version v1.0
+ */
+@Data
+@ToString
+public class ParamModelVO extends BaseVO {
+
+    /** 模型类名称 **/
+    private  String paramClassName;
+
+    /**
+     * 模型参数名称
+     * 模型作为api参数使用
+     */
+    private String paramVarName;
+
+
+    /** 参数类描述 **/
+    private  String classDesc;
+
+    /** 所属项目名称 **/
+    private  String projectCode;
+
+    /** 主键 **/
+    private  Long id;
+
+    /** 所属上下文或模块编码 **/
+    private  String moduleCode;
+
+    /** 参数类描述 **/
+    private  String paramClassDesc;
+
+    /** 参数属性集合json **/
+    private  String paramFieldJson;
+
+    /** 是否是泛型参数 **/
+    private boolean isGeneralType;
+
+    /** 属性列表 **/
+    private List<FieldVO> fieldBeanList;
+
+
+    /** 模型后缀 **/
+    private String modelSuffix;
+
+    /** 参数映射模型 **/
+    private  List<ModelMappingVO> modelMappingBOList;
+
+
+    private String file;
+
+    /**
+     * 接口入参为string,long,integer之类的参数类型,从前端绑定
+     *
+     */
+    private String dataSourceCode;
+
+    /**
+     * 接口 出入参为string,long,integer之类的参数类型, 构建的属性模型DSL描述
+     */
+    private String buildRuleDSL;
+
+    /**
+     * 出入参为string,long,integer之类的参数类型, 默认值列表(不超过3个，建议常量或者是否之类的，否则使用固定数据源)
+     */
+    private String defaultValueList;
+
+}

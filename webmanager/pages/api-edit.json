@@ -1,0 +1,216 @@
+{
+  "type": "page",
+  "title": "修改api信息",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/api/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "redirect": "/api/list",
+      "api": "http://127.0.0.1:8090/api/update/${params.id}",
+      "initApi": "http://127.0.0.1:8090/api/getById/${params.id}",
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "title": "修改api信息",
+      "body": [
+        {
+          "type": "input-text",
+          "name": "apiUrl",
+          "label": "api请求路径(方法签名)",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "apiType",
+          "label": "api类型",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiType"
+        },
+
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "methodType",
+          "label": "api请求方式",
+          "required": true,
+          "options": [
+            {
+              "label": "post",
+              "value": "post"
+            },
+            {
+              "label": "get",
+              "value": "get"
+            },
+            {
+              "label": "put",
+              "value": "put"
+            },
+            {
+              "label": "delete",
+              "value": "delete"
+            },
+            {
+              "label": "rpc-dubbo",
+              "value": "rpc-dubbo"
+            },
+            {
+              "label": "rpc-grpc",
+              "value": "rpc-grpc"
+            },
+            {
+              "label": "serviceInvoke",
+              "value": "serviceInvoke"
+            }
+          ]
+
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "projectCode",
+          "label": "api所属项目编码",
+          "required": true,
+          "searchable": true,
+          "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "status",
+          "label": "状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "textarea",
+          "name": "apiDoc",
+          "label": "api文档",
+          "maxRows": 500,
+          "showCounter": true,
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "mockCount",
+          "label": "接口返回值mock数量"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "apiReturnWrapType",
+          "label": "api返回包装类型",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/returnWrapClass"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "入参列表",
+          "type": "input-table",
+          "name": "paramList",
+          "multiple": true,
+          "addable": true,
+          "editable": true,
+          "columns": [
+            {
+              "name": "paramClassName",
+              "type": "input-text",
+              "label": "参数类型",
+              "source": "http://127.0.0.1:8090/dataEnum/javaFieldType"
+
+            },
+            {
+              "name": "paramVarName",
+              "type": "input-text",
+              "label": "参数变量名"
+            },
+            {
+              "name": "dataSourceCode",
+              "type": "select",
+              "label": "数据源编码",
+              "autoComplete": "http://127.0.0.1:8090/datasource/search"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "input-text",
+              "name": "returnParam.paramClassName",
+              "label": "出参类型",
+              "required": true
+            },
+            {
+              "type": "input-text",
+              "name": "returnParam.paramVarName",
+              "label": "出参变量名"
+            },
+            {
+              "name": "returnParam.dataSourceCode",
+              "type": "select",
+              "label": "数据源编码",
+              "autoComplete": "http://127.0.0.1:8090/datasource/search"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "textarea",
+              "name": "returnParam.defaultValueList",
+              "label": "api出参默认值列表"
+            },
+            {
+              "type": "textarea",
+              "name": "returnParam.buildRuleDSL",
+              "label": "api出参dsl配置"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

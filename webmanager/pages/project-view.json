@@ -1,0 +1,74 @@
+{
+  "type": "page",
+  "title": "根据项目编码获取详情${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/project/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "page",
+      "initApi": "http://127.0.0.1:8090/project/getByCode/${params.id}",
+      "controls": [
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectDesc",
+          "label": "项目描述"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "domainCode",
+          "label": "业务领域编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "statusDesc",
+          "label": "项目状态"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "domainDesc",
+          "label": "业务领域描述"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "busLine",
+          "label": "所属业务线"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "deptName",
+          "label": "所属部门"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "type": "page",
+  "title": "根据ID获取详情",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/table/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "page",
+      "initApi": "http://127.0.0.1:8090/table/getById/${params.id}",
+      "controls": [
+        {
+          "type": "static",
+          "name": "tableName",
+          "label": "表名称"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "tableComment",
+          "label": "表描述"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "dbName",
+          "label": "数据库名称"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "statusDesc",
+          "label": "状态"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "表字段列表",
+          "type": "input-table",
+          "name": "columnList",
+          "multiple": false,
+          "addable": false,
+          "editable": false,
+          "columns": [
+            {
+              "name": "columnName",
+              "type": "static",
+              "label": "字段名称"
+            },
+            {
+              "name": "columnType",
+              "type": "static",
+              "label": "字段类型"
+            },
+            {
+              "name": "columnComment",
+              "type": "static",
+              "label": "字段描述"
+            },
+            {
+              "name": "columnLength",
+              "type": "static",
+              "label": "字段长度"
+            },
+            {
+              "name": "notNull",
+              "type": "static",
+              "label": "是否可为空"
+            },{
+              "name": "defaultValue",
+              "type": "static",
+              "label": "默认值"
+            },{
+              "name": "uniqColumn",
+              "type": "static",
+              "label": "是否唯一"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

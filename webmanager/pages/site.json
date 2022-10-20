@@ -1,0 +1,248 @@
+{
+  "status": 0,
+  "msg": "",
+  "data": {
+    "pages": [
+      {
+        "label": "Home",
+        "url": "/",
+        "redirect": "/index/1"
+      },
+      {
+        "children": [
+          {
+            "label": "项目管理",
+            "url": "/project",
+            "rewrite": "/project/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/project/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/project-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/project/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/project-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/project/:id",
+                "schemaApi": "get:/pages/project-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/project/:id/edit",
+                "schemaApi": "get:/pages/project-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "API管理",
+            "url": "/api",
+            "rewrite": "/api/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/api/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/api-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/api/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/api-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/api/:id",
+                "schemaApi": "get:/pages/api-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/api/:id/edit",
+                "schemaApi": "get:/pages/api-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "业务参数模型管理",
+            "url": "/param",
+            "rewrite": "/param/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/param/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/param-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/param/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/param-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/param/:id",
+                "schemaApi": "get:/pages/param-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/param/:id/edit",
+                "schemaApi": "get:/pages/param-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "表结构模型管理",
+            "url": "/table",
+            "rewrite": "/table/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/table/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/table-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/table/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/table-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/table/:id",
+                "schemaApi": "get:/pages/table-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/table/:id/edit",
+                "schemaApi": "get:/pages/table-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "模型后缀配置",
+            "url": "/modelsuffix",
+            "rewrite": "/modelsuffix/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/modelsuffix/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/modelsuffix-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/modelsuffix/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/modelsuffix-new.json"
+              },
+              {
+                "label": "修改",
+                "url": "/modelsuffix/:id/edit",
+                "schemaApi": "get:/pages/modelsuffix-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "数据源管理",
+            "url": "/datasource",
+            "rewrite": "/datasource/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/datasource/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/datasource-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/datasource/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/datasource-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/datasource/:id",
+                "schemaApi": "get:/pages/datasource-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/datasource/:id/edit",
+                "schemaApi": "get:/pages/datasource-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "模型映射管理",
+            "url": "/modelmapping",
+            "rewrite": "/modelmapping/list",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "列表",
+                "url": "/modelmapping/list",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/modelmapping-list.json"
+              },
+              {
+                "label": "新增",
+                "url": "/modelmapping/new",
+                "icon": "fa fa-plus",
+                "schemaApi": "get:/pages/modelmapping-new.json"
+              },
+              {
+                "label": "查看",
+                "url": "/modelmapping/:id",
+                "schemaApi": "get:/pages/modelmapping-view.json"
+              },
+              {
+                "label": "修改",
+                "url": "/modelmapping/:id/edit",
+                "schemaApi": "get:/pages/modelmapping-edit.json"
+              }
+            ]
+          },
+          {
+            "label": "数据工作台",
+            "url": "/workspace",
+            "rewrite": "/workspace/new",
+            "icon": "fa fa-cube",
+            "children": [
+              {
+                "label": "数据模型构建",
+                "url": "/workspace/new",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/workspace-new.json"
+              },
+              {
+                "label": "接口入参mock",
+                "url": "/workspace/apireqmock",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/workspace-apireqmock.json"
+              },
+              {
+                "label": "接口出参mock",
+                "url": "/workspace/apirespmock",
+                "icon": "fa fa-list",
+                "schemaApi": "get:/pages/workspace-apirespmock.json"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

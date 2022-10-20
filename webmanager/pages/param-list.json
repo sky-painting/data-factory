@@ -1,0 +1,184 @@
+{
+  "type": "page",
+  "title": "业务领域模型管理",
+  "remark": null,
+  "name": "api",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/param/new",
+      "label": "新增",
+      "primary": true
+    },
+    {
+      "type": "button",
+      "label": "上传plantUML-领域模型文档",
+      "primary": true,
+      "actionType": "dialog",
+      "dialog": {
+        "title": "构建领域模型",
+        "body": {
+          "type": "form",
+          "api": "http://127.0.0.1:8090/parammodel/batchBuild",
+          "body": [
+            {
+              "type": "select",
+              "name": "projectCode",
+              "required": true,
+              "placeholder": "请选择项目",
+              "label": "项目编码",
+              "source": "http://127.0.0.1:8090/project/search?content=${projectCode}"
+            },
+            {
+              "type": "input-file",
+              "name": "file",
+              "label": "plantUML-领域模型文档",
+              "accept": ".puml",
+              "receiver": "http://127.0.0.1:8090/apidoc/upload"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "sample",
+      "api": "http://127.0.0.1:8090/parammodel/pagelist",
+      "perPage": 5,
+      "keepItemSelectionOnPageChange": true,
+      "maxKeepItemSelectionLength": 11,
+      "labelTpl": "${id} ${engine}",
+      "orderBy": "id",
+      "orderDir": "asc",
+      "autoGenerateFilter": true,
+      "filterTogglable": false,
+      "headerToolbar": [
+        "filter-toggler",
+        "bulkActions",
+        {
+          "type": "tpl",
+          "tpl": "定制内容示例：当前有 ${count} 条数据。",
+          "className": "v-middle"
+        },
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "right"
+        },
+        {
+          "type": "pagination",
+          "align": "right"
+        }
+      ],
+      "footerToolbar": [
+        "statistics",
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "width": 20,
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "name": "paramClassName",
+          "label": "模型类名称",
+          "searchable": {
+            "type": "input-text",
+            "name": "paramClassName",
+            "placeholder": "输入类名称"
+          }
+        },
+        {
+          "type": "text",
+          "name": "paramClassDesc",
+          "label": "参数类描述"
+        },
+        {
+          "type": "text",
+          "name": "statusDesc",
+          "label": "模型状态",
+          "searchable": {
+            "type": "select",
+            "name": "status",
+            "placeholder": "选择状态",
+            "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+          }
+        },
+        {
+          "type": "text",
+          "name": "projectCode",
+          "label": "所属项目编码",
+          "searchable": {
+            "type": "input-text",
+            "name": "projectCode",
+            "placeholder": "输入项目编码"
+          }
+        },
+        {
+          "type": "text",
+          "name": "moduleCode",
+          "label": "所属上下文"
+        },
+        {
+          "type": "text",
+          "name": "modelSuffix",
+          "label": "模型后缀",
+          "searchable": {
+            "type": "select",
+            "name": "modelSuffix",
+            "placeholder": "模型后缀",
+            "source": "http://127.0.0.1:8090/modelsuffix/listoption"
+
+          }
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "查看",
+                  "level": "primary",
+                  "actionType": "link",
+                  "link": "/param/${id}"
+                },
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/param/${id}/edit"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

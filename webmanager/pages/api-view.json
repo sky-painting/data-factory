@@ -1,0 +1,133 @@
+{
+  "type": "page",
+  "title": "查看api详情${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/api/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "page",
+      "initApi": "http://127.0.0.1:8090/api/getById/${params.id}",
+      "controls": [
+        {
+          "type": "static",
+          "name": "apiUrl",
+          "label": "api请求路径(方法签名)"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "apiType",
+          "label": "api类型"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "methodType",
+          "label": "api请求方式"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "api所属项目编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "apiDoc",
+          "label": "api文档"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "mockCount",
+          "label": "接口返回值mock数量"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "入参列表",
+          "type": "input-table",
+          "name": "paramList",
+          "multiple": false,
+          "addable": false,
+          "editable": false,
+          "columns": [
+            {
+              "name": "paramClassName",
+              "type": "text",
+              "label": "参数类名"
+            },
+            {
+              "name": "paramVarName",
+              "type": "text",
+              "label": "参数变量名"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "static",
+              "name": "returnParam.paramClassName",
+              "label": "出参类型"
+            },
+            {
+              "type": "static",
+              "name": "returnParam.paramVarName",
+              "label": "出参变量名"
+            },
+            {
+              "name": "returnParam.dataSourceCode",
+              "type": "static",
+              "label": "数据源编码"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "group",
+          "label": "api出参信息",
+          "body": [
+            {
+              "type": "static",
+              "name": "returnParam.defaultValueList",
+              "label": "api出参默认值列表"
+            },
+            {
+              "type": "static",
+              "name": "returnParam.buildRuleDSL",
+              "label": "api出参dsl配置"
+            }
+          ]
+        }
+
+      ]
+    }
+  ]
+}

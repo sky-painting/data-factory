@@ -1,0 +1,50 @@
+说明
+属性.prefix:标示属性值前缀是什么
+属性.subfix:标示属性值后缀是什么
+属性.relyField:标示属性值依赖于另外一个属性值
+属性.子属性.relyField:标示列表属性如List<UserBO> userList, userList.staffId=staffId
+属性.子属性.dataSourceCode:标示如列表属性中的UserBO的某个属性依赖的数据源编码
+
+属性.mapKey.relyKeyField:标示map属性如Map<Key,Value> KVMap的key值是父类属性的某个属性值
+属性.mapValue.relyValueField:标示map属性如Map<Key,Value> KVMap的value值是父类属性的某个属性值/或者某些属性
+属性.funcVar:当前属性的随机数函数需要另外一个属性的值作为参数传入
+属性.defaultValues: 默认值列表
+
+属性.genCount:列表类属性如List<UserBO> userList,需要生成多少UserBO对象可以随机组成随机大小的userList 或者 set,array大小
+
+属性.prefix=xxx
+属性.subfix=xxx
+
+属性.relyKeyField=$属性 or valueList{}
+属性.relyValueField=$属性 or valueList{}
+属性.relyMapKVField={k:1=v:1,123,345644;}
+
+
+属性.funcVar=$属性 or 10(如果使用随机函数需要传入的参数,或者依赖其他属性的值)
+
+
+
+例如订单Order和订单详情OrderDetailBO
+
+OrderBO
+  String orderCode; //订单号
+  String userId; //用户id
+  List<OrderDetailBO> orderDetailBOList; //订单详情
+  Long orderPayCount; //订单总金额
+
+
+比如orderCode的dsl内容描述:
+prefix=BRAND_XXX_;
+subfix=000x;
+
+
+比如orderDetailBOList的dsl内容描述:
+orderCode.relyField=orderCode
+itemId.relySourceCode=com.item.skuFacade.getxxx(a,bc,ddd)#skuid (依赖商品服务的skuid)
+count.relySourceCode=com.datafactory.random(10) (随机数函数,10以内)
+price.relySourceCode=com.datafactory.random(1000) (随机数函数,1000以内)
+
+
+
+
+orderCode.relyField=sum(orderDetailBOList.)--->数学计算,脚本表达式?

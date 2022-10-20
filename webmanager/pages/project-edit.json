@@ -1,0 +1,94 @@
+{
+  "title": "修改项目信息${params.id}",
+  "type": "page",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/project/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "mode": "horizontal",
+      "redirect": "/project/list",
+      "initApi": "http://127.0.0.1:8090/project/getByCode/${params.id}",
+
+      "api": "http://127.0.0.1:8090/project/update/${params.id}",
+      "actions": [
+        {
+          "type": "submit",
+          "label": "提交",
+          "primary": true
+        }
+      ],
+      "collapsable": true,
+      "title": "修改项目信息",
+      "body": [
+        {
+          "type": "static",
+          "name": "projectCode",
+          "label": "项目编码",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "projectDesc",
+          "label": "项目描述",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "domainCode",
+          "label": "业务领域编码",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "select",
+          "name": "status",
+          "label": "项目状态",
+          "required": true,
+          "source": "http://127.0.0.1:8090/dataEnum/apiModelFieldStatus"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "domainDesc",
+          "label": "业务领域描述"
+        ,"required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "busLine",
+          "label": "所属业务线"
+        ,"required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "input-text",
+          "name": "deptName",
+          "label": "所属部门"
+        ,"required": true
+        }
+      ]
+    }
+  ]
+}

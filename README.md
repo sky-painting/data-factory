@@ -1,12 +1,22 @@
 # data-factory
 
 #### 介绍
-为大规模微服务构建而创建的业务模拟数据生成平台,属于天画项目中的基础产品 
-天画项目链接：https://gitee.com/sky-painting。
-data-factory 平台对各个相关服务领域的数据源进行聚合，同时基于业务模型帮助构建大规模大数据量的仿真业务数据。
-致力于在分布式微服务等架构落地的同时提供真正的高并发大数据量的实战数据环境。
+为大规模微服务构建而创建的业务模拟数据生成平台,属于天画项目中的基础产品。本项目依托于API管理和领域模型管理对
+数据模拟和数据mock功能做深度实现和扩展。力图提供一个通用的数据构建和使用平台,本项目也顺带实现了API管理,模型管理的功能。
+所以在此项目中进行集中管理比较有利于发挥企业数据模型的价值,为研发效能和企业提供一定竞争力。
 
-#### 软件架构
+适用于如下场景:
+1. 支持API First 理念,提供web界面和plantUML导入的方式管理API(HTTP,REST,DUBBO)
+2. 提供业务领域模型驱动,数据表结构模型驱动管理可视化功能(plantUML,web界面)
+3. 平台对各个相关服务领域的数据源进行聚合，同时基于业务模型帮助构建大规模大数据量的仿真业务数据。
+4. 在分布式微服务等架构落地的同时提供真正的高并发大数据量的实战数据环境
+5. 基于前后端接口数据协议进行数据mock,包括返回值和入参模型
+6. 基于业务数据模型构建大数据平台所需的大量仿真数据
+7. 在线接口调试,将构建的数据直接与微服务的接口进行绑定调试
+8. 为测试平台提供mock数据,比如联调期间mock下游依赖或者写单元测试的时候动态mock下游依赖
+
+
+#### 软件架构-1.0
 1.  功能架构图
 ![image](doc/img/天画-数据工厂平台.png) 
 2.  数据模型图
@@ -17,39 +27,98 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 5.  应用架构图
 ![image](doc/img/天画-数据工厂项目功能架构图.png) 
 
+#### 软件架构-2.0
+1. 技术架构
+![image](doc/img/数据工厂2.0技术架构.png)
+2. 应用架构
+![image](doc/img/数据工厂2.0应用架构图.png)
 
-#### 安装教程 
+#### 安装教程(2.0)
+1. 克隆本项目到工作空间
+2. 通过doc/sql/datafactory-db2.0.sql 文件中的sql脚本初始化
+3. 克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils(1.0.5版本)
+4. 修改start-local项目中的application.properties的数据库链接配置
+5. 后端项目启动: start-local Application springboot应用
+6. 前端项目启动(需要安装nodejs): 在cmd或者终端下到/webmanager目录,输入node server启动前端,访问链接:http://localhost:3000
 
-1.  通过sql文件中的sql脚本初始化
-2.  克隆本项目，并搭建本地nacos集群,进行服务注册调试
-3.  克隆https://gitee.com/codergit.com/javautils 工具类，并install coderman-utils
-4.  运行api工程中的DataSourceControllerTest,DataFactoryControllerTest 测试服务即可看到随机数据
+#### 界面展示
+1. 首页
+![image](doc/img/web/首页1.png)
 
-#### 使用api
+2. API界面
+![image](doc/img/web/api界面.png)
 
-1.  /data/source/regist  注册数据源
-2.  /datafactory/generate/simple  构建简单数据源
-3.  xxxx
+3. 业务模型管理
+![image](doc/img/web/业务模型.png)
+
+4. 表模型管理
+![image](doc/img/web/表模型管理.png)
+
+5. 数据源管理
+![image](doc/img/web/数据源管理.png)
+
+6. 接口出参mock 
+![image](doc/img/web/接口出参mock.png)
+
+6. 模型后缀配置
+![image](doc/img/web/模型后缀配置.png)
+
+#### 重点api(2.0)
+
+1. 前后端接口联调时接口的数据mock返回: http://localhost:8090/apimock?apiSign=&successData=
+2. api接口入参mock: http://localhost:8090/api/reqmock
+3. api接口出参mock: http://localhost:8090/api/respmock
 
 
-#### 使用场景
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 内置数据源列表
+#### 内置数据源列表(2.0)
 
 #####  BankFunction
 银行卡号生成
+
 #####  CardNumberFunction
 身份证号生成
+
 #####  PinYinFunction
 汉字转拼音,提取首字母
-#####  UserFunction
-电话,随机数,日期,姓名
+
+#####  RandomNumFunc
+随机N位整数
+
+#####  RandomFloatFunc/RandomDoubleFunc
+随机浮点数
+
+#####  TelPhoneFunc
+电话
+
+#####  TelPhoneFunc
+邮箱
+
+#####  ChineseNameFunc
+中文姓名(内置数据文件)
+
 ##### PassWordFunction
 随机N位密码
+
+##### UUidFunc
+uuid
+
+##### SnowflakeIdFunc
+snowflakeId
+
+##### CurrentTimeFunc
+当前时间戳
+
+##### DateFunc
+日期(年月日)
+
+##### DateTimeFunc
+时间(年月日 时分秒)
+
+##### CommentFunc
+一段评论(内置数据文件)
+
+##### OneEnWordFunc
+随机英文名单词(内置数据文件)
 
 
 
@@ -58,16 +127,22 @@ data-factory 平台对各个相关服务领域的数据源进行聚合，同时�
 将内置函数实现与内置随机数据文件迁移到client工程,core工程只通过接口依赖client端函数和实现
 因此core的迭代和开发不受随机函数的迭代开发影响。随机函数在客户端可以通过下面的步骤进行开发并可快速集成到core中
 client端无需感知core端变化，因此服务设计上更加灵活。同时通过接口和门面模式将client与core进行隔离，达到高内聚低耦合的特性。
-##### 二次开发步骤
-1.  在datafactory-client工程中的InnerDataSourceCode定义
-唯一的内置数据源dataSourceCode.
-2.  在FileDataEnums增加文件名，描述枚举
-3.  在resources/defaultfactory中增加内置数据源文件.txt
-4.  实现com.coderman.tianhua.datafactory.client.function.Function接口,这里可以单独做单元测试
-5.  在接口实现类的随机数据方法上增加DataSourceFunction注解，标注对应的新增的内置数据源
-6.  启动nacos服务，并在datafactory-api中编写单元测试，引入该新增的内置数据源
-7.  测试新增的内置数据源函数是否正常在整个数据构建中生效
+##### 二次开发场景
+>这里的开发场景有三种,方便集成不同场景形态的数据源内容
+1. 针对于内置函数 
+   类似于随机数，时间函数等都相当于无中生有的数据内容。二次开发步骤如下：
+   1. 定义数据源编码
+   2. 实现client模块中的Function接口
+   3. 通过web页面注册到数据源中
+2. 针对于文件类的内置函数
+   类似于中国的百家姓和名称，通过数据文件提供数据源。二次开发步骤如下:
+   1. 定义数据源编码,文件名
+   2. 实现client模块中的Function接口
+   3. 实现InnerParseService接口解析文件内容
+   4. 通过web页面注册到数据源中
 
+4. 把指定的文件当做一种数据源,按照一定格式解析后可以被使用
+   此类场景适用于文件是多个属性的，类似于特定的数据集,目前没完全开发完。
 
 #### 版本发布
 
@@ -79,6 +154,22 @@ client端无需感知core端变化，因此服务设计上更加灵活。同时�
 4.  内部核心模块解耦,方便二次开发
 5.  生成随机数据的核心功能完成
 6.  生成数据的依赖数据源全面打通(自定义数据源,NACOS,内置数据源,spring boot api)
+
+#####  2.0.0-SNAPSHOT
+本次发版在1.0的基础上进行全面升级,主要内容如下:
+1. 支持将dubbo 查询api作为数据源接入
+2. 支持将springboot,cloud数据源接入
+3. 代码重构,支持复杂数据模型和大批量数据生成
+4. 基于百度Amis前端低代码框架，增加可视化管理界面
+5. 支持自定义数据集加载(数据加载，数据属性绑定,大文件映射,excel加载,txt加载,json加载)
+6. 调整工程模块,适应项目需求
+7. 管理api模型,领域模型,数据库模型,数据库表字段,实现生命周期全管理
+8. 使用field DSL Rule支持复杂对象参数和模型，返回结果的构建
+9. 实现http接口,dubbo接口,service方法的返回参数和入参模型的数据mock
+10. 相对1.0版本来说增加了几个常用的内置数据源
+11. 支持复杂对象关联数据生成
+
+
 
 #### 参与贡献
 

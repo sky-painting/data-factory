@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.ApiModelMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO">
+        <result column="id" property="id" />
+        <result column="project_code" property="projectCode" />
+        <result column="api_url" property="apiUrl" />
+        <result column="api_type" property="apiType" />
+        <result column="api_return_value" property="returnValue" />
+        <result column="api_sign" property="apiSign" />
+        <result column="api_doc" property="apiDoc" />
+        <result column="method_type" property="methodType" />
+        <result column="return_wrap_type" property="apiReturnWrapType" />
+        <result column="mock_count" property="mockCount" />
+        <result column="request_param" property="requestParam" />
+        <result column="return_param" property="returnParam" />
+        <result column="status" property="status" />
+        <result column="date_create" property="dateCreate" />
+        <result column="date_update" property="dateUpdate" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,mock_count,return_wrap_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
+    </sql>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO" useGeneratedKeys="true">
+        insert into api_model(
+        project_code,api_url,api_type,api_return_value,api_sign,api_doc,method_type,mock_count,return_wrap_type,request_param,return_param,status,date_create,date_update,update_user_id,create_user_id
+        )
+        values(
+        #{projectCode},#{apiUrl},#{apiType},#{returnValue},#{apiSign},#{apiDoc},#{methodType},#{mockCount},#{apiReturnWrapType},#{requestParam},#{returnParam},#{status},#{dateCreate},#{dateUpdate},#{updateUserId},#{createUserId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO">
+        update api_model
+        set
+        project_code=#{projectCode},api_url=#{apiUrl},api_type=#{apiType},api_return_value=#{returnValue},api_sign=#{apiSign},api_doc=#{apiDoc},method_type=#{methodType},mock_count=#{mockCount},return_wrap_type=#{apiReturnWrapType},request_param=#{requestParam},return_param=#{returnParam},status=#{status},date_create=#{dateCreate},date_update=#{dateUpdate},update_user_id=#{updateUserId},create_user_id=#{createUserId}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from api_model where  status in (0,1)
+    </select>
+
+    <select id="getById" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.ApiModelDO"
+            resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from api_model  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from api_model where id = #{id}
+    </delete>
+
+    <select id="getPageList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from api_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.apiType != null">
+                    and api_type = #{page.query.apiType}
+                </if>
+
+                <if test="page.query.methodType != null">
+                    and method_type = #{page.query.methodType}
+                </if>
+
+                <if test="page.query.apiSign != null">
+                    and api_sign  like concat('%',#{page.query.apiSign},'%')
+                </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+    </select>
+
+    <select id="getPageCount" resultMap="count">
+        select count(1)  as total from api_model
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.projectCode != null">
+                    and project_code  like concat('%',#{page.query.projectCode},'%')
+                </if>
+                <if test="page.query.apiType != null">
+                    and api_type = #{page.query.apiType}
+                </if>
+
+                <if test="page.query.methodType != null">
+                    and method_type = #{page.query.methodType}
+                </if>
+
+                <if test="page.query.apiSign != null">
+                    and api_sign  like concat('%',#{page.query.apiSign},'%')
+                </if>
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getByProjectCode" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from api_model  where project_code = #{projectCode}  and status in(0,1)
+
+    </select>
+
+    <delete id="deleteByProjectCode">
+        delete from api_model where project_code = #{projectCode}
+
+    </delete>
+
+    <select id="getByApiSign" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from api_model  where  api_sign = #{apiSign}  and status in(0,1)
+
+    </select>
+</mapper>

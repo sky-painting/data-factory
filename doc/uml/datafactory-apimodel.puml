@@ -1,0 +1,160 @@
+@startuml
+
+package http.api{
+    class ApiApi{
+        所属模块名称-api管理:api
+        新建api: boolean /api/add(ApiVO apiVO).post
+        修改api信息: Boolean /api/update/{id}(ApiVO apiVO).post
+        分页查询api信息: List<ApiVO> /api/pagelist(ApiQueryVO apiQueryVO).get
+        禁用api: Boolean /api/disable/{id}(Long id).post
+        启用api: Boolean /api/enable/{id}(Long id).post
+        查询api列表: List<ApiVO> /api/search(String content ).get
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+    class DataSourceApi{
+        所属模块名称-数据源管理:dataSource
+        注册数据源: Boolean /datasource/regist(DataSourceVO dataSourceVO).post
+        修改数据源: Boolean /datasource/update/{id}(Long id,DataSourceVO dataSourceVO).post
+        删除数据源: Boolean /datasource/delete/{id}(Long id).post
+        获取单条数据源详情: DataSourceVO /datasource/get/{id}(Long id).get
+        分页获取数据源: List<DataSourceVO> /datasource/getpage(DataSourceQueryVO pageVO).get
+        启用数据源: Boolean /datasource/enable/{id}(Long id).post
+        禁用数据源: Boolean /datasource/disable/{id}(Long id).post
+
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+    class ModelSuffixConfigApi{
+        所属模块名称-模型后缀管理:moduelSuffix
+        新建模型后缀: Boolean /modelsuffix/add(ModelSuffixConfigVO modelSuffixConfigVO).post
+        修改模型后缀: Boolean /modelsuffix/update/{id}(Long id).post
+        查询列表: List<ModelSuffixConfigVO> /modelsuffix/list().get
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+    class ParamApi{
+        所属模块名称-参数模型管理:paramModel
+        新建参数模型: Boolean /parammodel/add(ParamModelVO paramModelVO).post
+        获取单条参数模型: ParamModelVO /parammodel/get/{id}(Long id).get
+        分页查询参数模型: List<ParamModelVO> /parammodel/pagelist(ParamModelQueryVO pageVO).get
+        修改参数模型: Boolean /parammodel/update/{id}(Long id,ParamModelVO paramModelVO).post
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+    class ProjectApi{
+        所属模块名称-项目管理:project
+        新建项目: Boolean /project/add(ProjectVO projectVO).post
+        根据项目编码获取详情: Boolean /project/getByCode/{projectCode}(String projectCode).get
+        分页获取项目列表: List<ProjectVO> /project/pagelist(ProjectQueryVO pageVO).get
+        修改项目信息: Boolean /project/update/{id}(Long id, ProjectVO projectVO).post
+        搜索项目列表: List<ProjectVO> /project/search(String content).get
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+
+    class TableApi{
+        所属模块名称-er数据模型管理:erModel
+        新建表结构: Boolean /table/add(TableVO tableVO).post
+        根据ID获取详情: TableVO /table/getById/{id}(Long id).get
+        分页获取列表: List<TableVO> /table/pagelist(TableQueryVO pageVO).get
+        修改er模型: Boolean /table/update/{id}(Long id, TableVO tableVO).post
+        .. extend info ..
+        templateJsonKey:String modulecrud
+    }
+
+
+}
+
+package http.vo{
+    class "表结构模型-TableVO" as TableVO{
+        表名称:String tableName
+        表描述:String tableComment
+        数据库名称:String dbName
+        项目编码:String projectCode
+        表字段列表:List<ColumnVO> columnList
+        .. extend info ..
+        searchKeyList:String projectCode,tableName
+        input-text:String tableName,dbName,tableComment
+        select:String projectCode
+        excludeUpdate:String id
+        excludeInsert:String id
+        excludePage:String id
+        excludeDetail:String id
+    }
+
+
+    class "项目信息-ProjectVO" as ProjectVO{
+        项目编码:String projectCode
+        项目描述: String projectDesc
+        业务领域编码: String domainCode
+        业务领域描述: String domainDesc
+        所属业务线: String busLine
+        所属部门: String deptName
+
+        .. extend info ..
+        searchKeyList:String projectCode,domainCode,busLine,deptName
+        input-text:String projectCode,domainCode,busLine,deptName
+        excludeUpdate:String id
+        excludeInsert:String id
+        excludePage:String id
+        excludeDetail:String id
+    }
+
+
+    class "模型后缀配置-ModelSuffixConfigVO" as ModelSuffixConfigVO{
+        项目编码:String suffix
+        项目描述: String desc
+        模型类型: String modelType
+
+       .. extend info ..
+        select: modelType
+        input-text:String suffix,desc
+        excludeUpdate:String id
+        excludeInsert:String id
+        excludePage:String id
+        excludeDetail:String id
+    }
+
+
+    class "参数模型-ParamModelVO" as ParamModelVO{
+        模型类名称:String paramClassName
+        参数类描述: String classDesc
+        所属项目编码: String projectCode
+        所属上下文: String moduleCode
+        模型后缀:String suffix
+
+       .. extend info ..
+        select: String suffix,projectCode
+        input-text:String paramClassName,classDesc
+        excludeUpdate:String id
+        excludeInsert:String id
+        excludePage:String id
+        excludeDetail:String id
+    }
+
+    class "api模型-ApiVO" as ApiVO{
+        api类型:String apiType
+        api签名:String apiSign
+        api返回类型:String returnType
+        api请求方式:String methodType
+        api所属项目编码: String projectCode
+
+       .. extend info ..
+        select: String apiType,projectCode
+        input-text:String paramClassName,classDesc
+        excludeUpdate:String id,apiSign
+        excludeInsert:String id,apiSign
+        excludePage:String id
+        excludeDetail:String id
+    }
+
+
+}
+
+@enduml

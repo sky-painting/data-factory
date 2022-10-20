@@ -1,0 +1,181 @@
+{
+  "type": "page",
+  "title": "查看详情",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/datasource/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [{
+    "type": "page",
+    "mode": "horizontal",
+    "redirect": "/datasource/list",
+    "initApi": "http://127.0.0.1:8090/datasource/getById/${params.id}",
+    "collapsable": true,
+    "title":  "",
+    "body": [
+      {
+        "type": "static",
+        "name": "sourceName",
+        "label": "数据源名称"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "sourceCode",
+        "label": "数据源编码"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "statusDesc",
+        "label": "状态"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "visitStrategyDesc",
+        "label": "数据源访问策略"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "providerService",
+        "label": "数据源所属服务"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "url",
+        "label": "数据源访问URL"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "static",
+        "name": "sourceTypeDesc",
+        "label": "数据源类型"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据源请求参数配置",
+        "type": "input-table",
+        "name": "dataSourceReqConfigList",
+        "multiple": false,
+        "addable": false,
+        "editable": false,
+        "columns": [
+          {
+            "name": "paramKey",
+            "type": "static",
+            "label": "参数属性key"
+          },
+          {
+            "name": "paramValue",
+            "type": "static",
+            "label": "参数值"
+          },
+          {
+            "name": "paramDesc",
+            "type": "static",
+            "label": "参数描述"
+          },
+          {
+            "name": "required",
+            "type": "static",
+            "label": "是否必填"
+          }
+        ,
+          {
+            "name": "interfaceParam",
+            "type": "static",
+            "label": "是否是请求接口参数"
+          }
+        ]
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据源响应参数配置",
+        "type": "input-table",
+        "name": "dataSourceRespConfigList",
+        "multiple": false,
+        "addable": false,
+        "editable": false,
+        "columns": [
+          {
+            "name": "fieldKey",
+            "type": "static",
+            "label": "参数属性key"
+          },
+          {
+            "name": "referPath",
+            "type": "static",
+            "label": "引用路径"
+          },
+          {
+            "name": "fieldDesc",
+            "type": "static",
+            "label": "数据描述描述"
+          },
+          {
+            "name": "fieldType",
+            "type": "static",
+            "label": "数据类型"
+          }
+        ]
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "label": "数据kv列表",
+        "type": "input-table",
+        "name": "kvPairList",
+        "multiple": true,
+        "addable": true,
+        "editable": true,
+        "columns": [
+          {
+            "name": "key",
+            "type": "static",
+            "label": "数据key"
+          },
+          {
+            "name": "value",
+            "type": "static",
+            "label": "数据value"
+          },
+          {
+            "name": "groupKey",
+            "type": "static",
+            "label": "数据所属分组"
+          },
+          {
+            "name": "parentKey",
+            "type": "static",
+            "label": "数据父类key"
+          }
+        ]
+      }
+    ]
+  }]
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tianhua.datafactory.infrast.dao.mapper.DataSourceMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO">
+        <result column="id" property="id" />
+        <result column="source_name" property="sourceName" />
+        <result column="source_code" property="sourceCode" />
+        <result column="source_type" property="sourceType" />
+        <result column="provider_service" property="providerService" />
+        <result column="url" property="url" />
+        <result column="status" property="status" />
+        <result column="visit_strategy" property="visitStrategy" />
+        <result column="struct_type" property="structType"/>
+        <result column="regist_server" property="registServer" />
+        <result column="provider_domain_url" property="providerDomainUrl"/>
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="update_user_id" property="updateUserId" />
+    </resultMap>
+
+
+    <!--查询总数-->
+    <resultMap type="java.lang.Integer" id="count">
+        <result column="total"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,source_name,source_code,source_type,provider_service,struct_type,url,status,visit_strategy,regist_server,provider_domain_url,create_time,update_time,create_user_id,update_user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO" keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+        insert into data_source(
+        source_name , source_code, source_type,struct_type,provider_service,url,status,visit_strategy,regist_server,provider_domain_url,create_time,update_time,create_user_id,update_user_id)
+        values (#{sourceName},#{sourceCode},#{sourceType},#{structType},#{providerService},#{url},#{status},#{visitStrategy},#{registServer},#{providerDomainUrl},#{createTime},#{updateTime},#{createUserId},#{updateUserId})
+    </insert>
+
+    <update id="update" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO">
+        update data_source
+        set
+        source_name=#{sourceName},source_code=#{sourceCode},source_type=#{sourceType},struct_type=#{structType},provider_service=#{providerService},url=#{url},status=#{status},visit_strategy=#{visitStrategy},regist_server=#{registServer},provider_domain_url=#{providerDomainUrl},create_time=#{createTime},update_time=#{updateTime},create_user_id=#{createUserId},update_user_id=#{updateUserId}
+        where  id = #{id}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  from data_source where status in(0,1)
+    </select>
+
+    <select id="getById"  resultMap="BaseResultMap">
+        select * from data_source  where id = #{id}
+    </select>
+
+    <delete id="deleteById" >
+        delete from data_source where id = #{id}
+    </delete>
+
+    <select id="getBySourceCode" parameterType="com.tianhua.datafactory.infrast.dao.dataobject.DataSourceDO"
+            resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from data_source  where source_code = #{sourceCode} and status in(0,1);
+
+    </select>
+
+    <update id="updateStatus">
+        update data_source set
+        status=#{status} where  id = #{id}
+    </update>
+
+    <select id="getPage" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List" /> from data_source
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.dataSourceCode != null">
+                    and source_code  like concat('%',#{page.query.dataSourceCode},'%')
+                </if>
+                <if test="page.query.dataSourceName != null">
+                    and source_name like concat('%',#{page.query.dataSourceName},'%')
+                </if>
+
+                <if test="page.query.sourceType != null">
+                    and source_type = #{page.query.sourceType}
+                </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+                <if test="page.query.visitStrategy != null">
+                    and visit_strategy = #{page.query.visitStrategy}
+                </if>
+
+
+            </if>
+        </where>
+
+        <if test="page.orderBy != null">
+            ${page.orderByInfo}
+        </if>
+        limit #{page.startRow},#{page.endRow}
+
+    </select>
+
+
+    <select id="getPageCount" resultMap="count">
+        select count(1) as total from data_source
+        <where>
+            <if test="page.query != null">
+                <if test="page.query.dataSourceCode != null">
+                    and source_code  like concat('%',#{page.query.dataSourceCode},'%')
+                </if>
+                <if test="page.query.dataSourceName != null">
+                    and source_name like concat('%',#{page.query.dataSourceName},'%')
+                </if>
+
+                <if test="page.query.sourceType != null">
+                    and source_type = #{page.query.sourceType}
+                </if>
+
+                <if test="page.query.status != null">
+                    and status = #{page.query.status}
+                </if>
+
+
+                <if test="page.query.visitStrategy != null">
+                    and visit_strategy = #{page.query.visitStrategy}
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from data_source
+        <where>
+            <if test="content != null">
+                and (source_name  like concat('%',#{content},'%') or source_code  like concat('%',#{content},'%') or url  like concat('%',#{content},'%')) and status in(0,1)
+            </if>
+        </where>
+    </select>
+
+</mapper>
